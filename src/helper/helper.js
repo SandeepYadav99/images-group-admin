@@ -315,7 +315,7 @@ export const EventData = [
   },
   {
     key: "sponsors",
-    name: "Partners",
+    name: "Sponsors",
     image: sponsor,
     url: RouteName.EVENT_SPONSOR,
   },
@@ -351,7 +351,7 @@ export const EventData = [
   },
   {
     key: "information_center",
-    name: "Hall Layouts",
+    name: "Information Center",
     image: event,
     url: RouteName.INFOR_CENTER,
   },
