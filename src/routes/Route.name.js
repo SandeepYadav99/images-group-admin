@@ -53,7 +53,7 @@ export default {
     EVENTS_UPDATE: "/event/update/",
     EVENTS_DETAILS: "/event/details/",
 
-    EVENTS_SPEAKERS_LIST: "/events/speakers/",
+    EVENTS_SPEAKERS_LIST: "/speakers",
     ADD_SPEAKERS_CREATE: "/speakers/create",
     ADD_SPEAKERS_UPDATE: "/speakers/update/",
 

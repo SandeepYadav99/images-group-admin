@@ -326,8 +326,8 @@ const dashboardRoutes = [
   },
   {
     path: `${RouteName.EVENTS_SPEAKERS_LIST}`,
-    sidebarName: "Speakers",
-    navbarName: "Speakers",
+    sidebarName: "Speakers Master",
+    navbarName: "Speakers Master",
     icon: PeopleOutlined,
     component: EventSpeaker_List,
     is_sidebar: true,
