@@ -1,42 +1,67 @@
 .container {
   /* display: grid;
   grid-template-columns: 30% 30% 30%; */
-  flex-wrap: wrap;
-  display: flex;
-  /* justify-content: space-between; */
-  align-items: center;
-  gap: 15%;
 }
 .profileContainer {
-  display: flex;
-  justify-content: flex-start;
   align-items: center;
-  gap: 10px;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: calc(100% - 20%) !important;
+  gap: 20px !important;
+}
+.profile_image {
+  display: flex !important;
+  gap: 1rem !important;
+}
+.profile_image img {
 }
 .profileDetails {
   display: flex;
   flex-direction: column;
-  font-size: 12px;
-  gap: 10px;
+  font-size: 18px;
+  gap: 10px !important;
+}
+.profileDetails1 {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 10px !important;
+  font-weight: 700 !important;
+}
+.profileTitle {
+  font-size: 14px !important;
+  word-wrap: break-word !important;
+  width: 300px !important;
+  font-weight: 500;
+  color: #161616;
+}
+.profileTitleName {
+  font-size: 18px !important;
+  word-wrap: break-word !important;
+  width: 300px !important;
+  font-weight: 600;
+  color: #161616;
+}
+.description_value1 {
+  display: flex !important;
 }
 .profileDescription {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
 }
 .description_subContainer {
   display: flex;
-  gap: 20px;
+
   font-size: 12px;
 }
 .description_key {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 }
 .description_value {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  gap: 20% !important;
 }
 .status_description {
   border: 1px solid #20c997;
@@ -46,6 +71,18 @@
   width: fit-content;
   border-radius: 10px;
   padding-right: 12px;
+  margin-left: 4rem !important;
+}
+.statusInactive{
+  border: 1px solid #ff4d4f;
+  padding: 1px;
+  padding-left: 12px;
+  width: fit-content;
+  border-radius: 10px;
+  padding-right: 12px;
+  margin-left: 4rem !important;
+  background-color: rgba(255, 77, 79, .06274509803921569);
+  color: #ff4d4f;
 }
 .QRCode_Container {
   display: flex;
@@ -53,14 +90,6 @@
   align-items: flex-end;
 }
 
-.hrLine {
-  margin-top: 20px;
-  /* width: 1024px; */
-  padding: 1px solid #b8c5d3;
-
-  /* overflow: hidden; */
-}
-.paragraph ~ span {
-  font-size: 13px;
-  color: black;
+.des_title {
+  margin-left: 5rem !important;
 }
