@@ -30,7 +30,6 @@ import MemberDetail from "../views/MemberList/MemberDetail/MemberDetail.view";
 import PolicieLists from "../views/Policies/PoliciesList/PoliciesListContainer";
 import StateMemberDetail from "../views/master/StateMemberDetail/StateMemberDetail.view";
 import CityMemDetail from "../views/master/CityMemDetail/CityMemDetail.view";
-import EventParticipantList from "../views/EventParticipants/List/EventParticipantList";
 import EventDetail from "../views/Events/EventDetail/EventDetail.view";
 import EventOrganiserList from "../views/EventOrganisingCommittee/List/EventOrganiserList";
 import EventPollsList from "../views/EventPolls/EventPollsList/EventPollsList.container";
@@ -92,6 +91,7 @@ const AddCategoryData = lazy(()=>import("../views/AddCategory/AddCategory.compon
 const AddCategoryList = lazy(()=>import("../views/AddCategory/List/List.module.js"));
 const ExhibitorQuery = lazy(()=>import("../views/ExhibitorQuery/ExhibitorQuery.module.js"));
 const CalendarCount = lazy(()=>import("../views/CalendarCount/CalendarCount.module.js"));
+const EventParticipants = lazy(()=>import("../views/EventParticipants/List/EventParticipantList.js"))
 
 
 const Roles = Constants.ROLES;
@@ -325,6 +325,15 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN],
   },
   {
+    path:`${RouteName?.EVENT_PARTICIPANTS}`,
+    component: EventParticipants,
+    sidebarName: "Events Participants",
+    navbarName: "Events Participants",
+    is_sidebar:true,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
+  {
     path: `${RouteName.EVENT_TESTIMONIAL}:id`,
 
     component: TestimonialList,
@@ -454,12 +463,12 @@ const dashboardRoutes = [
     is_protect: true,
   },
 
-  {
-    path: `${RouteName.EVENT_PARTICIPANTS}:id`,
-    component: EventParticipantList,
-    is_sidebar: false,
-    is_protect: true,
-  },
+  // {
+  //   path: `${RouteName.EVENT_PARTICIPANTS}:id`,
+  //   component: EventParticipantList,
+  //   is_sidebar: false,
+  //   is_protect: true,
+  // },
 
   {
     path: `${RouteName.EVENT_POLLS}:id`,
@@ -876,6 +885,7 @@ const dashboardRoutes = [
     icon: PeopleOutlined,
     is_protect: true,
   },
+  
 ];
 
 export default dashboardRoutes;

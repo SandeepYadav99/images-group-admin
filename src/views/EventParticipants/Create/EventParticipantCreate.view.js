@@ -8,6 +8,10 @@ import useEventParticipantCreate from "./EventParticipantCreateHook";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import LogUtils from "../../../libs/LogUtils";
 import CountryInputField from "../../../components/CountryInputField/CountryInputField";
+import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
+import {
+  MenuItem,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -121,14 +125,14 @@ const EventParticipantCreateView = ({
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomTextField
-            isError={errorData?.member}
-            label={"Company name"}
-            value={form?.member}
+            isError={errorData?.category}
+            label={"Add Category "}
+            value={form?.category}
             onTextChange={(text) => {
-              changeTextData(text, "member");
+              changeTextData(text, "category");
             }}
             onBlur={() => {
-              onBlurHandler("member");
+              onBlurHandler("category");
             }}
             disabled={isContactInList}
           />
@@ -150,6 +154,57 @@ const EventParticipantCreateView = ({
           />
         </div>
       </div>
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomSelectField
+            isError={errorData?.participants_type}
+            errorText={errorData?.participants_type}
+            label={"Participants Type"}
+            value={form?.participants_type ? form?.participants_type : ""}
+            handleChange={(value) => {
+              changeTextData(value, "participants_type");
+            }}
+          >
+            <MenuItem value="Exhibitor">Exhibitor</MenuItem>
+            <MenuItem value="Speaker	">Speaker</MenuItem>
+            <MenuItem value="Award Presentation">Award Presentation</MenuItem>
+            <MenuItem value="Innovators Club	">Innovators Club </MenuItem>
+            <MenuItem value="Jury">Jury</MenuItem>
+          </CustomSelectField>
+        </div>
+      </div>
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomSelectField
+            isError={errorData?.award}
+            errorText={errorData?.award}
+            label={"Awards"}
+            value={form?.award ? form?.award : ""}
+            handleChange={(value) => {
+              changeTextData(value, "award");
+            }}
+          >
+              <MenuItem value="YES">YES</MenuItem>
+            <MenuItem value="NO">NO</MenuItem>
+          </CustomSelectField>
+        </div>
+      </div>
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomSelectField
+            isError={errorData?.lunch}
+            errorText={errorData?.lunch}
+            label={"Lunch"}
+            value={form?.lunch ? form?.lunch : ""}
+            handleChange={(value) => {
+              changeTextData(value, "lunch");
+            }}
+          >
+            <MenuItem value="YES">YES</MenuItem>
+            <MenuItem value="NO">NO</MenuItem>
+          </CustomSelectField>
+        </div>
+      </div>
 
       <div className={"formFlex"}>
         <div className={"formGroup"}>
@@ -159,6 +214,17 @@ const EventParticipantCreateView = ({
               changeTextData(!form?.status, "status");
             }}
             label={`Set default password for new mobile user`}
+          />
+        </div>
+      </div>
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomSwitch
+            value={form?.is_default_password}
+            handleChange={() => {
+              changeTextData(!form?.is_default_password, "is_default_password");
+            }}
+            label={`Set Registration ID as password for new mobile user`}
           />
         </div>
       </div>

@@ -2,7 +2,11 @@ import React, { Component, useCallback, useEffect, useMemo } from "react";
 import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
-import { Add, InfoOutlined, PrintOutlined } from "@material-ui/icons";
+import {
+  Add,
+  CloudDownload,
+  CloudUpload,
+} from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
@@ -16,6 +20,8 @@ import EventParticipantCreateView from "../Create/EventParticipantCreate.view";
 import EventParticipantEditView from "../Edit/EventParticipantEdit.view";
 import historyUtils from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import UploadCsvDialog from "./components/UploadCsv/UploadCsvDialog.view";
+
 const EventParticipantList = ({}) => {
   const {
     handleSortOrderChange,
@@ -35,6 +41,10 @@ const EventParticipantList = ({}) => {
     handleToggleSidePannel,
     handleToggleEditSidePannel,
     isEditSidePanel,
+    toggleCsvDialog,
+    handleDownloadCSV,
+    isCsvDialog,
+    handleCsvUpload,
   } = useEventParticipantList({});
 
   const {
@@ -157,6 +167,11 @@ const EventParticipantList = ({}) => {
   return (
     <div>
       <PageBox>
+      <UploadCsvDialog
+        isOpen={isCsvDialog}
+        handleToggle={toggleCsvDialog}
+        handleCsvUpload={handleCsvUpload}
+      />
         <div className={styles.headerContainer}>
           <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
@@ -165,14 +180,34 @@ const EventParticipantList = ({}) => {
               <div className={styles.newLine} />
             </div>
           </ButtonBase>
-          <div>
+          <div className={styles.btnWrapper}>
             <ButtonBase
-              onClick={handleToggleSidePannel}
+              onClick={toggleCsvDialog}
               className={"createBtn"}
+              id={styles.btnHideResponsive}
             >
-              Create
-              <Add fontSize={"small"} className={"plusIcon"}></Add>
+              Upload
+              <CloudUpload
+                fontSize={"small"}
+                className={"plusIcon"}
+              ></CloudUpload>
             </ButtonBase>
+            <div className={styles.eventButton}>
+              <ButtonBase onClick={handleDownloadCSV} className={"createBtn"}>
+                DOWNLOAD CSV
+                <CloudDownload
+                  fontSize={"small"}
+                  className={"plusIcon"}
+                ></CloudDownload>
+              </ButtonBase>
+              <ButtonBase
+                onClick={handleToggleSidePannel}
+                className={"createBtn"}
+              >
+                Create
+                <Add fontSize={"small"} className={"plusIcon"}></Add>
+              </ButtonBase>
+            </div>
           </div>
         </div>
 

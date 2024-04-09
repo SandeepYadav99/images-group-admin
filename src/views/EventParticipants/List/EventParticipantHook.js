@@ -10,16 +10,18 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
-import {useParams} from "react-router";
+import { useParams } from "react-router";
 
 const useEventParticipantList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
-    const [isEditSidePanel, setEditSidePanel] = useState(false);
+  const [isEditSidePanel, setEditSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
+  const [isCsvDialog, setIsCsvDialog] = useState(false);
+
   const isMountRef = useRef(false);
-  const {id} = useParams();
+  const { id } = useParams();
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -33,11 +35,15 @@ const useEventParticipantList = ({}) => {
 
   useEffect(() => {
     dispatch(
-      actionFetchEventParticipant(1, {}, {
-        query: isMountRef.current ? query : null,
-        query_data: isMountRef.current ? queryData : null,
-          event_id: id
-      })
+      actionFetchEventParticipant(
+        1,
+        {},
+        {
+          query: isMountRef.current ? query : null,
+          query_data: isMountRef.current ? queryData : null,
+          event_id: id,
+        }
+      )
     );
     isMountRef.current = true;
   }, [id]);
@@ -69,12 +75,12 @@ const useEventParticipantList = ({}) => {
         actionFetchEventParticipant(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
-          event_id: id
+          event_id: id,
         })
       );
       // dispatch(actionFetchEventParticipant(1, sortingData))
     },
-    [sortingData, query, queryData,id]
+    [sortingData, query, queryData, id]
   );
 
   const handleFilterDataChange = useCallback(
@@ -104,7 +110,7 @@ const useEventParticipantList = ({}) => {
           {
             query: query,
             query_data: queryData,
-            event_id: id
+            event_id: id,
           }
         )
       );
@@ -133,19 +139,21 @@ const useEventParticipantList = ({}) => {
     [setEditData, setSidePanel]
   );
 
-  const handleToggleSidePannel = useCallback((data) => {
+  const handleToggleSidePannel = useCallback(
+    (data) => {
       setSidePanel((e) => !e);
       // setEditData(data?.id);
     },
     [setSidePanel, setEditData]
   );
 
-    const handleToggleEditSidePannel = useCallback((data) => {
-            setEditSidePanel((e) => !e);
-            setEditData(data);
-        },
-        [setEditSidePanel, setEditData]
-    );
+  const handleToggleEditSidePannel = useCallback(
+    (data) => {
+      setEditSidePanel((e) => !e);
+      setEditData(data);
+    },
+    [setEditSidePanel, setEditData]
+  );
 
   const handleSideToggle = useCallback(
     (data) => {
@@ -173,6 +181,15 @@ const useEventParticipantList = ({}) => {
     ];
   }, []);
 
+  const toggleCsvDialog = useCallback(() => {
+    setIsCsvDialog((e) => !e);
+  }, [setIsCsvDialog]);
+
+  const handleCsvUpload = useCallback(() => {
+  }, []);
+
+  const handleDownloadCSV = () => {};
+
   return {
     handlePageChange,
     handleDataSave,
@@ -190,8 +207,12 @@ const useEventParticipantList = ({}) => {
     configFilter,
     handleCreate,
     handleToggleSidePannel,
-      handleToggleEditSidePannel,
-      isEditSidePanel,
+    handleToggleEditSidePannel,
+    isEditSidePanel,
+    toggleCsvDialog,
+    handleDownloadCSV,
+    isCsvDialog,
+    handleCsvUpload,
   };
 };
 

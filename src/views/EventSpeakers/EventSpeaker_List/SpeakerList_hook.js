@@ -24,6 +24,8 @@ const useSpeakerListHook = ({}) => {
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
+  const [isAcceptPopUp, setIsAcceptPopUp] = useState(false);
+
   const { id } = useParams();
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -153,6 +155,10 @@ const useSpeakerListHook = ({}) => {
     [id]
   );
 
+  const toggleAcceptDialog = useCallback(() => {
+    setIsAcceptPopUp((e) => !e);
+  }, [isAcceptPopUp]);
+
   const handleUpdateFed = useCallback(
     (data) => {
       LogUtils.log("data", data);
@@ -211,6 +217,8 @@ const useSpeakerListHook = ({}) => {
     handleToggle_Edit_SidePannel,
     handleUpdateFed,
     toggleFeatured,
+    toggleAcceptDialog,
+    isAcceptPopUp,
   };
 };
 

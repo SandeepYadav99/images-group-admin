@@ -300,7 +300,37 @@ function EventCreate() {
             </div>
           </div>
         </div>
+        <div className={styles.inst}>
+              <InfoOutlinedIcon />
+              Recommended Size for Login Banner Image is 1600x900px
+            </div>
+        <div className={"formFlex"}>
+          <div className={styles.adharBack}>
+            <div className={styles.adharWrap}>
+              <File
+                bannerLabel="Login Banner Image"
+                default_image={logo ? logo : ""}
+                // imageClass={styles.inputFileUploader}
+                max_size={5 * 1024 * 1024}
+                type={["png", "jpeg", "jpg"]}
+                fullWidth={true}
+                name="document"
+                accept={"image/*"}
+                label="Please Upload Image"
+                show_image={true}
+                error={errorData?.banner_image}
+                value={form?.banner_image}
+                onChange={(file) => {
+                  if (file) {
+                    changeTextData(file, "banner_image");
+                  }
+                }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
+      
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>

@@ -12,6 +12,7 @@ import { Add, DoneAll, Edit, Clear } from "@material-ui/icons";
 import useSpeakerListHook from "./SpeakerList_hook";
 import historyUtils from "../../../libs/history.utils";
 import speakerDefault from "../../../assets/img/speaker_list_deafult.png";
+import AssociateDialog from "../component/AssociateDialog/AssociateDialog.view" 
 
 const EventSpeakerList = ({}) => {
   const {
@@ -25,6 +26,8 @@ const EventSpeakerList = ({}) => {
     handleCreateFed,
     handleUpdateFed,
     toggleFeatured,
+    toggleAcceptDialog,
+    isAcceptPopUp,
   } = useSpeakerListHook({});
 
   const {
@@ -173,12 +176,17 @@ const EventSpeakerList = ({}) => {
           </ButtonBase>
 
           <div className={styles.BtnWrapper}>
-            <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
-              ADD SPEAKER
+            <ButtonBase onClick={toggleAcceptDialog} className={"createBtn"}>
+              ASSOCIATE SPEAKER
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
           </div>
         </div>
+        <AssociateDialog
+          isOpen={isAcceptPopUp}
+          handleToggle={toggleAcceptDialog}
+          data={data}
+        />
 
         <div>
           <div style={{ width: "88%" }}>
