@@ -164,13 +164,13 @@ const EventSpeakerList = ({}) => {
     <>
       <PageBox>
         <div className={styles.headerContainer}>
-          <ButtonBase onClick={() => historyUtils.goBack()}>
-            <ArrowBackIosIcon fontSize={"small"} />
+          {/* <ButtonBase onClick={() => historyUtils.goBack()}>
+            <ArrowBackIosIcon fontSize={"small"} /> */}
             <div>
               <span className={styles.title}>Speakers</span>
               <div className={styles.newLine} />
             </div>
-          </ButtonBase>
+          {/* </ButtonBase> */}
 
           <div className={styles.BtnWrapper}>
             <ButtonBase onClick={handleCreateFed} className={"createBtn"}>

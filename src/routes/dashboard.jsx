@@ -325,6 +325,15 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN],
   },
   {
+    path: `${RouteName.EVENTS_SPEAKERS_LIST}`,
+    sidebarName: "Speakers",
+    navbarName: "Speakers",
+    icon: PeopleOutlined,
+    component: EventSpeaker_List,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
     path: `${RouteName.EVENT_TESTIMONIAL}:id`,
 
     component: TestimonialList,
@@ -349,12 +358,12 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
   },
-  {
-    path: `${RouteName.EVENTS_SPEAKERS_LIST}:id`,
-    component: EventSpeaker_List,
-    is_sidebar: false,
-    is_protect: true,
-  },
+  // {
+  //   path: `${RouteName.EVENTS_SPEAKERS_LIST}:id`,
+  //   component: EventSpeaker_List,
+  //   is_sidebar: false,
+  //   is_protect: true,
+  // },
 
   {
     path: `${RouteName.EVENT_CITYGUIDE}:id`,
