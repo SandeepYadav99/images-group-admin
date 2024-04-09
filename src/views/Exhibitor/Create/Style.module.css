@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cont {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.lowerWrap {
+  width: 100% !important;
+}
+.btnWrappepr {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 15px 20px;
+  justify-content: flex-end;
+}
+.createBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+#countryCode{
+  width:250px !important;
+}
+
+#oneLineView{
+  display: flex !important;
+  gap:10px;
+}
+
+.upperInfoContainer{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  height: 150px;
+  margin-top: 30px;
+}
+.firstContainer{
+  display: flex;
+  flex-direction: column !important;
+  width: 400px;
+  gap:10px;
+
+}
+.secondContainer{
+  display: flex;
+  flex-direction: column !important;
+  width: 400px;
+  gap:10px;
+}
+
+.upperInfoContainer >div{
+  font-size: 14px;
+}
+.contactDetail{
+  display: grid;
+  grid-template-columns: 60% 40%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.contactDetail >div{
+  font-size: 14px;
+}
+
+.wrapperContainer{
+  display: flex;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+
+#maintainWidth{
+  width: 50% !important;
+}
+
