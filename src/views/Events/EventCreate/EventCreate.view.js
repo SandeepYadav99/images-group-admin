@@ -44,10 +44,7 @@ function EventCreate() {
     thumb,
   } = useEventCreate({});
 
-
-
-
-  const { role } = useSelector((state) => state.auth)
+  const { role } = useSelector((state) => state.auth);
 
   return (
     <div className={styles.claimListWrapper}>
@@ -101,7 +98,6 @@ function EventCreate() {
                 }}
               />
             </div>
-          
           </div>
         </div>
         <div className={"formFlex"}>
@@ -144,7 +140,6 @@ function EventCreate() {
               }}
             />
           </div>
-
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -207,9 +202,7 @@ function EventCreate() {
             </CustomSelectField>
           </div>
         </div>
-        <div className={"formFlex"}>
-      
-        </div>
+        <div className={"formFlex"}></div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
@@ -301,9 +294,9 @@ function EventCreate() {
           </div>
         </div>
         <div className={styles.inst}>
-              <InfoOutlinedIcon />
-              Recommended Size for Login Banner Image is 1600x900px
-            </div>
+          <InfoOutlinedIcon />
+          Recommended Size for Login Banner Image is 1600x900px
+        </div>
         <div className={"formFlex"}>
           <div className={styles.adharBack}>
             <div className={styles.adharWrap}>
@@ -329,8 +322,67 @@ function EventCreate() {
             </div>
           </div>
         </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <File
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="od1"
+              label="Background Image"
+              accept={"application/pdf,application/msword,image/*"}
+              error={errorData?.background_image}
+              value={form?.background_image}
+              placeholder={"Background Image"}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "background_image");
+                }
+              }}
+            />
+          </div>
+        </div>
       </div>
-      
+      <div className={"plainPaper"}>
+        <div className={"headerFlex"}>
+          <h4 className={"infoTitle"}>
+            <div className={"heading"}>Linkedin splash screen</div>
+          </h4>
+        </div>
+        <div className={"formGroup"}>
+          <File
+            max_size={10 * 1024 * 1024}
+            type={["jpeg", "jpg", "png"]}
+            fullWidth={true}
+            name="od1"
+            label="Upload Banner for LinkdIn "
+            accept={"application/pdf,application/msword,image/*"}
+            error={errorData?.linkdin_banner}
+            value={form?.linkdin_banner}
+            placeholder={"Upload Banner for LinkdIn"}
+            onChange={(file) => {
+              if (file) {
+                changeTextData(file, "linkdin_banner");
+              }
+            }}
+          />
+        </div>
+        <div className={"formGroup"}>
+          <CustomTextField
+            isError={errorData?.linkdin_content}
+            errorText={errorData?.linkdin_content}
+            label={"LinkdIn Content"}
+            value={form?.linkdin_content}
+            onTextChange={(text) => {
+              changeTextData(text, "linkdin_content");
+            }}
+            onBlur={() => {
+              onBlurHandler("linkdin_content");
+            }}
+          />
+        </div>
+      </div>
+
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
@@ -625,10 +677,7 @@ function EventCreate() {
               // disabled={true}
               color={"primary"}
               handleChange={(text) => {
-                changeFeatureData(
-                  !feature?.exhibitor,
-                  "exhibitor"
-                );
+                changeFeatureData(!feature?.exhibitor, "exhibitor");
               }}
               label={"Exhibitor"}
               checked={feature?.exhibitor}
@@ -638,19 +687,26 @@ function EventCreate() {
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
-                changeFeatureData(
-                  !feature?.testimonial,
-                  "testimonial"
-                );
+                changeFeatureData(!feature?.testimonial, "testimonial");
               }}
               label={"testimonial"}
               checked={feature?.testimonial}
             />
           </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.sponspor_video, "sponspor_video");
+              }}
+              label={"Sponspor Video"}
+              checked={feature?.sponspor_video}
+            />
+          </div>
           <div className={"formGroup"}></div>
         </div>
       </div>
-     
+
       <div className={"plainPaper"}>
         {id ? (
           <>

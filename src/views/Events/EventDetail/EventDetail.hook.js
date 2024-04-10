@@ -55,15 +55,13 @@ function useEventDetail() {
     });
   }, [id]);
 
-
   useEffect(() => {
     if (employeeDetail && eventKeys?.length > 0) {
       const feature = { ...employeeDetail?.features };
-   
+
       let filteredValue = eventKeys.filter(
         (item) => feature[item?.key] !== undefined && feature[item?.key]
       );
-      console.log(employeeDetail.testimonial);
       setfeatureValue(filteredValue);
     }
   }, [id, employeeDetail]);
@@ -138,17 +136,19 @@ function useEventDetail() {
     [id]
   );
 
-  const editMasterEvent = useCallback((data) => {
-    LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.EVENTS_UPDATE}${id}`); //+data.id
-  }, [id]);
+  const editMasterEvent = useCallback(
+    (data) => {
+      LogUtils.log("data", data);
+      historyUtils.push(`${RouteName.EVENTS_UPDATE}${id}`); //+data.id
+    },
+    [id]
+  );
 
-  const handleViewEventsPush = useCallback((data)=>{
+  const handleViewEventsPush = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.EXHIBITOR_LIST}`); 
-  })
+    historyUtils.push(`${RouteName.EXHIBITOR_LIST}`);
+  });
 
-  
   return {
     id,
     employeeDetail,

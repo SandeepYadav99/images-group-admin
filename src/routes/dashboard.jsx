@@ -94,6 +94,11 @@ const CalendarCount = lazy(()=>import("../views/CalendarCount/CalendarCount.modu
 const EventParticipants = lazy(()=>import("../views/EventParticipants/List/EventParticipantList.js"))
 
 
+const SponsporListView = lazy(()=>import("../views/SponsporVideo/SponsporList/List.js"))
+
+const VideoSponsporCreate = lazy(()=>import("../views/SponsporVideo/SponsporCreate/Create.js"))
+
+
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -315,7 +320,7 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN],
   },
   {
-    path:`${RouteName?.EVENT_PARTICIPANTS}/:id`,
+    path:`${RouteName?.EVENT_PARTICIPANTS}:id`,
     component: EventParticipants,
     icon: PeopleOutlined,
     is_protect: true,
@@ -871,6 +876,25 @@ const dashboardRoutes = [
     icon: PeopleOutlined,
     is_protect: true,
   },
+  {
+    path: `${RouteName.SPONSPOR_VIDEO}`,
+    component: SponsporListView,
+    sidebarName: "Sponspor Video",
+    navbarName: "Sponspor Video",
+    is_sidebar:true,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.SPONSPOR_VIDE_CREATE}`,
+    component: VideoSponsporCreate,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.SPONSPOR_VIDE_CREATE}:id`,
+    component: VideoSponsporCreate,
+    is_protect: true,
+  }
   
 ];
 

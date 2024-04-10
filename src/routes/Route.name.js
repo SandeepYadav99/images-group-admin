@@ -159,5 +159,7 @@ export default {
 
   CALENDAR_COUNT:"/calendar",
   HALL_MASTER:"/hall/master",
-  EVENT_PARTICIPANTS:"/events/participants",
+  EVENT_PARTICIPANTS:"/events/participants/",
+  SPONSPOR_VIDEO:'/sponspor/list',
+  SPONSPOR_VIDE_CREATE:'/sponspor/create/',
 };
