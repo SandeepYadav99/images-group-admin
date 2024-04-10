@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
-import { ButtonBase, CircularProgress } from "@material-ui/core";
+import { ButtonBase, CircularProgress,  TextField
+} from "@material-ui/core";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
@@ -9,9 +10,8 @@ import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/
 import LogUtils from "../../../libs/LogUtils";
 import CountryInputField from "../../../components/CountryInputField/CountryInputField";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
-import {
-  MenuItem,
-} from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -44,6 +44,7 @@ const EventParticipantCreateView = ({
     isContactInList,
     handleCountryCode,
     countryCode,
+    DataSetName,
   } = useEventParticipantCreate({ handleToggleSidePannel, isSidePanel, empId });
   const classes = useStyles();
 
@@ -156,52 +157,57 @@ const EventParticipantCreateView = ({
       </div>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
-          <CustomSelectField
-            isError={errorData?.participants_type}
-            errorText={errorData?.participants_type}
-            label={"Participants Type"}
-            value={form?.participants_type ? form?.participants_type : ""}
-            handleChange={(value) => {
-              changeTextData(value, "participants_type");
+          <Autocomplete
+            multiple
+            id="tags-outlined"
+            onChange={(e, value) => {
+              changeTextData(value, "participant_type");
             }}
-          >
-            <MenuItem value="Exhibitor">Exhibitor</MenuItem>
-            <MenuItem value="Speaker	">Speaker</MenuItem>
-            <MenuItem value="Award Presentation">Award Presentation</MenuItem>
-            <MenuItem value="Innovators Club	">Innovators Club </MenuItem>
-            <MenuItem value="Jury">Jury</MenuItem>
-          </CustomSelectField>
+            value={form?.participant_type}
+            options={DataSetName ? DataSetName : []}
+            defaultValue={form?.participant_type}
+            error={errorData?.participant_type}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Praticipants Type"
+                error={errorData?.participant_type}
+              />
+            )}
+          />
         </div>
       </div>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomSelectField
-            isError={errorData?.award}
-            errorText={errorData?.award}
+            isError={errorData?.is_award}
+            errorText={errorData?.is_award}
             label={"Awards"}
-            value={form?.award ? form?.award : ""}
+            value={form?.is_award ? form?.is_award : ""}
             handleChange={(value) => {
-              changeTextData(value, "award");
+              changeTextData(value, "is_award");
             }}
           >
-              <MenuItem value="YES">YES</MenuItem>
-            <MenuItem value="NO">NO</MenuItem>
+            <MenuItem value="true">YES</MenuItem>
+            <MenuItem value="false">NO</MenuItem>
           </CustomSelectField>
         </div>
       </div>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomSelectField
-            isError={errorData?.lunch}
-            errorText={errorData?.lunch}
+            isError={errorData?.is_lunch}
+            errorText={errorData?.is_lunch}
             label={"Lunch"}
-            value={form?.lunch ? form?.lunch : ""}
+            value={form?.is_lunch ? form?.is_lunch : ""}
             handleChange={(value) => {
-              changeTextData(value, "lunch");
+              changeTextData(value, "is_lunch");
             }}
+            defaultValue={"NO"}
           >
-            <MenuItem value="YES">YES</MenuItem>
-            <MenuItem value="NO">NO</MenuItem>
+            <MenuItem value="true">YES</MenuItem>
+            <MenuItem value="false">NO</MenuItem>
           </CustomSelectField>
         </div>
       </div>

@@ -34,10 +34,9 @@ const initialForm = {
   user_id: "",
   is_auto: false,
   category: "",
-  is_default_password:"",
-  participants_type:"",
-  award:"NO",
-  lunch:"NO",
+  participant_type: [],
+  is_award: false,
+  is_lunch: false,
 };
 
 const useEventParticipantCreate = ({
@@ -55,17 +54,17 @@ const useEventParticipantCreate = ({
   const codeDebouncer = useDebounce(form?.code, 500);
   const { id } = useParams();
   const [isContactInList, setIsContactInList] = useState(false);
-  const [countryCode,setCountryCode] = useState();
+  const [countryCode, setCountryCode] = useState();
 
   const handleCountryCode = (e) => {
     setCountryCode(e.target.value);
   };
 
-  useEffect(()=>{
-    if(!countryCode){
-       setCountryCode("91")
+  useEffect(() => {
+    if (!countryCode) {
+      setCountryCode("91");
     }
-  })
+  });
 
   const [listData, setListData] = useState({
     MEMBERS: [],
@@ -125,7 +124,9 @@ const useEventParticipantCreate = ({
             reg_id: data?.reg_id,
             user_id: data?.id,
             category: data?.category,
-            participants_type:data?.participants_type,
+            participant_type: data?.participants_type,
+            is_award: data?.is_award,
+            is_lunch: data?.is_lunch,
           };
           setForm(tForm);
         } else {
@@ -141,11 +142,9 @@ const useEventParticipantCreate = ({
     });
   }, [form, setForm, isContactInList, empId, id, form?.contact]);
 
-  // useEffect(() => {
-  //   if (codeDebouncer) {
-  //     checkCodeValidation();
-  //   }
-  // }, [codeDebouncer]);
+  const DataSetName = [
+    "EXHIBITOR","SPEAKER","AWARD_PRESENTATION","INNOVATORS_CLUB","JURY"
+  ];
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -157,7 +156,7 @@ const useEventParticipantCreate = ({
       "reg_id",
       "title",
       "category",
-      "participants_type",
+      "participant_type",
     ];
     required.forEach((val) => {
       if (
@@ -292,6 +291,7 @@ const useEventParticipantCreate = ({
     isContactInList,
     countryCode,
     handleCountryCode,
+    DataSetName,
   };
 };
 

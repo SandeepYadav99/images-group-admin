@@ -7,7 +7,7 @@ import { ButtonBase } from "@material-ui/core";
 import UserProfileView from "./ProfileDetails/UserProfileView.js";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import AditnalDetail from "./ProfileDetails/AditinalDetail.js";
+// import AditnalDetail from "./ProfileDetails/AditinalDetail.js";
 import { Sync } from "@material-ui/icons";
 
 const UserProfile = () => {
@@ -54,7 +54,7 @@ const UserProfile = () => {
           <div>
             <b>Additional Details</b>
           </div>
-          <AditnalDetail id={params?.id} />
+          {/* <AditnalDetail id={params?.id} /> */}
         </Paper>
       </div>
     </div>
