@@ -123,12 +123,12 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
         {/*</DialogTitle>*/}
         <DialogContent>
           <CustomSelectField
-            isError={errorData?.participants_type}
-            errorText={errorData?.participants_type}
+            isError={errorData?.participant_type}
+            errorText={errorData?.participant_type}
             label={"Participants Type"}
-            value={form?.participants_type ? form?.participants_type : ""}
+            value={form?.participant_type ? form?.participant_type : ""}
             handleChange={(value) => {
-              changeTextData(value, "participants_type");
+              changeTextData(value, "participant_type");
             }}
           >
             <MenuItem value="Exhibitor">Exhibitor</MenuItem>

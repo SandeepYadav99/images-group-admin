@@ -1,13 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import {
+  serviceParticipantImportFile,
+  serviceParticipantImportVerify,
+} from "../../../../../services/EventParticipant.service";
 
 import { useParams } from "react-router-dom";
 
 const initialForm = {
   file: null,
   is_active_email: true,
-  is_active_registration:true,
-  participants_type:"",
+  is_active_registration: true,
+  participant_type: "",
 };
 
 const useUploadCsvDialogHook = ({
@@ -45,13 +49,7 @@ const useUploadCsvDialogHook = ({
         errors[val] = true;
       }
     });
-    // if (isVerified) {
-    //   // if (!form?.password) {
-    //   //   errors["password"] = true;
-    //   // } else {
-    //   //   delete errors["password"];
-    //   // }
-    // }
+  
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -70,28 +68,21 @@ const useUploadCsvDialogHook = ({
     // });
   }, []);
 
-  const serviceParticipantImportFile =(params)=>{
-  console.log(params)
-  }
-
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setResData([]);
       setIsSubmitting(true);
       const fd = new FormData();
-      //   Object.keys(form).forEach((key) => {
-      //     fd.append(key, form[key]);
-      //   });
+
       fd.append("file", form?.file);
       if (isVerified) {
         fd.append("send_email", form?.is_active_email);
         fd.append("is_default_password", form?.is_active_registration);
         fd.append("event_id", id);
       }
-      let req = serviceParticipantImportFile
-        
-      // let req = 
-      //  serviceParticipantImportFile
+      let req = isVerified
+        ? serviceParticipantImportFile
+        : serviceParticipantImportVerify;
 
       req(fd).then((res) => {
         if (!res.error) {
@@ -105,8 +96,8 @@ const useUploadCsvDialogHook = ({
           }
           setIsSubmitted(true);
           setResData(res.data);
-        }else{
-          SnackbarUtils.error("Upload failed")
+        } else {
+          SnackbarUtils.error("Upload failed");
         }
         setIsSubmitting(false);
       });
