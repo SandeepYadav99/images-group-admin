@@ -289,12 +289,12 @@ export const EventData = [
     image: help,
     url: RouteName.EVENT_DESK_USER,
   },
-  {
-    key: "event_speakers",
-    name: "Speakers",
-    image: speaker,
-    url: RouteName.EVENTS_SPEAKERS_LIST,
-  },
+  // {
+  //   key: "event_speakers",
+  //   name: "Speakers",
+  //   image: speaker,
+  //   url: RouteName.EVENTS_SPEAKERS_LIST,
+  // },
   {
     key: "event_gallery",
     name: "Gallery",
@@ -315,7 +315,7 @@ export const EventData = [
   },
   {
     key: "sponsors",
-    name: "Partners",
+    name: "Sponsors",
     image: sponsor,
     url: RouteName.EVENT_SPONSOR,
   },
@@ -351,7 +351,7 @@ export const EventData = [
   },
   {
     key: "information_center",
-    name: "Hall Layouts",
+    name: "Information Center",
     image: event,
     url: RouteName.INFOR_CENTER,
   },
@@ -367,12 +367,12 @@ export const EventData = [
     image: event,
     url: RouteName.EXHIBITOR_LIST,
   },
-  {
-    key: "testimonial",
-    name: "Testimonial",
-    image: event,
-    url: RouteName.EVENT_TESTIMONIAL,
-  },
+  // {
+  //   key: "testimonial",
+  //   name: "Testimonial",
+  //   image: event,
+  //   url: RouteName.EVENT_TESTIMONIAL,
+  // },
   // {
   //   key: "networking",
   //   name: "Information Center",

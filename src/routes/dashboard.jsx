@@ -56,6 +56,8 @@ import InforCenterLists from "../views/Event_InfoCenter/List/InfoCenter_List";
 import InforCenter_Create from "../views/Event_InfoCenter/Create/InfoCenter_Create";
 import YouTube_List from "../views/Event_YoutubeStreem/List/YouTube_List.js";
 import YouTube_Create from "../views/Event_YoutubeStreem/Create/YouTube_Create";
+import SplashScreen from "../views/Splashscreen/List/SplashScreen.js";
+import SplashScreenCreate from "../views/Splashscreen/Create/SplashScreenCreate.js";
 
 
 const HallMasterList = lazy(() => import('../views/HallMaster/Lists/HallMasterList'));
@@ -203,7 +205,7 @@ const dashboardRoutes = [
     is_protect: true,
     roles: [Roles.ADMIN],
   },
- 
+
   {
     path: `${RouteName.MEMBERS_CREATE}`,
     component: MemberCreate,
@@ -321,6 +323,15 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
+    path: `${RouteName.EVENTS_SPEAKERS_LIST}`,
+    sidebarName: "Speakers Master",
+    navbarName: "Speakers Master",
+    icon: PeopleOutlined,
+    component: EventSpeaker_List,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
     path: `${RouteName.EVENT_TESTIMONIAL}:id`,
     component: TestimonialList,
     is_protect: true,
@@ -344,12 +355,12 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
   },
-  {
-    path: `${RouteName.EVENTS_SPEAKERS_LIST}:id`,
-    component: EventSpeaker_List,
-    is_sidebar: false,
-    is_protect: true,
-  },
+  // {
+  //   path: `${RouteName.EVENTS_SPEAKERS_LIST}:id`,
+  //   component: EventSpeaker_List,
+  //   is_sidebar: false,
+  //   is_protect: true,
+  // },
 
   {
     path: `${RouteName.EVENT_CITYGUIDE}:id`,
@@ -871,7 +882,34 @@ const dashboardRoutes = [
     icon: PeopleOutlined,
     is_protect: true,
   },
-  
+  {
+    path: RouteName.SPLASH_SCREEN,
+    component: SplashScreen,
+    sidebarName: "Splash Screen",
+    navbarName: "Splash Screen",
+    is_sidebar:true,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
+  {
+    path: RouteName.SPLASH_SCREEN_CREATE,
+    component: SplashScreenCreate,
+    sidebarName: "Splash Screen",
+    navbarName: "Splash Screen",
+    is_sidebar:false,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.SPLASH_SCREEN_UPDATE}:id`,
+    component: SplashScreenCreate,
+    sidebarName: "Splash Screen",
+    navbarName: "Splash Screen",
+    is_sidebar:false,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
+
 ];
 
 export default dashboardRoutes;

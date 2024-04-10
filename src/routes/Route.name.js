@@ -53,7 +53,7 @@ export default {
     EVENTS_UPDATE: "/event/update/",
     EVENTS_DETAILS: "/event/details/",
 
-    EVENTS_SPEAKERS_LIST: "/events/speakers/",
+    EVENTS_SPEAKERS_LIST: "/speakers",
     ADD_SPEAKERS_CREATE: "/speakers/create",
     ADD_SPEAKERS_UPDATE: "/speakers/update/",
 
@@ -159,5 +159,9 @@ export default {
 
   CALENDAR_COUNT:"/calendar",
   HALL_MASTER:"/hall/master",
+
+  SPLASH_SCREEN:"/splash/screen",
+  SPLASH_SCREEN_CREATE:"/splash/screen/create",
+  SPLASH_SCREEN_UPDATE:"/splash/screen/update",
   EVENT_PARTICIPANTS:"/events/participants",
 };
