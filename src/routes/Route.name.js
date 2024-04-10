@@ -164,4 +164,7 @@ export default {
   SPLASH_SCREEN_CREATE:"/splash/screen/create",
   SPLASH_SCREEN_UPDATE:"/splash/screen/update",
   EVENT_PARTICIPANTS:"/events/participants",
+  EVENT_PARTICIPANTS:"/events/participants/",
+  SPONSPOR_VIDEO:'/sponspor/list',
+  SPONSPOR_VIDE_CREATE:'/sponspor/create/',
 };
