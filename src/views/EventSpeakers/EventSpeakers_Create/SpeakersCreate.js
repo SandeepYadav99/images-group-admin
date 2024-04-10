@@ -32,7 +32,7 @@ function EventSpeakerCreateView({ location }) {
           <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b> {id ? "Edit" : "Add"} Speaker</b>
+              <b> {id ? "Edit" : "Add"} Speaker Master</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
@@ -41,7 +41,7 @@ function EventSpeakerCreateView({ location }) {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>Speaker Details</div>
+            <div className={"heading"}>Speaker Master Details</div>
           </h4>
         </div>
         <div className={styles.cont}>

@@ -58,6 +58,7 @@ const EventSpeakerList = ({}) => {
               src={all?.s_image ? all?.s_image : speakerDefault}
               alt=""
               className={styles.driverImgCont}
+              crossOrigin="anonymous"
             />
             {all?.s_name}
           </div>
@@ -167,14 +168,14 @@ const EventSpeakerList = ({}) => {
           {/* <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} /> */}
             <div>
-              <span className={styles.title}>Speakers</span>
+              <span className={styles.title}>Speakers Master</span>
               <div className={styles.newLine} />
             </div>
           {/* </ButtonBase> */}
 
           <div className={styles.BtnWrapper}>
             <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
-              ADD SPEAKER
+              ADD SPEAKER MASTER
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
           </div>
