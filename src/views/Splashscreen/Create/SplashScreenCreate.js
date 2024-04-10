@@ -58,7 +58,7 @@ function SplashScreenCreate({ location }) {
             <CustomSelectField
               isError={errorData?.type}
               errorText={errorData?.type}
-              label={"Type"}
+              label={"FILE NAME"}
               value={form?.type}
               handleChange={(value) => {
                 changeTextData(value, "type");
@@ -66,26 +66,10 @@ function SplashScreenCreate({ location }) {
                 setIsLinkDisabled(value === "PARTNER");
               }}
             >
-              <MenuItem value="BANNER">BANNER</MenuItem>
-              <MenuItem value="PARTNER">PARTNER</MenuItem>
+              {/* <MenuItem value="BANNER">BANNER</MenuItem>
+              <MenuItem value="PARTNER">PARTNER</MenuItem> */}
             </CustomSelectField>
           </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.priority}
-              errorText={errorData?.priority}
-              label={"Priority"}
-              value={form?.priority}
-              onTextChange={(text) => {
-                changeTextData(text, "priority");
-              }}
-              onBlur={() => {
-                onBlurHandler("priority");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.link}
@@ -102,6 +86,7 @@ function SplashScreenCreate({ location }) {
             />
           </div>
         </div>
+       
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             {!image && (
@@ -110,11 +95,11 @@ function SplashScreenCreate({ location }) {
                 type={["jpeg", "jpg", "png"]}
                 fullWidth={true}
                 name="od1"
-                label="Upload Event Banner Image"
+                label="Upload Event Video Image"
                 accept={"application/pdf,application/msword,image/*"}
                 error={errorData?.image}
                 value={form?.image}
-                placeholder={"Upload Event Banner Image"}
+                placeholder={"Upload Event Video Image"}
                 onChange={(file) => {
                   if (file) {
                     changeTextData(file, "image");
