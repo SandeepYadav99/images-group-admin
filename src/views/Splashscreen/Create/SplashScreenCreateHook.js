@@ -11,12 +11,13 @@ import {
 } from "../../../services/EventBanner.service";
 import { useMemo } from "react";
 import { validateUrl } from "../../../libs/RegexUtils";
+import { serviceCreateSplashScreen, serviceGetSplashScreenDetails, serviceUpdateSplashScreen } from "../../../services/SplashScreen.service";
 
 function useSplashScreenCreateHook({ location }) {
   const initialForm = {
-     priority: "",
-    type: "",
-    image: null,
+    fileName: "",
+  
+    video: null,
     link: "",
     status: true,
   };
@@ -32,14 +33,14 @@ function useSplashScreenCreateHook({ location }) {
 
   useEffect(() => {
     if (id) {
-      serviceGetEventBannerDetails({ id: id }).then((res) => {
+      serviceGetSplashScreenDetails({ id: id }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
           setForm({
             ...form,
             id: id,
             priority: data?.priority,
-            type: data?.type,
+           
             link: data?.link,
             status: data?.status === "ACTIVE" ? true : false,
           });
@@ -54,7 +55,7 @@ function useSplashScreenCreateHook({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["type"];
+    let required = [""];
 
     if (!id) {
       required.push("image");
@@ -99,10 +100,10 @@ function useSplashScreenCreateHook({ location }) {
       const t = { ...form };
       if (fieldName === "name") {
         t[fieldName] = text;
-      } else if (fieldName === "priority") {
-        if (text >= 0) {
+      } else if (fieldName === "fileName") {
+       
           t[fieldName] = text;
-        }
+        
       } else {
         t[fieldName] = text;
       }
@@ -111,12 +112,14 @@ function useSplashScreenCreateHook({ location }) {
     },
     [removeError, form, setForm]
   );
-
+  console.log(form, "FORM")
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
+    
       Object.keys(form).forEach((key) => {
+        console.log(key, "Key")
         LogUtils.log("key", key);
         if (key !== "image") {
           if (key === "status") {
@@ -129,15 +132,15 @@ function useSplashScreenCreateHook({ location }) {
       if (form?.image) {
         fd.append("image", form?.image);
       }
-      if (selectedEventId) {
-        fd.append("event_id", selectedEventId);
-      }
+      // if (selectedEventId) {
+      //   fd.append("event_id", selectedEventId);
+      // }
 
       let req;
       if (id) {
-        req = serviceUpdateEventBanner(fd);
+        req = serviceUpdateSplashScreen(fd);
       } else {
-        req = serviceCreateEventBanner(fd);
+        req = serviceCreateSplashScreen(fd);
       }
       req.then((res) => {
         if (!res.error) {

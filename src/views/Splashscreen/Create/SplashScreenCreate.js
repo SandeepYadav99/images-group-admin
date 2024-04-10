@@ -55,20 +55,20 @@ function SplashScreenCreate({ location }) {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomSelectField
-              isError={errorData?.type}
-              errorText={errorData?.type}
-              label={"FILE NAME"}
-              value={form?.type}
-              handleChange={(value) => {
-                changeTextData(value, "type");
-
-                setIsLinkDisabled(value === "PARTNER");
+            
+            <CustomTextField
+              isError={errorData?.fileName}
+              errorText={errorData?.fileName}
+              label={"File Name"}
+              value={form?.fileName}
+              onTextChange={(text) => {
+                changeTextData(text, "fileName");
               }}
-            >
-              {/* <MenuItem value="BANNER">BANNER</MenuItem>
-              <MenuItem value="PARTNER">PARTNER</MenuItem> */}
-            </CustomSelectField>
+              onBlur={() => {
+                onBlurHandler("fileName");
+              }}
+              // disabled={isLinkDisabled}
+            />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
@@ -82,7 +82,7 @@ function SplashScreenCreate({ location }) {
               onBlur={() => {
                 onBlurHandler("link");
               }}
-              disabled={isLinkDisabled}
+              // disabled={isLinkDisabled}
             />
           </div>
         </div>
@@ -97,12 +97,12 @@ function SplashScreenCreate({ location }) {
                 name="od1"
                 label="Upload Event Video Image"
                 accept={"application/pdf,application/msword,image/*"}
-                error={errorData?.image}
-                value={form?.image}
+                error={errorData?.video}
+                value={form?.video}
                 placeholder={"Upload Event Video Image"}
                 onChange={(file) => {
                   if (file) {
-                    changeTextData(file, "image");
+                    changeTextData(file, "video");
                   }
                 }}
               />

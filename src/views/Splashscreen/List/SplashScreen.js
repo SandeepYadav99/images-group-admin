@@ -32,7 +32,7 @@ const SplashScreen = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.event_banner);
+  } = useSelector((state) => state.SplashScreen);
 
   const renderStatus = useCallback((status) => {
     return (

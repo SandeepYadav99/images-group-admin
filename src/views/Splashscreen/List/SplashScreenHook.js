@@ -12,6 +12,7 @@ import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/index.services";
 import { useParams } from "react-router";
+import { actionDeleteSplashScreen, actionFetchSplashScreen, actionSetPageSplashScreen } from "../../../actions/SplashScreen.action";
 
 const useSplashScreenHook = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -35,10 +36,10 @@ const useSplashScreenHook = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.event_banner);
+  } = useSelector((state) => state.SplashScreen);
   useEffect(() => {
     dispatch(
-      actionFetchEventBanner(1, sortingData, {
+      actionFetchSplashScreen(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
         event_id: id,
@@ -50,7 +51,7 @@ const useSplashScreenHook = ({}) => {
   
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageEventBanner(type));
+    dispatch(actionSetPageSplashScreen(type));
   }, []);
 
   const handleDataSave = useCallback(
@@ -71,7 +72,7 @@ const useSplashScreenHook = ({}) => {
       console.log("_queryFilter", key, value);
       // dispatch(actionSetPageEventBannerRequests(1));
       dispatch(
-        actionFetchEventBanner(1, sortingData, {
+        actionFetchSplashScreen(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
           event_id: id,
@@ -101,7 +102,7 @@ const useSplashScreenHook = ({}) => {
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       dispatch(
-        actionFetchEventBanner(
+        actionFetchSplashScreen(
           1,
           { row, order },
           {
@@ -121,7 +122,7 @@ const useSplashScreenHook = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteEventBanner(id));
+      dispatch(actionDeleteSplashScreen(id));
       setEditData(null);
     },
     [setEditData]
