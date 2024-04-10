@@ -159,5 +159,9 @@ export default {
   EXHIBITOR_QUERY:"/exhibitor-query",
 
   CALENDAR_COUNT:"/calendar",
-  HALL_MASTER:"/hall/master"
+  HALL_MASTER:"/hall/master",
+
+  SPLASH_SCREEN:"/splash/screen",
+  SPLASH_SCREEN_CREATE:"/splash/screen/create",
+  SPLASH_SCREEN_UPDATE:"/splash/screen/update",
 };
