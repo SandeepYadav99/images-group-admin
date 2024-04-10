@@ -53,11 +53,13 @@ export default {
     EVENTS_UPDATE: "/event/update/",
     EVENTS_DETAILS: "/event/details/",
 
-    EVENTS_SPEAKERS_LIST: "/speakers",
-    ADD_SPEAKERS_CREATE: "/speakers/create",
-    ADD_SPEAKERS_UPDATE: "/speakers/update/",
+    EVENTS_SPEAKERS_LIST: "/event/speakers/",
+    ADD_SPEAKERS_CREATE: "/event/speakers/create",
+    ADD_SPEAKERS_UPDATE: "/event/speakers/update/",
 
-
+    SPEAKERS_LIST: "/speakers",
+    SPEAKERS_CREATE: "/speakers/create",
+    SPEAKERS_UPDATE: "/speakers/update/",
   APP:"/app",
   USER_PROFILE:"/app/user-profile/",
   FEED_POSTS:"/app/feed-post/",

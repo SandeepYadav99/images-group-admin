@@ -59,6 +59,8 @@ import YouTube_List from "../views/Event_YoutubeStreem/List/YouTube_List.js";
 import YouTube_Create from "../views/Event_YoutubeStreem/Create/YouTube_Create";
 import SplashScreen from "../views/Splashscreen/List/SplashScreen.js";
 import SplashScreenCreate from "../views/Splashscreen/Create/SplashScreenCreate.js";
+import SpeakerMaster from "../views/SpeakerMaster/List/SpeakerMaster.js";
+import SpeakerMasterCreate from "../views/SpeakerMaster/Create/SpeakerMasterCreate.js";
 
 
 const HallMasterList = lazy(() => import('../views/HallMaster/Lists/HallMasterList'));
@@ -326,13 +328,40 @@ const dashboardRoutes = [
     is_protect: true,
     roles: [Roles.ADMIN],
   },
+  // {
+  //   path: `${RouteName.EVENTS_SPEAKERS_LIST}`,
+  //   sidebarName: "Speakers ",
+  //   navbarName: "Speakers ",
+  //   icon: PeopleOutlined,
+  //   component: EventSpeaker_List,
+  //   is_sidebar: true,
+  //   is_protect: true,
+  // },
   {
-    path: `${RouteName.EVENTS_SPEAKERS_LIST}`,
+    path: `${RouteName.SPEAKERS_LIST}`,
     sidebarName: "Speakers Master",
     navbarName: "Speakers Master",
     icon: PeopleOutlined,
-    component: EventSpeaker_List,
+    component: SpeakerMaster,
     is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.SPEAKERS_CREATE}`,
+    sidebarName: "Speakers Master",
+    navbarName: "Speakers Master",
+    icon: PeopleOutlined,
+    component: SpeakerMasterCreate,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.SPEAKERS_UPDATE}:id`,
+    sidebarName: "Speakers Master",
+    navbarName: "Speakers Master",
+    icon: PeopleOutlined,
+    component: SpeakerMasterCreate,
+    is_sidebar: false,
     is_protect: true,
   },
   {
@@ -360,12 +389,12 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
   },
-  // {
-  //   path: `${RouteName.EVENTS_SPEAKERS_LIST}:id`,
-  //   component: EventSpeaker_List,
-  //   is_sidebar: false,
-  //   is_protect: true,
-  // },
+  {
+    path: `${RouteName.EVENTS_SPEAKERS_LIST}:id`,
+    component: EventSpeaker_List,
+    is_sidebar: false,
+    is_protect: true,
+  },
 
   {
     path: `${RouteName.EVENT_CITYGUIDE}:id`,

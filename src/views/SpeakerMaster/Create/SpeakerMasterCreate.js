@@ -7,9 +7,10 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 
 import historyUtils from "../../../libs/history.utils";
-import useSpeakerCreateHook from "./SpeakerCreate_hook";
 
-function EventSpeakerCreateView({ location }) {
+import useSpeakerMasterCreate from "./SpeakerMasterCreateHook";
+
+function SpeakerMasterCreate({ location }) {
   const {
     form,
     errorData,
@@ -23,7 +24,7 @@ function EventSpeakerCreateView({ location }) {
     setImage,
     speaker,
     id
-  } = useSpeakerCreateHook({ location });
+  } = useSpeakerMasterCreate({ location });
 
   return (
     <div className={styles.claimListWrapper}>
@@ -32,7 +33,7 @@ function EventSpeakerCreateView({ location }) {
           <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b> {id ? "Edit" : "Add"} Speaker </b>
+              <b> {id ? "Edit" : "Add"} Speaker Master</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
@@ -41,7 +42,7 @@ function EventSpeakerCreateView({ location }) {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>Speaker  Details</div>
+            <div className={"heading"}>Speaker Master Details</div>
           </h4>
         </div>
         <div className={styles.cont}>
@@ -220,4 +221,4 @@ function EventSpeakerCreateView({ location }) {
   );
 }
 
-export default EventSpeakerCreateView;
+export default SpeakerMasterCreate;
