@@ -81,7 +81,6 @@ export default {
   PENDING_EVENTS: "/pending/events",
   PENDING_EVENTS_DETAILS: "/pending/events/details/",
 
-  EVENT_PARTICIPANTS: "/event/participants/",
   EVENT_POLLS: "/event/polls/",
   EVENT_POLLS_CREATE: "/polls/create",
   EVENT_POLLS_UPDATE: "/polls/update/",

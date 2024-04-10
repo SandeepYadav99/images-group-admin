@@ -203,17 +203,7 @@ const dashboardRoutes = [
     is_protect: true,
     roles: [Roles.ADMIN],
   },
-  // {
-  //   path: `${RouteName.MEMBERS}`,
-  //   sidebarName: "Members Companies",
-  //   navbarName: "Members Companies",
-  //   icon: PeopleOutlined,
-  //   component: MemberList,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  //   roles: [Roles.GENERAL,Roles.CHAPTER_ADMIN],
-
-  // },
+ 
   {
     path: `${RouteName.MEMBERS_CREATE}`,
     component: MemberCreate,
@@ -325,17 +315,13 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN],
   },
   {
-    path:`${RouteName?.EVENT_PARTICIPANTS}`,
+    path:`${RouteName?.EVENT_PARTICIPANTS}/:id`,
     component: EventParticipants,
-    sidebarName: "Events Participants",
-    navbarName: "Events Participants",
-    is_sidebar:true,
     icon: PeopleOutlined,
     is_protect: true,
   },
   {
     path: `${RouteName.EVENT_TESTIMONIAL}:id`,
-
     component: TestimonialList,
     is_protect: true,
     is_sidebar: false,
