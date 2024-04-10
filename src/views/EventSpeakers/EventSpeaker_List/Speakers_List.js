@@ -178,7 +178,7 @@ const EventSpeakerList = ({}) => {
 
           <div className={styles.BtnWrapper}>
             <ButtonBase onClick={toggleAcceptDialog} className={"createBtn"}>
-              ASSOCIATE SPEAKER
+              ADD SPEAKER
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
           </div>
