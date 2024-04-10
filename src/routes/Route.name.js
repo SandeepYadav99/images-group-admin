@@ -81,7 +81,6 @@ export default {
   PENDING_EVENTS: "/pending/events",
   PENDING_EVENTS_DETAILS: "/pending/events/details/",
 
-  EVENT_PARTICIPANTS: "/event/participants/",
   EVENT_POLLS: "/event/polls/",
   EVENT_POLLS_CREATE: "/polls/create",
   EVENT_POLLS_UPDATE: "/polls/update/",
@@ -164,4 +163,8 @@ export default {
   SPLASH_SCREEN:"/splash/screen",
   SPLASH_SCREEN_CREATE:"/splash/screen/create",
   SPLASH_SCREEN_UPDATE:"/splash/screen/update",
+  EVENT_PARTICIPANTS:"/events/participants",
+  EVENT_PARTICIPANTS:"/events/participants/",
+  SPONSPOR_VIDEO:'/sponspor/list',
+  SPONSPOR_VIDE_CREATE:'/sponspor/create/',
 };

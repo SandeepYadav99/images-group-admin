@@ -1,65 +1,54 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  actionCreateEventParticipant,
-  actionDeleteEventParticipant,
-  actionFetchEventParticipant,
-  actionSetPageEventParticipant,
-  actionUpdateEventParticipant,
-} from "../../../actions/EventParticipant.action";
+  actionCreateAppUser,
+  actionDeleteAppUser,
+  actionFetchAppUser,
+  actionSetPageAppUser,
+  actionUpdateAppUser,
+} from "../../../actions/AppUser.action";
 import historyUtils from "../../../libs/history.utils";
-import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
-import { useParams } from "react-router";
 
-const useEventParticipantList = ({}) => {
+const useSponsporList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
-  const [isEditSidePanel, setEditSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
-  const [isCsvDialog, setIsCsvDialog] = useState(false);
-
   const isMountRef = useRef(false);
-  const { id } = useParams();
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.adminUser);
+  } = useSelector((state) => state.App_User);
 
   useEffect(() => {
-    // dispatch(actionFetchEventParticipant());
+    // dispatch(actionFetchAppUser());
   }, []);
 
   useEffect(() => {
     dispatch(
-      actionFetchEventParticipant(
-        1,
-        {},
-        {
-          query: isMountRef.current ? query : null,
-          query_data: isMountRef.current ? queryData : null,
-          event_id: id,
-        }
-      )
+      actionFetchAppUser(1, {}, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
     );
     isMountRef.current = true;
-  }, [id]);
+  }, []);
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageEventParticipant(type));
+    dispatch(actionSetPageAppUser(type));
   }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
       // this.props.actionChangeStatus({...data, type: type});
       if (type == "CREATE") {
-        dispatch(actionCreateEventParticipant(data));
+        dispatch(actionCreateAppUser(data));
       } else {
-        dispatch(actionUpdateEventParticipant(data));
+        dispatch(actionUpdateAppUser(data));
       }
       setSidePanel((e) => !e);
       setEditData(null);
@@ -70,17 +59,16 @@ const useEventParticipantList = ({}) => {
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageEventParticipantRequests(1));
+      // dispatch(actionSetPageAppUserRequests(1));
       dispatch(
-        actionFetchEventParticipant(1, sortingData, {
+        actionFetchAppUser(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
-          event_id: id,
         })
       );
-      // dispatch(actionFetchEventParticipant(1, sortingData))
+      // dispatch(actionFetchAppUser(1, sortingData))
     },
-    [sortingData, query, queryData, id]
+    [sortingData, query, queryData]
   );
 
   const handleFilterDataChange = useCallback(
@@ -102,20 +90,19 @@ const useEventParticipantList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageEventParticipant(1));
+      dispatch(actionSetPageAppUser(1));
       dispatch(
-        actionFetchEventParticipant(
+        actionFetchAppUser(
           1,
           { row, order },
           {
             query: query,
             query_data: queryData,
-            event_id: id,
           }
         )
       );
     },
-    [query, queryData, id]
+    [query, queryData]
   );
 
   const handleRowSize = (page) => {
@@ -124,7 +111,7 @@ const useEventParticipantList = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteEventParticipant(id));
+      dispatch(actionDeleteAppUser(id));
       setSidePanel(false);
       setEditData(null);
     },
@@ -141,18 +128,9 @@ const useEventParticipantList = ({}) => {
 
   const handleToggleSidePannel = useCallback(
     (data) => {
-      setSidePanel((e) => !e);
-      // setEditData(data?.id);
+      historyUtils.push(`${RouteName.SPONSPOR_VIDE_CREATE}`)
     },
     [setSidePanel, setEditData]
-  );
-
-  const handleToggleEditSidePannel = useCallback(
-    (data) => {
-      setEditSidePanel((e) => !e);
-      setEditData(data);
-    },
-    [setEditSidePanel, setEditData]
   );
 
   const handleSideToggle = useCallback(
@@ -165,6 +143,8 @@ const useEventParticipantList = ({}) => {
   const handleViewDetails = useCallback((data) => {
     historyUtils.push(RouteName.LOCATIONS_DETAILS + data.id); //+data.id
   }, []);
+
+  
 
   const handleCreate = useCallback(() => {
     historyUtils.push(RouteName.LOCATIONS_CREATE);
@@ -180,15 +160,6 @@ const useEventParticipantList = ({}) => {
       },
     ];
   }, []);
-
-  const toggleCsvDialog = useCallback(() => {
-    setIsCsvDialog((e) => !e);
-  }, [setIsCsvDialog]);
-
-  const handleCsvUpload = useCallback(() => {
-  }, []);
-
-  const handleDownloadCSV = () => {};
 
   return {
     handlePageChange,
@@ -207,13 +178,7 @@ const useEventParticipantList = ({}) => {
     configFilter,
     handleCreate,
     handleToggleSidePannel,
-    handleToggleEditSidePannel,
-    isEditSidePanel,
-    toggleCsvDialog,
-    handleDownloadCSV,
-    isCsvDialog,
-    handleCsvUpload,
   };
 };
 
-export default useEventParticipantList;
+export default useSponsporList;

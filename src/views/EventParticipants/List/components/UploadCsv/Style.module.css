@@ -1,0 +1,27 @@
+.upperFlex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.printFlex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.btmBtn{
+    background-color: #29CB97 !important;
+    padding: 10px 10px !important;
+    color: white !important;
+    border-radius: 5px !important;
+}
+.tableCont {
+    padding: 10px 10px;
+    max-height: 200px;
+    overflow: scroll;
+}

@@ -24,7 +24,11 @@
   display: flex;
   align-items: center;
 }
-
+.btnWrapper{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .firstCellFlex .driverImgCont {
   width: 40px;
   height: 40px;
@@ -110,4 +114,13 @@
   border-radius: 10px;
   margin-left: 1px;
   background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
+}
+.eventButton{
+  display: flex;
+  gap: 10px !important;
+}
+
+.emialWrap{
+  display: flex;
+  flex-wrap: wrap !important;
 }

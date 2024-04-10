@@ -125,7 +125,7 @@ class LoginView extends Component {
             <div className={styles.signContainer}>
               <div className={styles.logoImg}>
                 <img
-                  src={require("../../assets/img/Bharat_tax_logo.png")}
+                  src={require("../../assets/ImageGroup/images_group_logo.png")}
                   className={styles.sky}
                 />
               </div>

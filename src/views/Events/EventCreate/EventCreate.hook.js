@@ -66,17 +66,21 @@ function useEventCreate() {
     all_chapters: false,
     chapters: false,
     accessible_chapter_ids: [],
+    linkdin_banner: "",
+    linkdin_content: "",
+    background_image: "",
   };
   const featureKey = {
     event_participants: true,
     event_schedule: true,
     about_event: true,
-    exhibitor:false,
-    testimonial:false,
+    exhibitor: false,
+    testimonial: false,
     event_organizing_committee: false,
+    sponspor_video:true,
     event_speakers: true,
     event_gallery: false,
-    analytics: false,
+    analytics: true,
     help_desk: false,
     poll: false,
     surveys: false,
@@ -90,6 +94,7 @@ function useEventCreate() {
     youtube_live: false,
     information_center: false,
   };
+  
   const colorKey = [
     "primary_colour",
     "secondary_colour",
@@ -111,8 +116,8 @@ function useEventCreate() {
     ADMIN: [],
     CHAPTERS: [],
     EVENTS: [],
-    ADMIN_CHAPTERS:[],
-    ADMIN_EVENTS:[],
+    ADMIN_CHAPTERS: [],
+    ADMIN_EVENTS: [],
   });
 
   useEffect(() => {
@@ -188,7 +193,7 @@ function useEventCreate() {
   }, [codeDebouncer]);
 
   useEffect(() => {
-    serviceGetList(["PRODUCT_CATEGORY","PRODUCT_GROUP"]).then((res) => {
+    serviceGetList(["PRODUCT_CATEGORY", "PRODUCT_GROUP"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -289,8 +294,7 @@ function useEventCreate() {
         t[fieldName] = text.filter((item, index, self) => {
           return index === self.findIndex((i) => i.id === item.id);
         });
-      }
-       else {
+      } else {
         t[fieldName] = text;
       }
       setForm(t);
@@ -298,7 +302,6 @@ function useEventCreate() {
     },
     [removeError, form, setForm]
   );
-
 
   const changeFeatureData = useCallback(
     (text, fieldName) => {
