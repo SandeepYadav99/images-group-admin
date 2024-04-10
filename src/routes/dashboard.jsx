@@ -30,7 +30,6 @@ import MemberDetail from "../views/MemberList/MemberDetail/MemberDetail.view";
 import PolicieLists from "../views/Policies/PoliciesList/PoliciesListContainer";
 import StateMemberDetail from "../views/master/StateMemberDetail/StateMemberDetail.view";
 import CityMemDetail from "../views/master/CityMemDetail/CityMemDetail.view";
-import EventParticipantList from "../views/EventParticipants/List/EventParticipantList";
 import EventDetail from "../views/Events/EventDetail/EventDetail.view";
 import EventOrganiserList from "../views/EventOrganisingCommittee/List/EventOrganiserList";
 import EventPollsList from "../views/EventPolls/EventPollsList/EventPollsList.container";
@@ -96,6 +95,12 @@ const AddCategoryData = lazy(()=>import("../views/AddCategory/AddCategory.compon
 const AddCategoryList = lazy(()=>import("../views/AddCategory/List/List.module.js"));
 const ExhibitorQuery = lazy(()=>import("../views/ExhibitorQuery/ExhibitorQuery.module.js"));
 const CalendarCount = lazy(()=>import("../views/CalendarCount/CalendarCount.module.js"));
+const EventParticipants = lazy(()=>import("../views/EventParticipants/List/EventParticipantList.js"))
+
+
+const SponsporListView = lazy(()=>import("../views/SponsporVideo/SponsporList/List.js"))
+
+const VideoSponsporCreate = lazy(()=>import("../views/SponsporVideo/SponsporCreate/Create.js"))
 
 
 const Roles = Constants.ROLES;
@@ -207,17 +212,7 @@ const dashboardRoutes = [
     is_protect: true,
     roles: [Roles.ADMIN],
   },
-  // {
-  //   path: `${RouteName.MEMBERS}`,
-  //   sidebarName: "Members Companies",
-  //   navbarName: "Members Companies",
-  //   icon: PeopleOutlined,
-  //   component: MemberList,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  //   roles: [Roles.GENERAL,Roles.CHAPTER_ADMIN],
 
-  // },
   {
     path: `${RouteName.MEMBERS_CREATE}`,
     component: MemberCreate,
@@ -338,6 +333,13 @@ const dashboardRoutes = [
   //   is_protect: true,
   // },
   {
+    // path: `${RouteName.SPEAKERS_LIST}`,
+     path:`${RouteName?.EVENT_PARTICIPANTS}:id`,
+    component: EventParticipants,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
+  {
     path: `${RouteName.SPEAKERS_LIST}`,
     sidebarName: "Speakers Master",
     navbarName: "Speakers Master",
@@ -366,7 +368,6 @@ const dashboardRoutes = [
   },
   {
     path: `${RouteName.EVENT_TESTIMONIAL}:id`,
-
     component: TestimonialList,
     is_protect: true,
     is_sidebar: false,
@@ -494,12 +495,12 @@ const dashboardRoutes = [
     is_protect: true,
   },
 
-  {
-    path: `${RouteName.EVENT_PARTICIPANTS}:id`,
-    component: EventParticipantList,
-    is_sidebar: false,
-    is_protect: true,
-  },
+  // {
+  //   path: `${RouteName.EVENT_PARTICIPANTS}:id`,
+  //   component: EventParticipantList,
+  //   is_sidebar: false,
+  //   is_protect: true,
+  // },
 
   {
     path: `${RouteName.EVENT_POLLS}:id`,
@@ -921,6 +922,10 @@ const dashboardRoutes = [
     component: SplashScreen,
     sidebarName: "Splash Screen",
     navbarName: "Splash Screen",
+    path: `${RouteName.SPONSPOR_VIDEO}`,
+    component: SponsporListView,
+    sidebarName: "Sponspor Video",
+    navbarName: "Sponspor Video",
     is_sidebar:true,
     icon: PeopleOutlined,
     is_protect: true,
@@ -943,6 +948,17 @@ const dashboardRoutes = [
     icon: PeopleOutlined,
     is_protect: true,
   },
+ {
+    path: `${RouteName.SPONSPOR_VIDE_CREATE}`,
+    component: VideoSponsporCreate,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.SPONSPOR_VIDE_CREATE}:id`,
+    component: VideoSponsporCreate,
+    is_protect: true,
+  }
+  
 ];
 
 export default dashboardRoutes;

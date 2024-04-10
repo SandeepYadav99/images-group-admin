@@ -33,7 +33,11 @@ const initialForm = {
   reg_id: "",
   user_id: "",
   is_auto: false,
-  member: "",
+  category: "",
+  is_default_password:"",
+  participants_type:"",
+  award:"NO",
+  lunch:"NO",
 };
 
 const useEventParticipantCreate = ({
@@ -120,7 +124,8 @@ const useEventParticipantCreate = ({
             title: data.title,
             reg_id: data?.reg_id,
             user_id: data?.id,
-            member: data?.company_name,
+            category: data?.category,
+            participants_type:data?.participants_type,
           };
           setForm(tForm);
         } else {
@@ -151,7 +156,8 @@ const useEventParticipantCreate = ({
       "email",
       "reg_id",
       "title",
-      "member",
+      "category",
+      "participants_type",
     ];
     required.forEach((val) => {
       if (
@@ -188,7 +194,7 @@ const useEventParticipantCreate = ({
         req = serviceCreateEventParticipant({
           ...form,
           contact: `${countryCode} ${form?.contact}`,
-          company_name: form?.member?.name,
+          category: form?.category,
           event_id: id,
         });
       }
@@ -238,7 +244,7 @@ const useEventParticipantCreate = ({
         }
         shouldRemoveError = false;
       } else if (fieldName === "company_name") {
-        t["member"] = text;
+        t["category"] = text;
       } else {
         t[fieldName] = text;
       }
