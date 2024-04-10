@@ -101,7 +101,7 @@ const SponsporList = ({}) => {
                 color="secondary"
                 disabled={isCalling}
               >
-                <InfoOutlined fontSize={"small"} />
+              <Edit fontSize={"small"} />
               </IconButton>
             </Link>
           </div>
