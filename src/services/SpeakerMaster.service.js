@@ -21,7 +21,7 @@ import {
     return await postRequest("speakers", params);
   }
   export async function serviceDetailsSpeakerMaster(params) {
-    return await postRequest("speakers/details", params);
+    return await postRequest("/speakers/detail", params);
   }
   export async function serviceCheckEventSpeaker(params) {
     return await postRequest("events/speakers/exists", params);

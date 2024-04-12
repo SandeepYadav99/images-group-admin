@@ -340,7 +340,7 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.SPEAKERS_LIST}`,
+    path: `${RouteName.SPEAKERS_MASTER}`,
     sidebarName: "Speakers Master",
     navbarName: "Speakers Master",
     icon: PeopleOutlined,
@@ -349,7 +349,7 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.SPEAKERS_CREATE}`,
+    path: `${RouteName.SPEAKERS_MASTER_CREATE}`,
     sidebarName: "Speakers Master",
     navbarName: "Speakers Master",
     icon: PeopleOutlined,
@@ -358,7 +358,7 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.SPEAKERS_UPDATE}:id`,
+    path: `${RouteName.SPEAKERS_MASTER_UPDATE}:id`,
     sidebarName: "Speakers Master",
     navbarName: "Speakers Master",
     icon: PeopleOutlined,

@@ -22,6 +22,7 @@ export async function serviceGetEventSpeakerDetails(params) {
 export async function serviceGetEventSpeaker(params) {
   return await postRequest("events/speakers", params);
 }
+
 export async function serviceDetailsEventSpeaker(params) {
   return await postRequest("events/speakers/details", params);
 }

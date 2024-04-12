@@ -147,9 +147,7 @@ const useSpeakerMasterListHook = ({}) => {
   const handleCreateFed = useCallback(
     (data) => {
       LogUtils.log("data", data);
-      historyUtils.push(`${RouteName.ADD_SPEAKERS_CREATE}`, {
-        event_id: id,
-      });
+      historyUtils.push(`${RouteName.SPEAKERS_MASTER_CREATE}`);
     },
     [id]
   );
@@ -157,9 +155,7 @@ const useSpeakerMasterListHook = ({}) => {
   const handleUpdateFed = useCallback(
     (data) => {
       LogUtils.log("data", data);
-      historyUtils.push(`${RouteName.ADD_SPEAKERS_UPDATE}${data?.id}`, {
-        event_id: id,
-      });
+      historyUtils.push(`${RouteName.SPEAKERS_MASTER_UPDATE}${data?.id}`);
     },
     [id]
   );

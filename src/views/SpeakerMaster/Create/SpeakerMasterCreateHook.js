@@ -3,14 +3,11 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 
-import {
-  serviceCreateEventSpeaker,
-  serviceGetEventSpeakerDetails,
-  serviceUpdateEventSpeaker,
-} from "../../../services/EventSpeaker.service";
+
 import historyUtils from "../../../libs/history.utils";
 import constants from "../../../config/constants";
-import { serviceCreateEventSpeakerMaster, serviceDetailsSpeakerMaster, serviceUpdateEventSpeakerMaster } from "../../../services/SpeakerMaster.service";
+import { serviceCreateEventSpeakerMaster,        serviceDetailsSpeakerMaster,        serviceUpdateEventSpeakerMaster } from "../../../services/SpeakerMaster.service";
+
 
 
 function useSpeakerMasterCreate({ location }) {
