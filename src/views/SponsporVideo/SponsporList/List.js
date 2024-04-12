@@ -76,7 +76,7 @@ const SponsporList = ({}) => {
         key: "video",
         label: "video",
         sortable: true,
-        render: (value, all) => <div>{all?.email}</div>,
+        render: (value, all) => <div>---</div>,
       },
 
       {
