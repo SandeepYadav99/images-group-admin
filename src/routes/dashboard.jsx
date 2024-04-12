@@ -896,10 +896,6 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: RouteName.SPLASH_SCREEN,
-    component: SplashScreen,
-    sidebarName: "Splash Screen",
-    navbarName: "Splash Screen",
     path: `${RouteName.SPONSPOR_VIDEO}`,
     component: SponsporListView,
     sidebarName: "Sponspor Video",

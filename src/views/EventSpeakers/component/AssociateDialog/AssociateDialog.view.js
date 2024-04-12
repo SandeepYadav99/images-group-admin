@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, ButtonBase, TextField } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
@@ -7,6 +7,8 @@ import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { Autocomplete } from "@material-ui/lab";
 import useAssociateDialogHook from "./AssociateDialog.hook";
+import { serviceAssociatedSpeaker } from "../../../../services/EventSpeaker.service";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -79,7 +81,7 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
                 }}
                 value={form?.album_id}
                 // id="tags-standard"
-                options={listData?.ALBUMS ? listData?.ALBUMS : []}
+                options={listData?.SPEAKERS? listData?.SPEAKERS : []}
                 getOptionLabel={(option) => option.name}
                 defaultValue={form?.album_id}
                 renderInput={(params) => (
@@ -96,7 +98,7 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
               {form?.album_id?.length > 0 &&
                 form?.album_id?.map((item) => (
                   <div className={styles.firstCellFlex}>
-                    <img src={item?.thumbnail} alt="BannerImg" />
+                    <img src={item?.image} alt="BannerImg" />
                     <div className={styles.productName}>{item?.name}</div>
                   </div>
                 ))}

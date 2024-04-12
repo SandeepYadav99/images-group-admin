@@ -54,6 +54,7 @@ import CategoryReducer from "./AddCategory.reducer";
 import ExhibitorQueryReducer from "./ExhibitorQuery.reducer";
 import CalendarReducer from "./CalendarCount.reducer";
 import HallMasterReducer from "./HallMaster.reducer";
+import SponsporVideoReducer from "./SponsporVideo.reducer"
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -111,7 +112,8 @@ const rootReducer = combineReducers({
   category_reducer:CategoryReducer,
   exhibitor_query:ExhibitorQueryReducer,
   calendar_reducer:CalendarReducer,
-  hallMaster:HallMasterReducer
+  hallMaster:HallMasterReducer,
+  sponspor_video:SponsporVideoReducer
 });
 
 export default rootReducer;
