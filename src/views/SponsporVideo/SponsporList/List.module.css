@@ -111,4 +111,8 @@
     margin-left: 1px;
     background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
   }
+
+  .video {
+    height: 100px;
+  }
   

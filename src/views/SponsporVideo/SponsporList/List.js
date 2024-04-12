@@ -54,6 +54,22 @@ const SponsporList = ({}) => {
     return null;
   }, []);
 
+  const renderFirstCell = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.firstCellFlex}>
+          <a href={obj?.video} target="_blank">
+          <video
+            crossOrigin="anonymous"
+            src={obj?.video}
+            className={styles.video}
+          />
+          </a>
+        </div>
+      );
+    }
+    return null;
+  }, []);
   const tableStructure = useMemo(() => {
     return [
       {
@@ -76,7 +92,7 @@ const SponsporList = ({}) => {
         key: "video",
         label: "video",
         sortable: true,
-        render: (value, all) => <div>---</div>,
+        render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
 
       {
