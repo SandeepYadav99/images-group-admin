@@ -56,6 +56,7 @@ export default {
     EVENTS_SPEAKERS_LIST: "/speakers",
     ADD_SPEAKERS_CREATE: "/speakers/create",
     ADD_SPEAKERS_UPDATE: "/speakers/update/",
+    EVENTS_SPEAKER_EVENT_LIST:"/speakers/list/",
 
 
   APP:"/app",

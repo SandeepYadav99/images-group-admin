@@ -86,7 +86,7 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
                   <TextField
                     {...params}
                     variant="outlined"
-                    label="Albums"
+                    label="Speakers"
                     error={errorData?.album_id}
                   />
                 )}
@@ -105,7 +105,7 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
 
           <div className={styles.printFlex}>
             <ButtonBase onClick={handleSubmit} className={styles.createBtn}>
-              Add Album
+              Add Speakers
             </ButtonBase>
           </div>
         </div>

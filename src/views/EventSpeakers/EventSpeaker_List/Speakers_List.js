@@ -13,6 +13,7 @@ import useSpeakerListHook from "./SpeakerList_hook";
 import historyUtils from "../../../libs/history.utils";
 import speakerDefault from "../../../assets/img/speaker_list_deafult.png";
 import AssociateDialog from "../component/AssociateDialog/AssociateDialog.view" 
+import { useParams } from "react-router-dom";
 
 const EventSpeakerList = ({}) => {
   const {
@@ -28,6 +29,7 @@ const EventSpeakerList = ({}) => {
     toggleFeatured,
     toggleAcceptDialog,
     isAcceptPopUp,
+    handleCreateFedPage,
   } = useSpeakerListHook({});
 
   const {
@@ -48,6 +50,10 @@ const EventSpeakerList = ({}) => {
     }
     return null;
   }, []);
+
+  const params = useParams();
+
+  console.log(params?.id,"it is here")
 
   const tableStructure = useMemo(() => {
     return [
@@ -164,6 +170,7 @@ const EventSpeakerList = ({}) => {
     currentPage,
   ]);
 
+
   return (
     <>
       <PageBox>
@@ -177,8 +184,8 @@ const EventSpeakerList = ({}) => {
           {/* </ButtonBase> */}
 
           <div className={styles.BtnWrapper}>
-            <ButtonBase onClick={toggleAcceptDialog} className={"createBtn"}>
-              ADD SPEAKER
+            <ButtonBase onClick={params?.id ? toggleAcceptDialog : handleCreateFedPage} className={"createBtn"}>
+              {params?.id ? "ASSOCIATE SPEAKER" : "ADD SPEAKER"}
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
           </div>

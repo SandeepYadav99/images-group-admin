@@ -289,12 +289,12 @@ export const EventData = [
     image: help,
     url: RouteName.EVENT_DESK_USER,
   },
-  // {
-  //   key: "event_speakers",
-  //   name: "Speakers",
-  //   image: speaker,
-  //   url: RouteName.EVENTS_SPEAKERS_LIST,
-  // },
+  {
+    key: "event_speakers",
+    name: "Speakers",
+    image: speaker,
+    url: RouteName.EVENTS_SPEAKER_EVENT_LIST,
+  },
   {
     key: "event_gallery",
     name: "Gallery",

@@ -512,9 +512,9 @@ function EventCreate() {
           <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
-              // handleChange={(text) => {
-              //   changeFeatureData(!feature?.event_speakers, "event_speakers");
-              // }}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.event_speakers, "event_speakers");
+              }}
               label={"Event Speakers"}
               checked={feature?.event_speakers}
             />
