@@ -32,7 +32,7 @@ function SplashScreenCreate({ location }) {
     isLinkDisabled,
     setIsLinkDisabled,
     selectVideos,
-    renderVideo
+    renderVideo,
   } = useSplashScreenCreateHook({ location });
 
   const params = useParams();
@@ -44,7 +44,11 @@ function SplashScreenCreate({ location }) {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              {params?.id ? <b>Edit Splash Screen</b> : <b>Add Splash Screen</b>}
+              {params?.id ? (
+                <b>Edit Splash Screen</b>
+              ) : (
+                <b>Add Splash Screen</b>
+              )}
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
@@ -58,7 +62,6 @@ function SplashScreenCreate({ location }) {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            
             <CustomTextField
               isError={errorData?.name}
               errorText={errorData?.name}
@@ -89,12 +92,12 @@ function SplashScreenCreate({ location }) {
             />
           </div>
         </div>
-       
+
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             {/* {!image && ( */}
-            
-              <MultiFile
+
+            <MultiFile
               multiDef={selectVideos ? selectVideos : []}
               max_size={10 * 1024 * 1024}
               type={["mp4"]}
@@ -149,12 +152,12 @@ function SplashScreenCreate({ location }) {
             disabled={isSubmitting ? true : false}
             type={"button"}
             className={styles.createBtn}
-            onClick={ handleSubmit}
+            onClick={handleSubmit}
           >
             {/* {isSubmitting ? (
               <CircularProgress color="success" size="20px" />
             ) : ( */}
-              ADD
+            ADD
             {/* )} */}
           </ButtonBase>
         </div>
