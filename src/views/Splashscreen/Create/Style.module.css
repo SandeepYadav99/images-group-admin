@@ -82,7 +82,7 @@
   }
   .inst {
     display: flex;
-    margin-top: 15px;
+    margin-top: -15px;
     font-size: 0.8rem;
     font-weight: 600;
     gap: 5px;

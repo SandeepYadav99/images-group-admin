@@ -15,6 +15,7 @@ import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import { useParams } from "react-router-dom";
 import useSplashScreenCreateHook from "./SplashScreenCreateHook";
+import MultiFile from "../../GalleryAlbum/Create/Component/FileComponent/FileMultiComponent.component";
 
 function SplashScreenCreate({ location }) {
   const {
@@ -30,6 +31,8 @@ function SplashScreenCreate({ location }) {
     setImage,
     isLinkDisabled,
     setIsLinkDisabled,
+    selectVideos,
+    renderVideo
   } = useSplashScreenCreateHook({ location });
 
   const params = useParams();
@@ -57,15 +60,15 @@ function SplashScreenCreate({ location }) {
           <div className={"formGroup"}>
             
             <CustomTextField
-              isError={errorData?.fileName}
-              errorText={errorData?.fileName}
+              isError={errorData?.name}
+              errorText={errorData?.name}
               label={"File Name"}
-              value={form?.fileName}
+              value={form?.name}
               onTextChange={(text) => {
-                changeTextData(text, "fileName");
+                changeTextData(text, "name");
               }}
               onBlur={() => {
-                onBlurHandler("fileName");
+                onBlurHandler("name");
               }}
               // disabled={isLinkDisabled}
             />
@@ -89,24 +92,31 @@ function SplashScreenCreate({ location }) {
        
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            {!image && (
-              <File
-                max_size={10 * 1024 * 1024}
-                type={["jpeg", "jpg", "png"]}
-                fullWidth={true}
-                name="od1"
-                label="Upload Event Video Image"
-                accept={"application/pdf,application/msword,image/*"}
-                error={errorData?.video}
-                value={form?.video}
-                placeholder={"Upload Event Video Image"}
-                onChange={(file) => {
-                  if (file) {
-                    changeTextData(file, "video");
-                  }
-                }}
-              />
-            )}
+            {/* {!image && ( */}
+            
+              <MultiFile
+              multiDef={selectVideos ? selectVideos : []}
+              max_size={10 * 1024 * 1024}
+              type={["mp4"]}
+              fullWidth={true}
+              name="od1"
+              label="Upload"
+              accept={"video/*"}
+              error={errorData?.video}
+              value={form?.video}
+              placeholder={"Upload Video"}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "video");
+                }
+              }}
+              DefChange={(video) => {
+                if (video) {
+                  renderVideo(video);
+                }
+              }}
+            />
+            {/* )} */}
 
             <div className={styles.inst}>
               <InfoOutlinedIcon />
@@ -115,12 +125,12 @@ function SplashScreenCreate({ location }) {
           </div>
           <div className={"formGroup"}></div>
         </div>
-        {image && <img src={image} className={styles.imgClass} />}
+        {/* {image && <video src={image} className={styles.imgClass} />}
         {image && (
           <div className={styles.remove} onClick={() => setImage("")}>
             Remove
           </div>
-        )}
+        )} */}
       </div>
       <div className={"plainPaper"}>
         <div className={"formFlex"}>
@@ -139,13 +149,13 @@ function SplashScreenCreate({ location }) {
             disabled={isSubmitting ? true : false}
             type={"button"}
             className={styles.createBtn}
-            onClick={() => handleSubmit("PENDING")}
+            onClick={ handleSubmit}
           >
-            {isSubmitting ? (
+            {/* {isSubmitting ? (
               <CircularProgress color="success" size="20px" />
-            ) : (
-              "ADD"
-            )}
+            ) : ( */}
+              ADD
+            {/* )} */}
           </ButtonBase>
         </div>
       </div>

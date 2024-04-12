@@ -48,9 +48,9 @@ const SplashScreen = ({}) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={styles.firstCellInfo}>
-            <div>
-              <img src={obj?.image} />
-            </div>
+           
+              <video crossOrigin="anonymous" src={obj?.video} />
+           
           
           </div>
         </div>
@@ -65,7 +65,7 @@ const SplashScreen = ({}) => {
         key: "file_name",
         label: "FILE NAME",
         sortable: false,
-        render: (temp, all) => <div>{renderFirstCell(all)}</div>,
+        render: (temp, all) => <div>{all?.name}</div>,
       },
       {
         key: "video",
@@ -73,7 +73,7 @@ const SplashScreen = ({}) => {
         sortable: false,
         render: (value, all) => (
           <div>
-            {all.type}
+            {renderFirstCell(all)}
           </div>
         ),
       },
