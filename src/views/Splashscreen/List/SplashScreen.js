@@ -51,6 +51,8 @@ const SplashScreen = ({}) => {
             crossOrigin="anonymous"
             src={obj?.video}
             className={styles.video}
+           
+           
           />
         </div>
       );

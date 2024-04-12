@@ -42,7 +42,7 @@ const useSplashScreenHook = ({}) => {
       actionFetchSplashScreen(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
-        event_id: id,
+        event_id: "65029c5bdf6918136df27e51",
       })
     );
     isMountRef.current = true;

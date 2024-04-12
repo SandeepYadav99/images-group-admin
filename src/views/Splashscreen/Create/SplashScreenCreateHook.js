@@ -139,6 +139,7 @@ console.log(selectVideos, "Videos")
         name: "name",
         // video: "video",
         link: "link",
+      
         // status: "status",
       };
       for (const key in form) {
@@ -146,6 +147,7 @@ console.log(selectVideos, "Videos")
           fd.append(SPEAKER_KEY[key], form[key]);
         }
       }
+      fd.append("event_id", "65029c5bdf6918136df27e51")
       if (form?.status) {
         fd.append("status", form?.status ? "ACTIVE" : "INACTIVE");
       }
