@@ -470,6 +470,14 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
   },
+
+  {
+    path: `${RouteName.EVENTS_SPEAKER_EVENT_LIST}:id`,
+    component: EventSpeaker_List,
+    is_protect: true,
+  },
+
+  
   // {
   //   path: `${RouteName.PENDING_EVENTS}`,
   //   sidebarName: "Pending Events Approval",

@@ -46,3 +46,12 @@ export async function serviceClaimEventParticipants(params) {
 export async function serviceEventParticipantClaimUpdate(params) {
   return await postRequest("events/participants/update/claim/panelists", params);
 }
+
+export async function serviceParticipantImportFile(params) {
+  return await formDataRequest("events/participants/import", params);
+}
+
+export async function serviceParticipantImportVerify(params) {
+  return await formDataRequest("events/participants/import/verify", params);
+}
+

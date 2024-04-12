@@ -293,7 +293,7 @@ export const EventData = [
     key: "event_speakers",
     name: "Speakers",
     image: speaker,
-    url: RouteName.EVENTS_SPEAKERS_LIST,
+    url: RouteName.EVENTS_SPEAKER_EVENT_LIST,
   },
   {
     key: "event_gallery",

@@ -100,12 +100,6 @@ const EventParticipantList = ({}) => {
         render: (temp, all) => <div>{all.contact}</div>,
       },
       {
-        key: "company",
-        label: "COMPANY",
-        sortable: true,
-        render: (temp, all) => <div>{all.company_name}</div>,
-      },
-      {
         key: "is_member",
         label: "MEMBER USER",
         sortable: true,

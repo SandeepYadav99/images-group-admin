@@ -159,6 +159,11 @@ const useSpeakerListHook = ({}) => {
     setIsAcceptPopUp((e) => !e);
   }, [isAcceptPopUp]);
 
+
+  const handleCreateFedPage =()=>{
+    historyUtils.push(RouteName?.ADD_SPEAKERS_CREATE)
+  }
+
   const handleUpdateFed = useCallback(
     (data) => {
       LogUtils.log("data", data);
@@ -219,6 +224,7 @@ const useSpeakerListHook = ({}) => {
     toggleFeatured,
     toggleAcceptDialog,
     isAcceptPopUp,
+    handleCreateFedPage,
   };
 };
 
