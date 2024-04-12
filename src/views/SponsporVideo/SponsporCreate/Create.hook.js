@@ -135,13 +135,13 @@ function useVideoCreate({ location }) {
           }
           else {
             fd.append(key, form[key]);
-
           }
         });
 
         fd.append("event_id", selectedEventId );
         let req;
         if (id) {
+          fd.append("id",id);
           req = serviceUpdateSponsporVideo(fd);
         } else {
           req = serviceCreateSponsporVideo(fd);
