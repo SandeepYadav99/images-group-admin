@@ -22,7 +22,7 @@ import { useMemo } from "react";
 
 function useVideoCreate({ location }) {
   const initialForm = {
-    filename: "",
+    name: "",
     video: "",
     status: true,
   };

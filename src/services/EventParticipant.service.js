@@ -55,3 +55,7 @@ export async function serviceParticipantImportVerify(params) {
   return await formDataRequest("events/participants/import/verify", params);
 }
 
+export async function serviceDownloadCsvFile(params){
+  return await formDataRequest("events/participants/export", params);
+}
+

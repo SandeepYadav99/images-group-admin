@@ -57,15 +57,15 @@ function VideoSponsporCreate({ location }) {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.filename}
-              errorText={errorData?.filename}
+              isError={errorData?.name}
+              errorText={errorData?.name}
               label={"File Name"}
-              value={form?.filename}
+              value={form?.name}
               onTextChange={(text) => {
-                changeTextData(text, "filename");
+                changeTextData(text, "name");
               }}
               onBlur={() => {
-                onBlurHandler("filename");
+                onBlurHandler("name");
               }}
             />
           </div>
