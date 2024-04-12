@@ -1,25 +1,51 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  actionCreateEventBanner,
-  actionDeleteEventBanner,
-  actionFetchEventBanner,
-  actionSetPageEventBanner,
-  actionUpdateEventBanner,
-} from "../../../actions/EventBanner.action";
+  actionCreateEventSpeaker,
+  actionDeleteEventSpeaker,
+  actionFetchEventSpeaker,
+  actionSetPageEventSpeaker,
+  actionUpdateEventSpeaker,
+} from "../../../actions/EventSpeaker.action";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/index.services";
 import { useParams } from "react-router";
-import { actionDeleteSplashScreen, actionFetchSplashScreen, actionSetPageSplashScreen } from "../../../actions/SplashScreen.action";
+import {
+  serviceEventFeatured,
 
-const useSplashScreenHook = ({}) => {
+} from "../../../services/EventSpeaker.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
+import { actionCreateEventSpeakerMaster, actionDeleteEventSpeakerMaster, actionFetchEventSpeakerMaster, actionSetPageEventSpeakerMaster, actionUpdateEventSpeakerMaster } from "../../../actions/SpeakerMaster.action";
+
+const useSpeakerMasterListHook = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const isMountRef = useRef(false);
+  const {
+    sorting_data: sortingData,
+    is_fetching: isFetching,
+    query,
+    query_data: queryData,
+  } = useSelector((state) => state.SpeakerMaster);
+
+  useEffect(() => {
+    dispatch(
+      actionFetchEventSpeakerMaster(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+        event_id: id,
+      })
+    );
+    isMountRef.current = true;
+  }, [id]);
+
   useEffect(() => {
     serviceGetList(["LOCATIONS"]).then((res) => {
       if (!res.error) {
@@ -27,40 +53,18 @@ const useSplashScreenHook = ({}) => {
       }
     });
   }, []);
-  const dispatch = useDispatch();
-  const isMountRef = useRef(false);
-  const { id } = useParams();
-
-  const {
-    sorting_data: sortingData,
-    is_fetching: isFetching,
-    query,
-    query_data: queryData,
-  } = useSelector((state) => state.SplashScreen);
-  useEffect(() => {
-    dispatch(
-      actionFetchSplashScreen(1, sortingData, {
-        query: isMountRef.current ? query : null,
-        query_data: isMountRef.current ? queryData : null,
-        event_id: "65029c5bdf6918136df27e51",
-      })
-    );
-    isMountRef.current = true;
-  }, [id]);
-
-  
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageSplashScreen(type));
+    dispatch(actionSetPageEventSpeakerMaster(type));
   }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
       // this.props.actionChangeStatus({...data, type: type});
       if (type == "CREATE") {
-        dispatch(actionCreateEventBanner(data));
+        dispatch(actionCreateEventSpeakerMaster(data));
       } else {
-        dispatch(actionUpdateEventBanner(data));
+        dispatch(actionUpdateEventSpeakerMaster(data));
       }
       setEditData(null);
     },
@@ -70,9 +74,9 @@ const useSplashScreenHook = ({}) => {
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageEventBannerRequests(1));
+      // dispatch(actionSetPageEventSpeakerRequests(1));
       dispatch(
-        actionFetchSplashScreen(1, sortingData, {
+        actionFetchEventSpeakerMaster(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
           event_id: id,
@@ -100,9 +104,9 @@ const useSplashScreenHook = ({}) => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      console.log(`handleSortOrderChange key:${row} order: ${order}`);
+
       dispatch(
-        actionFetchSplashScreen(
+        actionFetchEventSpeakerMaster(
           1,
           { row, order },
           {
@@ -122,7 +126,7 @@ const useSplashScreenHook = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteSplashScreen(id));
+      dispatch(actionDeleteEventSpeakerMaster(id));
       setEditData(null);
     },
     [setEditData]
@@ -135,41 +139,55 @@ const useSplashScreenHook = ({}) => {
     [setEditData]
   );
 
+  const handleToggle_Edit_SidePannel = useCallback((data) => {
+    LogUtils.log("data", data);
+    historyUtils.push(`${RouteName.EVENTS_SPEAKERS_LIST}`); //+data.id
+  }, []);
+
   const handleCreateFed = useCallback(
     (data) => {
       LogUtils.log("data", data);
-      historyUtils.push(RouteName.SPLASH_SCREEN_CREATE);
+      historyUtils.push(`${RouteName.SPEAKERS_MASTER_CREATE}`);
     },
     [id]
   );
 
-  const handleViewUpdate = useCallback((data) => {
-    LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.SPLASH_SCREEN_UPDATE}${data?.id}`,{
-      eventId: id,
-    }); //+data.id
-  }, []);
+  const handleUpdateFed = useCallback(
+    (data) => {
+      LogUtils.log("data", data);
+      historyUtils.push(`${RouteName.SPEAKERS_MASTER_UPDATE}${data?.id}`);
+    },
+    [id]
+  );
+
+  const toggleFeatured = useCallback((data) => {
+    const isCurrentlyFeatured = data?.is_featured;
+    const newFeaturedStatus = !isCurrentlyFeatured;
+
+    const updatedData = {
+      id: data?.id,
+      event_id: id,
+      is_featured: newFeaturedStatus,
+    };
+
+    serviceEventFeatured(updatedData)
+      .then((res) => {
+        if (!res.error) {
+          window.location.reload()
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      });
+  }, [dispatch, id, query, queryData]);
+
 
   const configFilter = useMemo(() => {
     return [
       {
-        label: "Location",
-        name: "location_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.LOCATIONS,
-      },
-      {
-        label: "Claim Category",
-        name: "category",
+        label: "Status",
+        name: "status",
         type: "select",
-        fields: ["PART B", "PART E"],
-      },
-      {
-        label: "Financial year",
-        name: "fy_year",
-        type: "select",
-        fields: ["2023-2024"],
+        fields: ["ACTIVE", "INACTIVE"],
       },
     ];
   }, [listData]);
@@ -183,12 +201,14 @@ const useSplashScreenHook = ({}) => {
     handleSortOrderChange,
     handleDelete,
     handleEdit,
-    handleCreateFed,
     isCalling,
     editData,
     configFilter,
-    handleViewUpdate,
+    handleCreateFed,
+    handleToggle_Edit_SidePannel,
+    handleUpdateFed,
+    toggleFeatured,
   };
 };
 
-export default useSplashScreenHook;
+export default useSpeakerMasterListHook;

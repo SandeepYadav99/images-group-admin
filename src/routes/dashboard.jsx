@@ -58,6 +58,8 @@ import YouTube_List from "../views/Event_YoutubeStreem/List/YouTube_List.js";
 import YouTube_Create from "../views/Event_YoutubeStreem/Create/YouTube_Create";
 import SplashScreen from "../views/Splashscreen/List/SplashScreen.js";
 import SplashScreenCreate from "../views/Splashscreen/Create/SplashScreenCreate.js";
+import SpeakerMaster from "../views/SpeakerMaster/List/SpeakerMaster.js";
+import SpeakerMasterCreate from "../views/SpeakerMaster/Create/SpeakerMasterCreate.js";
 
 
 const HallMasterList = lazy(() => import('../views/HallMaster/Lists/HallMasterList'));
@@ -321,19 +323,47 @@ const dashboardRoutes = [
     is_protect: true,
     roles: [Roles.ADMIN],
   },
+  // {
+  //   path: `${RouteName.EVENTS_SPEAKERS_LIST}`,
+  //   sidebarName: "Speakers ",
+  //   navbarName: "Speakers ",
+  //   icon: PeopleOutlined,
+  //   component: EventSpeaker_List,
+  //   is_sidebar: true,
+  //   is_protect: true,
+  // },
   {
-    path:`${RouteName?.EVENT_PARTICIPANTS}:id`,
+    // path: `${RouteName.SPEAKERS_LIST}`,
+     path:`${RouteName?.EVENT_PARTICIPANTS}:id`,
     component: EventParticipants,
     icon: PeopleOutlined,
     is_protect: true,
   },
   {
-    path: `${RouteName.EVENTS_SPEAKERS_LIST}`,
+    path: `${RouteName.SPEAKERS_MASTER}`,
     sidebarName: "Speakers Master",
     navbarName: "Speakers Master",
     icon: PeopleOutlined,
-    component: EventSpeaker_List,
+    component: SpeakerMaster,
     is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.SPEAKERS_MASTER_CREATE}`,
+    sidebarName: "Speakers Master",
+    navbarName: "Speakers Master",
+    icon: PeopleOutlined,
+    component: SpeakerMasterCreate,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.SPEAKERS_MASTER_UPDATE}:id`,
+    sidebarName: "Speakers Master",
+    navbarName: "Speakers Master",
+    icon: PeopleOutlined,
+    component: SpeakerMasterCreate,
+    is_sidebar: false,
     is_protect: true,
   },
   {
@@ -360,12 +390,12 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
   },
-  // {
-  //   path: `${RouteName.EVENTS_SPEAKERS_LIST}:id`,
-  //   component: EventSpeaker_List,
-  //   is_sidebar: false,
-  //   is_protect: true,
-  // },
+  {
+    path: `${RouteName.EVENTS_SPEAKERS_LIST}:id`,
+    component: EventSpeaker_List,
+    is_sidebar: false,
+    is_protect: true,
+  },
 
   {
     path: `${RouteName.EVENT_CITYGUIDE}:id`,
@@ -447,7 +477,7 @@ const dashboardRoutes = [
     is_protect: true,
   },
 
-  
+
   // {
   //   path: `${RouteName.PENDING_EVENTS}`,
   //   sidebarName: "Pending Events Approval",
@@ -901,6 +931,15 @@ const dashboardRoutes = [
     icon: PeopleOutlined,
     is_protect: true,
   },
+    {
+        path: RouteName.SPLASH_SCREEN,
+        component: SplashScreen,
+        sidebarName: "Splash Screen",
+        navbarName: "Splash Screen",
+        is_sidebar:true,
+        icon: PeopleOutlined,
+        is_protect: true,
+    },
   {
     path: RouteName.SPLASH_SCREEN_CREATE,
     component: SplashScreenCreate,
@@ -929,7 +968,7 @@ const dashboardRoutes = [
     component: VideoSponsporCreate,
     is_protect: true,
   }
-  
+
 ];
 
 export default dashboardRoutes;

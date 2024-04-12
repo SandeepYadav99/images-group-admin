@@ -25,20 +25,6 @@
     font-size: 0.75rem;
     font-weight: 600;
   }
-  .remove{
-    color: #ab183d;
-    text-align: center;
-    font-weight: 500;
-    font-size: .75rem;
-    cursor: pointer;
-  }
-  .imgClass {
-    width: 95%;
-    height: 500px;
-    aspect-ratio: 2/1;
-    border-radius: 10px;
-    margin: 20px 10px;
-  }
   .adharBack {
     display: flex;
     gap: 40px;
@@ -82,21 +68,20 @@
   }
   .inst {
     display: flex;
-    margin-top: -15px;
+    margin-top: 15px;
     font-size: 0.8rem;
     font-weight: 600;
     gap: 5px;
     align-items: center;
   }
-  .checkbo {
-    font-size: 0.8rem !important;
+  .checkbo{
+    font-size: .8rem !important
   }
-  .lowerWrap {
+  .lowerWrap{
     flex: 1;
   }
-  .cont {
+  .cont{
     display: flex;
     gap: 10px;
     align-items: center;
   }
-  

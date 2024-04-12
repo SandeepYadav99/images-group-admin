@@ -11,12 +11,17 @@ import {
 } from "../../../services/EventBanner.service";
 import { useMemo } from "react";
 import { validateUrl } from "../../../libs/RegexUtils";
+import {
+  serviceCreateSplashScreen,
+  serviceGetSplashScreenDetails,
+  serviceUpdateSplashScreen,
+} from "../../../services/SplashScreen.service";
 
 function useSplashScreenCreateHook({ location }) {
   const initialForm = {
-     priority: "",
-    type: "",
-    image: null,
+    name: "",
+    event_id: "",
+    video: null,
     link: "",
     status: true,
   };
@@ -29,21 +34,26 @@ function useSplashScreenCreateHook({ location }) {
   const selectedEventId = useMemo(() => {
     return location?.state?.eventId;
   }, [location]);
-
+  const [selectVideos, setSelectVideos] = useState([]);
+console.log(selectVideos, "Videos")
+  const renderVideo = (videos) => {
+    console.log(videos, "Videos")
+    setSelectVideos([...videos]);
+  };
   useEffect(() => {
     if (id) {
-      serviceGetEventBannerDetails({ id: id }).then((res) => {
+      serviceGetSplashScreenDetails({ id: id }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
           setForm({
             ...form,
             id: id,
-            priority: data?.priority,
-            type: data?.type,
+            name: data?.name,
+
             link: data?.link,
-            status: data?.status === "ACTIVE" ? true : false,
+            status: data?.status === "ACTIVE" ? "ACTIVE" : "INACTIVE",
           });
-          setImage(data?.image);
+          setImage(data?.video);
         } else {
           SnackbarUtils.error(res?.message);
           historyUtils.goBack();
@@ -54,14 +64,14 @@ function useSplashScreenCreateHook({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["type"];
+    let required = ["link", "name"];
 
     if (!id) {
-      required.push("image");
+      required.push("video");
     }
-    if (!image) {
-      required.push("image");
-    }
+    // if (!image) {
+    //   required.push("image");
+    // }
 
     required.forEach((val) => {
       if (
@@ -77,7 +87,7 @@ function useSplashScreenCreateHook({ location }) {
     }
 
     Object.keys(errors).forEach((key) => {
-      if (!errors[key] ) {
+      if (!errors[key]) {
         delete errors[key];
       }
     });
@@ -99,10 +109,6 @@ function useSplashScreenCreateHook({ location }) {
       const t = { ...form };
       if (fieldName === "name") {
         t[fieldName] = text;
-      } else if (fieldName === "priority") {
-        if (text >= 0) {
-          t[fieldName] = text;
-        }
       } else {
         t[fieldName] = text;
       }
@@ -111,35 +117,55 @@ function useSplashScreenCreateHook({ location }) {
     },
     [removeError, form, setForm]
   );
-
+  console.log(form, "FORM");
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
-      Object.keys(form).forEach((key) => {
-        LogUtils.log("key", key);
-        if (key !== "image") {
-          if (key === "status") {
-            fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-          } else {
-            fd.append(key, form[key]);
-          }
+
+      console.log(form, "Key");
+      // Object.keys(form).forEach((key) => {
+      //   LogUtils.log("key", key);
+      //   if (key !== "image") {
+      //     if (key === "status") {
+      //       fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+      //     } else {
+      //       fd.append(key, form[key]);
+      //     }
+      //   }
+      // });
+
+      const SPEAKER_KEY = {
+        name: "name",
+        // video: "video",
+        link: "link",
+      
+        // status: "status",
+      };
+      for (const key in form) {
+        if (SPEAKER_KEY.hasOwnProperty(key)) {
+          fd.append(SPEAKER_KEY[key], form[key]);
         }
-      });
-      if (form?.image) {
-        fd.append("image", form?.image);
       }
-      if (selectedEventId) {
-        fd.append("event_id", selectedEventId);
+      fd.append("event_id", "65029c5bdf6918136df27e51")
+      if (form?.status) {
+        fd.append("status", form?.status ? "ACTIVE" : "INACTIVE");
       }
+      if (form?.video) {
+        fd.append("video", form?.video);
+      }
+
+      // if (selectedEventId) {
+      //   fd.append("event_id", selectedEventId);
+      // }
 
       let req;
       if (id) {
-        req = serviceUpdateEventBanner(fd);
+        req = serviceUpdateSplashScreen;
       } else {
-        req = serviceCreateEventBanner(fd);
+        req = serviceCreateSplashScreen;
       }
-      req.then((res) => {
+      req(fd).then((res) => {
         if (!res.error) {
           historyUtils.goBack();
         } else {
@@ -165,10 +191,10 @@ function useSplashScreenCreateHook({ location }) {
       LogUtils.log("errors==>", errors);
       if (Object.keys(errors)?.length > 0) {
         setErrorData(errors);
-        return true;
+        // return true;
       }
       console.log("yha");
-      submitToServer(status);
+      submitToServer();
     },
     [checkFormValidation, setErrorData, form, submitToServer, selectedEventId]
   );
@@ -185,7 +211,9 @@ function useSplashScreenCreateHook({ location }) {
     image,
     setImage,
     isLinkDisabled,
-    setIsLinkDisabled
+    setIsLinkDisabled,
+    renderVideo,
+    selectVideos,
   };
 }
 

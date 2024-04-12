@@ -32,7 +32,7 @@ const SplashScreen = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.event_banner);
+  } = useSelector((state) => state.SplashScreen);
 
   const renderStatus = useCallback((status) => {
     return (
@@ -47,12 +47,13 @@ const SplashScreen = ({}) => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
-          <div className={styles.firstCellInfo}>
-            <div>
-              <img src={obj?.image} />
-            </div>
-          
-          </div>
+          <video
+            crossOrigin="anonymous"
+            src={obj?.video}
+            className={styles.video}
+           
+           
+          />
         </div>
       );
     }
@@ -65,17 +66,13 @@ const SplashScreen = ({}) => {
         key: "file_name",
         label: "FILE NAME",
         sortable: false,
-        render: (temp, all) => <div>{renderFirstCell(all)}</div>,
+        render: (temp, all) => <div>{all?.name}</div>,
       },
       {
         key: "video",
         label: "Video",
         sortable: false,
-        render: (value, all) => (
-          <div>
-            {all.type}
-          </div>
-        ),
+        render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
       {
         key: "link",
