@@ -33,8 +33,10 @@ function VideoSponsporCreate({ location }) {
     handleCountryCodeChange,
     selectVideos,
     renderVideo,
+    videoData,
   } = useVideoCreate({ location });
 
+  
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -83,6 +85,8 @@ function VideoSponsporCreate({ location }) {
               error={errorData?.video}
               value={form?.video}
               placeholder={"Upload Video"}
+              default_image={videoData ? videoData : null}
+
               onChange={(file) => {
                 if (file) {
                   changeTextData(file, "video");
@@ -94,6 +98,9 @@ function VideoSponsporCreate({ location }) {
                 }
               }}
             />
+            {
+              videoData ? <a href={videoData} target="_blank">Preview</a> :""
+            }
           </div>
         </div>
       </div>
@@ -120,7 +127,7 @@ function VideoSponsporCreate({ location }) {
             disabled={isSubmitting ? true : false}
             type={"button"}
             className={styles.createBtn}
-            onClick={() => handleSubmit("PENDING")}
+            onClick={handleSubmit}
           >
             {isSubmitting ? (
               <CircularProgress color="success" size="20px" />

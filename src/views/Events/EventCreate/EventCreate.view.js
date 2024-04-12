@@ -357,27 +357,27 @@ function EventCreate() {
             name="od1"
             label="Upload Banner for LinkdIn "
             accept={"application/pdf,application/msword,image/*"}
-            error={errorData?.linkdin_banner}
-            value={form?.linkdin_banner}
+            error={errorData?.linkedin_image}
+            value={form?.linkedin_image}
             placeholder={"Upload Banner for LinkdIn"}
             onChange={(file) => {
               if (file) {
-                changeTextData(file, "linkdin_banner");
+                changeTextData(file, "linkedin_image");
               }
             }}
           />
         </div>
         <div className={"formGroup"}>
           <CustomTextField
-            isError={errorData?.linkdin_content}
-            errorText={errorData?.linkdin_content}
+            isError={errorData?.linkedin_content}
+            errorText={errorData?.linkedin_content}
             label={"LinkdIn Content"}
-            value={form?.linkdin_content}
+            value={form?.linkedin_content}
             onTextChange={(text) => {
-              changeTextData(text, "linkdin_content");
+              changeTextData(text, "linkedin_content");
             }}
             onBlur={() => {
-              onBlurHandler("linkdin_content");
+              onBlurHandler("linkedin_content");
             }}
           />
         </div>
@@ -697,10 +697,10 @@ function EventCreate() {
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
-                changeFeatureData(!feature?.sponspor_video, "sponspor_video");
+                changeFeatureData(!feature?.sponsor_video, "sponsor_video");
               }}
-              label={"Sponspor Video"}
-              checked={feature?.sponspor_video}
+              label={"Sponsor Video"}
+              checked={feature?.sponsor_video}
             />
           </div>
           <div className={"formGroup"}></div>

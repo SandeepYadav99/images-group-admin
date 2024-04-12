@@ -896,11 +896,8 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.SPONSPOR_VIDEO}`,
+    path: `${RouteName.SPONSPOR_VIDEO}:id`,
     component: SponsporListView,
-    sidebarName: "Sponspor Video",
-    navbarName: "Sponspor Video",
-    is_sidebar:true,
     icon: PeopleOutlined,
     is_protect: true,
   },
@@ -928,7 +925,7 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.SPONSPOR_VIDE_CREATE}:id`,
+    path: `${RouteName.SPONSPOR_VIDEO_UPDATE}:id`,
     component: VideoSponsporCreate,
     is_protect: true,
   }

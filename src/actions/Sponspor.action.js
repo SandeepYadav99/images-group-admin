@@ -26,12 +26,14 @@ export const DELETE_ITEM = "DELETE_ADMIN_USER";
 
 export function actionFetchSponsporVideo(
   index = 1,
+  event_id,
   sorting = {},
   filter = {},
   shouldReset = false
 ) {
   const request = serviceGetSponsporVideo({
     index,
+    event_id,
     row: sorting.row,
     order: sorting.order,
     ...filter,

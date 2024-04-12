@@ -166,6 +166,7 @@ export default {
   SPLASH_SCREEN_UPDATE:"/splash/screen/update",
   EVENT_PARTICIPANTS:"/events/participants",
   EVENT_PARTICIPANTS:"/events/participants/",
-  SPONSPOR_VIDEO:'/sponspor/list',
+  SPONSPOR_VIDEO:'/sponspor/list/',
   SPONSPOR_VIDE_CREATE:'/sponspor/create/',
+  SPONSPOR_VIDEO_UPDATE:'/sponspor/update/'
 };

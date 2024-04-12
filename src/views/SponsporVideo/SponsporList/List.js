@@ -32,7 +32,7 @@ const SponsporList = ({}) => {
     isCalling,
     configFilter,
     warehouses,
-    handleToggleSidePannel,
+    handleUpdate,
   } = useSponsporList({});
 
   const {
@@ -40,7 +40,7 @@ const SponsporList = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.App_User);
+  } = useSelector((state) => state.sponspor_video);
 
   const UpperInfo = useCallback((obj) => {
     if (obj) {
@@ -68,11 +68,6 @@ const SponsporList = ({}) => {
               justifyItems: "center",
             }}
           >
-            <img
-              src={all?.image}
-              alt="image"
-              style={{ height: "30px", width: "30px", borderRadius: "100%" }}
-            />
             {all?.name}
           </div>
         ),
@@ -88,22 +83,22 @@ const SponsporList = ({}) => {
         key: "status",
         label: "status",
         sortable: true,
-        render: (temp, all) => <div>{all.contact}</div>,
+        render: (temp, all) => <div>{<StatusPill status={all.status} />}</div>,
       },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
           <div>
-            <Link to={RouteName.SPONSPOR_VIDE_CREATE + all.id}>
+      
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
                 disabled={isCalling}
+                onClick={()=>handleUpdate(all)}
               >
               <Edit fontSize={"small"} />
               </IconButton>
-            </Link>
           </div>
         ),
       },
@@ -146,7 +141,7 @@ const SponsporList = ({}) => {
           </div>
           <div>
             <ButtonBase
-              onClick={handleToggleSidePannel}
+              onClick={handleCreate}
               className={"createBtn"}
             >
               Create

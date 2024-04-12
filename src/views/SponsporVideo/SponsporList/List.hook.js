@@ -9,6 +9,7 @@ import {
 } from "../../../actions/Sponspor.action";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import { useParams } from "react-router-dom";
 
 const useSponsporList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -23,6 +24,8 @@ const useSponsporList = ({}) => {
     query_data: queryData,
   } = useSelector((state) => state.sponspor_video);
 
+  const params = useParams();
+
   useEffect(() => {
     // dispatch(actionFetchSponsporVideo());
   }, []);
@@ -31,6 +34,7 @@ const useSponsporList = ({}) => {
     dispatch(
       actionFetchSponsporVideo(
         1,
+        params?.id,
         {},
         {
           query: isMountRef.current ? query : null,
@@ -149,8 +153,17 @@ const useSponsporList = ({}) => {
   }, []);
 
   const handleCreate = useCallback(() => {
-    historyUtils.push(RouteName.LOCATIONS_CREATE);
-  }, []);
+    historyUtils.push(`${RouteName.SPONSPOR_VIDE_CREATE}`, {
+      eventId: params?.id,
+    });
+  }, []); 
+
+
+  const handleUpdate = useCallback((all)=>{
+    historyUtils.push(`${RouteName.SPONSPOR_VIDEO_UPDATE}`+ all?.id, {
+      eventId: params?.id,
+    });
+  })
 
   const configFilter = useMemo(() => {
     return [
@@ -180,6 +193,7 @@ const useSponsporList = ({}) => {
     configFilter,
     handleCreate,
     handleToggleSidePannel,
+    handleUpdate
   };
 };
 

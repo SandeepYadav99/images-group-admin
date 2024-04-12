@@ -18,7 +18,7 @@ export async function serviceDeleteSponsporVideo(params) {
 }
 
 export async function serviceGetSponsporVideo(params) {
-  return await postRequest("events/sposnors/video", params);
+  return await postRequest("events/sponsors/video", params);
 }
 
 export async function serviceSponsporVideoCheck(params) {

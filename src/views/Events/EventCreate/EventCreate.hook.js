@@ -66,8 +66,8 @@ function useEventCreate() {
     all_chapters: false,
     chapters: false,
     accessible_chapter_ids: [],
-    linkdin_banner: "",
-    linkdin_content: "",
+    linkedin_image: "",
+    linkedin_content: "",
     background_image: "",
   };
   const featureKey = {
@@ -77,7 +77,7 @@ function useEventCreate() {
     exhibitor: false,
     testimonial: false,
     event_organizing_committee: false,
-    sponspor_video:true,
+    sponsor_video:true,
     event_speakers: true,
     event_gallery: false,
     analytics: true,

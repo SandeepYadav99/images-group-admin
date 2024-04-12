@@ -374,7 +374,7 @@ export const EventData = [
     url: RouteName.EVENT_TESTIMONIAL,
   },
   {
-    key: "sponspor_video",
+    key: "sponsor_video",
     name: "Sponspor Video",
     image: event,
     url: RouteName.SPONSPOR_VIDEO,
