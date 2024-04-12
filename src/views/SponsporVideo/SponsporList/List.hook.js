@@ -26,9 +26,7 @@ const useSponsporList = ({}) => {
 
   const params = useParams();
 
-  useEffect(() => {
-    // dispatch(actionFetchSponsporVideo());
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     dispatch(
@@ -66,15 +64,12 @@ const useSponsporList = ({}) => {
 
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageSponsporVideoRequests(1));
       dispatch(
-        actionFetchSponsporVideo(1, sortingData, {
+        actionFetchSponsporVideo(1, params?.id, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
       );
-      // dispatch(actionFetchSponsporVideo(1, sortingData))
     },
     [sortingData, query, queryData]
   );
@@ -97,11 +92,11 @@ const useSponsporList = ({}) => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      console.log(`handleSortOrderChange key:${row} order: ${order}`);
       dispatch(actionSetPageSponsporVideo(1));
       dispatch(
         actionFetchSponsporVideo(
           1,
+          params?.id,
           { row, order },
           {
             query: query,
@@ -156,14 +151,13 @@ const useSponsporList = ({}) => {
     historyUtils.push(`${RouteName.SPONSPOR_VIDE_CREATE}`, {
       eventId: params?.id,
     });
-  }, []); 
+  }, []);
 
-
-  const handleUpdate = useCallback((all)=>{
-    historyUtils.push(`${RouteName.SPONSPOR_VIDEO_UPDATE}`+ all?.id, {
+  const handleUpdate = useCallback((all) => {
+    historyUtils.push(`${RouteName.SPONSPOR_VIDEO_UPDATE}` + all?.id, {
       eventId: params?.id,
     });
-  })
+  });
 
   const configFilter = useMemo(() => {
     return [
@@ -193,7 +187,7 @@ const useSponsporList = ({}) => {
     configFilter,
     handleCreate,
     handleToggleSidePannel,
-    handleUpdate
+    handleUpdate,
   };
 };
 
