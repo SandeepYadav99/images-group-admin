@@ -165,4 +165,9 @@ export default {
   EVENT_PARTICIPANTS: "/events/participants/",
   SPONSPOR_VIDEO: "/sponspor/list",
   SPONSPOR_VIDE_CREATE: "/sponspor/create/",
+
+  MENU_GRAPHIC:"/graphic",
+  MENU_GRAPHIC_CREATE:"/graphic/create",
+  MENU_GRAPHIC_UPDATE:"/graphic/update",
+
 };

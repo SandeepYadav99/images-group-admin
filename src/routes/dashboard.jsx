@@ -60,6 +60,9 @@ import SplashScreen from "../views/Splashscreen/List/SplashScreen.js";
 import SplashScreenCreate from "../views/Splashscreen/Create/SplashScreenCreate.js";
 import SpeakerMaster from "../views/SpeakerMaster/List/SpeakerMaster.js";
 import SpeakerMasterCreate from "../views/SpeakerMaster/Create/SpeakerMasterCreate.js";
+import MenuGraphic from "../views/MenuGraphic/List/MenuGraphic.js";
+import MenuGraphicCreate from "../views/MenuGraphic/Create/MenuGraphicCreate.js";
+
 
 
 const HallMasterList = lazy(() => import('../views/HallMaster/Lists/HallMasterList'));
@@ -354,6 +357,33 @@ const dashboardRoutes = [
     navbarName: "Speakers Master",
     icon: PeopleOutlined,
     component: SpeakerMasterCreate,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.MENU_GRAPHIC}`,
+    sidebarName: "Menu Graphic",
+    navbarName: "Menu Graphic",
+    icon: PeopleOutlined,
+    component: MenuGraphic,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.MENU_GRAPHIC_CREATE}`,
+    sidebarName: "Menu Graphic",
+    navbarName: "Menu Graphic",
+    icon: PeopleOutlined,
+    component: MenuGraphicCreate,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.MENU_GRAPHIC_UPDATE}`,
+    sidebarName: "Menu Graphic",
+    navbarName: "Menu Graphic",
+    icon: PeopleOutlined,
+    component: MenuGraphicCreate,
     is_sidebar: false,
     is_protect: true,
   },

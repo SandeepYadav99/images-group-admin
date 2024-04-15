@@ -78,14 +78,15 @@ const useUpdateStatusPopupHook = ({ isOpen, handleToggle, candidateId }) => {
     if (!isSubmitting) {
       setIsSubmitting(true);
 
-      const fd = new FormData();
-      fd.append("id", candidateId);
-      fd.append("status", form?.status);
-      fd.append("name",data?.data?.details?.name);
-      fd.append("email",data?.data?.details?.email);
-      fd.append("type",data?.data?.details?.type);
-      fd.append("contact",data?.data?.details?.contact);
-      serviceUpdateUserStatus(fd).then((res) => {
+      // const fd = new FormData();
+      // fd.append("id", candidateId);
+      // fd.append("status", form?.status);
+     
+      const updatedData={
+        id:candidateId,
+        status:form?.status
+      }
+      serviceUpdateUserStatus(updatedData).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Accepted");
           handleToggle();
