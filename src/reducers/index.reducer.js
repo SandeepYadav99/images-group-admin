@@ -56,7 +56,8 @@ import CalendarReducer from "./CalendarCount.reducer";
 import HallMasterReducer from "./HallMaster.reducer";
 import SplashScreenReducer from "./SplashScreen.reducer";
 import SpeakerMasterReducer from "./SpeakerMaster.reducer";
-import SponsporVideoReducer from "./SponsporVideo.reducer"
+import SponsporVideoReducer from "./SponsporVideo.reducer";
+import EventHighLight from "./EventHighLight.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -117,7 +118,8 @@ const rootReducer = combineReducers({
   hallMaster:HallMasterReducer,
   SplashScreen:SplashScreenReducer,
   SpeakerMaster:SpeakerMasterReducer,
-  sponspor_video:SponsporVideoReducer
+  sponspor_video:SponsporVideoReducer,
+  event_highlight:EventHighLight
 });
 
 export default rootReducer;

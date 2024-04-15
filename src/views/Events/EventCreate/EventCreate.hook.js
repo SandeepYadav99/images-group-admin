@@ -69,6 +69,8 @@ function useEventCreate() {
     linkedin_image: "",
     linkedin_content: "",
     background_image: "",
+    background_image_banner:"",
+
   };
   const featureKey = {
     event_participants: true,

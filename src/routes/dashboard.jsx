@@ -100,7 +100,11 @@ const EventParticipants = lazy(()=>import("../views/EventParticipants/List/Event
 
 const SponsporListView = lazy(()=>import("../views/SponsporVideo/SponsporList/List.js"))
 
-const VideoSponsporCreate = lazy(()=>import("../views/SponsporVideo/SponsporCreate/Create.js"))
+const VideoSponsporCreate = lazy(()=>import("../views/SponsporVideo/SponsporCreate/Create.js"));
+
+const EventHighLightsList = lazy(()=>import("../views/EventHighlights/EventHightList/List.js"));
+
+const EventHighLightCreate = lazy(()=>import("../views/EventHighlights/EventHighlightCreate/Create.js"))
 
 
 const Roles = Constants.ROLES;
@@ -967,7 +971,21 @@ const dashboardRoutes = [
     path: `${RouteName.SPONSPOR_VIDEO_UPDATE}:id`,
     component: VideoSponsporCreate,
     is_protect: true,
-  }
+  },
+  {
+   path:`${RouteName?.EVENT_HIGHLIGHTS}`,
+   component: EventHighLightsList,
+   sidebarName: "Event Highlights",
+   navbarName: "Event Highlights",
+   is_sidebar:true,
+   icon: PeopleOutlined,
+   is_protect: true,
+  },
+  {
+    path:`${RouteName?.EVENT_HIGHLIGHTS_CREATE}`,
+    component: EventHighLightCreate,
+    is_protect: true,
+   }
 
 ];
 

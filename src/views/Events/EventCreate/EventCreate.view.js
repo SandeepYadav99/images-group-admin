@@ -322,6 +322,13 @@ function EventCreate() {
             </div>
           </div>
         </div>
+      </div>
+      <div className={"plainPaper"}>
+        <div className={"headerFlex"}>
+          <h4 className={"infoTitle"}>
+            <div className={"heading"}>App Banner</div>
+          </h4>
+        </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <File
@@ -337,6 +344,26 @@ function EventCreate() {
               onChange={(file) => {
                 if (file) {
                   changeTextData(file, "background_image");
+                }
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <File
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="od1"
+              label="Background Image Banner"
+              accept={"application/pdf,application/msword,image/*"}
+              error={errorData?.background_image_banner}
+              value={form?.background_image_banner}
+              placeholder={"Background Image Banner"}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "background_image_banner");
                 }
               }}
             />

@@ -130,7 +130,7 @@ export default {
 
   KNOWLEDGE_CENTER: "/knowledge-center",
   KNOWLEDGE_CENTER_CREATE: "/knowledge-center/create",
-  KNOWLEDGE_CENTER_UPDATE: "/knowledge-center/update",
+  KNOWLEDGE_CENTER_UPDATE: "/knowledge-center/update/",
 
   /*Stamp Center is here*/
   KNOWLEDGE_CENTER_LIST: "/knowledge-center/list",
@@ -165,5 +165,9 @@ export default {
   EVENT_PARTICIPANTS: "/events/participants/",
   SPONSPOR_VIDEO: "/sponspor/list/",
   SPONSPOR_VIDE_CREATE: "/sponspor/create/",
-  SPONSPOR_VIDEO_UPDATE:"/sponspor/update/"
+  SPONSPOR_VIDEO_UPDATE:"/sponspor/update/",
+  EVENT_HIGHLIGHTS:"/event/highlights",
+  EVENT_HIGHLIGHTS_CREATE:"/event/highlights/create",
+  EVENT_HIGHLIGHTS_UPDATE:"/event/highlights/update",
+
 };
