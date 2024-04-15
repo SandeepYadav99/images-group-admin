@@ -48,6 +48,13 @@ const EventHighLight = ({}) => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
+          <a href={obj?.image} target="_blank">
+            <img
+              src={obj?.image}
+              alt="imagetext"
+              style={{ height: "50px", width: "50px" }}
+            />
+          </a>
           <div className={styles.productName}>{obj?.name}</div>
         </div>
       );
