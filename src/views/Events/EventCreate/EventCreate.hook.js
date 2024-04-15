@@ -69,7 +69,7 @@ function useEventCreate() {
     linkedin_image: "",
     linkedin_content: "",
     background_image: "",
-    login_banner:"",
+    login_banner:null,
 
   };
   const featureKey = {
