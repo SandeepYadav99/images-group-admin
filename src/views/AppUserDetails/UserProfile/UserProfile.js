@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 // import AditnalDetail from "./ProfileDetails/AditinalDetail.js";
 import { Sync } from "@material-ui/icons";
+import AditnalDetail from "./ProfileDetails/AditinalDetail.js";
 
 const UserProfile = () => {
   const params = useParams();
@@ -29,32 +30,33 @@ const UserProfile = () => {
           <div className={styles.newLine} />{" "}
         </div>
       </div>
-       <div className={styles.topNavBar}>
-        {/* <TopNavBar data={0} /> */}
-      </div> 
+      <div className={styles.topNavBar}>{/* <TopNavBar data={0} /> */}</div>
       <div>
-      <div>
+        <div>
+          <Paper
+            className={styles.paperContainer}
+            style={{ height: "auto", padding: "20px" }}
+          >
+            <div className={styles.header_paper}>
+              <p>
+                <b>Personal Information</b>
+              </p>
+              <ButtonBase className={styles.update_status}>
+                Update Status <Sync />
+              </ButtonBase>
+            </div>
+            <UserProfileView id={params?.id} />
+          </Paper>
+        </div>
+        <br />
         <Paper
           className={styles.paperContainer}
           style={{ height: "auto", padding: "20px" }}
         >
-          <div className={styles.header_paper}>
-            <p>
-              <b>Personal Information</b>
-            </p>
-            <ButtonBase className={styles.update_status} >
-              Update Status  <Sync />
-            </ButtonBase>
-          </div>
-          <UserProfileView id={params?.id} />
-        </Paper>
-      </div>
-<br/>
-        <Paper className={styles.paperContainer}  style={{ height: "auto", padding: "20px" }}>
           <div>
             <b>Additional Details</b>
           </div>
-          {/* <AditnalDetail id={params?.id} /> */}
+         <AditnalDetail id={params?.id} /> 
         </Paper>
       </div>
     </div>
