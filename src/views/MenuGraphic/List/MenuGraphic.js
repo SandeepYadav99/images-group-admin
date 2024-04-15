@@ -19,7 +19,7 @@ const MenuGraphic = ({}) => {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleEdit,
+  
     handleSearchValueChange,
     handleViewDetails,
     isCalling,
@@ -97,7 +97,7 @@ const MenuGraphic = ({}) => {
         ),
       },
     ];
-  }, [renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderFirstCell, handleViewDetails,  isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

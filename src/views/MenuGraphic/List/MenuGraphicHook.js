@@ -49,26 +49,14 @@ const useMenuGraphicHook = ({}) => {
   }, []);
 
   const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
+   
     dispatch(actionSetPageInfoCenterList(type));
   }, []);
 
-  const handleDataSave = useCallback(
-    (data, type) => {
-      // this.props.actionChangeStatus({...data, type: type});
-      if (type == "CREATE") {
-        dispatch(actionCreateInfoCenterList(data));
-      } else {
-        dispatch(actionUpdateInfoCenterList(data));
-      }
-      setEditData(null);
-    },
-    [setEditData]
-  );
 
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
+     
       // dispatch(actionSetPageEventSpeakerRequests(1));
       dispatch(
         actionFetchInfoCenterList(1, sortingData, {
@@ -127,12 +115,7 @@ const useMenuGraphicHook = ({}) => {
     [setEditData]
   );
 
-  const handleEdit = useCallback(
-    (data) => {
-      setEditData(data);
-    },
-    [setEditData]
-  );
+ 
 
   const handleEditFed = useCallback((data) => {
     // LogUtils.log("data", data);
@@ -149,8 +132,7 @@ const useMenuGraphicHook = ({}) => {
   );
 
   const handleViewUpdate = useCallback((data) => {
-    console.log(data)
-    LogUtils.log("data", data);
+  
     historyUtils.push(`${RouteName.INFOR_CENTER_UPDATE}${data?.id}`,{event_id:id}); //+data.id
   }, []);
 
@@ -167,13 +149,13 @@ const useMenuGraphicHook = ({}) => {
 
   return {
     handlePageChange,
-    handleDataSave,
+   
     handleFilterDataChange,
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
     handleDelete,
-    handleEdit,
+  
     isCalling,
     editData,
     configFilter,
