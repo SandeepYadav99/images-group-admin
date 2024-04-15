@@ -36,12 +36,13 @@ function useVideoCreate({ location }) {
   });
   const [countryCode, setCountryCode] = useState("");
   const [selectVideos, setSelectVideos] = useState([]);
-  const [videoData,setVideoData] = useState()
+  const [videoData,setVideoData] = useState('')
 
   const renderVideo = (videos) => {
     setSelectVideos([...videos]);
   };
 
+  
   const handleCountryCodeChange = (e) => {
     setCountryCode(e.target.value);
   };
@@ -80,7 +81,11 @@ function useVideoCreate({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "video"];
+    let required = ["name"];
+
+    if(!id){
+      required.push(...["video"])
+    }
 
     required.forEach((val) => {
       if (

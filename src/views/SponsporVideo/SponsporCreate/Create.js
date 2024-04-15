@@ -85,16 +85,15 @@ function VideoSponsporCreate({ location }) {
               error={errorData?.video}
               value={form?.video}
               placeholder={"Upload Video"}
-              default_image={videoData ? videoData : null}
 
               onChange={(file) => {
                 if (file) {
                   changeTextData(file, "video");
                 }
               }}
-              DefChange={(video) => {
-                if (video) {
-                  renderVideo(video);
+              DefChange={(videoData) => {
+                if (videoData) {
+                  renderVideo(videoData);
                 }
               }}
             />

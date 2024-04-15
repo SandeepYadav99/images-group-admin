@@ -125,7 +125,6 @@ function useEventCreate() {
       serviceGetEventListDetails({ id: id }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
-          console.log("data", data);
           const { accessible_to, features, theme, ...rest } = data;
           const fd = {
             all_event_participants: data?.accessible_to?.all_event_participants,
@@ -225,7 +224,7 @@ function useEventCreate() {
       "is_gallery_public",
     ];
     if (!id) {
-      required.push(...["logo", "thumbnail", "banner"]);
+      required.push(...["logo", "thumbnail", "banner","background_image","linkedin_image"]);
     }
     required.forEach((val) => {
       if (

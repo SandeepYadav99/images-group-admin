@@ -113,7 +113,7 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
       const UniqueValue = [...new Set(alumId)];
       const uniqueObj =
         UniqueValue?.length > 0
-          ? UniqueValue?.map((item) => ({ album_id: item }))
+          ? UniqueValue?.map((item) => ({ speaker_id: item }))
           : [];
 
       serviceUpdateEventGallery({
