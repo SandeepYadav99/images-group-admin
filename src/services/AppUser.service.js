@@ -53,3 +53,6 @@ export async function serviceFeedCommentByPost(params){
 export async function serviceFeedDetailsComment(params){
   return await postRequest("feeds/detail",params)
 }
+export async function serviceUpdateUserStatus(params){
+  return await formDataRequest("users/update",params)
+}

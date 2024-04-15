@@ -6,14 +6,23 @@ import history from "../../../libs/history.utils";
 import { ButtonBase } from "@material-ui/core";
 import UserProfileView from "./ProfileDetails/UserProfileView.js";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 // import AditnalDetail from "./ProfileDetails/AditinalDetail.js";
 import { Sync } from "@material-ui/icons";
 import AditnalDetail from "./ProfileDetails/AditinalDetail.js";
+import UpdateStatusPopup from "./components/UpdateStatusPopup.js";
 
 const UserProfile = () => {
   const params = useParams();
+  const [isAcceptPopUp, setIsAcceptPopUp] = useState(false);
 
+  const toggleAcceptDialog = useCallback(
+    (obj) => {
+      setIsAcceptPopUp((e) => !e);
+      // setDataValue({ ...obj });
+    },
+    [isAcceptPopUp, params?.id]
+  );
   useEffect(() => {}, [params?.id]);
 
   return (
@@ -41,7 +50,7 @@ const UserProfile = () => {
               <p>
                 <b>Personal Information</b>
               </p>
-              <ButtonBase className={styles.update_status}>
+              <ButtonBase className={styles.update_status} onClick={toggleAcceptDialog}>
                 Update Status <Sync />
               </ButtonBase>
             </div>
@@ -56,9 +65,14 @@ const UserProfile = () => {
           <div>
             <b>Additional Details</b>
           </div>
-         <AditnalDetail id={params?.id} /> 
+          <AditnalDetail id={params?.id} />
         </Paper>
       </div>
+      <UpdateStatusPopup
+        isOpen={isAcceptPopUp}
+        handleToggle={toggleAcceptDialog}
+        candidateId={params?.id}
+      />
     </div>
   );
 };

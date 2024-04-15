@@ -161,15 +161,19 @@ const AditnalDetail = ({ id }) => {
         <div className={styles.profile_image}>
           <div className={styles.profileDetails}>
             <span className={styles.profileTitle}>
-              <b>Participant Type:</b>
-              {value?.participant_type?.map((status) => {
-                return (
+              <b>Participant Type:</b>  
+             
+              {value?.participant_type?.length > 0 ? (
+                value.participant_type.map((status, index) => (
                   <StatusPill
+                    key={index} 
                     status={status}
                     style={getStatusPillStyle(status)}
                   />
-                );
-              })}
+                ))
+              ) : (
+                <span>N/A</span>
+              )}
             </span>
             <div></div>
             <span className={styles.profileTitle}>

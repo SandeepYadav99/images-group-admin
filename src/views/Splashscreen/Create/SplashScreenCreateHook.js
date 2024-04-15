@@ -148,6 +148,7 @@ console.log(selectVideos, "Videos")
         }
       }
       fd.append("event_id", "65029c5bdf6918136df27e51")
+      fd.append("id", id)
       if (form?.status) {
         fd.append("status", form?.status ? "ACTIVE" : "INACTIVE");
       }
