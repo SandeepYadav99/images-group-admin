@@ -5,16 +5,16 @@ import {
   } from "../libs/AxiosService.util";
   
   export async function serviceCreateEventHighLightList(params) {
-    return await formDataRequest("knowledge/center/create", params);
+    return await formDataRequest("highlights/create", params);
   }
   export async function serviceUpdateEventHighLightList(params) {
-    return await formDataRequest("knowledge/center/update", params);
+    return await formDataRequest("highlights/update", params);
   }
   export async function serviceDeleteEventHighLightList(params) {
     return await postRequest("events/delete", params);
   }
   export async function serviceGetEventHighLightListDetails(params) {
-    return await postRequest("knowledge/center/detail", params);
+    return await postRequest("highlights/detail", params);
   }
   export async function serviceGetEventHighLightBoolsDetails(params) {
     return await postRequest("events/boolstatus", params);
@@ -33,7 +33,7 @@ import {
   }
   
   export async function serviceGetEventHighLightList(params) {
-    return await postRequest("knowledge/center", params);
+    return await postRequest("highlights", params);
   }
   export async function serviceDetailsEventHighLightList(params) {
     return await postRequest("events/details", params);

@@ -11,7 +11,7 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { useParams } from "react-router";
-import { serviceDownloadCsvFile } from "../../../services/EventParticipant.service";
+import { serviceDownloadCsvFile, serviceDownloadsampleCsvFile } from "../../../services/EventParticipant.service";
 
 const useEventParticipantList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -193,6 +193,8 @@ const useEventParticipantList = ({}) => {
         window.open(data, "_blank");      }
     })
   };
+
+ 
 
   return {
     handlePageChange,

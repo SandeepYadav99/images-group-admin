@@ -985,6 +985,11 @@ const dashboardRoutes = [
     path:`${RouteName?.EVENT_HIGHLIGHTS_CREATE}`,
     component: EventHighLightCreate,
     is_protect: true,
+   },
+   {
+    path:`${RouteName?.EVENT_HIGHLIGHTS_UPDATE}:id`,
+    component: EventHighLightCreate,
+    is_protect: true,
    }
 
 ];

@@ -4,11 +4,7 @@ import { useParams } from "react-router";
 import { serviceGetList } from "../../../services/Common.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import LogUtils from "../../../libs/LogUtils";
-import {
-  serviceCreateAlbumList,
-  serviceGetAlbumDetails,
-  serviceUpdateAlbumList,
-} from "../../../services/GalleryAlbum.service";
+import {serviceCreateEventHighLightList,serviceUpdateEventHighLightList,serviceGetEventHighLightListDetails} from "../../../services/EventHighlight.services";
 import { isDate, isInvalidDateFormat } from "../../../libs/RegexUtils";
 import historyUtils from "../../../libs/history.utils";
 import constants from "../../../config/constants";
@@ -16,10 +12,9 @@ import constants from "../../../config/constants";
 const useEventHighLightCreateHook = () => {
   const initialForm = {
     name: "",
-    thumbnail: "",
+    image: "",
     link:"",
     priority:"",
-  
     status: true,
 
   };
@@ -28,16 +23,16 @@ const useEventHighLightCreateHook = () => {
   const { id } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [thumbnail, setThumbnail] = useState("");
+  const [thumbnail, setThumbnail] = useState('');
  
 
 
   useEffect(() => {
     if (id) {
-      serviceGetAlbumDetails({ id: id }).then((res) => {
+      serviceGetEventHighLightListDetails({ id: id }).then((res) => {
         if (!res.error) {
-          const data = res?.data?.details;
-          setThumbnail(data?.thumbnail);
+          const data = res?.data;
+          setThumbnail(data?.image);
           setForm({
             ...form,
             name: data?.name,
@@ -60,8 +55,7 @@ const useEventHighLightCreateHook = () => {
     const requiredFields = [
       "name",
       "priority",
-      
-      ...(id ? [] : ["thumbnail"]),
+      ...(id ? [] : ["image"]),
     ];
 
 
@@ -108,35 +102,34 @@ const useEventHighLightCreateHook = () => {
         setIsSubmitting(true);
         const fd = new FormData();
 
-       
-
-       
-
         Object.keys(form).forEach((key) => {
-         
             if (key === "status") {
               fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+            }
+            else if (key === "image"){
+              if (!id){
+                fd.append(key,form[key])
+              }
             }
              else {
               fd.append(key, form[key]);
             }
         });
 
-        if (form?.thumbnail) {
-          fd.append("thumbnail", form?.thumbnail);
+        if (id && form?.image) {
+          fd.append("image", form?.image ? form?.image : thumbnail);
         }
 
         if (id) {
           fd.append("id", id);
         }
-
-       
+ 
 
         let req;
         if (id) {
-          req = serviceUpdateAlbumList(fd);
+          req = serviceUpdateEventHighLightList(fd);
         } else {
-          req = serviceCreateAlbumList(fd);
+          req = serviceCreateEventHighLightList(fd);
         }
 
         req.then((res) => {

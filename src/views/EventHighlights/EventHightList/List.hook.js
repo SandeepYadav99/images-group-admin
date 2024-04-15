@@ -122,7 +122,7 @@ const useEventHighLight = ({ location }) => {
   }, []);
 
   const handleUpdate = useCallback((data) => {
-    historyUtils.push(`${RouteName.KNOWLEDGE_CENTER_UPDATE}/${data?.id}`);
+    historyUtils.push(`${RouteName.EVENT_HIGHLIGHTS_UPDATE}${data?.id}`);
   }, []);
 
   const handleCreateFed = useCallback((data) => {

@@ -168,6 +168,6 @@ export default {
   SPONSPOR_VIDEO_UPDATE:"/sponspor/update/",
   EVENT_HIGHLIGHTS:"/event/highlights",
   EVENT_HIGHLIGHTS_CREATE:"/event/highlights/create",
-  EVENT_HIGHLIGHTS_UPDATE:"/event/highlights/update",
+  EVENT_HIGHLIGHTS_UPDATE:"/event/highlights/update/",
 
 };

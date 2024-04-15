@@ -108,9 +108,7 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
         onClose={() => {}}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        // classes={{paper: classes.dialog}}
       >
-        {/*<DialogTitle id="alert-dialog-title">*/}
         <div className={"flex"}>
           <div className={styles.upperFlex}>Import CSV</div>
           <ButtonBase
@@ -120,7 +118,6 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
             <Close />
           </ButtonBase>
         </div>
-        {/*</DialogTitle>*/}
         <DialogContent>
           <CustomSelectField
             isError={errorData?.participant_type}
