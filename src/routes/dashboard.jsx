@@ -850,7 +850,7 @@ const dashboardRoutes = [
     component: ExhibitorList,
     sidebarName: "Exhibitor",
     navbarName: "Exhibitor",
-    is_sidebar:true,
+    is_sidebar:false,
     icon: PeopleOutlined,
     is_protect: true,
   },
