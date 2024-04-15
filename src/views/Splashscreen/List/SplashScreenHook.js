@@ -153,24 +153,14 @@ const useSplashScreenHook = ({}) => {
   const configFilter = useMemo(() => {
     return [
       {
-        label: "Location",
-        name: "location_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.LOCATIONS,
-      },
-      {
-        label: "Claim Category",
-        name: "category",
+        label: "Status",
+        name: "status",
         type: "select",
-        fields: ["PART B", "PART E"],
+        
+        fields:['ACTIVE', 'INACTIVE'],
       },
-      {
-        label: "Financial year",
-        name: "fy_year",
-        type: "select",
-        fields: ["2023-2024"],
-      },
+     
+   
     ];
   }, [listData]);
 

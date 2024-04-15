@@ -12,6 +12,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useSplashScreenHook from "./SplashScreenHook";
+import ListHeader from "../../../components/ListPageHeader/ListHeader";
 
 const SplashScreen = ({}) => {
   const {
@@ -51,13 +52,18 @@ const SplashScreen = ({}) => {
             crossOrigin="anonymous"
             src={obj?.video}
             className={styles.video}
-           
-           
           />
         </div>
       );
     }
     return null;
+  }, []);
+
+  const formatUrl = useCallback((url) => {
+    if (url && !url.startsWith("http://") && !url.startsWith("https://")) {
+      return "http://" + url;
+    }
+    return url;
   }, []);
 
   const tableStructure = useMemo(() => {
@@ -81,9 +87,10 @@ const SplashScreen = ({}) => {
         render: (temp, all) => (
           <div>
             <a
-              href={all?.link}
+              href={formatUrl(all?.link)}
               target="_blank"
               className={styles.hyperlinkText}
+              rel="noreferrer"
             >
               {all?.link}
             </a>
@@ -117,7 +124,7 @@ const SplashScreen = ({}) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleEdit, isCalling, formatUrl]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -147,47 +154,28 @@ const SplashScreen = ({}) => {
   ]);
 
   return (
-    <div>
+    <>
       <PageBox>
-        <div className={styles.headerContainer}>
-          <div>
-            <ButtonBase onClick={() => history.goBack()}>
-              <ArrowBackIosIcon fontSize={"small"} />
-              <span className={"capitalize"}>
-                <b> Splash Screen</b>
-              </span>
-            </ButtonBase>
-            <div className={styles.newLine} />
-          </div>
-          <div className={styles.rightFlex}>
-            <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
-              Add new
-              <Add fontSize={"small"} className={"plusIcon"}></Add>
-            </ButtonBase>
-          </div>
-        </div>
+        <ListHeader
+          title={"Splash Screen"}
+          handleCreateFed={handleCreateFed}
+          actionTitle={"ADD NEW"}
+          isFetching={isFetching}
+          configFilter={configFilter}
+          handleFilterDataChange={handleFilterDataChange}
+          handleSearchValueChange={handleSearchValueChange}
+          arrowIcon="false"
+        />
 
-        <div>
-          <div style={{ width: "85%" }}>
-            <FilterComponent
-              is_progress={isFetching}
-              filters={""}
-              handleSearchValueChange={handleSearchValueChange}
-              handleFilterDataChange={"handleFilterDataChange"}
-            />
-          </div>
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
+        <br />
+        <div style={{ width: "100%" }}>
+          <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+          />
         </div>
       </PageBox>
-    </div>
+    </>
   );
 };
 

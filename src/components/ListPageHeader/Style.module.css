@@ -1,0 +1,23 @@
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .headerContainer .title {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .newLine {
+    height: 5px;
+    width: 30px;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 20px;
+    background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
+  }
+
+  .BtnWrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }

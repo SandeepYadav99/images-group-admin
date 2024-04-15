@@ -168,6 +168,6 @@ export default {
 
   MENU_GRAPHIC:"/graphic",
   MENU_GRAPHIC_CREATE:"/graphic/create",
-  MENU_GRAPHIC_UPDATE:"/graphic/update",
+  MENU_GRAPHIC_UPDATE:"/graphic/update/",
 
 };

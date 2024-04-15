@@ -12,6 +12,7 @@ import { Add, Edit } from "@material-ui/icons";
 import historyUtils from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useMenuGraphicHook from "./MenuGraphicHook";
+import ListHeader from "../../../components/ListPageHeader/ListHeader";
 
 const MenuGraphic = ({}) => {
   const {
@@ -127,41 +128,22 @@ const MenuGraphic = ({}) => {
   return (
     <>
       <PageBox>
-        <div className={styles.headerContainer}>
-        <div>
-            <ButtonBase onClick={() => historyUtils.goBack()}>
-            <ArrowBackIosIcon fontSize={"small"} />
-            <span className={styles.title}>Menu Graphic</span>
-            </ButtonBase>
-            <div className={styles.newLine} />
-          </div>
+        <ListHeader
+          title={"Menu Graphic"}
+          handleCreateFed={handleCreateFed}
+          actionTitle={"ADD NEW"}
+          isFetching={isFetching}
+          handleFilterDataChange={"handleFilterDataChange"}
+          handleSearchValueChange={handleSearchValueChange}
+          arrowIcon="true"
+        />
 
-          <div className={styles.BtnWrapper}>
-            <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
-              ADD NEW
-              <Add fontSize={"small"} className={"plusIcon"}></Add>
-            </ButtonBase>
-          </div>
-        </div>
-
-        <div>
-          <div style={{ width: "88%" }}>
-            <FilterComponent
-              is_progress={isFetching}
-              filters={""}
-              handleSearchValueChange={handleSearchValueChange}
-              handleFilterDataChange={"handleFilterDataChange"}
-            />
-          </div>
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
+        <br />
+        <div style={{ width: "100%" }}>
+          <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+          />
         </div>
       </PageBox>
     </>
