@@ -57,9 +57,13 @@ const IsIFSCCode=(value)=>{
 const IsVehicleNo=(value)=>{
     return /^[A-Za-z]{2}.+\d{4}$/.test(value)
 }
-function validateUrl(value) {
-    return /^https?:\/\/[^\s/$.?#].[^\s]*$/i.test(value);
-  }
+// function validateUrl(value) {
+//     return /^https?:\/\/[^\s/$.?#].[^\s]*$/i.test(value);
+//   }
+  function validateUrl(string) {
+    var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+  };
 function HexCodeValid(value){
     return /^#([0-9A-Fa-f]{3}){1,2}$/.test(value)
 }

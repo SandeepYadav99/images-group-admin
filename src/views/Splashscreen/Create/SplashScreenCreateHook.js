@@ -108,7 +108,7 @@ console.log(selectVideos, "Videos")
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name") {
-        t[fieldName] = text;
+        t[fieldName] = text.trimStart();
       } else {
         t[fieldName] = text;
       }
@@ -191,7 +191,7 @@ console.log(selectVideos, "Videos")
       LogUtils.log("errors==>", errors);
       if (Object.keys(errors)?.length > 0) {
         setErrorData(errors);
-        // return true;
+        return true;
       }
       console.log("yha");
       submitToServer();
