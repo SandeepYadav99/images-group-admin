@@ -59,6 +59,7 @@
 }
 .video {
   height: 100px;
+  cursor: pointer;
 }
 .hyperlinkText {
   color: #ab183d;
@@ -142,4 +143,8 @@
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.firstCell  {
+width: 1%;
 }

@@ -50,12 +50,21 @@ const SplashScreen = ({}) => {
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
-        <div className={styles.firstCellFlex}  onClick={() => {toggleVideoModal(obj?.video)}}>
-          <video
-            crossOrigin="anonymous"
-            src={obj?.video}
-            className={styles.video}
-          />
+        <div
+          className={styles.firstCellFlex}
+          onClick={() => {
+            toggleVideoModal(obj?.video);
+          }}
+        >
+          {obj?.video ? (
+            <video
+              crossOrigin="anonymous"
+              src={obj?.video}
+              className={styles.video}
+            />
+          ) : (
+            <div>No Media</div>
+          )}
         </div>
       );
     }
