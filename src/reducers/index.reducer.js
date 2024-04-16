@@ -60,6 +60,7 @@ import SponsporVideoReducer from "./SponsporVideo.reducer";
 import EventHighLight from "./EventHighLight.reducer";
 import MeetingRoomsReducer from "./MeetingRoom.reducer";
 import MeetingRoomSlotReducer from "./MeetingRoomSlots.reducer";
+import MenuGraphicReducer from "./MenuGraphic.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -109,7 +110,6 @@ const rootReducer = combineReducers({
   Business_Greeting:BusinessGreetingReducer,
   Knowledge_Center:KnowledgeCenter,
   Knowledge_Center_Stamp:KnowledgeCenterStamp,
-  // Product Category 2/01/2024
   productCategory:ProductCategoryReducer,
   productGroups:ProductGroupReducer,
   Exhibitor:ExhibitorReducer,
@@ -124,6 +124,7 @@ const rootReducer = combineReducers({
   event_highlight:EventHighLight,
   meeting_room:MeetingRoomsReducer,
   meeting_slots:MeetingRoomSlotReducer,
+  MenuGraphic:MenuGraphicReducer,
 });
 
 export default rootReducer;
