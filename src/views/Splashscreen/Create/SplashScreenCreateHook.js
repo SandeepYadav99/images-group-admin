@@ -108,7 +108,7 @@ console.log(selectVideos, "Videos")
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name") {
-        t[fieldName] = text;
+        t[fieldName] = text.trimStart();
       } else {
         t[fieldName] = text;
       }
@@ -148,6 +148,7 @@ console.log(selectVideos, "Videos")
         }
       }
       fd.append("event_id", "65029c5bdf6918136df27e51")
+    
       if (form?.status) {
         fd.append("status", form?.status ? "ACTIVE" : "INACTIVE");
       }
@@ -161,6 +162,7 @@ console.log(selectVideos, "Videos")
 
       let req;
       if (id) {
+        fd.append("id", id)
         req = serviceUpdateSplashScreen;
       } else {
         req = serviceCreateSplashScreen;
@@ -191,7 +193,7 @@ console.log(selectVideos, "Videos")
       LogUtils.log("errors==>", errors);
       if (Object.keys(errors)?.length > 0) {
         setErrorData(errors);
-        // return true;
+        return true;
       }
       console.log("yha");
       submitToServer();

@@ -62,6 +62,12 @@ function useEventCreate() {
     secondary_colour: "",
     action_colour: "",
     menu_text_colour: "",
+
+    primary_bg_colour: "",
+    secondary_text_colour: "",
+    action_secondry_bgcolour: "",
+    action_secondry_text_bgcolour: "",
+
     all_event_participants: true,
     all_chapters: false,
     chapters: false,
@@ -102,6 +108,10 @@ function useEventCreate() {
     "secondary_colour",
     "action_colour",
     "menu_text_colour",
+    "primary_bg_colour",
+    "secondary_text_colour",
+    "action_secondry_bgcolour",
+    "action_secondry_text_bgcolour",
   ];
   const eventkeys = ["all_chapters", "chapters", "all_event_participants"];
   const [form, setForm] = useState({ ...initialForm });
@@ -223,6 +233,10 @@ function useEventCreate() {
       "secondary_colour",
       "action_colour",
       "menu_text_colour",
+      "primary_bg_colour",
+      "secondary_text_colour",
+      "action_secondry_bgcolour",
+      "action_secondry_text_bgcolour",
       "is_gallery_public",
     ];
     if (!id) {

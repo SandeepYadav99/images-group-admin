@@ -1,17 +1,19 @@
-import  { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 
-
 import historyUtils from "../../../libs/history.utils";
 import constants from "../../../config/constants";
-import { serviceCreateEventSpeakerMaster,        serviceDetailsSpeakerMaster,        serviceUpdateEventSpeakerMaster } from "../../../services/SpeakerMaster.service";
-
-
+import {
+  serviceCreateEventSpeakerMaster,
+  serviceDetailsSpeakerMaster,
+  serviceUpdateEventSpeakerMaster,
+} from "../../../services/SpeakerMaster.service";
+import { isNum } from "../../../libs/RegexUtils";
 
 function useSpeakerMasterCreate({ location }) {
-  const [speaker,setSpeaker] = useState(false);
+  const [speaker, setSpeaker] = useState(false);
   const initialForm = {
     s_image: "",
     s_name: "",
@@ -19,8 +21,8 @@ function useSpeakerMasterCreate({ location }) {
     s_company: "",
     s_designation: "",
     s_status: true,
-    is_moderator:true,
-    priority:'',
+    is_moderator: true,
+    priority: "",
   };
   const { id } = useParams();
   const eventId = location?.state?.event_id;
@@ -35,8 +37,6 @@ function useSpeakerMasterCreate({ location }) {
     return image;
   }, [image]);
 
-
-
   useEffect(() => {
     if (id) {
       serviceDetailsSpeakerMaster({ id: id }).then((res) => {
@@ -50,7 +50,7 @@ function useSpeakerMasterCreate({ location }) {
             s_company: data?.s_company,
             s_designation: data?.s_designation,
             s_status: data?.s_status === constants.GENERAL_STATUS.ACTIVE,
-            priority:data?.priority,
+            priority: data?.priority,
             // is_moderator
           });
           setImage(data?.s_image);
@@ -66,10 +66,9 @@ function useSpeakerMasterCreate({ location }) {
     let required = [
       //  "s_image",
       "s_name",
-     
+
       "s_company",
       // "s_designation"
-    
     ];
 
     // if (!id) {
@@ -108,6 +107,10 @@ function useSpeakerMasterCreate({ location }) {
 
       if (fieldName === "name") {
         t[fieldName] = text;
+      } else if (fieldName === "priority") {
+        if (!text || (isNum(text) && text.toString().length <= 30)) {
+          t[fieldName] = text;
+        }
       } else {
         t[fieldName] = text;
       }
@@ -134,16 +137,16 @@ function useSpeakerMasterCreate({ location }) {
           }
         }
 
-        fd.append("s_status", form.s_status ? "ACTIVE" : "INACTIVE");// is_moderator
+        fd.append("s_status", form.s_status ? "ACTIVE" : "INACTIVE"); // is_moderator
         // fd.append("is_moderator", form.is_moderator ? "ACTIVE" : "INACTIVE");// is_moderator
         if (form?.s_image) {
           fd.append("s_image", form?.s_image);
         }
 
-        if(form?.priority){
-          fd.append("priority",form?.priority)
+        if (form?.priority) {
+          fd.append("priority", form?.priority);
         }
-        
+
         // if(params?.id){
         //   if (form?.s_image) {
         //     fd.append("s_image", form?.s_image);
@@ -209,7 +212,7 @@ function useSpeakerMasterCreate({ location }) {
     images,
     setImage,
     speaker,
-    id
+    id,
   };
 }
 

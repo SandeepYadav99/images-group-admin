@@ -1,27 +1,45 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  actionCreateEventBanner,
-  actionDeleteEventBanner,
-  actionFetchEventBanner,
-  actionSetPageEventBanner,
-  actionUpdateEventBanner,
-} from "../../../actions/EventBanner.action";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/index.services";
 import { useParams } from "react-router";
-import { actionDeleteSplashScreen, actionFetchSplashScreen, actionSetPageSplashScreen } from "../../../actions/SplashScreen.action";
+import { actionCreateInfoCenterList, actionDeleteInfoCenterList, actionFetchInfoCenterList, actionSetPageInfoCenterList, actionUpdateInfoCenterList } from "../../../actions/InfoCenter.action";
+import { serviceGetEventListDetails } from "../../../services/EventList.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
+import { EventData } from "../../../helper/helper";
+import { serviceGetPendingEventListDetails } from "../../../services/PendingEventList.service";
 
-const useSplashScreenHook = ({}) => {
+const useMenuGraphicHook = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
-  const [isVideoModal, setIsVideoModal] = useState(false);
-
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
+  const [featureList, setFeatureList] = useState([]);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const isMountRef = useRef(false);
+  const {
+    sorting_data: sortingData,
+    is_fetching: isFetching,
+    query,
+    query_data: queryData,
+  } = useSelector((state) => state.InfoCenter);
+
+
+  useEffect(() => {
+    dispatch(
+      actionFetchInfoCenterList(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+        event_id: id,
+      })
+    );
+    isMountRef.current = true;
+  }, [id]);
+
   useEffect(() => {
     serviceGetList(["LOCATIONS"]).then((res) => {
       if (!res.error) {
@@ -29,52 +47,19 @@ const useSplashScreenHook = ({}) => {
       }
     });
   }, []);
-  const dispatch = useDispatch();
-  const isMountRef = useRef(false);
-  const { id } = useParams();
 
-  const {
-    sorting_data: sortingData,
-    is_fetching: isFetching,
-    query,
-    query_data: queryData,
-  } = useSelector((state) => state.SplashScreen);
-  useEffect(() => {
-    dispatch(
-      actionFetchSplashScreen(1, sortingData, {
-        query: isMountRef.current ? query : null,
-        query_data: isMountRef.current ? queryData : null,
-        event_id: "65029c5bdf6918136df27e51",
-      })
-    );
-    isMountRef.current = true;
-  }, [id]);
-
-  
   const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
-    dispatch(actionSetPageSplashScreen(type));
+   
+    dispatch(actionSetPageInfoCenterList(type));
   }, []);
 
-  const handleDataSave = useCallback(
-    (data, type) => {
-      // this.props.actionChangeStatus({...data, type: type});
-      if (type == "CREATE") {
-        dispatch(actionCreateEventBanner(data));
-      } else {
-        dispatch(actionUpdateEventBanner(data));
-      }
-      setEditData(null);
-    },
-    [setEditData]
-  );
 
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageEventBannerRequests(1));
+     
+      // dispatch(actionSetPageEventSpeakerRequests(1));
       dispatch(
-        actionFetchSplashScreen(1, sortingData, {
+        actionFetchInfoCenterList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
           event_id: id,
@@ -104,7 +89,7 @@ const useSplashScreenHook = ({}) => {
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       dispatch(
-        actionFetchSplashScreen(
+        actionFetchInfoCenterList(
           1,
           { row, order },
           {
@@ -124,42 +109,32 @@ const useSplashScreenHook = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteSplashScreen(id));
+      dispatch(actionDeleteInfoCenterList(id));
       setEditData(null);
     },
     [setEditData]
   );
 
-  const handleEdit = useCallback(
-    (data) => {
-      setEditData(data);
-    },
-    [setEditData]
-  );
+ 
+
+  const handleEditFed = useCallback((data) => {
+    // LogUtils.log("data", data);
+    // historyUtils.push(`${RouteName.EVENTS_SPEAKERS_LIST}`); //+data.id
+  }, []);
 
   const handleCreateFed = useCallback(
     (data) => {
       LogUtils.log("data", data);
-      historyUtils.push(RouteName.SPLASH_SCREEN_CREATE);
+      historyUtils.push(`${RouteName.MENU_GRAPHIC_CREATE}`);
+      // , {event_id:id}
     },
     [id]
   );
 
   const handleViewUpdate = useCallback((data) => {
-    LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.SPLASH_SCREEN_UPDATE}${data?.id}`,{
-      eventId: id,
-    }); //+data.id
+  
+    historyUtils.push(`${RouteName.INFOR_CENTER_UPDATE}${data?.id}`,{event_id:id}); //+data.id
   }, []);
-
-  const toggleVideoModal = useCallback((link) => {
-    if (!isVideoModal) {
-        setIsVideoModal(link)
-    } else {
-        setIsVideoModal(null)
-    }
-}, [isVideoModal, setIsVideoModal]);
-
 
   const configFilter = useMemo(() => {
     return [
@@ -167,31 +142,28 @@ const useSplashScreenHook = ({}) => {
         label: "Status",
         name: "status",
         type: "select",
-        
-        fields:['ACTIVE', 'INACTIVE'],
+        fields: ["ACTIVE", "INACTIVE"],
       },
-     
-   
     ];
   }, [listData]);
 
   return {
     handlePageChange,
-    handleDataSave,
+   
     handleFilterDataChange,
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
     handleDelete,
-    handleEdit,
-    handleCreateFed,
+  
     isCalling,
     editData,
     configFilter,
+    handleCreateFed,
+    handleEditFed,
     handleViewUpdate,
-    isVideoModal,
-    toggleVideoModal
+   
   };
 };
 
-export default useSplashScreenHook;
+export default useMenuGraphicHook;

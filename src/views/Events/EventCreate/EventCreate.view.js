@@ -482,6 +482,74 @@ function EventCreate() {
             />
           </div>
         </div>
+
+        {/*  */}
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.primary_bg_colour}
+              errorText={errorData?.primary_bg_colour}
+              label={"Primary Button bg color"}
+              value={form?.primary_bg_colour}
+              onTextChange={(text) => {
+                changeTextData(text, "primary_bg_colour");
+              }}
+              onBlur={() => {
+                onBlurHandler("primary_bg_colour");
+              }}
+              InputLabelProps={{ shrink: true }}
+            />
+          </div>
+
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.secondary_text_colour}
+              errorText={errorData?.secondary_text_colour}
+              label={"Primary Button text Color"}
+              value={form?.secondary_text_colour}
+              onTextChange={(text) => {
+                changeTextData(text, "secondary_text_colour");
+              }}
+              onBlur={() => {
+                onBlurHandler("secondary_text_colour");
+              }}
+              InputLabelProps={{ shrink: true }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.action_secondry_bgcolour}
+              errorText={errorData?.action_secondry_bgcolour}
+              label={"Secondary Button bg color"}
+              value={form?.action_secondry_bgcolour}
+              onTextChange={(text) => {
+                changeTextData(text, "action_secondry_bgcolour");
+              }}
+              onBlur={() => {
+                onBlurHandler("action_secondry_bgcolour");
+              }}
+              InputLabelProps={{ shrink: true }}
+            />
+          </div>
+
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.action_secondry_text_bgcolour}
+              errorText={errorData?.action_secondry_text_bgcolour}
+              label={"Secondary Button text Color"}
+              value={form?.action_secondry_text_bgcolour}
+              onTextChange={(text) => {
+                changeTextData(text, "action_secondry_text_bgcolour");
+              }}
+              onBlur={() => {
+                onBlurHandler("action_secondry_text_bgcolour");
+              }}
+              InputLabelProps={{ shrink: true }}
+            />
+          </div>
+        </div>
       </div>
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>

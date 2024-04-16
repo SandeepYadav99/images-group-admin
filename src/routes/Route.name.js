@@ -162,9 +162,13 @@ export default {
   SPLASH_SCREEN_CREATE: "/splash/screen/create",
   SPLASH_SCREEN_UPDATE: "/splash/screen/update",
   EVENT_PARTICIPANTS: "/events/participants",
-  EVENT_PARTICIPANTS: "/events/participants/",
   SPONSPOR_VIDEO: "/sponspor/list/",
   SPONSPOR_VIDE_CREATE: "/sponspor/create/",
+
+  MENU_GRAPHIC:"/graphic",
+  MENU_GRAPHIC_CREATE:"/graphic/create",
+  MENU_GRAPHIC_UPDATE:"/graphic/update/",
+
   SPONSPOR_VIDEO_UPDATE:"/sponspor/update/",
   EVENT_HIGHLIGHTS:"/event/highlights",
   EVENT_HIGHLIGHTS_CREATE:"/event/highlights/create",
