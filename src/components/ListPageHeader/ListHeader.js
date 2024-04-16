@@ -10,10 +10,9 @@ const ListHeader = (props) => {
     title,
     actionTitle,
     handleCreateFed,
-    isFetching,
-    handleSearchValueChange,
-    configFilter,
-    arrowIcon
+   
+    arrowIcon,
+    
   } = props;
   return (
     <>
@@ -34,14 +33,7 @@ const ListHeader = (props) => {
           </ButtonBase>
         </div>
       </div>
-      <div style={{ width: "88%" }}>
-        <FilterComponent
-          is_progress={isFetching}
-          filters={configFilter}
-          handleSearchValueChange={handleSearchValueChange}
-          handleFilterDataChange={"handleFilterDataChange"}
-        />
-      </div>
+    
     </>
   );
 };

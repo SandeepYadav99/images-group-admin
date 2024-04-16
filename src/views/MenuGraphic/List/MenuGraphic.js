@@ -19,7 +19,7 @@ const MenuGraphic = ({}) => {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-  
+
     handleSearchValueChange,
     handleViewDetails,
     isCalling,
@@ -97,7 +97,7 @@ const MenuGraphic = ({}) => {
         ),
       },
     ];
-  }, [renderFirstCell, handleViewDetails,  isCalling]);
+  }, [renderFirstCell, handleViewDetails, isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -132,12 +132,15 @@ const MenuGraphic = ({}) => {
           title={"Menu Graphic"}
           handleCreateFed={handleCreateFed}
           actionTitle={"ADD NEW"}
-          isFetching={isFetching}
-          handleFilterDataChange={"handleFilterDataChange"}
-          handleSearchValueChange={handleSearchValueChange}
-          arrowIcon="true"
         />
-
+        <div style={{ width: "100%" }}>
+          <FilterComponent
+            is_progress={isFetching}
+            filters={[]}
+            handleSearchValueChange={handleSearchValueChange}
+            handleFilterDataChange={"handleFilterDataChange"}
+          />
+        </div>
         <br />
         <div style={{ width: "100%" }}>
           <DataTables

@@ -17,6 +17,8 @@ import { actionDeleteSplashScreen, actionFetchSplashScreen, actionSetPageSplashS
 const useSplashScreenHook = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [isVideoModal, setIsVideoModal] = useState(false);
+
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
@@ -150,6 +152,15 @@ const useSplashScreenHook = ({}) => {
     }); //+data.id
   }, []);
 
+  const toggleVideoModal = useCallback((link) => {
+    if (!isVideoModal) {
+        setIsVideoModal(link)
+    } else {
+        setIsVideoModal(null)
+    }
+}, [isVideoModal, setIsVideoModal]);
+
+
   const configFilter = useMemo(() => {
     return [
       {
@@ -178,6 +189,8 @@ const useSplashScreenHook = ({}) => {
     editData,
     configFilter,
     handleViewUpdate,
+    isVideoModal,
+    toggleVideoModal
   };
 };
 

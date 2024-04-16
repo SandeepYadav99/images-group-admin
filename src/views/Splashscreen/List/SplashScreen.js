@@ -13,6 +13,7 @@ import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useSplashScreenHook from "./SplashScreenHook";
 import ListHeader from "../../../components/ListPageHeader/ListHeader";
+import VideoDialog from "./Component/VideoDialog";
 
 const SplashScreen = ({}) => {
   const {
@@ -26,6 +27,8 @@ const SplashScreen = ({}) => {
     isCalling,
     configFilter,
     handleViewUpdate,
+    isVideoModal,
+    toggleVideoModal,
   } = useSplashScreenHook({});
 
   const {
@@ -47,7 +50,7 @@ const SplashScreen = ({}) => {
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
-        <div className={styles.firstCellFlex}>
+        <div className={styles.firstCellFlex}  onClick={() => {toggleVideoModal(obj?.video)}}>
           <video
             crossOrigin="anonymous"
             src={obj?.video}
@@ -160,13 +163,16 @@ const SplashScreen = ({}) => {
           title={"Splash Screen"}
           handleCreateFed={handleCreateFed}
           actionTitle={"ADD NEW"}
-          isFetching={isFetching}
-          configFilter={configFilter}
-          handleFilterDataChange={handleFilterDataChange}
-          handleSearchValueChange={handleSearchValueChange}
           arrowIcon="false"
         />
-
+        <div style={{ width: "100%" }}>
+          <FilterComponent
+            is_progress={isFetching}
+            filters={configFilter}
+            handleSearchValueChange={handleSearchValueChange}
+            handleFilterDataChange={handleFilterDataChange}
+          />
+        </div>
         <br />
         <div style={{ width: "100%" }}>
           <DataTables
@@ -174,6 +180,13 @@ const SplashScreen = ({}) => {
             {...tableData.datatableFunctions}
           />
         </div>
+        <VideoDialog
+          isOpen={isVideoModal}
+          videoLink={isVideoModal}
+          handleDialog={() => {
+            toggleVideoModal(null);
+          }}
+        />
       </PageBox>
     </>
   );
