@@ -751,7 +751,10 @@ function EventCreate() {
               checked={feature?.exhibitor}
             />
           </div>
-          <div className={"formGroup"}>
+         
+        </div>
+        <div className={"formFlex"}>
+        <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
@@ -761,7 +764,7 @@ function EventCreate() {
               checked={feature?.testimonial}
             />
           </div>
-            <div className={"formGroup"}>
+          <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {

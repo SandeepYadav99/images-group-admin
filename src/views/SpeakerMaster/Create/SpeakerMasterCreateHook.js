@@ -31,7 +31,7 @@ function useSpeakerMasterCreate({ location }) {
   const [errorData, setErrorData] = useState({});
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
 
   const images = useMemo(() => {
     return image;
@@ -60,7 +60,7 @@ function useSpeakerMasterCreate({ location }) {
       });
     }
   }, [eventId, id]);
-
+console.log(image, "Imge")
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
@@ -140,7 +140,7 @@ function useSpeakerMasterCreate({ location }) {
         fd.append("s_status", form.s_status ? "ACTIVE" : "INACTIVE"); // is_moderator
         // fd.append("is_moderator", form.is_moderator ? "ACTIVE" : "INACTIVE");// is_moderator
         if (form?.s_image) {
-          fd.append("s_image", form?.s_image);
+          fd.append("s_image", form?.s_image );
         }
 
         if (form?.priority) {
