@@ -168,7 +168,13 @@ const MeetingList = ({}) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.BtnWrapper}>
-            <ButtonBase onClick={handleToggleSidePannel} className={"createBtn"} >
+            <ButtonBase className={"createBtn"} id={styles.bgColor}>
+              MEETING MASTER{" "}
+            </ButtonBase>
+            <ButtonBase
+              onClick={handleToggleSidePannel}
+              className={"createBtn"}
+            >
               ADD MEETING ROOM{" "}
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>

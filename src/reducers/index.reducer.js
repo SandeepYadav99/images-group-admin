@@ -59,6 +59,7 @@ import SpeakerMasterReducer from "./SpeakerMaster.reducer";
 import SponsporVideoReducer from "./SponsporVideo.reducer";
 import EventHighLight from "./EventHighLight.reducer";
 import MeetingRoomsReducer from "./MeetingRoom.reducer";
+import MeetingRoomSlotReducer from "./MeetingRoomSlots.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -122,6 +123,7 @@ const rootReducer = combineReducers({
   sponspor_video:SponsporVideoReducer,
   event_highlight:EventHighLight,
   meeting_room:MeetingRoomsReducer,
+  meeting_slots:MeetingRoomSlotReducer,
 });
 
 export default rootReducer;

@@ -41,3 +41,12 @@
   border: 1px solid #29CB97 !important;
   color:#29CB97 !important ;
 }
+
+.title {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.headerContainer{
+  display: flex;
+  justify-content: space-between;
+}

@@ -139,3 +139,10 @@
   gap: 20px;
 }
 
+#bgColor {
+  background-color: #fff !important;
+  border: 1px solid #29cb97 !important;
+  color: #29cb97 !important ;
+  width: 210px;
+  height: 40px;
+}

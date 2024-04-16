@@ -114,7 +114,7 @@ export function actionResetFilterMeetingRoomList() {
 }
 
 export function actionSetPageMeetingRoomList(page) {
-  const stateData = store.getState().event_highlight;
+  const stateData = store.getState().meeting_room;
   const currentPage = stateData.currentPage;
   const totalLength = stateData.all.length;
   const sortingData = stateData.sorting_data;
