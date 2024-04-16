@@ -374,6 +374,12 @@ export const EventData = [
   //   url: RouteName.EVENT_TESTIMONIAL,
   // },
   {
+    key: "manu_graphic",
+    name: "Manu Graphic",
+    image: event,
+    url: RouteName.MENU_GRAPHIC,
+  },
+  {
     key: "sponspor_video",
     name: "Sponspor Video",
     image: event,

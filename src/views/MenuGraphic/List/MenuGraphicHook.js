@@ -5,11 +5,13 @@ import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/index.services";
 import { useParams } from "react-router";
-import { actionCreateInfoCenterList, actionDeleteInfoCenterList, actionFetchInfoCenterList, actionSetPageInfoCenterList, actionUpdateInfoCenterList } from "../../../actions/InfoCenter.action";
+
 import { serviceGetEventListDetails } from "../../../services/EventList.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { EventData } from "../../../helper/helper";
 import { serviceGetPendingEventListDetails } from "../../../services/PendingEventList.service";
+import { actionDeleteMenuGraphicList, actionFetchMenuGraphicList, actionSetPageMenuGraphicList } from "../../../actions/MenuGraphic.action";
+import { useLocation } from "react-router-dom";
 
 const useMenuGraphicHook = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -21,24 +23,29 @@ const useMenuGraphicHook = ({}) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
+  const location= useLocation()
+  const selectedEventId = useMemo(() => {
+    return location?.state?.event_id;
+  }, [location]);
+  console.log(selectedEventId, "Event ID")
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.InfoCenter);
+  } = useSelector((state) => state.MenuGraphic);
 
 
   useEffect(() => {
     dispatch(
-      actionFetchInfoCenterList(1, sortingData, {
+      actionFetchMenuGraphicList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
-        event_id: id,
+        event_id: selectedEventId,
       })
     );
     isMountRef.current = true;
-  }, [id]);
+  }, [selectedEventId]);
 
   useEffect(() => {
     serviceGetList(["LOCATIONS"]).then((res) => {
@@ -50,7 +57,7 @@ const useMenuGraphicHook = ({}) => {
 
   const handlePageChange = useCallback((type) => {
    
-    dispatch(actionSetPageInfoCenterList(type));
+    dispatch(actionSetPageMenuGraphicList(type));
   }, []);
 
 
@@ -59,14 +66,14 @@ const useMenuGraphicHook = ({}) => {
      
       // dispatch(actionSetPageEventSpeakerRequests(1));
       dispatch(
-        actionFetchInfoCenterList(1, sortingData, {
+        actionFetchMenuGraphicList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
-          event_id: id,
+          event_id: selectedEventId,
         })
       );
     },
-    [sortingData, query, queryData, id]
+    [sortingData, query, queryData, selectedEventId]
   );
 
   const handleFilterDataChange = useCallback(
@@ -89,18 +96,18 @@ const useMenuGraphicHook = ({}) => {
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       dispatch(
-        actionFetchInfoCenterList(
+        actionFetchMenuGraphicList(
           1,
           { row, order },
           {
             query: query,
             query_data: queryData,
-            event_id: id,
+            event_id: selectedEventId,
           }
         )
       );
     },
-    [query, queryData, id]
+    [query, queryData, selectedEventId]
   );
 
   const handleRowSize = (page) => {
@@ -109,7 +116,7 @@ const useMenuGraphicHook = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteInfoCenterList(id));
+      // dispatch(actionDeleteMenuGraphicListt(id));
       setEditData(null);
     },
     [setEditData]
@@ -125,15 +132,14 @@ const useMenuGraphicHook = ({}) => {
   const handleCreateFed = useCallback(
     (data) => {
       LogUtils.log("data", data);
-      historyUtils.push(`${RouteName.MENU_GRAPHIC_CREATE}`);
-      // , {event_id:id}
+      historyUtils.push(`${RouteName.MENU_GRAPHIC_CREATE}`, {event_id:id});
     },
     [id]
   );
 
   const handleViewUpdate = useCallback((data) => {
   
-    historyUtils.push(`${RouteName.INFOR_CENTER_UPDATE}${data?.id}`,{event_id:id}); //+data.id
+    historyUtils.push(`${RouteName.MENU_GRAPHIC_UPDATE}${data?.id}`,{event_id:id}); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
