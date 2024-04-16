@@ -19,7 +19,7 @@ import useEventHighLightCreateHook from "./Create.hook";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import { useSelector } from "react-redux";
 
-const EventHighLightCreate = () => {
+const EventHighLightCreate = ({ location }) => {
   const {
     form,
     errorData,
@@ -28,7 +28,7 @@ const EventHighLightCreate = () => {
     handleSubmit,
     isSubmitting,
       thumbnail,
-  } = useEventHighLightCreateHook({});
+  } = useEventHighLightCreateHook({ location });
 
   const { role } = useSelector((state) => state.auth);
 
@@ -62,12 +62,12 @@ const EventHighLightCreate = () => {
               accept={"image/*"}
               label="Please Upload Image"
               show_image={true}
-              error={errorData?.thumbnail}
-              value={form?.thumbnail}
+              error={errorData?.image}
+              value={form?.image}
               default_image={thumbnail ? thumbnail : null}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, "thumbnail");
+                  changeTextData(file, "image");
                 }
               }}
             />
@@ -92,28 +92,29 @@ const EventHighLightCreate = () => {
             <div className={"formFlex"} >
               <div className={"formGroup"} style={{display:"flex",gap:"10px"}}>
                 <CustomTextField
-                  isError={errorData?.name}
-                  errorText={errorData?.name}
+                  isError={errorData?.link}
+                  errorText={errorData?.link}
                   label={"Link"}
-                  value={form?.name}
+                  value={form?.link}
                   onTextChange={(text) => {
-                    changeTextData(text, "name");
+                    changeTextData(text, "link");
                   }}
                   onBlur={() => {
-                    onBlurHandler("name");
+                    onBlurHandler("link");
                   }}
                 />
                  <CustomTextField
-                  isError={errorData?.name}
-                  errorText={errorData?.name}
+                  isError={errorData?.priority}
+                  errorText={errorData?.priority}
                   label={"Priority"}
-                  value={form?.name}
+                  value={form?.priority}
                   onTextChange={(text) => {
-                    changeTextData(text, "name");
+                    changeTextData(text, "priority");
                   }}
                   onBlur={() => {
-                    onBlurHandler("name");
+                    onBlurHandler("priority");
                   }}
+                  type="number"
                 />
               </div>
             </div>

@@ -59,7 +59,7 @@ const EventSpeakerList = ({}) => {
       {
         key: "name",
         label: "NAME",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div className={styles.firstCellFlex}>
             <img

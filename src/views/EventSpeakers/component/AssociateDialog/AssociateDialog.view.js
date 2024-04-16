@@ -44,6 +44,8 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
     listData,
   } = useAssociateDialogHook({ isOpen, handleToggle, candidateId, data });
 
+  console.log(listData?.SPEAKERS,"HELLO IT IS HERE");
+
   return (
     <div>
       <Dialog
@@ -80,7 +82,6 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
                   changeTextData(value, "album_id");
                 }}
                 value={form?.album_id}
-                // id="tags-standard"
                 options={listData?.SPEAKERS? listData?.SPEAKERS : []}
                 getOptionLabel={(option) => option.name}
                 defaultValue={form?.album_id}
@@ -95,6 +96,7 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
               />
             </div>
             <div className={styles.lower}>
+              {console.log(form?.album_id,"Album id is here")}
               {form?.album_id?.length > 0 &&
                 form?.album_id?.map((item) => (
                   <div className={styles.firstCellFlex}>

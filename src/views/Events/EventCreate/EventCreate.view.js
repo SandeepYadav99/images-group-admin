@@ -221,6 +221,7 @@ function EventCreate() {
             />
           </div>
         </div>
+       
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <File
@@ -336,14 +337,14 @@ function EventCreate() {
               type={["jpeg", "jpg", "png"]}
               fullWidth={true}
               name="od1"
-              label="Background Image"
+              label="Login Screen Image"
               accept={"application/pdf,application/msword,image/*"}
-              error={errorData?.background_image}
-              value={form?.background_image}
-              placeholder={"Background Image"}
+              error={errorData?.login_banner}
+              value={form?.login_banner}
+              placeholder={"Login Screen Image"}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, "background_image");
+                  changeTextData(file, "login_banner");
                 }
               }}
             />
@@ -358,12 +359,12 @@ function EventCreate() {
               name="od1"
               label="Background Image Banner"
               accept={"application/pdf,application/msword,image/*"}
-              error={errorData?.background_image_banner}
-              value={form?.background_image_banner}
+              error={errorData?.background_image}
+              value={form?.background_image}
               placeholder={"Background Image Banner"}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, "background_image_banner");
+                  changeTextData(file, "background_image");
                 }
               }}
             />
@@ -796,6 +797,16 @@ function EventCreate() {
               }}
               label={"Sponsor Video"}
               checked={feature?.sponsor_video}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.event_highlights, "event_highlights");
+              }}
+              label={"Event HighLights"}
+              checked={feature?.event_highlights}
             />
           </div>
           <div className={"formGroup"}></div>

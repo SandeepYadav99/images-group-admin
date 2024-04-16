@@ -880,7 +880,7 @@ const dashboardRoutes = [
     component: ExhibitorList,
     sidebarName: "Exhibitor",
     navbarName: "Exhibitor",
-    is_sidebar:true,
+    is_sidebar:false,
     icon: PeopleOutlined,
     is_protect: true,
   },
@@ -1003,16 +1003,18 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-   path:`${RouteName?.EVENT_HIGHLIGHTS}`,
+   path:`${RouteName?.EVENT_HIGHLIGHTS}:id`,
    component: EventHighLightsList,
-   sidebarName: "Event Highlights",
-   navbarName: "Event Highlights",
-   is_sidebar:true,
-   icon: PeopleOutlined,
+   is_sidebar:false,
    is_protect: true,
   },
   {
     path:`${RouteName?.EVENT_HIGHLIGHTS_CREATE}`,
+    component: EventHighLightCreate,
+    is_protect: true,
+   },
+   {
+    path:`${RouteName?.EVENT_HIGHLIGHTS_UPDATE}:id`,
     component: EventHighLightCreate,
     is_protect: true,
    }
