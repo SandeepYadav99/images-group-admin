@@ -173,6 +173,7 @@ const useMeetingDetailHook = ({ location }) => {
     handlePageChange,
     handleDataSave,
     handleFilterDataChange,
+    handleToggleSidePannel,
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
@@ -186,7 +187,6 @@ const useMeetingDetailHook = ({ location }) => {
     handleUpdate,
     locationData,
     isSidePanel,
-    handleToggleSidePannel,
   };
 };
 

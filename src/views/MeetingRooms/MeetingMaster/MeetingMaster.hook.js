@@ -39,6 +39,10 @@ const useMeetingCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     }
   }, [isSidePanel]);
 
+  useEffect(()=>{
+    
+  },[])
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["name", "code"];

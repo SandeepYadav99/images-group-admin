@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import { InfoOutlined } from "@material-ui/icons";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import DataTables from "../../../Datatables/Datatable.table";
+import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
+import MeetingCreateView from "../MeetingMaster/MeetingMaster";
 
 const MeetingDetails = ({ location }) => {
   const {
@@ -166,8 +168,8 @@ const MeetingDetails = ({ location }) => {
       </div>{" "}
       <div className={styles.paperData}>
         <div className={styles.roomName}>
-          <b>{dataValue?.name}</b>
-          <span>{dataValue?.code}</span>
+          <span className={styles.name}>{dataValue?.name}</span>
+          <span className={styles.code}>{dataValue?.code}</span>
         </div>
         <div>
           <ButtonBase className={"createBtn"} id={styles.bgColor}>
@@ -175,10 +177,18 @@ const MeetingDetails = ({ location }) => {
           </ButtonBase>
         </div>
         <div className={styles.btnFlex}>
-          <ButtonBase className={"createBtn"} id={styles.bgColor}>
+          <ButtonBase
+            className={"createBtn"}
+            id={styles.bgColor}
+            onClick={handleToggleSidePannel}
+          >
             DUPLICATE
           </ButtonBase>
-          <ButtonBase className={"createBtn"} id={styles.bgColor}>
+          <ButtonBase
+            className={"createBtn"}
+            id={styles.bgColor}
+            onClick={handleToggleSidePannel}
+          >
             UPDATE INFORMATION
           </ButtonBase>
         </div>
@@ -186,18 +196,46 @@ const MeetingDetails = ({ location }) => {
       <br />
       <PageBoxComponent>
         <div className={styles.headerContainer}>
-        <div>
-          <span className={styles.title}>Schedule</span>
-          <div className={styles.newLine} />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+            }}
+          >
+            <span className={styles.title}>Schedule</span>
+            <div className={styles.newLine} />
+          </div>
+          <div>
+            <ButtonBase className={"createBtn"}>
+              ADD DATE RANGE
+              <Add fontSize={"small"} className={"plusIcon"}></Add>
+            </ButtonBase>
+          </div>
         </div>
         <div>
-          <ButtonBase onClick={handleToggleSidePannel} className={"createBtn"}>
-            ADD DATE RANGE
-            <Add fontSize={"small"} className={"plusIcon"}></Add>
-          </ButtonBase>
-        </div>
-        </div> 
-        <div>
+          <div className={styles.sectionData}>
+            <div className={styles.headingText}>
+              <span className={styles.h2}>{dataValue?.total_slots}</span>
+              <span className={styles.subh2}>Total Slots</span>
+            </div>
+            <div className={styles.headingText}>
+              <span className={styles.h2}>{dataValue?.unavailable_slots}</span>
+              <span className={styles.subh2}>Unvailable</span>
+            </div>
+            <div className={styles.headingText}>
+              <span className={styles.h2}>{dataValue?.blocked_slots}</span>
+              <span className={styles.subh2}>Blocked</span>
+            </div>
+            <div className={styles.headingText}>
+              <span className={styles.h2}>{dataValue?.booked_slots}</span>
+              <span className={styles.subh2}>Booked</span>
+            </div>
+            <div className={styles.headingText}>
+              <span className={styles.h2}>{dataValue?.available_slots}</span>
+              <span className={styles.subh2}>Available</span>
+            </div>
+          </div>
           <FilterComponent
             is_progress={isFetching}
             filters={configFilter}
@@ -215,6 +253,18 @@ const MeetingDetails = ({ location }) => {
           </div>
         </div>
       </PageBoxComponent>
+      <SidePanelComponent
+        handleToggle={handleToggleSidePannel}
+        title={"Add Meeting Room"}
+        open={isSidePanel}
+        side={"right"}
+      >
+        <MeetingCreateView
+          handleToggleSidePannel={handleToggleSidePannel}
+          isSidePanel={isSidePanel}
+          empId={editData}
+        />
+      </SidePanelComponent>
     </>
   );
 };
