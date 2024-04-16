@@ -70,6 +70,7 @@ function useEventCreate() {
     linkedin_content: "",
     background_image: "",
     login_banner:"",
+    company_name:"",
 
   };
   const featureKey = {
@@ -95,6 +96,7 @@ function useEventCreate() {
     event_banner: false,
     youtube_live: false,
     information_center: false,
+    event_highlights:true,
   };
   
   const colorKey = [

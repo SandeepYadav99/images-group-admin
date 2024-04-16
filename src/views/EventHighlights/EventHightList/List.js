@@ -67,7 +67,7 @@ const EventHighLight = ({}) => {
       {
         key: "Image",
         label: "IMAGES",
-        sortable: true,
+        sortable: false,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
       {

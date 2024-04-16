@@ -26,14 +26,7 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
 
   const { id } = useParams();
 
-  // useEffect(() => {
-  //   if (!isOpen) {
-  //     setForm({ ...initialForm });
-  //     setIsSubmitted(false);
-  //     setErrorData({});
-  //   }
-  // }, [isOpen]);
-
+  
   useEffect(() => {
     if (data?.length > 0) {
       const value = data?.map((item) => ({

@@ -223,6 +223,22 @@ function EventCreate() {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.company_name}
+              errorText={errorData?.company_name}
+              label={"Company Name"}
+              value={form?.company_name}
+              onTextChange={(text) => {
+                changeTextData(text, "company_name");
+              }}
+              onBlur={() => {
+                onBlurHandler("company_name");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
             <File
               max_size={10 * 1024 * 1024}
               type={["jpeg", "jpg", "png"]}
@@ -728,6 +744,16 @@ function EventCreate() {
               }}
               label={"Sponsor Video"}
               checked={feature?.sponsor_video}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.event_highlights, "event_highlights");
+              }}
+              label={"Event HighLights"}
+              checked={feature?.event_highlights}
             />
           </div>
           <div className={"formGroup"}></div>
