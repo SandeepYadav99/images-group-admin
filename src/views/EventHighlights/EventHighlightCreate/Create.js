@@ -19,7 +19,7 @@ import useEventHighLightCreateHook from "./Create.hook";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import { useSelector } from "react-redux";
 
-const EventHighLightCreate = () => {
+const EventHighLightCreate = ({ location }) => {
   const {
     form,
     errorData,
@@ -28,7 +28,7 @@ const EventHighLightCreate = () => {
     handleSubmit,
     isSubmitting,
       thumbnail,
-  } = useEventHighLightCreateHook({});
+  } = useEventHighLightCreateHook({ location });
 
   const { role } = useSelector((state) => state.auth);
 

@@ -24,9 +24,10 @@ export const CREATE_DATA = "CREATE_KNOWLEDGE_LIST";
 export const UPDATE_DATA = "UPDATE_KNOWLEDGE_LIST";
 export const DELETE_ITEM = "DELETE_KNOWLEDGE_LIST";
 
-export function actionFetchEventHighLightList(index = 1, sorting = {}, filter = {}) {
+export function actionFetchEventHighLightList(index = 1,event_id ,sorting = {}, filter = {}) {
   const request = serviceGetEventHighLightList({
     index,
+    event_id,
     row: sorting.row,
     order: sorting.order,
     ...filter,

@@ -973,12 +973,9 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-   path:`${RouteName?.EVENT_HIGHLIGHTS}`,
+   path:`${RouteName?.EVENT_HIGHLIGHTS}:id`,
    component: EventHighLightsList,
-   sidebarName: "Event Highlights",
-   navbarName: "Event Highlights",
-   is_sidebar:true,
-   icon: PeopleOutlined,
+   is_sidebar:false,
    is_protect: true,
   },
   {

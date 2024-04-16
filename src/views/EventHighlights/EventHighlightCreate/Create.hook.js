@@ -9,7 +9,7 @@ import { isDate, isInvalidDateFormat } from "../../../libs/RegexUtils";
 import historyUtils from "../../../libs/history.utils";
 import constants from "../../../config/constants";
 
-const useEventHighLightCreateHook = () => {
+const useEventHighLightCreateHook = ({ location }) => {
   const initialForm = {
     name: "",
     image: "",
@@ -18,6 +18,11 @@ const useEventHighLightCreateHook = () => {
     status: true,
 
   };
+  const eventPass  = location?.state?.eventId;
+
+  console.log(eventPass,'>>>')
+
+
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
   const { id } = useParams();

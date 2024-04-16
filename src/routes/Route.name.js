@@ -166,8 +166,8 @@ export default {
   SPONSPOR_VIDEO: "/sponspor/list/",
   SPONSPOR_VIDE_CREATE: "/sponspor/create/",
   SPONSPOR_VIDEO_UPDATE:"/sponspor/update/",
-  EVENT_HIGHLIGHTS:"/event/highlights",
-  EVENT_HIGHLIGHTS_CREATE:"/event/highlights/create",
+  EVENT_HIGHLIGHTS:"/event/highlights/",
+  EVENT_HIGHLIGHTS_CREATE:"/eventhighlights/create/",
   EVENT_HIGHLIGHTS_UPDATE:"/event/highlights/update/",
 
 };

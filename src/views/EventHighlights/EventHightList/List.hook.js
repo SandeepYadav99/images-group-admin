@@ -10,11 +10,13 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
+import { useParams } from "react-router-dom";
 
 const useEventHighLight = ({ location }) => {
   const locationData = location?.state?.name_data;
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const params = useParams();
 
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -25,9 +27,11 @@ const useEventHighLight = ({ location }) => {
     query_data: queryData,
   } = useSelector((state) => state.event_highlight);
 
+ console.log(params?.id,"????")
+
   useEffect(() => {
     dispatch(
-      actionFetchEventHighLightList(1, sortingData, {
+      actionFetchEventHighLightList(1, params?.id,sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -57,7 +61,7 @@ const useEventHighLight = ({ location }) => {
     (key, value) => {
       console.log("_queryFilter", key, value);
       dispatch(
-        actionFetchEventHighLightList(1, sortingData, {
+        actionFetchEventHighLightList(1,params?.id, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -87,6 +91,7 @@ const useEventHighLight = ({ location }) => {
       dispatch(
         actionFetchEventHighLightList(
           1,
+          params?.id,
           { row, order },
           {
             query: query,
@@ -118,15 +123,21 @@ const useEventHighLight = ({ location }) => {
   );
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.EVENT_HIGHLIGHTS_UPDATE}/${data?.id}`);
+    historyUtils.push(`${RouteName.EVENT_HIGHLIGHTS_UPDATE}/${data?.id}`,{
+      eventId:params?.id
+    });
   }, []);
 
   const handleUpdate = useCallback((data) => {
-    historyUtils.push(`${RouteName.EVENT_HIGHLIGHTS_UPDATE}${data?.id}`);
+    historyUtils.push(`${RouteName.EVENT_HIGHLIGHTS_UPDATE}${data?.id}`,{
+      eventId:params?.id
+    });
   }, []);
 
   const handleCreateFed = useCallback((data) => {
-    historyUtils.push(`${RouteName.EVENT_HIGHLIGHTS_CREATE}`);
+    historyUtils.push(`${RouteName.EVENT_HIGHLIGHTS_CREATE}`,{
+     eventId:params?.id,
+    });
   }, []);
 
   const configFilter = useMemo(() => {
