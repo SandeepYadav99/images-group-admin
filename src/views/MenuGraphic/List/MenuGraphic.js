@@ -7,7 +7,7 @@ import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import { Add, Edit } from "@material-ui/icons";
+import { Add, ArrowBackIos, Edit } from "@material-ui/icons";
 
 import historyUtils from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -32,7 +32,7 @@ const MenuGraphic = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.InfoCenter);
+  } = useSelector((state) => state.MenuGraphic);
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
@@ -52,17 +52,17 @@ const MenuGraphic = ({}) => {
         key: "feature_name",
         label: "Feature name",
         sortable: true,
-        render: (temp, all) => (
-          <div className={styles.firstCellFlex}>
-            <img src={all?.thumbnail} alt="" className={styles.driverImgCont} />
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.name}</div>,
       },
       {
         key: "image",
         label: "IMAGE",
         sortable: false,
-        render: (value, all) => <div>{all?.name}</div>,
+        render: (value, all) => (
+          <div className={styles.firstCellFlex}>
+            <img src={all?.image} alt="" className={styles.driverImgCont} />
+          </div>
+        ),
       },
 
       {
@@ -132,8 +132,9 @@ const MenuGraphic = ({}) => {
           title={"Menu Graphic"}
           handleCreateFed={handleCreateFed}
           actionTitle={"ADD NEW"}
+          arrowIcon="true"
         />
-        <div style={{ width: "100%" }}>
+        <div style={{ width: "88%" }}>
           <FilterComponent
             is_progress={isFetching}
             filters={[]}

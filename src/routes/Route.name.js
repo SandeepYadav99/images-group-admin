@@ -165,9 +165,9 @@ export default {
   SPONSPOR_VIDEO: "/sponspor/list/",
   SPONSPOR_VIDE_CREATE: "/sponspor/create/",
 
-  MENU_GRAPHIC:"/graphic",
+  MENU_GRAPHIC:"/event/graphic/",
   MENU_GRAPHIC_CREATE:"/graphic/create",
-  MENU_GRAPHIC_UPDATE:"/graphic/update/",
+  MENU_GRAPHIC_UPDATE:"/event/graphic/update/",
 
   SPONSPOR_VIDEO_UPDATE:"/sponspor/update/",
   EVENT_HIGHLIGHTS:"/event/highlights/",

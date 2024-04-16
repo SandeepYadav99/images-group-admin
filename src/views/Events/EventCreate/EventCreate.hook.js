@@ -63,10 +63,10 @@ function useEventCreate() {
     action_colour: "",
     menu_text_colour: "",
 
-    primary_bg_colour: "",
-    secondary_text_colour: "",
-    action_secondry_bgcolour: "",
-    action_secondry_text_bgcolour: "",
+    primary_button_bg_color: "",
+    primary_button_text_color: "",
+    Secondary_button_bg_colo: "",
+    Secondary_button_text_color: "",
 
     all_event_participants: true,
     all_chapters: false,
@@ -84,6 +84,7 @@ function useEventCreate() {
     about_event: true,
     exhibitor: false,
     testimonial: false,
+    manu_graphic:false,
     event_organizing_committee: false,
     sponsor_video:true,
     event_speakers: true,
@@ -109,10 +110,10 @@ function useEventCreate() {
     "secondary_colour",
     "action_colour",
     "menu_text_colour",
-    "primary_bg_colour",
-    "secondary_text_colour",
-    "action_secondry_bgcolour",
-    "action_secondry_text_bgcolour",
+    "primary_button_bg_color",
+    "primary_button_text_color",
+    "Secondary_button_bg_colo",
+    "Secondary_button_text_color",
   ];
   const eventkeys = ["all_chapters", "chapters", "all_event_participants"];
   const [form, setForm] = useState({ ...initialForm });
@@ -234,10 +235,10 @@ function useEventCreate() {
       "secondary_colour",
       "action_colour",
       "menu_text_colour",
-      "primary_bg_colour",
-      "secondary_text_colour",
-      "action_secondry_bgcolour",
-      "action_secondry_text_bgcolour",
+      "primary_button_bg_color",
+      "primary_button_text_color",
+      "Secondary_button_bg_colo",
+      "Secondary_button_text_color",
       "is_gallery_public",
     ];
     if (!id) {

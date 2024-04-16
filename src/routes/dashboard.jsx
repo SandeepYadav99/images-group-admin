@@ -61,47 +61,104 @@ import SplashScreenCreate from "../views/Splashscreen/Create/SplashScreenCreate.
 import SpeakerMaster from "../views/SpeakerMaster/List/SpeakerMaster.js";
 import SpeakerMasterCreate from "../views/SpeakerMaster/Create/SpeakerMasterCreate.js";
 import MenuGraphic from "../views/MenuGraphic/List/MenuGraphic.js";
-import MenuGraphicCreate from "../views/MenuGraphic/Create/MenuGraphicCreate.js";
 
+const MenuGraphicCreate = lazy(() =>
+  import("../views/MenuGraphic/Create/MenuGraphicCreate")
+);
+const HallMasterList = lazy(() =>
+  import("../views/HallMaster/Lists/HallMasterList")
+);
+const UserList = lazy(() =>
+  import("../views/EventDesk/User/List/UserList.view")
+);
+const CategoryList = lazy(() =>
+  import("../views/EventDesk/Category/List/CategoryList.view")
+);
+const EventUserCreateView = lazy(() =>
+  import("../views/EventDesk/User/Create/EventUserCreate")
+);
+const CategoryCreateView = lazy(() =>
+  import("../views/EventDesk/Category/Create/CategoryCreate.view")
+);
+const EventGallery = lazy(() =>
+  import("../views/EventGallery/List/EventGallery.view")
+);
+const EventFeed = lazy(() => import("../views/EventFeed/List/EventFeed.view"));
+const BusinessCreate = lazy(() =>
+  import("../views/BusinessGreeting/BusinessCreate/BusinessCreate.view")
+);
+const BusinessDetail = lazy(() =>
+  import("../views/BusinessGreeting/BusinessDetail/BusinessDetail.view")
+);
 
+const NotificationCreate = lazy(() =>
+  import("../views/Notification/NotificationCreate/NotificationCreate.view")
+);
+const NotificationList = lazy(() =>
+  import("../views/Notification/NotificationList/NotificationList.view")
+);
 
-const HallMasterList = lazy(() => import('../views/HallMaster/Lists/HallMasterList'));
-const UserList = lazy(() => import('../views/EventDesk/User/List/UserList.view'));
-const CategoryList = lazy(() => import('../views/EventDesk/Category/List/CategoryList.view'));
-const EventUserCreateView = lazy(() => import('../views/EventDesk/User/Create/EventUserCreate'));
-const CategoryCreateView = lazy(() => import('../views/EventDesk/Category/Create/CategoryCreate.view'));
-const EventGallery = lazy(() => import('../views/EventGallery/List/EventGallery.view'));
-const EventFeed = lazy(() => import('../views/EventFeed/List/EventFeed.view'));
-const BusinessCreate = lazy(() => import('../views/BusinessGreeting/BusinessCreate/BusinessCreate.view'));
-const BusinessDetail = lazy(() => import('../views/BusinessGreeting/BusinessDetail/BusinessDetail.view'));
-
-const NotificationCreate = lazy(() => import('../views/Notification/NotificationCreate/NotificationCreate.view'));
-const NotificationList = lazy(() => import('../views/Notification/NotificationList/NotificationList.view'));
-
-const ProductGroupList = lazy(() => import('../views/ProductGroup/List/List.component.js'));
-const ProductGroupView = lazy(() => import('../views/ProductGroup/Create/Create.component.js'));
-const TestimonialList = lazy(() => import('../views/Testimonials/List/TestimonialList.js'));
-const TestimonialCreate = lazy(() => import('../views/Testimonials/Create/TestimonialCreate.js'));
+const ProductGroupList = lazy(() =>
+  import("../views/ProductGroup/List/List.component.js")
+);
+const ProductGroupView = lazy(() =>
+  import("../views/ProductGroup/Create/Create.component.js")
+);
+const TestimonialList = lazy(() =>
+  import("../views/Testimonials/List/TestimonialList.js")
+);
+const TestimonialCreate = lazy(() =>
+  import("../views/Testimonials/Create/TestimonialCreate.js")
+);
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
-const KnowledgeCenter = lazy(()=>import("../views/KnowledgeCenter/KnowledgeCenter.view"));
-const knowledgeCreate = lazy(()=>import("../views/KnowledgeCenter/Create/Create.view"));
-const knowledgeList = lazy(()=>import("../views/KnowledgeCenter/CountryList/List.view"));
-const knowledgeStampCreate = lazy(()=>import("../views/KnowledgeCenter/CountryList/CreateStamp/Stamp.js"));
-const ProductCategory = lazy(()=>import("../views/ProductCategory/List/List.component.js"));
-const ProductCategoryCreate = lazy(()=>import("../views/ProductCategory/Create/Create.component.js"));
-const ExhibitorList = lazy(()=>import("../views/Exhibitor/List/Exhibitor.js"));
-const ExhibitorCreate = lazy(()=>import("../views/Exhibitor/Create/Exhibitor.component.js"));
-const ExhibitionDetails = lazy(()=>import("../views/Exhibitor/List/Detail/ExhibitorDetail.js"));
+const KnowledgeCenter = lazy(() =>
+  import("../views/KnowledgeCenter/KnowledgeCenter.view")
+);
+const knowledgeCreate = lazy(() =>
+  import("../views/KnowledgeCenter/Create/Create.view")
+);
+const knowledgeList = lazy(() =>
+  import("../views/KnowledgeCenter/CountryList/List.view")
+);
+const knowledgeStampCreate = lazy(() =>
+  import("../views/KnowledgeCenter/CountryList/CreateStamp/Stamp.js")
+);
+const ProductCategory = lazy(() =>
+  import("../views/ProductCategory/List/List.component.js")
+);
+const ProductCategoryCreate = lazy(() =>
+  import("../views/ProductCategory/Create/Create.component.js")
+);
+const ExhibitorList = lazy(() =>
+  import("../views/Exhibitor/List/Exhibitor.js")
+);
+const ExhibitorCreate = lazy(() =>
+  import("../views/Exhibitor/Create/Exhibitor.component.js")
+);
+const ExhibitionDetails = lazy(() =>
+  import("../views/Exhibitor/List/Detail/ExhibitorDetail.js")
+);
 
-const AddCategoryData = lazy(()=>import("../views/AddCategory/AddCategory.component.js"));
-const AddCategoryList = lazy(()=>import("../views/AddCategory/List/List.module.js"));
-const ExhibitorQuery = lazy(()=>import("../views/ExhibitorQuery/ExhibitorQuery.module.js"));
-const CalendarCount = lazy(()=>import("../views/CalendarCount/CalendarCount.module.js"));
-const EventParticipants = lazy(()=>import("../views/EventParticipants/List/EventParticipantList.js"))
+const AddCategoryData = lazy(() =>
+  import("../views/AddCategory/AddCategory.component.js")
+);
+const AddCategoryList = lazy(() =>
+  import("../views/AddCategory/List/List.module.js")
+);
+const ExhibitorQuery = lazy(() =>
+  import("../views/ExhibitorQuery/ExhibitorQuery.module.js")
+);
+const CalendarCount = lazy(() =>
+  import("../views/CalendarCount/CalendarCount.module.js")
+);
+const EventParticipants = lazy(() =>
+  import("../views/EventParticipants/List/EventParticipantList.js")
+);
 
-
-const SponsporListView = lazy(()=>import("../views/SponsporVideo/SponsporList/List.js"))
+const SponsporListView = lazy(() =>
+  import("../views/SponsporVideo/SponsporList/List.js")
+);
 
 const VideoSponsporCreate = lazy(()=>import("../views/SponsporVideo/SponsporCreate/Create.js"));
 
@@ -256,7 +313,7 @@ const dashboardRoutes = [
     component: Album_List,
     is_sidebar: true,
     is_protect: true,
-    roles: [ Roles.ADMIN],
+    roles: [Roles.ADMIN],
   },
   {
     path: `${RouteName.ALBUMS_CREATE}`,
@@ -341,7 +398,7 @@ const dashboardRoutes = [
   // },
   {
     // path: `${RouteName.SPEAKERS_LIST}`,
-     path:`${RouteName?.EVENT_PARTICIPANTS}:id`,
+    path: `${RouteName?.EVENT_PARTICIPANTS}:id`,
     component: EventParticipants,
     icon: PeopleOutlined,
     is_protect: true,
@@ -365,28 +422,22 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.MENU_GRAPHIC}`,
-    sidebarName: "Menu Graphic",
-    navbarName: "Menu Graphic",
-    icon: PeopleOutlined,
+    path: `${RouteName.MENU_GRAPHIC}:id`,
+
     component: MenuGraphic,
     is_sidebar: false,
     is_protect: true,
   },
   {
-    path: `${RouteName.MENU_GRAPHIC_CREATE}`,
-    sidebarName: "Menu Graphic",
-    navbarName: "Menu Graphic",
-    icon: PeopleOutlined,
+    path: RouteName.MENU_GRAPHIC_CREATE,
+
     component: MenuGraphicCreate,
     is_sidebar: false,
     is_protect: true,
   },
   {
-    path: `${RouteName.MENU_GRAPHIC_UPDATE}`,
-    sidebarName: "Menu Graphic",
-    navbarName: "Menu Graphic",
-    icon: PeopleOutlined,
+    path: `${RouteName.MENU_GRAPHIC_UPDATE}:id`,
+
     component: MenuGraphicCreate,
     is_sidebar: false,
     is_protect: true,
@@ -756,13 +807,13 @@ const dashboardRoutes = [
   {
     path: `${RouteName.BUSINESS_GREETING}/:id`,
     component: BusinessCreate,
-    is_sidebar:false,
+    is_sidebar: false,
     is_protect: true,
   },
   {
     path: `${RouteName.BUSINESS_GREETING_DETAIL}/:id`,
     component: BusinessDetail,
-    is_sidebar:false,
+    is_sidebar: false,
     is_protect: true,
   },
 
@@ -811,7 +862,7 @@ const dashboardRoutes = [
     is_protect: true,
     roles: [Roles.ADMIN],
   },
-   {
+  {
     path: `${RouteName.PRODUCT_CATEGORY}`,
     sidebarName: "Product Category",
     navbarName: "Product Category",
@@ -889,7 +940,7 @@ const dashboardRoutes = [
     component: ExhibitorList,
     sidebarName: "Exhibitor",
     navbarName: "Exhibitor",
-    is_sidebar:false,
+    is_sidebar: false,
     icon: PeopleOutlined,
     is_protect: true,
   },
@@ -915,29 +966,29 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path:RouteName.CATEGORY_EVENT_ADD,
+    path: RouteName.CATEGORY_EVENT_ADD,
     component: AddCategoryData,
-    is_sidebar:false,
-    is_protect:true,
+    is_sidebar: false,
+    is_protect: true,
   },
   {
-    path:`${RouteName.CATEGORY_EVENT_ADD}:id`,
+    path: `${RouteName.CATEGORY_EVENT_ADD}:id`,
     component: AddCategoryData,
-    is_sidebar:false,
-    is_protect:true,
+    is_sidebar: false,
+    is_protect: true,
   },
   {
-    path:RouteName.CATEGORY_LIST,
+    path: RouteName.CATEGORY_LIST,
     component: AddCategoryList,
-    is_sidebar:false,
-    is_protect:true,
+    is_sidebar: false,
+    is_protect: true,
   },
   {
     path: `${RouteName.EXHIBITOR_QUERY}`,
     component: ExhibitorQuery,
     sidebarName: "Exhibitor Query",
     navbarName: "Exhibitor Query",
-    is_sidebar:true,
+    is_sidebar: true,
     icon: PeopleOutlined,
     is_protect: true,
   },
@@ -946,7 +997,7 @@ const dashboardRoutes = [
     component: CalendarCount,
     sidebarName: "Calendar Count",
     navbarName: "Calendar Count",
-    is_sidebar:true,
+    is_sidebar: true,
     icon: PeopleOutlined,
     is_protect: true,
   },
@@ -955,7 +1006,7 @@ const dashboardRoutes = [
     component: HallMasterList,
     sidebarName: "Hall Master",
     navbarName: "Hall Master",
-    is_sidebar:true,
+    is_sidebar: true,
     icon: PeopleOutlined,
     is_protect: true,
   },
@@ -965,21 +1016,21 @@ const dashboardRoutes = [
     icon: PeopleOutlined,
     is_protect: true,
   },
-    {
-        path: RouteName.SPLASH_SCREEN,
-        component: SplashScreen,
-        sidebarName: "Splash Screen",
-        navbarName: "Splash Screen",
-        is_sidebar:true,
-        icon: PeopleOutlined,
-        is_protect: true,
-    },
+  {
+    path: RouteName.SPLASH_SCREEN,
+    component: SplashScreen,
+    sidebarName: "Splash Screen",
+    navbarName: "Splash Screen",
+    is_sidebar: true,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
   {
     path: RouteName.SPLASH_SCREEN_CREATE,
     component: SplashScreenCreate,
     sidebarName: "Splash Screen",
     navbarName: "Splash Screen",
-    is_sidebar:false,
+    is_sidebar: false,
     icon: PeopleOutlined,
     is_protect: true,
   },
@@ -988,11 +1039,11 @@ const dashboardRoutes = [
     component: SplashScreenCreate,
     sidebarName: "Splash Screen",
     navbarName: "Splash Screen",
-    is_sidebar:false,
+    is_sidebar: false,
     icon: PeopleOutlined,
     is_protect: true,
   },
- {
+  {
     path: `${RouteName.SPONSPOR_VIDE_CREATE}`,
     component: VideoSponsporCreate,
     is_protect: true,

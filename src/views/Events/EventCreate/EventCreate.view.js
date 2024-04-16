@@ -488,15 +488,15 @@ function EventCreate() {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.primary_bg_colour}
-              errorText={errorData?.primary_bg_colour}
+              isError={errorData?.primary_button_bg_color}
+              errorText={errorData?.primary_button_bg_color}
               label={"Primary Button bg color"}
-              value={form?.primary_bg_colour}
+              value={form?.primary_button_bg_color}
               onTextChange={(text) => {
-                changeTextData(text, "primary_bg_colour");
+                changeTextData(text, "primary_button_bg_color");
               }}
               onBlur={() => {
-                onBlurHandler("primary_bg_colour");
+                onBlurHandler("primary_button_bg_color");
               }}
               InputLabelProps={{ shrink: true }}
             />
@@ -504,15 +504,15 @@ function EventCreate() {
 
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.secondary_text_colour}
-              errorText={errorData?.secondary_text_colour}
+              isError={errorData?.primary_button_text_color}
+              errorText={errorData?.primary_button_text_color}
               label={"Primary Button text Color"}
-              value={form?.secondary_text_colour}
+              value={form?.primary_button_text_color}
               onTextChange={(text) => {
-                changeTextData(text, "secondary_text_colour");
+                changeTextData(text, "primary_button_text_color");
               }}
               onBlur={() => {
-                onBlurHandler("secondary_text_colour");
+                onBlurHandler("primary_button_text_color");
               }}
               InputLabelProps={{ shrink: true }}
             />
@@ -521,15 +521,15 @@ function EventCreate() {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.action_secondry_bgcolour}
-              errorText={errorData?.action_secondry_bgcolour}
+              isError={errorData?.Secondary_button_bg_colo}
+              errorText={errorData?.Secondary_button_bg_colo}
               label={"Secondary Button bg color"}
-              value={form?.action_secondry_bgcolour}
+              value={form?.Secondary_button_bg_colo}
               onTextChange={(text) => {
-                changeTextData(text, "action_secondry_bgcolour");
+                changeTextData(text, "Secondary_button_bg_colo");
               }}
               onBlur={() => {
-                onBlurHandler("action_secondry_bgcolour");
+                onBlurHandler("Secondary_button_bg_colo");
               }}
               InputLabelProps={{ shrink: true }}
             />
@@ -537,15 +537,15 @@ function EventCreate() {
 
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.action_secondry_text_bgcolour}
-              errorText={errorData?.action_secondry_text_bgcolour}
+              isError={errorData?.Secondary_button_text_color}
+              errorText={errorData?.Secondary_button_text_color}
               label={"Secondary Button text Color"}
-              value={form?.action_secondry_text_bgcolour}
+              value={form?.Secondary_button_text_color}
               onTextChange={(text) => {
-                changeTextData(text, "action_secondry_text_bgcolour");
+                changeTextData(text, "Secondary_button_text_color");
               }}
               onBlur={() => {
-                onBlurHandler("action_secondry_text_bgcolour");
+                onBlurHandler("Secondary_button_text_color");
               }}
               InputLabelProps={{ shrink: true }}
             />
@@ -787,6 +787,16 @@ function EventCreate() {
               }}
               label={"testimonial"}
               checked={feature?.testimonial}
+            />
+          </div>
+            <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.manu_graphic, "manu_graphic");
+              }}
+              label={"Menu Graphic"}
+              checked={feature?.manu_graphic}
             />
           </div>
           <div className={"formGroup"}>

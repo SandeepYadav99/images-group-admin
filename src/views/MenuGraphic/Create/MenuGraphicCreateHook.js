@@ -12,8 +12,15 @@ import {
 } from "../../../services/InfoCenter.service";
 import { serviceGetPendingEventListDetails } from "../../../services/PendingEventList.service";
 import { EventData } from "../../../helper/helper";
+import {
+  serviceCreateMenuGraphic,
+  serviceDeleteMenuGraphicFeaturesList,
+  serviceGetMenuGraphicDetails,
+  serviceUpdateMenuGraphic,
+} from "../../../services/MenuGraphic.service";
+import { useLocation } from "react-router-dom";
 
-function useMenuGraphicCreateHook({ location }) {
+function useMenuGraphicCreateHook() {
   const initialForm = {
     event_id: "",
     featureName: "",
@@ -23,9 +30,11 @@ function useMenuGraphicCreateHook({ location }) {
     status: true,
   };
 
+  const location = useLocation();
   const selectedEventId = useMemo(() => {
     return location?.state?.event_id;
   }, [location]);
+  console.log(selectedEventId, "Event ID");
 
   const { id } = useParams();
   const [form, setForm] = useState({ ...initialForm });
@@ -33,17 +42,27 @@ function useMenuGraphicCreateHook({ location }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [image, setImage] = useState("");
 
-
   const [featureValue, setfeatureValue] = useState([]);
   const [employeeDetail, setEmployeeDetail] = useState({});
+  const [employDetail, setEmployeDetail] = useState();
   const eventKeys = [...EventData];
-  
+  console.log({ selectedEventId });
+
   useEffect(() => {
-    let req = serviceGetPendingEventListDetails({ id: "65029c5bdf6918136df27e51" });
+    let req = serviceGetPendingEventListDetails({ id: selectedEventId });
     req.then((data) => {
       setEmployeeDetail(data?.data?.details);
     });
   }, [id]);
+  // useEffect(() => {
+  //   serviceDeleteMenuGraphicFeaturesList({id:"65029c5bdf6918136df27e51"}).then((res)=>{
+  //     if(!res.error){
+  //       const data = res.data
+  //       setEmployeeDetail(data);
+  //     }
+  //   })
+
+  // }, [id])
 
   useEffect(() => {
     if (employeeDetail && eventKeys?.length > 0) {
@@ -57,16 +76,17 @@ function useMenuGraphicCreateHook({ location }) {
 
   useEffect(() => {
     if (id) {
-      serviceGetInfoCenterDetails({ id: id }).then((res) => {
+      serviceGetMenuGraphicDetails({ id: id }).then((res) => {
         if (!res.error) {
-          const data = res?.data?.details;
-          setImage(data?.thumbnail);
+          const data = res?.data;
+          setImage(data?.image);
+          setEmployeDetail(data?.name);
           setForm({
             ...form,
             id: id,
             featureName: data?.name,
             priority: data?.priority,
-            file: data?.file,
+
             status: data?.status === constants.GENERAL_STATUS.ACTIVE,
           });
         } else {
@@ -84,7 +104,6 @@ function useMenuGraphicCreateHook({ location }) {
       // "file",
       "priority",
       // "thumbnail",
-      
     ];
 
     if (!id) {
@@ -101,12 +120,12 @@ function useMenuGraphicCreateHook({ location }) {
     });
     if (form?.file.size <= 5 * 1024 * 1024) {
       errors["file"] = false;
-    } 
+    }
     // else {
     //   SnackbarUtils.error("Maximum File Upload Size 5 MB");
     //   errors["file"] = true;
     // }
-    
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -143,32 +162,37 @@ function useMenuGraphicCreateHook({ location }) {
     },
     [removeError, form, setForm]
   );
-
+  console.log({ form });
   const submitToServer = useCallback(
     (status) => {
       if (!isSubmitting) {
         setIsSubmitting(true);
         const fd = new FormData();
 
-        for (const key in form) {
-          if (form.hasOwnProperty(key)) {
-            if (key === "status") {
-              fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-            } else if (key === "event_id") {
-              fd.append("event_id", selectedEventId);
-            } else if (["thumbnail", "status", "event_id"].indexOf(key) < 0) {
-              fd.append(key, form[key]);
-            }
-          }
-        }
-
+        // for (const key in form) {
+        //   if (form.hasOwnProperty(key)) {
+        //     if (key === "status") {
+        //       fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+        //     } else if (key === "event_id") {
+        //       fd.append("event_id", selectedEventId);
+        //     } else if (["thumbnail", "status", "event_id"].indexOf(key) < 0) {
+        //       fd.append(key, form[key]);
+        //     }
+        //   }
+        // }
+        fd.append("name", form?.featureName?.name || employDetail);
+        fd.append("priority", form?.priority);
+        fd.append("status", form?.status === true ? "ACTIVE" : "INACTIVE");
+        fd.append("event_id", selectedEventId);
         if (form?.thumbnail) {
-          fd.append("thumbnail", form?.thumbnail);
+          fd.append("image", form?.thumbnail);
         }
-
+        if (id) {
+          fd.append("id", id);
+        }
         const req = id
-          ? serviceUpdateInfoCenter(fd)
-          : serviceCreateInfoCenter(fd);
+          ? serviceUpdateMenuGraphic(fd)
+          : serviceCreateMenuGraphic(fd);
 
         req.then((res) => {
           if (!res.error) {
@@ -197,7 +221,7 @@ function useMenuGraphicCreateHook({ location }) {
       const errors = checkFormValidation();
       if (Object.keys(errors)?.length > 0) {
         setErrorData(errors);
-        return true;
+        // return true;
       }
       submitToServer(status);
     },
@@ -214,7 +238,8 @@ function useMenuGraphicCreateHook({ location }) {
     isSubmitting,
     image,
     id,
-    featureValue
+    featureValue,
+    employDetail,
   };
 }
 

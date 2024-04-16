@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonBase, CircularProgress } from "@material-ui/core";
+import { ButtonBase, CircularProgress, TextField } from "@material-ui/core";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
@@ -10,6 +10,7 @@ import { MenuItem } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import useMenuGraphicCreateHook from "./MenuGraphicCreateHook";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
+import { Autocomplete } from "@material-ui/lab";
 function MenuGraphicCreate({ location }) {
   const {
     form,
@@ -20,7 +21,8 @@ function MenuGraphicCreate({ location }) {
     isSubmitting,
     image,
     id,
-    featureValue
+    featureValue,
+    employDetail
   } = useMenuGraphicCreateHook({ location });
 
   const params = useParams();
@@ -68,7 +70,7 @@ function MenuGraphicCreate({ location }) {
           <div className={styles.lowerWrap}>
             <div className={"formFlex"}>
               <div className={"formGroup"}>
-                <CustomSelectField
+                {/* <CustomSelectField
                   // disabled={disabled?.member_id}
                   isError={errorData?.featureName}
                   errorText={errorData?.featureName}
@@ -81,7 +83,25 @@ function MenuGraphicCreate({ location }) {
                   {featureValue?.map((feature) => {
                     return <MenuItem value={feature?.name}>{feature?.name}</MenuItem>;
                   })}
-                </CustomSelectField>
+                </CustomSelectField> */}
+                <Autocomplete
+                    id="tags-outlined"
+                    onChange={(e, value) => {
+                      changeTextData(value, "featureName");
+                    }}
+                    // defaultValue={form?.chapter_ids || employDetail}
+                    value={form?.featureName || []}
+                    options={featureValue || []}
+                    getOptionLabel={(option) => option?.name || employDetail}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        variant="outlined"
+                        label="Feature Name"
+                        error={errorData?.featureName}
+                      />
+                    )}
+                  />
               </div>
             </div>
             <div className={"formFlex"}>
