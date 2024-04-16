@@ -51,7 +51,7 @@ const SpeakerMaster = ({}) => {
       {
         key: "name",
         label: "NAME",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div className={styles.firstCellFlex}>
             <img
@@ -69,7 +69,7 @@ const SpeakerMaster = ({}) => {
         label: "DESCRIPTION",
         sortable: false,
         render: (value, all) => (
-          <div className={styles.desData}>{all?.s_description}</div>
+          <div className={styles.desData}>{all?.s_description || "N/A"}</div>
         ),
       },
 
@@ -77,7 +77,7 @@ const SpeakerMaster = ({}) => {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.s_designation}</div>,
+        render: (temp, all) => <div>{all?.s_designation || "N/A"}</div>,
       },
       {
         key: "company",
@@ -88,7 +88,7 @@ const SpeakerMaster = ({}) => {
       {
         key: "status",
         label: "STATUS",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div>{<StatusPill status={all?.s_status} />}</div>
         ),
