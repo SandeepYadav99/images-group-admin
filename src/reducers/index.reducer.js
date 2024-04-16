@@ -108,7 +108,6 @@ const rootReducer = combineReducers({
   Business_Greeting:BusinessGreetingReducer,
   Knowledge_Center:KnowledgeCenter,
   Knowledge_Center_Stamp:KnowledgeCenterStamp,
-  // Product Category 2/01/2024
   productCategory:ProductCategoryReducer,
   productGroups:ProductGroupReducer,
   Exhibitor:ExhibitorReducer,
