@@ -221,22 +221,7 @@ function EventCreate() {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.company_name}
-              errorText={errorData?.company_name}
-              label={"Company Name"}
-              value={form?.company_name}
-              onTextChange={(text) => {
-                changeTextData(text, "company_name");
-              }}
-              onBlur={() => {
-                onBlurHandler("company_name");
-              }}
-            />
-          </div>
-        </div>
+       
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <File

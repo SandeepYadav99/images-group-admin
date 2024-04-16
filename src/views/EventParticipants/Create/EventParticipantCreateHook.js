@@ -35,6 +35,7 @@ const initialForm = {
   is_auto: false,
   category: "",
   participant_type: [],
+  company_name: "",
   is_award: false,
   is_lunch: false,
 };
@@ -127,6 +128,7 @@ const useEventParticipantCreate = ({
             participant_type: data?.participants_type,
             is_award: data?.is_award,
             is_lunch: data?.is_lunch,
+            company_name: data?.company_name,
           };
           setForm(tForm);
         } else {
@@ -143,7 +145,11 @@ const useEventParticipantCreate = ({
   }, [form, setForm, isContactInList, empId, id, form?.contact]);
 
   const DataSetName = [
-    "EXHIBITOR","SPEAKER","AWARD_PRESENTATION","INNOVATORS_CLUB","JURY"
+    "EXHIBITOR",
+    "SPEAKER",
+    "AWARD_PRESENTATION",
+    "INNOVATORS_CLUB",
+    "JURY",
   ];
 
   const checkFormValidation = useCallback(() => {

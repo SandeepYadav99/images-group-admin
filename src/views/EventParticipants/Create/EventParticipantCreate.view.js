@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
-import { ButtonBase, CircularProgress,  TextField
-} from "@material-ui/core";
+import { ButtonBase, CircularProgress, TextField } from "@material-ui/core";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
@@ -120,6 +119,22 @@ const EventParticipantCreateView = ({
               onBlurHandler("email");
             }}
             disabled={isContactInList}
+          />
+        </div>
+      </div>
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomTextField
+            isError={errorData?.company_name}
+            errorText={errorData?.company_name}
+            label={"Company Name"}
+            value={form?.company_name}
+            onTextChange={(text) => {
+              changeTextData(text, "company_name");
+            }}
+            onBlur={() => {
+              onBlurHandler("company_name");
+            }}
           />
         </div>
       </div>
