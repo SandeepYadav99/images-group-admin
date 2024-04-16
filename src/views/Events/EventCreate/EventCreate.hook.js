@@ -65,7 +65,7 @@ function useEventCreate() {
 
     primary_button_bg_color: "",
     primary_button_text_color: "",
-    Secondary_button_bg_colo: "",
+    Secondary_button_bg_color: "",
     Secondary_button_text_color: "",
 
     all_event_participants: true,
@@ -109,7 +109,7 @@ function useEventCreate() {
     "menu_text_colour",
     "primary_button_bg_color",
     "primary_button_text_color",
-    "Secondary_button_bg_colo",
+    "Secondary_button_bg_color",
     "Secondary_button_text_color",
   ];
   const eventkeys = ["all_chapters", "chapters", "all_event_participants"];
@@ -235,7 +235,7 @@ function useEventCreate() {
       "menu_text_colour",
       "primary_button_bg_color",
       "primary_button_text_color",
-      "Secondary_button_bg_colo",
+      "Secondary_button_bg_color",
       "Secondary_button_text_color",
       "is_gallery_public",
     ];

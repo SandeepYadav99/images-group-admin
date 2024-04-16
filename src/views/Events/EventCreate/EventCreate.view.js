@@ -493,15 +493,15 @@ function EventCreate() {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.Secondary_button_bg_colo}
-              errorText={errorData?.Secondary_button_bg_colo}
+              isError={errorData?.Secondary_button_bg_color}
+              errorText={errorData?.Secondary_button_bg_color}
               label={"Secondary Button bg color"}
-              value={form?.Secondary_button_bg_colo}
+              value={form?.Secondary_button_bg_color}
               onTextChange={(text) => {
-                changeTextData(text, "Secondary_button_bg_colo");
+                changeTextData(text, "Secondary_button_bg_color");
               }}
               onBlur={() => {
-                onBlurHandler("Secondary_button_bg_colo");
+                onBlurHandler("Secondary_button_bg_color");
               }}
               InputLabelProps={{ shrink: true }}
             />
