@@ -221,7 +221,7 @@ function EventCreate() {
             />
           </div>
         </div>
-       
+
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <File
@@ -494,12 +494,6 @@ function EventCreate() {
           <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
-              // handleChange={(text) => {
-              //   changeFeatureData(
-              //     !feature?.event_participants,
-              //     "event_participants"
-              //   );
-              // }}
               label={"Event Participants"}
               checked={feature?.event_participants}
             />
@@ -711,6 +705,10 @@ function EventCreate() {
               checked={feature?.exhibitor}
             />
           </div>
+
+          <div className={"formGroup"}></div>
+        </div>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
@@ -735,13 +733,25 @@ function EventCreate() {
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
-                changeFeatureData(!feature?.event_highlights, "event_highlights");
+                changeFeatureData(
+                  !feature?.event_highlights,
+                  "event_highlights"
+                );
               }}
               label={"Event HighLights"}
               checked={feature?.event_highlights}
             />
           </div>
-          <div className={"formGroup"}></div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.meeting_rooms, "meeting_rooms");
+              }}
+              label={"Meeting Rooms"}
+              checked={feature?.meeting_rooms}
+            />
+          </div>
         </div>
       </div>
 

@@ -385,6 +385,12 @@ export const EventData = [
     image: event,
     url: RouteName.EVENT_HIGHLIGHTS,
   },
+  {
+    key: "meeting_rooms",
+    name: "Meeting Rooms",
+    image: event,
+    url: RouteName.MEETING_ROOMS,
+  }
   // {
   //   key: "networking",
   //   name: "Information Center",

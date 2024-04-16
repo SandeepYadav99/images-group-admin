@@ -104,7 +104,10 @@ const VideoSponsporCreate = lazy(()=>import("../views/SponsporVideo/SponsporCrea
 
 const EventHighLightsList = lazy(()=>import("../views/EventHighlights/EventHightList/List.js"));
 
-const EventHighLightCreate = lazy(()=>import("../views/EventHighlights/EventHighlightCreate/Create.js"))
+const EventHighLightCreate = lazy(()=>import("../views/EventHighlights/EventHighlightCreate/Create.js"));
+
+const MeetingRoomsList = lazy(()=>import("../views/MeetingRooms/MeetingList/MeetingList.js"));
+const MeetingDetails = lazy(()=>import("../views/MeetingRooms/MeetingDetails/MeetingDetails.js"))
 
 
 const Roles = Constants.ROLES;
@@ -987,7 +990,21 @@ const dashboardRoutes = [
     path:`${RouteName?.EVENT_HIGHLIGHTS_UPDATE}:id`,
     component: EventHighLightCreate,
     is_protect: true,
-   }
+   },
+   {
+    path: `${RouteName.MEETING_ROOMS}:id`,
+    component: MeetingRoomsList,
+    is_sidebar:false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.MEETINGS_DETAIL}:id`,
+    component: MeetingDetails,
+    is_sidebar:false,
+    is_protect: true,
+  }
+  
+   
 
 ];
 

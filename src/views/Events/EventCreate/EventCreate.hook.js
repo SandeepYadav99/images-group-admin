@@ -96,6 +96,7 @@ function useEventCreate() {
     youtube_live: false,
     information_center: false,
     event_highlights:true,
+    meeting_rooms:true,
   };
   
   const colorKey = [

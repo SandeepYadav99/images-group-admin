@@ -44,7 +44,7 @@ function VideoSponsporCreate({ location }) {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              {id ? <b>Edit Video Sponspor</b> : <b>Add Video Sponspor</b>}
+              {id ? <b>Edit Video Sponsor</b> : <b>Add Video Sponsor</b>}
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
@@ -53,7 +53,7 @@ function VideoSponsporCreate({ location }) {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>Video Sponspor Details</div>
+            <div className={"heading"}>Video Sponsor Details</div>
           </h4>
         </div>
         <div className={"formFlex"}>

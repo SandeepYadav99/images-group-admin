@@ -152,7 +152,7 @@ const SponsporList = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Sponspor Video List</span>
+            <span className={styles.title}>Sponsor Video List</span>
             <div className={styles.newLine} />
           </div>
           <div>

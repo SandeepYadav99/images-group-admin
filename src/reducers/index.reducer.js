@@ -58,6 +58,7 @@ import SplashScreenReducer from "./SplashScreen.reducer";
 import SpeakerMasterReducer from "./SpeakerMaster.reducer";
 import SponsporVideoReducer from "./SponsporVideo.reducer";
 import EventHighLight from "./EventHighLight.reducer";
+import MeetingRoomsReducer from "./MeetingRoom.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -119,7 +120,8 @@ const rootReducer = combineReducers({
   SplashScreen:SplashScreenReducer,
   SpeakerMaster:SpeakerMasterReducer,
   sponspor_video:SponsporVideoReducer,
-  event_highlight:EventHighLight
+  event_highlight:EventHighLight,
+  meeting_room:MeetingRoomsReducer,
 });
 
 export default rootReducer;
