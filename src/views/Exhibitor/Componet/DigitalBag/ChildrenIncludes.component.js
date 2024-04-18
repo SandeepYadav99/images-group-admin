@@ -225,7 +225,7 @@ const ChildrenIncludeForm = (
             handlePress("ADDITION", 0);
           }}
         >
-          <Add fontSize={"small"}  /> <span>Add Children</span>
+          <Add fontSize={"small"}  /> <span>Add More</span>
         </ButtonBase>
       </div>
       {/*</div>*/}

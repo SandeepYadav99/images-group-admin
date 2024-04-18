@@ -1164,10 +1164,10 @@ const ExhibitorCreate = () => {
           </div>
         </div>
        
-     
+        <div className={styles.cont}>
             <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <MultiFile
+            {/* <MultiFile
               multiDef={selectImages ? selectImages : []}
               // multiple
               max_size={10 * 1024 * 1024}
@@ -1190,9 +1190,28 @@ const ExhibitorCreate = () => {
                   renderImages(img);
                 }
               }}
+            /> */}
+               <File
+              // imageClass={styles.inputFileUploader}
+              max_size={5 * 1024 * 1024}
+              type={["png", "jpeg", "jpg"]}
+              fullWidth={true}
+              name="document"
+              accept={"image/*"}
+              default_image={image ? image : null}
+              label="Upload  Image"
+              show_image={true}
+              error={errorData?.images}
+              value={form?.images}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "images");
+                }
+              }}
             />
           </div>
         </div>
+        <div className={styles.lowerWrap}>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
@@ -1224,6 +1243,8 @@ const ExhibitorCreate = () => {
               }}
             />
           </div>
+        </div>
+        </div>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>

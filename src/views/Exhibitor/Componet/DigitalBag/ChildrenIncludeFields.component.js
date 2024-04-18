@@ -77,35 +77,33 @@ const renderImages = (image) => {
     <div>
       <div className={styles.flexContainer}>
         <div className={styles.firstRow}>
-        <div className={"formFlex"}>
+        <div className={styles.cont}>
+            <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <MultiFile
-              multiDef={selectImages ? selectImages : []}
-              // multiple
-              max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+           
+               <File
+              // imageClass={styles.inputFileUploader}
+              max_size={5 * 1024 * 1024}
+              type={["png", "jpeg", "jpg"]}
               fullWidth={true}
-              // name="od1"
-              label="Upload  Image"
+              name="document"
               accept={"image/*"}
+              // default_image={image ? image : null}
+              label="Upload  Image"
+              show_image={true}
               error={errors?.images}
               value={data?.images}
-              // default_image={selectImages ? selectImages[0] : null}
-              placeholder={"Upload  Image"}
-              onChange={(file) => {
-                if (file) {
-                  changeTextData(file, "images");
-                }
-              }}
-              DefChange={(img) => {
-                if (img) {
-                  renderImages(img);
-                }
-              }}
+              // onChange={(file) => {
+              //   if (file) {
+              //     changeTextData(file, "images");
+              //   }
+              // }}
+              onTextChange={handleChange}
             />
           </div>
         </div>
-           <div className={"formFlex"}>
+        <div className={styles.lowerWrap}>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errors?.title}
@@ -119,7 +117,7 @@ const renderImages = (image) => {
             />
           </div>
         </div>
-          <div className={"formFlex"}>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errors?.url}
@@ -133,6 +131,9 @@ const renderImages = (image) => {
             />
           </div>
         </div>
+        </div>
+        </div>
+         
        
       
           <div className={"textCenter"}>
