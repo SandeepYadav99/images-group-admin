@@ -346,7 +346,7 @@ function EventCreate() {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>Linkedin splash screen</div>
+            <div className={"heading"}>LinkedIn splash screen</div>
           </h4>
         </div>
         <div className={"formGroup"}>
@@ -355,11 +355,11 @@ function EventCreate() {
             type={["jpeg", "jpg", "png"]}
             fullWidth={true}
             name="od1"
-            label="Upload Banner for LinkdIn "
+            label="Upload Banner for LinkedIn "
             accept={"application/pdf,application/msword,image/*"}
             error={errorData?.linkdin_banner}
             value={form?.linkdin_banner}
-            placeholder={"Upload Banner for LinkdIn"}
+            placeholder={"Upload Banner for LinkedIn"}
             onChange={(file) => {
               if (file) {
                 changeTextData(file, "linkdin_banner");
@@ -371,7 +371,7 @@ function EventCreate() {
           <CustomTextField
             isError={errorData?.linkdin_content}
             errorText={errorData?.linkdin_content}
-            label={"LinkdIn Content"}
+            label={"LinkedIn Content"}
             value={form?.linkdin_content}
             onTextChange={(text) => {
               changeTextData(text, "linkdin_content");

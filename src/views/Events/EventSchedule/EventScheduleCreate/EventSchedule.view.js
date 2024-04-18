@@ -18,6 +18,7 @@ import CustomDatePicker from "../../../../components/FormFields/DatePicker/Custo
 import { Autocomplete } from "@material-ui/lab";
 import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import LogUtils from "../../../../libs/LogUtils";
+import CustomCheckbox from "../../../../components/FormFields/CustomCheckbox";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -346,7 +347,18 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
           />
         </div>
       </div>
-
+      <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeTextData(!form?.is_recommended, "is_recommended");
+              }}
+              label={"Recommended "}
+              checked={form?.is_recommended}
+            />
+          </div>
+        </div>
       <div className={styles.btnCont}>
         <ButtonBase
           disabled={isSubmitting}

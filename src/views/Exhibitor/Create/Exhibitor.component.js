@@ -205,7 +205,7 @@ const ExhibitorCreate = () => {
                   <TextField
                     {...params}
                     variant="outlined"
-                    label="Product Group"
+                    label="Participant"
                     error={errorData?.product_groups}
                   />
                 )}

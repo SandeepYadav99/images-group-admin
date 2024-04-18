@@ -33,6 +33,7 @@ const initialForm = {
   venue:"",
   chairs: [],
   co_chairs: [],
+  is_recommended:false
 };
 
 const useEventScheduleHook = ({
@@ -139,6 +140,7 @@ const useEventScheduleHook = ({
             category:data?.category,
             chairs:modifiedChairs,
             co_chairs:modifiedCoChairs,
+            is_recommended: data?.is_recommended
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -212,6 +214,7 @@ const useEventScheduleHook = ({
         co_chairs: form?.co_chairs?.map((val) => val.id),
         event_id: id,
         status: form?.status ? "ACTIVE" : "INACTIVE",
+        is_recommended:form?.is_recommended === true ? true : false,
       }).then((res) => {
         if (!res.error) {
           handleToggleSidePannel();
