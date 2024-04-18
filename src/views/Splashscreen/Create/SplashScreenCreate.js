@@ -99,7 +99,7 @@ function SplashScreenCreate({ location }) {
 
             <MultiFile
               multiDef={selectVideos ? selectVideos : []}
-              max_size={10 * 1024 * 1024}
+              max_size={5 * 1024 * 1024}
               type={["mp4"]}
               fullWidth={true}
               name="od1"
@@ -123,7 +123,7 @@ function SplashScreenCreate({ location }) {
 
             <div className={styles.inst}>
               <InfoOutlinedIcon />
-              Recommended Size for splash image is 800 x 400 px
+              Recommended Resolution for splash screen video is 1920x1080p
             </div>
           </div>
           <div className={"formGroup"}></div>

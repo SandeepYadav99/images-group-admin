@@ -51,7 +51,7 @@ console.log(selectVideos, "Videos")
             name: data?.name,
 
             link: data?.link,
-            status: data?.status === "ACTIVE" ? "ACTIVE" : "INACTIVE",
+            status: data?.status === "ACTIVE" ? true : false,
           });
           setImage(data?.video);
         } else {
@@ -123,7 +123,7 @@ console.log(selectVideos, "Videos")
       setIsSubmitting(true);
       const fd = new FormData();
 
-      console.log(form, "Key");
+     
       // Object.keys(form).forEach((key) => {
       //   LogUtils.log("key", key);
       //   if (key !== "image") {
@@ -149,9 +149,9 @@ console.log(selectVideos, "Videos")
       }
       fd.append("event_id", "65029c5bdf6918136df27e51")
     
-      if (form?.status) {
-        fd.append("status", form?.status ? "ACTIVE" : "INACTIVE");
-      }
+      // if (form?.status) {
+        fd.append("status", form?.status === true ? "ACTIVE" : "INACTIVE");
+      // }
       if (form?.video) {
         fd.append("video", form?.video);
       }

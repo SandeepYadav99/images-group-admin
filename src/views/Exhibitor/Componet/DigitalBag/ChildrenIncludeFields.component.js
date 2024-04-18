@@ -18,12 +18,10 @@ import {
   Info as EditIcon,
   RemoveCircleOutline as RemoveIcon,
 } from "@material-ui/icons";
-import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
-import LogUtils from "../../../../libs/LogUtils";
-import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
+
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import File from "../../../../components/FileComponent/FileComponent.component";
-import MultiFile from "../../../GalleryAlbum/Create/Component/FileComponent/FileMultiComponent.component";
+
 
 const useStyles = {
   toggleDiv: {
@@ -54,15 +52,20 @@ const ChildrenIncludeFields = ({
   onBlur,
   currency,
   listWarehouse,
+  empId
 }) => {
+  // const handleChange = (e) => {
+  //   const name = e?.target?.name;
+  //   const value = e?.target?.value;
+  //   if (name === "title") {
+  //     changeData(index,{['title'] : value})
+  //   } else {
+  //     changeData(index, { [name]: value });
+  //   }
+  // };
   const handleChange = (e) => {
-    const name = e?.target?.name;
-    const value = e?.target?.value;
-    if (name === "title") {
-      changeData(index,{['title'] : value})
-    } else {
-      changeData(index, { [name]: value });
-    }
+    const { name, value } = e.target;
+    changeData(index, { [name]: value });
   };
   const [selectImages, setSelectImages] = useState([]);
 const changeTextData=(value,key)=>{
@@ -86,7 +89,7 @@ const renderImages = (image) => {
               max_size={5 * 1024 * 1024}
               type={["png", "jpeg", "jpg"]}
               fullWidth={true}
-              name="document"
+              name="images"
               accept={"image/*"}
               // default_image={image ? image : null}
               label="Upload  Image"
@@ -98,37 +101,41 @@ const renderImages = (image) => {
               //     changeTextData(file, "images");
               //   }
               // }}
-              onTextChange={handleChange}
+              onChange={(file) => {
+                handleChange({ target: { name: 'images', value: file }});
+              }}
             />
           </div>
         </div>
         <div className={styles.lowerWrap}>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomTextField
-              isError={errors?.title}
-              errorText={errors?.title}
-              label={"Title"}
+          <TextField
+              error={errors?.title}
+              onChange={handleChange}
               value={data?.title}
-              onTextChange={handleChange}
-              // onBlur={() => {
-              //   onBlurHandler("title");
-              // }}
+              fullWidth={true}
+              name={"title"}
+              margin={"dense"}
+              variant={"outlined"}
+              label={"Title"}
             />
+          
           </div>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomTextField
-              isError={errors?.url}
-              errorText={errors?.url}
-              label={"URL"}
+          <TextField
+              error={errors?.url}
+              onChange={handleChange}
               value={data?.url}
-              onTextChange={handleChange}
-              // onBlur={() => {
-              //   onBlurHandler("url");
-              // }}
+              fullWidth={true}
+              name={"url"}
+              margin={"dense"}
+              variant={"outlined"}
+              label={"URL"}
             />
+          
           </div>
         </div>
         </div>
@@ -144,7 +151,7 @@ const renderImages = (image) => {
                 handlePress(index == 0 ? "-" : "-", index);
               }}
             >
-              {index == 0 ? "Remove" : "Remove"}
+              {index == 0 ? "" : "Remove"}
             </ButtonBase>
           </div>
         </div>

@@ -54,46 +54,48 @@ const ChildrenIncludeFields = ({
   currency,
   listWarehouse,
 }) => {
+  // const handleChange = (e) => {
+  //   const name = e?.target?.name;
+  //   const value = e?.target?.value;
+    
+  //   console.log({name, value})
+  //   if (name === "fileName") {
+  //     changeData(index,{['fileName'] : value})
+  //   }else if(name === "documentUpload"){
+  //     changeData(index, { ['documentUpload']: value });
+  //   } else {
+  //     changeData(index, { [name]: value });
+  //   }
+  // };
   const handleChange = (e) => {
-    const name = e?.target?.name;
-    const value = e?.target?.value;
-    if (name === "fileName") {
-      changeData(index,{['fileName'] : value})
-    } else {
-      changeData(index, { [name]: value });
-    }
+    const { name, value } = e.target;
+    console.log({name, value})
+    changeData(index, { [name]: value });
   };
+  
 const changeTextData=(value,key)=>{
   changeData(index, { [key]: value });
 
 }
+
+console.log({data})
   return (
     <div>
       <div className={styles.flexContainer}>
         <div className={styles.firstRow}>
-          {/* <div className={styles.flex1}>
-            <TextField
-              error={errors?.name}
-              onChange={handleChange}
-              value={data?.name}
-              fullWidth={true}
-              name={"name"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Child Name"}
-            />
-          </div> */}
+        
           <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomTextField
-              isError={errors?.fileName}
-              errorText={errors?.fileName}
-              label={"File Name"}
+        
+              <TextField
+              error={errors?.fileName}
+              onChange={handleChange}
               value={data?.fileName}
-              onTextChange={handleChange}
-              // onBlur={() => {
-              //   onBlurHandler("fileName");
-              // }}
+              fullWidth={true}
+              name={"fileName"}
+              margin={"dense"}
+              variant={"outlined"}
+              label={"File Name"}
             />
           </div>
         </div>
@@ -103,13 +105,17 @@ const changeTextData=(value,key)=>{
               max_size={10 * 1024 * 1024}
               type={["pdf", "doc", "docx"]}
               fullWidth={true}
-              // name="od1"
+               name="documentUpload"
               label="Upload PDF"
               accept={"application/pdf,application/msword"}
               error={errors?.documentUpload}
               value={data?.documentUpload}
               placeholder={"Upload PDF"}
-              onTextChange={handleChange}
+             
+              onChange={(file) => {
+                console.log({file})
+                handleChange({ target: { name: 'documentUpload', value: file }});
+              }}
             />
           </div>
         </div>
@@ -118,10 +124,10 @@ const changeTextData=(value,key)=>{
               className={styles.removeBtn}
               // label={this.props.index == 0 ? "+" : '-'}
               onClick={() => {
-                handlePress(index == 0 ? "-" : "-", index);
+                handlePress(index == 2 ? "-" : "-", index);
               }}
             >
-              {index == 0 ? "Remove" : "Remove"}
+              {index == 0 ? "" : "Remove"}
             </ButtonBase>
           </div>
         </div>

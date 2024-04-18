@@ -1030,29 +1030,29 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.youtube}
-              errorText={errorData?.youtube}
-              label={"Social Media Youtube"}
-              value={form?.youtube}
+              isError={errorData?.youtube_link}
+              errorText={errorData?.youtube_link}
+              label={"Social Media youtube"}
+              value={form?.youtube_link_link}
               onTextChange={(text) => {
-                changeTextData(text, "youtube");
+                changeTextData(text, "youtube_link");
               }}
               onBlur={() => {
-                onBlurHandler("youtube");
+                onBlurHandler("youtube_link");
               }}
             />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.insta}
-              errorText={errorData?.insta}
+              isError={errorData?.instagram_link}
+              errorText={errorData?.instagram_link}
               label={"Social Media Instagram"}
-              value={form?.insta}
+              value={form?.instagram_link}
               onTextChange={(text) => {
-                changeTextData(text, "insta");
+                changeTextData(text, "instagram_link");
               }}
               onBlur={() => {
-                onBlurHandler("insta");
+                onBlurHandler("instagram_link");
               }}
             />
           </div>
@@ -1060,29 +1060,29 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.fb}
-              errorText={errorData?.fb}
+              isError={errorData?.facebook_link}
+              errorText={errorData?.facebook_link}
               label={"Social Media Facebook"}
-              value={form?.fb}
+              value={form?.facebook_link}
               onTextChange={(text) => {
-                changeTextData(text, "fb");
+                changeTextData(text, "facebook_link");
               }}
               onBlur={() => {
-                onBlurHandler("fb");
+                onBlurHandler("facebook_link");
               }}
             />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.linkedin}
-              errorText={errorData?.linkedin}
+              isError={errorData?.linkedin_link}
+              errorText={errorData?.linkedin_link}
               label={"Social Media Linkedin"}
-              value={form?.linkedin}
+              value={form?.linkedin_link}
               onTextChange={(text) => {
-                changeTextData(text, "linkedin");
+                changeTextData(text, "linkedin_link");
               }}
               onBlur={() => {
-                onBlurHandler("linkedin");
+                onBlurHandler("linkedin_link");
               }}
             />
           </div>
@@ -1090,15 +1090,15 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.twitter}
-              errorText={errorData?.twitter}
+              isError={errorData?.twitter_link}
+              errorText={errorData?.twitter_link}
               label={"Social Media Twitter"}
-              value={form?.twitter}
+              value={form?.twitter_link}
               onTextChange={(text) => {
-                changeTextData(text, "twitter");
+                changeTextData(text, "twitter_link");
               }}
               onBlur={() => {
-                onBlurHandler("twitter");
+                onBlurHandler("twitter_link");
               }}
             />
           </div>
@@ -1113,7 +1113,7 @@ const ExhibitorCreate = () => {
             </div>
           </div>
         </div>
-        <div className={"formFlex"}>
+        {/* <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.fileName}
@@ -1128,8 +1128,8 @@ const ExhibitorCreate = () => {
               }}
             />
           </div>
-        </div>
-        <div className={"formFlex"}>
+        </div> */}
+        {/* <div className={"formFlex"}>
           <div className={"formGroup"}>
             <File
               max_size={10 * 1024 * 1024}
@@ -1148,12 +1148,12 @@ const ExhibitorCreate = () => {
               }}
             />
           </div>
-        </div>
-        <div className={"formFlex"}>
+        </div> */}
+         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <ChildrenIncludeForm ref={ChildenRef} />
           </div>
-        </div>
+        </div> 
       </div>
 
       <div className={"plainPaper"}>
@@ -1192,7 +1192,7 @@ const ExhibitorCreate = () => {
                 }
               }}
             /> */}
-               <File
+               {/* <File
               // imageClass={styles.inputFileUploader}
               max_size={5 * 1024 * 1024}
               type={["png", "jpeg", "jpg"]}
@@ -1209,49 +1209,16 @@ const ExhibitorCreate = () => {
                   changeTextData(file, "images");
                 }
               }}
-            />
+            /> */}
           </div>
         </div>
-        <div className={styles.lowerWrap}>
-        <div className={"formFlex"}>
+       
+        </div>
+         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.title}
-              errorText={errorData?.title}
-              label={"Title"}
-              value={form?.title}
-              onTextChange={(text) => {
-                changeTextData(text, "title");
-              }}
-              onBlur={() => {
-                onBlurHandler("title");
-              }}
-            />
+            <ChildrenIncludeForm1 ref={ChildenRef1} empId={empId}/>
           </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.url}
-              errorText={errorData?.url}
-              label={"URL"}
-              value={form?.url}
-              onTextChange={(text) => {
-                changeTextData(text, "url");
-              }}
-              onBlur={() => {
-                onBlurHandler("url");
-              }}
-            />
-          </div>
-        </div>
-        </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <ChildrenIncludeForm1 ref={ChildenRef1} />
-          </div>
-        </div>
+        </div> 
       </div>
       <div className={"plainPaper"}>
         <div className={"formFlex"}>
@@ -1271,10 +1238,10 @@ const ExhibitorCreate = () => {
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
-                changeFeatureData(!feature?.featured, "featured");
+                changeFeatureData(!form?.is_featured, "is_featured");
               }}
               label={"Featured"}
-              checked={feature?.featured}
+              checked={form?.is_featured}
             />
           </div>
         </div>
@@ -1283,10 +1250,10 @@ const ExhibitorCreate = () => {
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
-                changeFeatureData(!feature?.recommended, "recommended ");
+                changeFeatureData(!form?.is_recommended, "is_recommended ");
               }}
               label={"Recommended "}
-              checked={feature?.recommended}
+              checked={feature?.is_recommended}
             />
           </div>
         </div>

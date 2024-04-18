@@ -20,6 +20,7 @@ import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 const TEMP_OBJ = {
   fileName: "",
   documentUpload: "",
+ 
 };
 
 const ChildrenIncludeForm = (
@@ -35,10 +36,11 @@ const ChildrenIncludeForm = (
   },
   ref
 ) => {
-  const [fields, setFields] = useState([]);
+  const [fields, setFields] = useState([TEMP_OBJ]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
   const { id } = useParams();
+
 
   useEffect(() => {
     let sku = 0;
@@ -64,7 +66,7 @@ const ChildrenIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      fields.forEach((obj) => {
+      fields.forEach(obj => {
         if (obj.hasOwnProperty("employee_id")) {
           delete obj.employee_id;
         }
@@ -92,7 +94,7 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["fileName", "documentUpload"];
+      const required = ["fileName","documentUpload"];
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -223,7 +225,7 @@ const ChildrenIncludeForm = (
             handlePress("ADDITION", 0);
           }}
         >
-          <Add fontSize={"small"} /> <span>Add More</span>
+          <Add fontSize={"small"}  /> <span>Add More</span>
         </ButtonBase>
       </div>
       {/*</div>*/}

@@ -33,10 +33,11 @@ const ChildrenIncludeForm = (
     changeTextData,
     updateInventory,
     vendorId,
+    empId
   },
   ref
 ) => {
-  const [fields, setFields] = useState([]);
+  const [fields, setFields] = useState([TEMP_OBJ]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
   const { id } = useParams();
@@ -94,12 +95,13 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["title","url"];
+      const required = [];
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
         }
       });
+    
       if (Object.keys(err).length > 0) {
         errors[index] = err;
       }

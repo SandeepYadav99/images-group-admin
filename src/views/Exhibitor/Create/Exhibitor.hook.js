@@ -60,15 +60,19 @@ const initialForm = {
   pavallian: "",
   featured: false,
   recommended: false,
-  fb: "",
-  linkedin: "",
-  insta: "",
-  youtube: "",
-  documentUpload:"",
-  fileName:"",
-  title:"",
-  url:"",
-  images:""
+  facebook_link: "",
+  linkedin_link: "",
+  instagram_link: "",
+
+  twitter_link: "",
+  is_featured: false,
+  is_recommended: false,
+
+  // documentUpload: "",
+  // fileName: "",
+  // title: "",
+  // url: "",
+  // images: "",
 };
 
 const featureKey = {
@@ -152,8 +156,8 @@ const useExhibitorCreate = ({ location }) => {
         if (!res.error) {
           const data = res?.data?.details;
           const { business_nature } = data;
-          const { hall , children} = data;
-       
+          const { hall, children } = data;
+
           // ChildenRef?.current?.setData(children);
           // setSelectImages(data?.gallery_images);
           setDetailsValue(business_nature);
@@ -364,11 +368,10 @@ const useExhibitorCreate = ({ location }) => {
       "primary_conatct_number",
       "company_address",
       "country_code",
-      "fileName",
-      "documentUpload",
-      "title",
-      "url",
-      
+      // "fileName",
+      // "documentUpload",
+      // "title",
+      // "url",
     ];
 
     if (form?.is_partner) {
@@ -376,9 +379,9 @@ const useExhibitorCreate = ({ location }) => {
     } else {
       delete errors["partner_tag"];
     }
-    if (!empId) {
-      required.push("images");
-    }
+    // if (!empId) {
+    //   required.push("images");
+    // }
     required.forEach((val) => {
       if (form?.product_categories?.length === 0) {
         errors["product_categories"] = true;
@@ -393,25 +396,25 @@ const useExhibitorCreate = ({ location }) => {
     if (form?.primary_email && !isEmail(form?.primary_email)) {
       errors["primary_email"] = "Invalid email address ";
     }
-    
-    if (form?.insta && !validateUrl(form?.insta)) {
-      errors.insta = true;
+
+    if (form?.instagram_link && !validateUrl(form?.instagram_link)) {
+      errors.instagram_link = true;
       SnackbarUtils.error("Please Enter a Valid Instagram URL");
     }
-    if (form?.fb && !validateUrl(form?.fb)) {
-      errors.fb = true;
+    if (form?.facebook_link && !validateUrl(form?.facebook_link)) {
+      errors.facebook_link = true;
       SnackbarUtils.error("Please Enter a Valid Facebook URL");
     }
-    if (form?.twitter && !validateUrl(form?.twitter)) {
-      errors.twitter = true;
+    if (form?.twitter_link && !validateUrl(form?.twitter_link)) {
+      errors.twitter_link = true;
       SnackbarUtils.error("Please Enter a Valid Twitter URL");
     }
-    if (form?.linkedin && !validateUrl(form?.linkedin)) {
-      errors.linkedin = true;
+    if (form?.linkedin_link && !validateUrl(form?.linkedin_link)) {
+      errors.linkedin_link = true;
       SnackbarUtils.error("Please Enter a Valid LinkedIn URL");
     }
-    if (form?.youtube && !validateUrl(form?.youtube)) {
-      errors.youtube = true;
+    if (form?.youtube_link && !validateUrl(form?.youtube_link)) {
+      errors.youtube_link = true;
       SnackbarUtils.error("Please Enter a Valid YouTube URL");
     }
 
@@ -440,6 +443,7 @@ const useExhibitorCreate = ({ location }) => {
 
     return errors;
   }, [form, errorData]);
+ 
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -486,7 +490,11 @@ const useExhibitorCreate = ({ location }) => {
     // if (form?.company_brochure) {
     //   fd.append("company_brochure", form?.company_brochure);
     // }
-
+  
+    // const fileName= JSON.stringify(ChildenRef.current.getData())
+    fd.append("downloads", JSON.stringify(ChildenRef.current.getData()));
+    // digital_bag_images
+    fd.append("digital_bags", JSON.stringify(ChildenRef1.current.getData()));
     fd.append("is_business_nature_other", form?.is_business_nature_other);
 
     // if(empId){
@@ -527,7 +535,12 @@ const useExhibitorCreate = ({ location }) => {
     const errors = checkFormValidation();
     const isIncludesValid = ChildenRef.current.isValid();
     const isIncludesValid1 = ChildenRef1.current.isValid();
-    if (Object.keys(errors)?.length > 0 || !isIncludesValid  || !isIncludesValid1) {
+    //|| !isIncludesValid
+    if (
+      Object.keys(errors)?.length > 0 ||
+      !isIncludesValid ||
+      !isIncludesValid1
+    ) {
       setErrorData(errors);
       return true;
     }
@@ -609,8 +622,6 @@ const useExhibitorCreate = ({ location }) => {
     setForm({ ...initialForm });
   }, [form, setForm]);
 
-
-
   useEffect(() => {
     servicesPartnerTypeList({
       list: ["SPONSOR_TYPE"],
@@ -647,7 +658,7 @@ const useExhibitorCreate = ({ location }) => {
     partnerList,
     ChildenRef,
     renderImages,
-   ChildenRef1
+    ChildenRef1,
   };
 };
 
