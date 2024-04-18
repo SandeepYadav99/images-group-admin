@@ -33,7 +33,8 @@ const initialForm = {
   venue:"",
   chairs: [],
   co_chairs: [],
-  is_recommended:false
+  is_recommended:false,
+  image:""
 };
 
 const useEventScheduleHook = ({
@@ -49,6 +50,7 @@ const useEventScheduleHook = ({
   const [isEdit] = useState(false);
   const includeRef = useRef(null);
   const { id } = useParams();
+  const [thimbnel, setThimbnel]=useState("")
   const dispatch = useDispatch();
   const [listData, setListData] = useState({
     SPEAKERS: [],
@@ -123,6 +125,7 @@ const useEventScheduleHook = ({
           }))
           // const categoryData = data?.category?.toUpperCase();
           // console.log(categoryData,"categoryData is here")
+          setThimbnel(data?.image)
           setForm({
             ...form,
             id: data.id,
@@ -200,22 +203,35 @@ const useEventScheduleHook = ({
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
+
+      const fd = new FormData();
+      Object.keys(form).forEach((key) => {
+        if (key === "status") {
+          fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+        }else if(key === "speakers"){
+          fd.append(key, form?.speakers?.map((val) => val.id))
+        }else if(key === "moderator"){
+          fd.append(key, form?.moderator?.map((val) => val.id))
+        }else if(key === "chairs"){
+          fd.append(key, form?.chairs?.map((val) => val.id))
+        }else if(key === "status"){
+          fd.append(key, form?.status ? "ACTIVE" : "INACTIVE")
+        }else if(key === "is_recommended"){
+          fd.append(key, form?.is_recommended === true ? true : false,)
+        } else {
+          fd.append(key, form[key]);
+        }
+      })
+      if(empId){
+        fd.append("event_id", id)
+      } 
       let req;
       if (empId) {
         req = serviceUpdateEventSchedule;
       } else {
         req = serviceCreateEventSchedule;
       }
-      req({
-        ...form,
-        speakers: form?.speakers?.map((val) => val.id),
-        moderator: form?.moderator?.map((val) => val.id),
-        chairs: form?.chairs?.map((val) => val.id),
-        co_chairs: form?.co_chairs?.map((val) => val.id),
-        event_id: id,
-        status: form?.status ? "ACTIVE" : "INACTIVE",
-        is_recommended:form?.is_recommended === true ? true : false,
-      }).then((res) => {
+      req(fd).then((res) => {
         if (!res.error) {
           handleToggleSidePannel();
 
@@ -321,6 +337,7 @@ const useEventScheduleHook = ({
     categoryList,
     listDataValue,
     updateSpeakerList,
+    thimbnel
   };
 };
 

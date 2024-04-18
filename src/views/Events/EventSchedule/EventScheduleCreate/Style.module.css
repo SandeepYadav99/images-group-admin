@@ -15,6 +15,14 @@
   color: grey;
   margin-bottom: 5px;
 }
+.count{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.countBox{
+  width: 100%;
+}
 .headerContainer {
   display: flex;
   justify-content: space-between;
