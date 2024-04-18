@@ -21,7 +21,9 @@ import { useSelector } from "react-redux";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 import { removeUnderScore } from "../../../helper/helper";
 import { isNum } from "../../../libs/RegexUtils";
-
+import ChildrenIncludeForm from "../Componet/Download/ChildrenIncludes.component";
+import ChildrenIncludeForm1 from "../Componet/DigitalBag/ChildrenIncludes.component";
+import MultiFile from "../../GalleryAlbum/Create/Component/FileComponent/FileMultiComponent.component";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -53,6 +55,8 @@ const ExhibitorCreate = () => {
     changeFeatureData,
     deatilsValue,
     partnerList,
+    ChildenRef,
+  
   } = useExhibitorCreate({});
 
   const { user } = useSelector((state) => state?.auth);
@@ -1107,7 +1111,124 @@ const ExhibitorCreate = () => {
               <b> Add Downloads </b>{" "}
             </div>
           </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.fileName}
+              errorText={errorData?.fileName}
+              label={"File Name"}
+              value={form?.fileName}
+              onTextChange={(text) => {
+                changeTextData(text, "fileName");
+              }}
+              onBlur={() => {
+                onBlurHandler("fileName");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <File
+              max_size={10 * 1024 * 1024}
+              type={["pdf", "doc", "docx"]}
+              fullWidth={true}
+              // name="od1"
+              label="Upload PDF"
+              accept={"application/pdf,application/msword"}
+              error={errorData?.documentUpload}
+              value={form?.documentUpload}
+              placeholder={"Upload PDF"}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "documentUpload");
+                }
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <ChildrenIncludeForm ref={ChildenRef} />
+          </div>
+        </div>
+      </div>
 
+      <div className={"plainPaper"}>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <div className={"heading"}>
+              <b> Add Digital Bag </b>{" "}
+            </div>
+          </div>
+        </div>
+       
+     
+            <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <MultiFile
+              multiDef={selectImages ? selectImages : []}
+              // multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              // name="od1"
+              label="Upload  Image"
+              accept={"image/*"}
+              error={errorData?.images}
+              value={form?.images}
+              // default_image={selectImages ? selectImages[0] : null}
+              placeholder={"Upload  Image"}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "images");
+                }
+              }}
+              DefChange={(img) => {
+                if (img) {
+                  renderImages(img);
+                }
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.title}
+              errorText={errorData?.title}
+              label={"Title"}
+              value={form?.title}
+              onTextChange={(text) => {
+                changeTextData(text, "title");
+              }}
+              onBlur={() => {
+                onBlurHandler("title");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.url}
+              errorText={errorData?.url}
+              label={"URL"}
+              value={form?.url}
+              onTextChange={(text) => {
+                changeTextData(text, "url");
+              }}
+              onBlur={() => {
+                onBlurHandler("url");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <ChildrenIncludeForm1 ref={ChildenRef} />
+          </div>
         </div>
       </div>
       <div className={"plainPaper"}>

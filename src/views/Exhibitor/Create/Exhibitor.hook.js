@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
@@ -64,6 +64,11 @@ const initialForm = {
   linkedin: "",
   insta: "",
   youtube: "",
+  documentUpload:"",
+  fileName:"",
+  title:"",
+  url:"",
+  images:""
 };
 
 const featureKey = {
@@ -86,6 +91,7 @@ const useExhibitorCreate = ({ location }) => {
   const [checked, setChecked] = useState(false);
   const [feature, setFeature] = useState({ ...featureKey });
   const [productListData, setProductListData] = useState([]);
+  const ChildenRef = useRef(null);
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
@@ -136,14 +142,18 @@ const useExhibitorCreate = ({ location }) => {
     setChecked(() => !checked);
   };
 
+  const renderImages = (image) => {
+    setSelectImages([...image]);
+  };
   useEffect(() => {
     if (empId) {
       serviceGetExhibitorsDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
           const { business_nature } = data;
-          const { hall } = data;
-
+          const { hall , children} = data;
+       
+          // ChildenRef?.current?.setData(children);
           // setSelectImages(data?.gallery_images);
           setDetailsValue(business_nature);
           // setImage(data?.company_logo);
@@ -353,6 +363,8 @@ const useExhibitorCreate = ({ location }) => {
       "primary_conatct_number",
       "company_address",
       "country_code",
+      "fileName",
+      "documentUpload"
     ];
 
     if (form?.is_partner) {
@@ -509,7 +521,9 @@ const useExhibitorCreate = ({ location }) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    if (Object.keys(errors).length > 0) {
+    const isIncludesValid = ChildenRef.current.isValid();
+  
+    if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
       setErrorData(errors);
       return true;
     }
@@ -591,9 +605,7 @@ const useExhibitorCreate = ({ location }) => {
     setForm({ ...initialForm });
   }, [form, setForm]);
 
-  const renderImages = (image) => {
-    setSelectImages([...image]);
-  };
+
 
   useEffect(() => {
     servicesPartnerTypeList({
@@ -629,6 +641,8 @@ const useExhibitorCreate = ({ location }) => {
     feature,
     deatilsValue,
     partnerList,
+    ChildenRef,
+    renderImages
   };
 };
 
