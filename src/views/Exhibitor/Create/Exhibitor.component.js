@@ -56,6 +56,7 @@ const ExhibitorCreate = () => {
     deatilsValue,
     partnerList,
     ChildenRef,
+    ChildenRef1
   
   } = useExhibitorCreate({});
 
@@ -1248,7 +1249,7 @@ const ExhibitorCreate = () => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm1 ref={ChildenRef} />
+            <ChildrenIncludeForm1 ref={ChildenRef1} />
           </div>
         </div>
       </div>

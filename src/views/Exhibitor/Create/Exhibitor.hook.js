@@ -92,6 +92,7 @@ const useExhibitorCreate = ({ location }) => {
   const [feature, setFeature] = useState({ ...featureKey });
   const [productListData, setProductListData] = useState([]);
   const ChildenRef = useRef(null);
+  const ChildenRef1 = useRef(null);
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
@@ -364,7 +365,10 @@ const useExhibitorCreate = ({ location }) => {
       "company_address",
       "country_code",
       "fileName",
-      "documentUpload"
+      "documentUpload",
+      "title",
+      "url",
+      
     ];
 
     if (form?.is_partner) {
@@ -372,9 +376,9 @@ const useExhibitorCreate = ({ location }) => {
     } else {
       delete errors["partner_tag"];
     }
-    // if (!empId) {
-    //   required.push("primary_password");
-    // }
+    if (!empId) {
+      required.push("images");
+    }
     required.forEach((val) => {
       if (form?.product_categories?.length === 0) {
         errors["product_categories"] = true;
@@ -522,8 +526,8 @@ const useExhibitorCreate = ({ location }) => {
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     const isIncludesValid = ChildenRef.current.isValid();
-  
-    if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
+    const isIncludesValid1 = ChildenRef1.current.isValid();
+    if (Object.keys(errors)?.length > 0 || !isIncludesValid  || !isIncludesValid1) {
       setErrorData(errors);
       return true;
     }
@@ -642,7 +646,8 @@ const useExhibitorCreate = ({ location }) => {
     deatilsValue,
     partnerList,
     ChildenRef,
-    renderImages
+    renderImages,
+   ChildenRef1
   };
 };
 

@@ -58,8 +58,8 @@ const ChildrenIncludeFields = ({
   const handleChange = (e) => {
     const name = e?.target?.name;
     const value = e?.target?.value;
-    if (name === "fileName") {
-      changeData(index,{['fileName'] : value})
+    if (name === "title") {
+      changeData(index,{['title'] : value})
     } else {
       changeData(index, { [name]: value });
     }
