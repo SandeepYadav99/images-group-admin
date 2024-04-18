@@ -387,7 +387,7 @@ export const EventData = [
   },
   {
     key: "event_highlights",
-    name: "Event HighLights",
+    name: "Event Highlights",
     image: event,
     url: RouteName.EVENT_HIGHLIGHTS,
   },
