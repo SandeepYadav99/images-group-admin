@@ -4,7 +4,11 @@ import { useParams } from "react-router";
 import { serviceGetList } from "../../../services/Common.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import LogUtils from "../../../libs/LogUtils";
-import {serviceCreateEventHighLightList,serviceUpdateEventHighLightList,serviceGetEventHighLightListDetails} from "../../../services/EventHighlight.services";
+import {
+  serviceCreateEventHighLightList,
+  serviceUpdateEventHighLightList,
+  serviceGetEventHighLightListDetails,
+} from "../../../services/EventHighlight.services";
 import { isDate, isInvalidDateFormat } from "../../../libs/RegexUtils";
 import historyUtils from "../../../libs/history.utils";
 import constants from "../../../config/constants";
@@ -13,14 +17,12 @@ const useEventHighLightCreateHook = ({ location }) => {
   const initialForm = {
     name: "",
     image: "",
-    link:"",
-    priority:"",
+    link: "",
+    priority: "",
     status: true,
-
+    event_id:"",
   };
-  const eventPass  = location?.state?.eventId;
-
-  console.log(eventPass,'>>>')
+  const eventPass = location?.state?.eventId;
 
 
   const [form, setForm] = useState({ ...initialForm });
@@ -28,9 +30,7 @@ const useEventHighLightCreateHook = ({ location }) => {
   const { id } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [thumbnail, setThumbnail] = useState('');
- 
-
+  const [thumbnail, setThumbnail] = useState("");
 
   useEffect(() => {
     if (id) {
@@ -41,8 +41,8 @@ const useEventHighLightCreateHook = ({ location }) => {
           setForm({
             ...form,
             name: data?.name,
-            link:data?.link,
-            priority:data?.priority,
+            link: data?.link,
+            priority: data?.priority,
             status: data?.status === constants.GENERAL_STATUS.ACTIVE,
           });
         } else {
@@ -52,17 +52,10 @@ const useEventHighLightCreateHook = ({ location }) => {
     }
   }, [id]);
 
-
-
   const checkFormValidation = useCallback(() => {
     const errors = {};
 
-    const requiredFields = [
-      "name",
-      "priority",
-      ...(id ? [] : ["image"]),
-    ];
-
+    const requiredFields = ["name", "priority", ...(id ? [] : ["image"])];
 
     requiredFields.forEach((field) => {
       if (
@@ -71,7 +64,6 @@ const useEventHighLightCreateHook = ({ location }) => {
       ) {
         errors[field] = true;
       }
-
     });
 
     return errors;
@@ -108,17 +100,19 @@ const useEventHighLightCreateHook = ({ location }) => {
         const fd = new FormData();
 
         Object.keys(form).forEach((key) => {
-            if (key === "status") {
-              fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-            }
-            else if (key === "image"){
-              if (!id){
-                fd.append(key,form[key])
-              }
-            }
-             else {
+          if (key === "status") {
+            fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+          } else if (key === "image") {
+            if (!id) {
               fd.append(key, form[key]);
             }
+          }
+          else if (form[key] === "event_id"){
+            fd.append("event_id",eventPass)
+          }
+          else {
+            fd.append(key, form[key]);
+          }
         });
 
         if (id && form?.image) {
@@ -128,7 +122,6 @@ const useEventHighLightCreateHook = ({ location }) => {
         if (id) {
           fd.append("id", id);
         }
- 
 
         let req;
         if (id) {
@@ -147,12 +140,7 @@ const useEventHighLightCreateHook = ({ location }) => {
         });
       }
     },
-    [
-      form,
-      isSubmitting,
-      setIsSubmitting,
-      id,
-    ]
+    [form, isSubmitting, setIsSubmitting, id]
   );
 
   const onBlurHandler = useCallback(
@@ -174,12 +162,7 @@ const useEventHighLightCreateHook = ({ location }) => {
       }
       submitToServer(status);
     },
-    [
-      setErrorData,
-      form,
-      submitToServer,
-      checkFormValidation,
-    ]
+    [setErrorData, form, submitToServer, checkFormValidation]
   );
 
   return {

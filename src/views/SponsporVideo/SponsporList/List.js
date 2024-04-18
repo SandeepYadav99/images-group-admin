@@ -13,8 +13,7 @@ import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import useSponsporList from "./List.hook";
 import StatusPill from "../../../components/Status/StatusPill.component";
 // import AppUserCreateView from "../AppUserCreate/AppUserCreate.view";
-import { Link } from "react-router-dom";
-import RouteName from "../../../routes/Route.name";
+
 
 const SponsporList = ({}) => {
   const {
@@ -59,11 +58,11 @@ const SponsporList = ({}) => {
       return (
         <div className={styles.firstCellFlex}>
           <a href={obj?.video} target="_blank">
-          <video
-            crossOrigin="anonymous"
-            src={obj?.video}
-            className={styles.video}
-          />
+            <video
+              crossOrigin="anonymous"
+              src={obj?.video}
+              className={styles.video}
+            />
           </a>
         </div>
       );
@@ -106,15 +105,14 @@ const SponsporList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-      
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={()=>handleUpdate(all)}
-              >
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => handleUpdate(all)}
+            >
               <Edit fontSize={"small"} />
-              </IconButton>
+            </IconButton>
           </div>
         ),
       },
@@ -156,10 +154,7 @@ const SponsporList = ({}) => {
             <div className={styles.newLine} />
           </div>
           <div>
-            <ButtonBase
-              onClick={handleCreate}
-              className={"createBtn"}
-            >
+            <ButtonBase onClick={handleCreate} className={"createBtn"}>
               Create
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>

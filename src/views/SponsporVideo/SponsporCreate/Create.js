@@ -97,9 +97,6 @@ function VideoSponsporCreate({ location }) {
                 }
               }}
             />
-            {
-              videoData ? <a href={videoData} target="_blank">Preview</a> :""
-            }
           </div>
         </div>
       </div>
