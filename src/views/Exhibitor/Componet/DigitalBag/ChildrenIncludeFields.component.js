@@ -102,7 +102,7 @@ const renderImages = (image) => {
               //   }
               // }}
               onChange={(file) => {
-                handleChange({ target: { name: 'images', value: file }});
+                handleChange({ target: { name: 'documentUpload', value: file }});
               }}
             />
           </div>

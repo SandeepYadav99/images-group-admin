@@ -1113,42 +1113,28 @@ const ExhibitorCreate = () => {
             </div>
           </div>
         </div>
-        {/* <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.fileName}
-              errorText={errorData?.fileName}
-              label={"File Name"}
-              value={form?.fileName}
-              onTextChange={(text) => {
-                changeTextData(text, "fileName");
-              }}
-              onBlur={() => {
-                onBlurHandler("fileName");
-              }}
-            />
-          </div>
-        </div> */}
-        {/* <div className={"formFlex"}>
-          <div className={"formGroup"}>
+      
+       <div className={"formFlex"}>
+          {/* <div className={"formGroup"}>
             <File
+            multiple
               max_size={10 * 1024 * 1024}
               type={["pdf", "doc", "docx"]}
               fullWidth={true}
-              // name="od1"
+               name="download_documents"
               label="Upload PDF"
               accept={"application/pdf,application/msword"}
-              error={errorData?.documentUpload}
-              value={form?.documentUpload}
+              error={errorData?.download_documents}
+              value={form?.download_documents}
               placeholder={"Upload PDF"}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, "documentUpload");
+                  changeTextData(file, "download_documents");
                 }
               }}
             />
-          </div>
-        </div> */}
+          </div> */}
+        </div> 
          <div className={"formFlex"}>
           <div className={"formGroup"}>
             <ChildrenIncludeForm ref={ChildenRef} />
@@ -1165,25 +1151,25 @@ const ExhibitorCreate = () => {
           </div>
         </div>
        
-        <div className={styles.cont}>
+      
             <div className={"formFlex"}>
           <div className={"formGroup"}>
-            {/* <MultiFile
+             {/* <MultiFile
               multiDef={selectImages ? selectImages : []}
-              // multiple
+               multiple
               max_size={10 * 1024 * 1024}
               type={["jpeg", "jpg", "png"]}
               fullWidth={true}
-              // name="od1"
-              label="Upload  Image"
+                name="od1"
+              label="Upload Multiple Image"
               accept={"image/*"}
-              error={errorData?.images}
-              value={form?.images}
-              // default_image={selectImages ? selectImages[0] : null}
-              placeholder={"Upload  Image"}
+              error={errorData?.digital_bag_images}
+              value={form?.digital_bag_images}
+               //default_image={selectImages ? selectImages[0] : null}
+              placeholder={"Upload Multiple Image"}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, "images");
+                  changeTextData(file, "digital_bag_images");
                 }
               }}
               DefChange={(img) => {
@@ -1191,34 +1177,35 @@ const ExhibitorCreate = () => {
                   renderImages(img);
                 }
               }}
-            /> */}
-               {/* <File
+            />  */}
+                 {/* <File
               // imageClass={styles.inputFileUploader}
               max_size={5 * 1024 * 1024}
               type={["png", "jpeg", "jpg"]}
               fullWidth={true}
               name="document"
               accept={"image/*"}
+             
               default_image={image ? image : null}
               label="Upload  Image"
               show_image={true}
-              error={errorData?.images}
-              value={form?.images}
+              error={errorData?.digital_bag_images}
+              value={form?.digital_bag_images}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, "images");
+                  changeTextData(file, "digital_bag_images");
                 }
               }}
-            /> */}
+            />   */}
           </div>
         </div>
        
-        </div>
-         <div className={"formFlex"}>
+       
+          <div className={"formFlex"}>
           <div className={"formGroup"}>
             <ChildrenIncludeForm1 ref={ChildenRef1} empId={empId}/>
           </div>
-        </div> 
+        </div>  
       </div>
       <div className={"plainPaper"}>
         <div className={"formFlex"}>

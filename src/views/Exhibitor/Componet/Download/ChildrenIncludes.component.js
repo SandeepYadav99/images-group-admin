@@ -19,7 +19,7 @@ import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 
 const TEMP_OBJ = {
   fileName: "",
-  documentUpload: "",
+  // documentUpload: "",
  
 };
 
@@ -94,7 +94,7 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["fileName","documentUpload"];
+      const required = ["fileName"];
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;

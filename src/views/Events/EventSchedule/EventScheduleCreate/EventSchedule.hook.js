@@ -199,7 +199,7 @@ const useEventScheduleHook = ({
     });
     return errors;
   }, [form, errorData]);
-
+console.log(form?.chairs)
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
@@ -218,6 +218,8 @@ const useEventScheduleHook = ({
           fd.append(key, form?.status ? "ACTIVE" : "INACTIVE")
         }else if(key === "is_recommended"){
           fd.append(key, form?.is_recommended === true ? true : false,)
+        }else if(key === "co_chairs"){
+          fd.append(key, form?.co_chairs?.map((val) => val.id))
         } else {
           fd.append(key, form[key]);
         }

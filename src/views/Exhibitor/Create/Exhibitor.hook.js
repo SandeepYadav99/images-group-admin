@@ -68,7 +68,7 @@ const initialForm = {
   is_featured: false,
   is_recommended: false,
 
-  // documentUpload: "",
+  download_documents: "",
   // fileName: "",
   // title: "",
   // url: "",
@@ -491,7 +491,7 @@ const useExhibitorCreate = ({ location }) => {
     //   fd.append("company_brochure", form?.company_brochure);
     // }
   
-    // const fileName= JSON.stringify(ChildenRef.current.getData())
+    // const download_documents= JSON.stringify(ChildenRef.current.getData())
     fd.append("downloads", JSON.stringify(ChildenRef.current.getData()));
     // digital_bag_images
     fd.append("digital_bags", JSON.stringify(ChildenRef1.current.getData()));

@@ -54,24 +54,24 @@ const ChildrenIncludeFields = ({
   currency,
   listWarehouse,
 }) => {
-  // const handleChange = (e) => {
-  //   const name = e?.target?.name;
-  //   const value = e?.target?.value;
-    
-  //   console.log({name, value})
-  //   if (name === "fileName") {
-  //     changeData(index,{['fileName'] : value})
-  //   }else if(name === "documentUpload"){
-  //     changeData(index, { ['documentUpload']: value });
-  //   } else {
-  //     changeData(index, { [name]: value });
-  //   }
-  // };
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const name = e?.target?.name;
+    const value = e?.target?.value;
+    
     console.log({name, value})
-    changeData(index, { [name]: value });
+    if (name === "fileName") {
+      changeData(index,{[name] : value})
+    }else if(name === "documentUpload"){
+      changeData(index, { [name]: value });
+    } else {
+      changeData(index, { [name]: value });
+    }
   };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   console.log({name, value})
+  //   changeData(index, { [name]: value });
+  // };
   
 const changeTextData=(value,key)=>{
   changeData(index, { [key]: value });
@@ -105,16 +105,16 @@ console.log({data})
               max_size={10 * 1024 * 1024}
               type={["pdf", "doc", "docx"]}
               fullWidth={true}
-               name="documentUpload"
+               name={"documentUpload"}
               label="Upload PDF"
               accept={"application/pdf,application/msword"}
               error={errors?.documentUpload}
               value={data?.documentUpload}
               placeholder={"Upload PDF"}
-             
+              // onChange={handleChange}
               onChange={(file) => {
-                console.log({file})
-                handleChange({ target: { name: 'documentUpload', value: file }});
+              
+                 handleChange({ target: { name: 'documentUpload', value: file }});
               }}
             />
           </div>
