@@ -8,7 +8,7 @@ import {
     return await postRequest("meetings/rooms/create", params);
   }
   export async function serviceUpdateMeetingRoomList(params) {
-    return await formDataRequest("highlights/update", params);
+    return await formDataRequest("meetings/rooms/update", params);
   }
   export async function serviceDeleteMeetingRoomList(params) {
     return await postRequest("events/delete", params);

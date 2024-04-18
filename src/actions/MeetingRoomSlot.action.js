@@ -24,10 +24,10 @@ export const CREATE_DATA = "CREATE_KNOWLEDGE_LIST";
 export const UPDATE_DATA = "UPDATE_KNOWLEDGE_LIST";
 export const DELETE_ITEM = "DELETE_KNOWLEDGE_LIST";
 
-export function actionFetchMeetingRoomSlotList(index = 1,event_id ,sorting = {}, filter = {}) {
+export function actionFetchMeetingRoomSlotList(index = 1,room_id ,sorting = {}, filter = {}) {
   const request = serviceGetMeetingRoomSlotList({
     index,
-    event_id,
+    room_id,
     row: sorting.row,
     order: sorting.order,
     ...filter,

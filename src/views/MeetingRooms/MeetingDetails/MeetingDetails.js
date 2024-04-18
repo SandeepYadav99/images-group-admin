@@ -1,11 +1,10 @@
 import styles from "./Style.module.css";
 import history from "../../../libs/history.utils";
-import { ButtonBase, IconButton } from "@material-ui/core";
+import { ButtonBase, Dialog, IconButton, MenuItem } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useMeetingDetailHook from "./MeetingDetails.hook";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import { Add, PostAdd, WidgetsTwoTone } from "@material-ui/icons";
-import { fontSize } from "suneditor/src/plugins";
+import { Add } from "@material-ui/icons";
 import PageBoxComponent from "../../../components/PageBox/PageBox.component";
 import { useCallback, useMemo } from "react";
 import Constants from "../../../config/constants";
@@ -15,9 +14,19 @@ import FilterComponent from "../../../components/Filter/Filter.component";
 import DataTables from "../../../Datatables/Datatable.table";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import MeetingCreateView from "../MeetingMaster/MeetingMaster";
+import DateRangeView from "./DateRangeCreate/DateRange";
+import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
+import UpdateIconData from "../../../assets/ImageGroup/ic_update.png";
 
 const MeetingDetails = ({ location }) => {
   const {
+    form,
+    errorData,
+    changeTextData,
+    onBlurHandler,
+    removeError,
+    handleSubmit,
+    isSubmitting,
     dataValue,
     handleSortOrderChange,
     handleRowSize,
@@ -28,11 +37,15 @@ const MeetingDetails = ({ location }) => {
     handleViewDetails,
     isCalling,
     configFilter,
-    handleCreateFed,
-    handleUpdate,
     handleToggleSidePannel,
     isSidePanel,
     editData,
+    handleOpenDateRange,
+    dateRange,
+    event,
+    popupOpen,
+    handleOpenPopUp,
+    handleClosePopUp,
   } = useMeetingDetailHook({ location });
 
   const {
@@ -60,25 +73,83 @@ const MeetingDetails = ({ location }) => {
     return null;
   }, []);
 
+  const UpdateStatusPopUp = ({ open, onClick }) => {
+    return (
+      <Dialog
+        open={open}
+        aria-labelledby="dialog-title"
+        sx={{ width: "auto", padding: "20px" }}
+      >
+        <div className={styles.dialogTitle} onClick={onClick}>
+          <div></div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <span>Update Status</span>
+            <div className={styles.newLine}></div>
+          </div>
+          <div
+            onClick={onClick}
+            style={{ fontSize: "24px" }}
+            className={styles.crossIconArea}
+          >
+            x
+          </div>
+        </div>
+        <div className={styles.commentArea}>
+          <CustomSelectField
+            isError={errorData?.status}
+            errorText={errorData?.status}
+            label={"Choose Status"}
+            value={form?.status ? form?.status : ""}
+            handleChange={(value) => {
+              changeTextData(value, "status");
+            }}
+          >
+            <MenuItem value="AVAILABLE">AVAILABLE</MenuItem>
+            <MenuItem value="BOOKED">BOOKED</MenuItem>
+            <MenuItem value="BLOCKED">BLOCKED</MenuItem>
+            <MenuItem value="UNAVAILABLE">UNAVAILABLE</MenuItem>
+          </CustomSelectField>
+        </div>
+        <div className={styles.btnCenterContainer}>
+          <ButtonBase
+            disabled={isSubmitting ? true : false}
+            type={"button"}
+            className={styles.createBtn}
+            onClick={handleSubmit}
+          >
+            UPDATE
+          </ButtonBase>
+        </div>
+      </Dialog>
+    );
+  };
+
   const tableStructure = useMemo(() => {
     return [
       {
         key: "date",
         label: "DATE",
         sortable: false,
-        render: (value, all) => <div>{all?.name}</div>,
+        render: (value, all) => <div>--</div>,
       },
       {
         key: "slot",
         label: "SLOT",
         sortable: false,
-        render: (temp, all) => <div>{all?.code}</div>,
+        render: (temp, all) => <div>--</div>,
       },
       {
         key: "duration",
         label: "DURATION",
         sortable: false,
-        render: (value, all) => <div>{all?.total_slots}</div>,
+        render: (value, all) => <div>{all?.durationText}</div>,
       },
       {
         key: "status",
@@ -90,19 +161,19 @@ const MeetingDetails = ({ location }) => {
         key: "booked_by",
         label: "BOOKED BY",
         sortable: false,
-        render: (value, all) => <div>{all?.total_slots}</div>,
+        render: (value, all) => <div>--</div>,
       },
       {
         key: "booked_with",
         label: "BOOKED WITH",
         sortable: false,
-        render: (temp, all) => <div>{all?.booked_slots}</div>,
+        render: (temp, all) => <div>--</div>,
       },
       {
         key: "ref_id",
         label: "REF ID",
         sortable: false,
-        render: (temp, all) => <div>{all?.blocked_slots}</div>,
+        render: (temp, all) => <div>--</div>,
       },
 
       {
@@ -113,13 +184,15 @@ const MeetingDetails = ({ location }) => {
           <div>
             <IconButton
               className={"tableActionBtn"}
+              id={styles.iconBorder}
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                handleUpdate(all);
+                handleOpenPopUp(all);
               }}
             >
-              <InfoOutlined fontSize={"small"} />
+              <img src={UpdateIconData} alt="text" />
+              Update Status
             </IconButton>
           </div>
         ),
@@ -177,11 +250,7 @@ const MeetingDetails = ({ location }) => {
           </ButtonBase>
         </div>
         <div className={styles.btnFlex}>
-          <ButtonBase
-            className={"createBtn"}
-            id={styles.bgColor}
-            onClick={handleToggleSidePannel}
-          >
+          <ButtonBase className={"createBtn"} id={styles.bgColor}>
             DUPLICATE
           </ButtonBase>
           <ButtonBase
@@ -207,7 +276,7 @@ const MeetingDetails = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div>
-            <ButtonBase className={"createBtn"}>
+            <ButtonBase className={"createBtn"} onClick={handleOpenDateRange}>
               ADD DATE RANGE
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
@@ -253,6 +322,7 @@ const MeetingDetails = ({ location }) => {
           </div>
         </div>
       </PageBoxComponent>
+      <UpdateStatusPopUp open={popupOpen} onClick={handleClosePopUp} />
       <SidePanelComponent
         handleToggle={handleToggleSidePannel}
         title={"Add Meeting Room"}
@@ -263,6 +333,20 @@ const MeetingDetails = ({ location }) => {
           handleToggleSidePannel={handleToggleSidePannel}
           isSidePanel={isSidePanel}
           empId={editData}
+          detailsData={dataValue}
+        />
+      </SidePanelComponent>
+      <SidePanelComponent
+        handleToggle={handleOpenDateRange}
+        title={"Add Data Range"}
+        open={dateRange}
+        side={"right"}
+      >
+        <DateRangeView
+          handleToggleSidePannel={handleOpenDateRange}
+          isSidePanel={dateRange}
+          empId={editData}
+          eventIdData={event}
         />
       </SidePanelComponent>
     </>

@@ -6,29 +6,20 @@ import {
   isEmail,
   isNum,
   isSpace,
-} from "../../../libs/RegexUtils";
+} from "../../../../libs/RegexUtils";
 
-import SnackbarUtils from "../../../libs/SnackbarUtils";
-import Constants from "../../../config/constants";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import { useParams } from "react-router-dom";
-import {
-  serviceCreateMeetingRoomList,
-  serviceUpdateMeetingRoomList,
-} from "../../../services/MeetingRoom.service";
-import { serviceGetMeetingRoomSlottListDetails } from "../../../services/MeetingSlots.service";
+import { serviceCreateMeetingRoomSlotList } from "../../../../services/MeetingSlots.service";
 
 const initialForm = {
-  name: "",
-  code: "",
-  is_active: true,
+  start_date: "",
+  end_date: "",
+  duration:'',
+  event_id:'',
 };
 
-const useMeetingCreate = ({
-  handleToggleSidePannel,
-  isSidePanel,
-  empId,
-  detailsData,
-}) => {
+const useDateRange = ({ handleToggleSidePannel, isSidePanel, empId,eventIdData }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [errorData, setErrorData] = useState({});
@@ -41,25 +32,24 @@ const useMeetingCreate = ({
 
   const params = useParams();
 
+
+  const slotDuration =[
+    "30","60","90","120","150","180"
+  ]
+
+  
+
   useEffect(() => {
     if (!isSidePanel) {
       handleReset();
     }
   }, [isSidePanel]);
 
-  useEffect(() => {
-    if (detailsData) {
-      setForm({
-        ...form,
-        name: detailsData?.name,
-        code: detailsData?.code,
-      });
-    }
-  }, [detailsData?.event_id]);
+  useEffect(() => {}, []);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "code"];
+    let required = ["start_date", "end_date","duration"];
 
     required.forEach((val) => {
       if (
@@ -83,23 +73,11 @@ const useMeetingCreate = ({
 
       const updatePayload = {
         ...form,
-        event_id: params?.id,
+        event_id: eventIdData,
+        room_id:params?.id,
       };
 
-      const updateRoomPayload = {
-        ...form,
-        event_id: detailsData?.event_id,
-        id: params?.id,
-      };
-
-      let req ;
-
-      if (detailsData) {
-        req = serviceUpdateMeetingRoomList(updateRoomPayload);
-      }
-      else {
-        req = serviceCreateMeetingRoomList(updatePayload);
-      }
+      let req = serviceCreateMeetingRoomSlotList(updatePayload);
 
       req.then((res) => {
         if (!res.error) {
@@ -192,7 +170,9 @@ const useMeetingCreate = ({
     isRejectPopUp,
     setIsRejectPopUp,
     toggleRejectDialog,
+    eventIdData,
+    slotDuration,
   };
 };
 
-export default useMeetingCreate;
+export default useDateRange;

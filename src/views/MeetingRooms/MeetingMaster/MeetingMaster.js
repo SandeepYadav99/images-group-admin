@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MeetingCreateView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
+const MeetingCreateView = ({ handleToggleSidePannel, isSidePanel, empId,detailsData }) => {
   const {
     form,
     errorData,
@@ -33,7 +33,7 @@ const MeetingCreateView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     handleSubmit,
     onBlurHandler,
     changeTextData,
-  } = useMeetingCreate({ handleToggleSidePannel, isSidePanel, empId });
+  } = useMeetingCreate({ handleToggleSidePannel, isSidePanel, empId,detailsData });
 
   const classes = useStyles();
 
@@ -98,7 +98,7 @@ const MeetingCreateView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         >
           {isSubmitting ? (
             <CircularProgress color="success" size="20px" />
-          ) : empId ? (
+          ) : detailsData ? (
             "Update"
           ) : (
             "Create"
