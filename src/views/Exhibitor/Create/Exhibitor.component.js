@@ -315,12 +315,12 @@ const ExhibitorCreate = () => {
             <div className={"formGroup"} id={styles.oneLineView}>
               <div id={styles.countryCode}>
                 <CustomSelectField
-                  isError={errorData?.country_code}
-                  errorText={errorData?.country_code}
+                  isError={errorData?.country_code1}
+                  errorText={errorData?.country_code1}
                   label={"Country Code"}
-                  value={form?.country_code}
+                  value={form?.country_code1}
                   handleChange={(value) => {
-                    changeTextData(value, "country_code");
+                    changeTextData(value, "country_code1");
                   }}
                 >
                   {CountryCode?.map((val) => {
@@ -333,12 +333,12 @@ const ExhibitorCreate = () => {
                 </CustomSelectField>
               </div>
               <CustomTextField
-                isError={errorData?.primary_conatct_number}
-                errorText={errorData?.primary_conatct_number}
+                isError={errorData?.primary_conatct_number1}
+                errorText={errorData?.primary_conatct_number1}
                 label={"Phone"}
-                value={form?.primary_conatct_number}
+                value={form?.primary_conatct_number1}
                 onTextChange={(text) => {
-                  changeTextData(text, "primary_conatct_number");
+                  changeTextData(text, "primary_conatct_number1");
                 }}
                 // onBlur={() => {
                 //   onBlurHandler("primary_conatct_number");

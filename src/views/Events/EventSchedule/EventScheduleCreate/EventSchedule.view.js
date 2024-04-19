@@ -55,7 +55,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
           max_size={5 * 1024 * 1024}
           type={["png", "jpeg", "jpg"]}
           fullWidth={true}
-          // name="document"
+          name="document"
           accept={"image/*"}
            default_image={thimbnel ? thimbnel : null}
           label="Please Upload Image"

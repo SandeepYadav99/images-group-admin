@@ -18,9 +18,8 @@ import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 
 const TEMP_OBJ = {
-  fileName: "",
-   documentUpload: "",
- 
+  fileName: null,
+  documentUpload: null,
 };
 
 const ChildrenIncludeForm = (
@@ -40,7 +39,6 @@ const ChildrenIncludeForm = (
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
   const { id } = useParams();
-
 
   useEffect(() => {
     let sku = 0;
@@ -66,7 +64,7 @@ const ChildrenIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      fields.forEach(obj => {
+      fields.forEach((obj) => {
         if (obj.hasOwnProperty("employee_id")) {
           delete obj.employee_id;
         }
@@ -138,11 +136,9 @@ const ChildrenIncludeForm = (
   );
 
   const changeData = (index, data) => {
- 
     const tempData = JSON.parse(JSON.stringify(fields));
     tempData[index] = { ...tempData[index], ...data };
-   
-   
+
     setFields(tempData);
     const errArr = [];
     Object.keys(data).forEach((key) => {
@@ -227,7 +223,7 @@ const ChildrenIncludeForm = (
             handlePress("ADDITION", 0);
           }}
         >
-          <Add fontSize={"small"}  /> <span>Add More</span>
+          <Add fontSize={"small"} /> <span>Add More</span>
         </ButtonBase>
       </div>
       {/*</div>*/}
