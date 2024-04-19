@@ -210,28 +210,28 @@ const ExhibitorCreate = () => {
                 )}
               /> */}
               <CustomSelectField
-                isError={errorData?.product_groups}
-                errorText={errorData?.product_groups}
+                isError={errorData?.is_participant}
+                errorText={errorData?.is_participant}
                 label={"Participant"}
-                value={form?.product_groups}
+                value={form?.is_participant}
                 handleChange={(value) => {
-                  changeTextData(value, "product_groups");
+                  changeTextData(value, "is_participant");
                 }}
               >
                 <MenuItem value="true">True</MenuItem>
                 <MenuItem value="false">False</MenuItem>
               </CustomSelectField>
             </div>
-            {form?.product_groups === "true" && (
+            {form?.is_participant === "true" && (
               <div className={"formFlex"}>
                 <div className={"formGroup"}>
                   <CustomCheckbox
                     color={"primary"}
                     handleChange={(text) => {
-                      changeTextData(!form?.is_profile, "is_profile");
+                      changeTextData(!form?.show_profile, "show_profile");
                     }}
                     label={"Open Profile"}
-                    checked={form?.is_profile}
+                    checked={form?.show_profile}
                   />
                 </div>
               </div>
@@ -315,8 +315,8 @@ const ExhibitorCreate = () => {
             <div className={"formGroup"} id={styles.oneLineView}>
               <div id={styles.countryCode}>
                 <CustomSelectField
-                  isError={errorData?.country_code1}
-                  errorText={errorData?.country_code1}
+                  isError={errorData?.country_code}
+                  errorText={errorData?.country_code}
                   label={"Country Code"}
                   value={form?.country_code1}
                   handleChange={(value) => {
@@ -333,12 +333,12 @@ const ExhibitorCreate = () => {
                 </CustomSelectField>
               </div>
               <CustomTextField
-                isError={errorData?.primary_conatct_number1}
-                errorText={errorData?.primary_conatct_number1}
+                isError={errorData?.conatct}
+                errorText={errorData?.conatct}
                 label={"Phone"}
-                value={form?.primary_conatct_number1}
+                value={form?.conatct}
                 onTextChange={(text) => {
-                  changeTextData(text, "primary_conatct_number1");
+                  changeTextData(text, "conatct");
                 }}
                 // onBlur={() => {
                 //   onBlurHandler("primary_conatct_number");

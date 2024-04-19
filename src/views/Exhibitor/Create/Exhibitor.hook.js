@@ -21,7 +21,7 @@ const initialForm = {
   company_logo: "",
   company_name: "",
   brand_name: "",
-  product_groups: false,
+  is_participant: false,
   product_categories: [],
   // products: [],
   event_venue: "",
@@ -75,7 +75,7 @@ const initialForm = {
   // title: "",
   // url: "",
   // images: "",
-  is_profile:false
+  show_profile:false
 };
 
 const featureKey = {
