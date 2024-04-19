@@ -9,6 +9,7 @@ import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import historyUtils from "../../../libs/history.utils";
 
 import useSpeakerMasterCreate from "./SpeakerMasterCreateHook";
+import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 
 function SpeakerMasterCreate({ location }) {
   const {
@@ -193,17 +194,18 @@ function SpeakerMasterCreate({ location }) {
             />
           </div>
         </div>
-        {/* <div className={"formFlex"}>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomSwitch
-              value={form?.is_moderator}
-              handleChange={() => {
-                changeTextData(!form?.is_moderator, "is_moderator");
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeTextData(!form?.is_recommended, "is_recommended");
               }}
-              label={`Moderator`}
+              label={"Recommended"}
+              checked={form?.is_recommended}
             />
           </div>
-        </div> */}
+        </div>
         <div className={styles.btnWrappepr}>
           <ButtonBase
             disabled={isSubmitting ? true : false}

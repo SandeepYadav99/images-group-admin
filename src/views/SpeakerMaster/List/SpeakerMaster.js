@@ -12,6 +12,7 @@ import { Add, DoneAll, Edit, Clear } from "@material-ui/icons";
 
 import speakerDefault from "../../../assets/img/speaker_list_deafult.png";
 import useSpeakerMasterListHook from "./SpeakerMasterHook";
+import { capitalizeFirstLetter } from "../../../hooks/CapsLetter";
 
 const SpeakerMaster = ({}) => {
   const {
@@ -60,7 +61,7 @@ const SpeakerMaster = ({}) => {
               className={styles.driverImgCont}
               crossOrigin="anonymous"
             />
-            {all?.s_name}
+            {capitalizeFirstLetter(all?.s_name)}
           </div>
         ),
       },
@@ -69,7 +70,7 @@ const SpeakerMaster = ({}) => {
         label: "DESCRIPTION",
         sortable: false,
         render: (value, all) => (
-          <div className={styles.desData}>{all?.s_description || "N/A"}</div>
+          <div className={styles.desData}>{ all?.s_description ? capitalizeFirstLetter(all?.s_description) : "N/A"}</div>
         ),
       },
 
@@ -77,7 +78,7 @@ const SpeakerMaster = ({}) => {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.s_designation || "N/A"}</div>,
+        render: (temp, all) => <div>{all?.s_designation ? capitalizeFirstLetter(all?.s_designation) : "N/A"}</div>,
       },
       {
         key: "company",

@@ -23,6 +23,7 @@ function useSpeakerMasterCreate({ location }) {
     s_status: true,
     is_moderator: true,
     priority: "",
+    is_recommended:false
   };
   const { id } = useParams();
   const eventId = location?.state?.event_id;
@@ -136,7 +137,7 @@ function useSpeakerMasterCreate({ location }) {
             fd.append(SPEAKER_KEY[key], form[key]);
           }
         }
-
+fd.append("is_recommended", form?.is_recommended ? true : false)
         fd.append("s_status", form.s_status ? "ACTIVE" : "INACTIVE"); // is_moderator
         // fd.append("is_moderator", form.is_moderator ? "ACTIVE" : "INACTIVE");// is_moderator
         if (form?.s_image) {
