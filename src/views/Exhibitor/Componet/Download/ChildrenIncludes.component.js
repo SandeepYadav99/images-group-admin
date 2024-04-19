@@ -19,7 +19,7 @@ import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 
 const TEMP_OBJ = {
   fileName: "",
-  // documentUpload: "",
+   documentUpload: "",
  
 };
 
@@ -138,9 +138,11 @@ const ChildrenIncludeForm = (
   );
 
   const changeData = (index, data) => {
+ 
     const tempData = JSON.parse(JSON.stringify(fields));
     tempData[index] = { ...tempData[index], ...data };
-    LogUtils.log("data", data);
+   
+   
     setFields(tempData);
     const errArr = [];
     Object.keys(data).forEach((key) => {

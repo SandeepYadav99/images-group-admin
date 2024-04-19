@@ -96,14 +96,14 @@ const renderImages = (image) => {
               show_image={true}
               error={errors?.images}
               value={data?.images}
-              // onChange={(file) => {
-              //   if (file) {
-              //     changeTextData(file, "images");
-              //   }
-              // }}
               onChange={(file) => {
-                handleChange({ target: { name: 'documentUpload', value: file }});
+                if (file) {
+                  changeTextData(file, "images");
+                }
               }}
+              // onChange={(file) => {
+              //   handleChange({ target: { name: 'documentUpload', value: file }});
+              // }}
             />
           </div>
         </div>

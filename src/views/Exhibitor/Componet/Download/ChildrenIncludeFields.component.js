@@ -54,31 +54,30 @@ const ChildrenIncludeFields = ({
   currency,
   listWarehouse,
 }) => {
-  const handleChange = (e) => {
-    const name = e?.target?.name;
-    const value = e?.target?.value;
-    
-    console.log({name, value})
-    if (name === "fileName") {
-      changeData(index,{[name] : value})
-    }else if(name === "documentUpload"){
-      changeData(index, { [name]: value });
-    } else {
-      changeData(index, { [name]: value });
-    }
-  };
   // const handleChange = (e) => {
-  //   const { name, value } = e.target;
+  //   const name = e?.target?.name;
+  //   const value = e?.target?.value;
+    
+   
   //   console.log({name, value})
-  //   changeData(index, { [name]: value });
+  //   if (name === "fileName") {
+  //     changeData(index,{[name] : value})
+  //   }else if(name === "documentUpload"){
+  //     console.log({name, value})
+  //     changeData(index, { [name]: value });
+  //   } else {
+  //     changeData(index, { [name]: value });
+  //   }
   // };
   
-const changeTextData=(value,key)=>{
-  changeData(index, { [key]: value });
+  const handleChange = useCallback((name, value) => {
+    console.log({name, value})
+    changeData(index, { [name]: value });
+  },[ index]);
+  
 
-}
 
-console.log({data})
+
   return (
     <div>
       <div className={styles.flexContainer}>
@@ -87,15 +86,25 @@ console.log({data})
           <div className={"formFlex"}>
           <div className={"formGroup"}>
         
-              <TextField
+              {/* <TextField
               error={errors?.fileName}
-              onChange={handleChange}
+              onChange={(file)=> handleChange('fileName', file)}
               value={data?.fileName}
               fullWidth={true}
               name={"fileName"}
               margin={"dense"}
               variant={"outlined"}
               label={"File Name"}
+            /> */}
+               <CustomTextField
+              error={data?.fileName}
+              // error={data?.fileName}
+              label={"File Name"}
+              value={data?.fileName}
+              onTextChange={(text) => {
+                handleChange( "fileName", text);
+              }}
+             
             />
           </div>
         </div>
@@ -111,11 +120,12 @@ console.log({data})
               error={errors?.documentUpload}
               value={data?.documentUpload}
               placeholder={"Upload PDF"}
-              // onChange={handleChange}
-              onChange={(file) => {
+               onChange={(file)=> handleChange('documentUpload', file)}
+              // onChange={(file) => {
               
-                 handleChange({ target: { name: 'documentUpload', value: file }});
-              }}
+              //    handleChange({ target: { name: 'documentUpload', value: file }});
+              // }}
+              // onChange={handleFileUpload}
             />
           </div>
         </div>

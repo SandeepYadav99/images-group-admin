@@ -21,7 +21,7 @@ const initialForm = {
   company_logo: "",
   company_name: "",
   brand_name: "",
-  product_groups: [],
+  product_groups: false,
   product_categories: [],
   // products: [],
   event_venue: "",
@@ -47,6 +47,7 @@ const initialForm = {
   company_description: "",
   status: true,
   country_code: "",
+  country_code1: "",
   secondary_perosn_name: "",
   youtube_link: "",
   is_partner: false,
@@ -56,6 +57,7 @@ const initialForm = {
   business_nature: [],
   state: "",
   country: "",
+  country1: "",
   zip_code: "",
   pavallian: "",
   featured: false,
@@ -73,6 +75,7 @@ const initialForm = {
   // title: "",
   // url: "",
   // images: "",
+  is_profile:false
 };
 
 const featureKey = {
@@ -109,7 +112,7 @@ const useExhibitorCreate = ({ location }) => {
   const [textData, setTextData] = useState("");
 
   const { user } = useSelector((state) => state?.auth);
-
+console.log({ChildenRef})
   const EventListManager = [
     "FIBERS_YARNS",
     "FABRICS",
