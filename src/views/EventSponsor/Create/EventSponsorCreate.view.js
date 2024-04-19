@@ -15,7 +15,8 @@ import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CountryInputField from "../../../components/CountryInputField/CountryInputField.js";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox.js";
-
+import ChildrenIncludeForm from "./Component/Download/ChildrenIncludes.component.js";
+import ChildrenIncludeForm1 from "./Component/DigitalBag/ChildrenIncludes.component.js";
 function EventSponsorCreate({ location }) {
   const {
     form,
@@ -23,7 +24,8 @@ function EventSponsorCreate({ location }) {
     listData,
     changeTextData,
     onBlurHandler,
-    removeError,
+    ChildenRef,
+    ChildenRef1,
     handleSubmit,
     isSubmitting,
     img,
@@ -264,6 +266,106 @@ function EventSponsorCreate({ location }) {
                 onBlurHandler("youtube");
               }}
             />
+          </div>
+        </div>
+      </div>
+      <div className={"plainPaper"}>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <div className={"heading"}>
+              <b> Add Downloads </b>{" "}
+            </div>
+          </div>
+        </div>
+
+        <div className={"formFlex"}>
+          {/* <div className={"formGroup"}>
+            <File
+            multiple
+              max_size={10 * 1024 * 1024}
+              type={["pdf", "doc", "docx"]}
+              fullWidth={true}
+               name="download_documents"
+              label="Upload PDF"
+              accept={"application/pdf,application/msword"}
+              error={errorData?.download_documents}
+              value={form?.download_documents}
+              placeholder={"Upload PDF"}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "download_documents");
+                }
+              }}
+            />
+          </div> */}
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <ChildrenIncludeForm ref={ChildenRef} /> 
+          </div>
+        </div>
+      </div>
+
+      <div className={"plainPaper"}>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <div className={"heading"}>
+              <b> Add Digital Bag </b>{" "}
+            </div>
+          </div>
+        </div>
+
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            {/* <MultiFile
+              multiDef={selectImages ? selectImages : []}
+               multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+                name="od1"
+              label="Upload Multiple Image"
+              accept={"image/*"}
+              error={errorData?.digital_bag_images}
+              value={form?.digital_bag_images}
+               //default_image={selectImages ? selectImages[0] : null}
+              placeholder={"Upload Multiple Image"}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "digital_bag_images");
+                }
+              }}
+              DefChange={(img) => {
+                if (img) {
+                  renderImages(img);
+                }
+              }}
+            />  */}
+            {/* <File
+              // imageClass={styles.inputFileUploader}
+              max_size={5 * 1024 * 1024}
+              type={["png", "jpeg", "jpg"]}
+              fullWidth={true}
+              name="document"
+              accept={"image/*"}
+             
+              default_image={image ? image : null}
+              label="Upload  Image"
+              show_image={true}
+              error={errorData?.digital_bag_images}
+              value={form?.digital_bag_images}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "digital_bag_images");
+                }
+              }}
+            />   */}
+          </div>
+        </div>
+
+         <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <ChildrenIncludeForm1 ref={ChildenRef1} />
           </div>
         </div>
       </div>

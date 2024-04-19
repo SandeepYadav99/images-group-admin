@@ -1,0 +1,121 @@
+.flexContainer {
+    /*display: flex;*/
+    /*align-items: center;*/
+}
+.flex1 {
+    flex: 1;
+    min-width: 170px;
+    margin: 0px 5px;
+}
+
+.plainPaper{
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+}
+.cont {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .lowerWrap {
+    width: 100% !important;
+  }
+.countryField{
+    flex: 0.5;
+}
+.firstRow {
+    /* flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; */
+}
+
+.fieldFlex{
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    /*justify-content: space-between;*/
+}
+
+.addBtn{
+    border: 1px solid #4a4a4a59 !important;
+    width: 100%;
+    padding: 15px !important;
+    margin-top: 10px !important;
+    border-radius: 5px !important;
+    font-size: 0.8rem !important;
+}
+
+.addBtn:hover{
+    background: #F7A728;
+    color: white;
+}
+
+.dltBtn{
+    border: 1px solid red !important;
+    color: red !important;
+    font-size: 0.8rem !important;
+    padding: 10px 20px !important;
+    margin-top: 8px !important;
+}
+
+.dltBtn:hover{
+    background: red;
+    color: white !important;
+}
+
+.cell {
+    margin-bottom: 40px;
+}
+.headerTitle {
+    /*margin-bottom: 15px;*/
+    /*padding-bottom: 5px;*/
+    /*margin-left: 15px;*/
+    /*border-bottom: 1px solid;*/
+    /*width: 100%;*/
+    flex: 4;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.sku{
+    font-size: 0.8rem;
+    margin-left: 40px;
+    margin-right: 10px;
+}
+
+.skuId{
+    display: flex;
+    align-items: center;
+}
+
+.rightBtn{
+  width: 200px;
+}
+
+.skuBtn{
+    background: #F7A728 !important;
+    padding: 11px 16px!important;
+    color: white !important;
+    border-radius: 5px !important;
+    margin-bottom: 15px !important;
+}
+
+
+.removeBtn{
+    color: red !important;
+    font-size: 0.7rem !important;
+    margin-left: 20px !important;
+}
+
+.addition{
+    color: #2896E9 !important;
+    font-weight: 600 !important;
+    font-size: 0.8rem !important;
+    padding-top: 10px !important;
+}

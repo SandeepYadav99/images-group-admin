@@ -46,6 +46,8 @@ function useEventSponsorCreate({ location }) {
   const [listData, setListData] = useState({
     SPONSOR_TYPE: [],
   });
+  const ChildenRef = useRef(null);
+  const ChildenRef1 = useRef(null);
   const [countryCode,setCountryCode] = useState('')
 
   const handleCountryCodeChange =(e)=>{
@@ -268,6 +270,8 @@ function useEventSponsorCreate({ location }) {
     setImg,
     countryCode,
     handleCountryCodeChange,
+    ChildenRef,
+    ChildenRef1
   };
 }
 
