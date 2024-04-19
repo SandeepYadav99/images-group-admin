@@ -28,10 +28,9 @@ const useMeetingList = ({ location }) => {
     query_data: queryData,
   } = useSelector((state) => state.meeting_room);
 
-
   useEffect(() => {
     dispatch(
-      actionFetchMeetingRoomList(1, params?.id,sortingData, {
+      actionFetchMeetingRoomList(1, params?.id, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -61,7 +60,7 @@ const useMeetingList = ({ location }) => {
     (key, value) => {
       console.log("_queryFilter", key, value);
       dispatch(
-        actionFetchMeetingRoomList(1,params?.id, sortingData, {
+        actionFetchMeetingRoomList(1, params?.id, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -123,20 +122,20 @@ const useMeetingList = ({ location }) => {
   );
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.EVENT_HIGHLIGHTS_UPDATE}/${data?.id}`,{
-      eventId:params?.id
+    historyUtils.push(`${RouteName.EVENT_HIGHLIGHTS_UPDATE}/${data?.id}`, {
+      eventId: params?.id,
     });
   }, []);
 
   const handleUpdate = useCallback((data) => {
-    historyUtils.push(`${RouteName.MEETINGS_DETAIL}${data?.id}`,{
-      eventId:params?.id
+    historyUtils.push(`${RouteName.MEETINGS_DETAIL}${data?.id}`, {
+      eventId: params?.id,
     });
   }, []);
 
   const handleCreateFed = useCallback((data) => {
-    historyUtils.push(`${RouteName.EVENT_HIGHLIGHTS_CREATE}`,{
-     eventId:params?.id,
+    historyUtils.push(`${RouteName.EVENT_HIGHLIGHTS_CREATE}`, {
+      eventId: params?.id,
     });
   }, []);
 
@@ -159,6 +158,10 @@ const useMeetingList = ({ location }) => {
     [setSidePanel, setEditData]
   );
 
+  const handleMeetingMaster = () => {
+    historyUtils.push(`${RouteName.MASTER_CREATE}` + `${params?.id}`);
+  };
+
   return {
     handlePageChange,
     handleDataSave,
@@ -177,6 +180,7 @@ const useMeetingList = ({ location }) => {
     locationData,
     isSidePanel,
     handleToggleSidePannel,
+    handleMeetingMaster,
   };
 };
 
