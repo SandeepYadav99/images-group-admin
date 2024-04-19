@@ -174,7 +174,7 @@ const EventParticipantCreateView = ({
         <div className={"formGroup"}>
           <Autocomplete
             multiple
-            id="tags-outlined"
+            id="tags-outlined multipe_value"
             onChange={(e, value) => {
               changeTextData(value, "participant_type");
             }}

@@ -110,7 +110,7 @@ const useEventParticipantCreate = ({
     }).then((res) => {
       if (!res.error) {
         const data = res?.data;
-
+        
         if (data?.contact === form?.contact) {
           setIsContactInList(true);
         }
@@ -125,7 +125,7 @@ const useEventParticipantCreate = ({
             reg_id: data?.reg_id,
             user_id: data?.id,
             category: data?.category,
-            participant_type: data?.participants_type,
+            participant_type: data?.participants_type ? data?.participants_type : [],
             is_award: data?.is_award,
             is_lunch: data?.is_lunch,
             company_name: data?.company_name,
@@ -248,8 +248,6 @@ const useEventParticipantCreate = ({
           t[fieldName] = text.toUpperCase();
         }
         shouldRemoveError = false;
-      } else if (fieldName === "company_name") {
-        t["category"] = text;
       } else {
         t[fieldName] = text;
       }
