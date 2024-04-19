@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import {
   Button,
   ButtonBase,
+  CircularProgress,
   IconButton,
   InputAdornment,
   MenuItem,
@@ -218,7 +219,7 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
             onClick={handleSubmit}
             className={styles.btmBtn}
           >
-            {isVerified ? "Upload Csv" : "Verify Csv"}
+            {isSubmitting ? <CircularProgress color="success" size="20px" /> :isVerified ? "Upload Csv" : "Verify Csv" }
           </ButtonBase>
         </div>
         <div className={styles.printFlex}>
