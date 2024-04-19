@@ -209,24 +209,24 @@ console.log(form?.chairs)
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
         }else if(key === "speakers"){
-          fd.append(key, form?.speakers?.map((val) => val.id))
+          fd.append(key, JSON.stringify(form?.speakers?.map((val) => val.id)))
         }else if(key === "moderator"){
-          fd.append(key, form?.moderator?.map((val) => val.id))
+          fd.append(key, JSON.stringify(form?.moderator?.map((val) => val.id)))
         }else if(key === "chairs"){
-          fd.append(key, form?.chairs?.map((val) => val.id))
+          fd.append(key, JSON.stringify(form?.chairs?.map((val) => val.id)))
         }else if(key === "status"){
           fd.append(key, form?.status ? "ACTIVE" : "INACTIVE")
         }else if(key === "is_recommended"){
           fd.append(key, form?.is_recommended === true ? true : false,)
         }else if(key === "co_chairs"){
-          fd.append(key, form?.co_chairs?.map((val) => val.id))
+          fd.append(key, JSON.stringify(form?.co_chairs?.map((val) => val.id)))
         } else {
           fd.append(key, form[key]);
         }
       })
-      if(empId){
+      // if(empId){
         fd.append("event_id", id)
-      } 
+      // } 
       let req;
       if (empId) {
         req = serviceUpdateEventSchedule;
