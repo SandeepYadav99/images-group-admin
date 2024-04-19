@@ -14,6 +14,7 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CountryInputField from "../../../components/CountryInputField/CountryInputField.js";
+import CustomCheckbox from "../../../components/FormFields/CustomCheckbox.js";
 
 function EventSponsorCreate({ location }) {
   const {
@@ -283,7 +284,7 @@ function EventSponsorCreate({ location }) {
             />
           </div>
         </div>
-
+     
         <div className={styles.btnWrappepr}>
           <ButtonBase
             disabled={isSubmitting ? true : false}

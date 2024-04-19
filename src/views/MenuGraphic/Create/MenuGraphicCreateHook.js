@@ -80,7 +80,7 @@ function useMenuGraphicCreateHook() {
         if (!res.error) {
           const data = res?.data;
           setImage(data?.image);
-          setEmployeDetail(data?.name);
+          // setEmployeDetail(data?.name);
           setForm({
             ...form,
             id: id,
@@ -180,7 +180,7 @@ function useMenuGraphicCreateHook() {
         //     }
         //   }
         // }
-        fd.append("name", form?.featureName?.name || employDetail);
+        fd.append("name", form?.featureName );
         fd.append("priority", form?.priority);
         fd.append("status", form?.status === true ? "ACTIVE" : "INACTIVE");
         fd.append("event_id", selectedEventId);

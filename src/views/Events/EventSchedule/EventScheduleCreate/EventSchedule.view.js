@@ -18,6 +18,7 @@ import CustomDatePicker from "../../../../components/FormFields/DatePicker/Custo
 import { Autocomplete } from "@material-ui/lab";
 import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import LogUtils from "../../../../libs/LogUtils";
+import CustomCheckbox from "../../../../components/FormFields/CustomCheckbox";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -41,52 +42,76 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     categoryList,
     listDataValue,
     updateSpeakerList,
+    thimbnel
   } = useEventScheduleHook({ handleToggleSidePannel, isSidePanel, empId });
 
   const classes = useStyles();
 
   return (
     <div className={styles.departmentWrap}>
-      <div className={"formFlex"}>
-        <div className={"formGroup"}>
-          <CustomSelectField
-            isError={errorData?.category}
-            errorText={errorData?.category}
-            label={"Category"}
-            value={form?.category ? form?.category : ""}
-            handleChange={(value) => {
-              changeTextData(value, "category");
-            }}
-          >
-            {categoryList?.map((val) => {
-              return (
-                <MenuItem value={val?.name} id={val?.id}>
-                  {val?.name}
-                </MenuItem>
-              );
-            })}
-          </CustomSelectField>
+      <div className={styles.count}>
+        <File
+          // imageClass={styles.inputFileUploader}
+          max_size={5 * 1024 * 1024}
+          type={["png", "jpeg", "jpg"]}
+          fullWidth={true}
+          name="document"
+          accept={"image/*"}
+           default_image={thimbnel ? thimbnel : null}
+          label="Please Upload Image"
+          show_image={true}
+          error={errorData?.image}
+          value={form?.image}
+          onChange={(file) => {
+            if (file) {
+              changeTextData(file, "image");
+            }
+          }}
+        />
+        <div className={styles.countBox}>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomSelectField
+                isError={errorData?.category}
+                errorText={errorData?.category}
+                label={"Category"}
+                value={form?.category ? form?.category : ""}
+                handleChange={(value) => {
+                  changeTextData(value, "category");
+                }}
+              >
+                {categoryList?.map((val) => {
+                  return (
+                    <MenuItem value={val?.name} id={val?.id}>
+                      {val?.name}
+                    </MenuItem>
+                  );
+                })}
+              </CustomSelectField>
+            </div>
+          </div>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.eve_name}
+                errorText={errorData?.eve_name}
+                label={"Name"}
+                value={form?.eve_name}
+                onTextChange={(text) => {
+                  changeTextData(text, "eve_name");
+                }}
+                onBlur={() => {
+                  onBlurHandler("eve_name");
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
+
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomTextField
-            isError={errorData?.eve_name}
-            errorText={errorData?.eve_name}
-            label={"Name"}
-            value={form?.eve_name}
-            onTextChange={(text) => {
-              changeTextData(text, "eve_name");
-            }}
-            onBlur={() => {
-              onBlurHandler("eve_name");
-            }}
-          />
-        </div>
-      </div>
-      <div className={"formFlex"}>
-        <div className={"formGroup"}>
-        <CustomTextField
             isError={errorData?.hall_no}
             errorText={errorData?.hall_no}
             label={"Hall Number"}
@@ -346,7 +371,18 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
           />
         </div>
       </div>
-
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              changeTextData(!form?.is_recommended, "is_recommended");
+            }}
+            label={"Recommended "}
+            checked={form?.is_recommended}
+          />
+        </div>
+      </div>
       <div className={styles.btnCont}>
         <ButtonBase
           disabled={isSubmitting}

@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import useMenuGraphicCreateHook from "./MenuGraphicCreateHook";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import { Autocomplete } from "@material-ui/lab";
+import FEATURE_DATA from "../../../config/GraphicData";
 function MenuGraphicCreate({ location }) {
   const {
     form,
@@ -70,21 +71,21 @@ function MenuGraphicCreate({ location }) {
           <div className={styles.lowerWrap}>
             <div className={"formFlex"}>
               <div className={"formGroup"}>
-                {/* <CustomSelectField
+                 <CustomSelectField
                   // disabled={disabled?.member_id}
                   isError={errorData?.featureName}
                   errorText={errorData?.featureName}
                   label={"Feature Name"}
-                  value={form?.type}
+                  value={form?.featureName}
                   handleChange={(value) => {
                     changeTextData(value, "featureName");
                   }}
                 >
-                  {featureValue?.map((feature) => {
-                    return <MenuItem value={feature?.name}>{feature?.name}</MenuItem>;
+                  {FEATURE_DATA?.map((feature) => {
+                    return <MenuItem value={feature?.key}>{feature?.value}</MenuItem>;
                   })}
-                </CustomSelectField> */}
-                <Autocomplete
+                </CustomSelectField> 
+                {/* <Autocomplete
                     id="tags-outlined"
                     onChange={(e, value) => {
                       changeTextData(value, "featureName");
@@ -101,7 +102,7 @@ function MenuGraphicCreate({ location }) {
                         error={errorData?.featureName}
                       />
                     )}
-                  />
+                  /> */}
               </div>
             </div>
             <div className={"formFlex"}>

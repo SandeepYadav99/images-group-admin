@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
@@ -12,16 +12,16 @@ import {
   servicesPartnerTypeList,
 } from "../../../services/Exhibitor.service";
 import historyUtils from "../../../libs/history.utils";
-import { isEmail } from "../../../libs/RegexUtils";
+import { isEmail, validateUrl } from "../../../libs/RegexUtils";
 import useDebounce from "../../../hooks/DebounceHook";
 import Constants from "../../../config/constants";
 import { useSelector } from "react-redux";
 
 const initialForm = {
-  // company_logo: "",
+  company_logo: "",
   company_name: "",
   brand_name: "",
-  product_groups: [],
+  is_participant: false,
   product_categories: [],
   // products: [],
   event_venue: "",
@@ -47,6 +47,7 @@ const initialForm = {
   company_description: "",
   status: true,
   country_code: "",
+  country_code1: "",
   secondary_perosn_name: "",
   youtube_link: "",
   is_partner: false,
@@ -56,8 +57,25 @@ const initialForm = {
   business_nature: [],
   state: "",
   country: "",
+  country1: "",
   zip_code: "",
-  // pavallian: "",
+  pavallian: "",
+  featured: false,
+  recommended: false,
+  facebook_link: "",
+  linkedin_link: "",
+  instagram_link: "",
+
+  twitter_link: "",
+  is_featured: false,
+  is_recommended: false,
+
+  download_documents: "",
+  // fileName: "",
+  // title: "",
+  // url: "",
+  // images: "",
+  show_profile:false
 };
 
 const featureKey = {
@@ -80,20 +98,21 @@ const useExhibitorCreate = ({ location }) => {
   const [checked, setChecked] = useState(false);
   const [feature, setFeature] = useState({ ...featureKey });
   const [productListData, setProductListData] = useState([]);
+  const ChildenRef = useRef(null);
+  const ChildenRef1 = useRef(null);
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
-    HALLS:[],
+    HALLS: [],
   });
   const [pdf, setPdf] = useState("");
   const [secondary, setSecondary] = useState("");
   const [deatilsValue, setDetailsValue] = useState([]);
   const [partnerList, setPartnerList] = useState([]);
-  const [textData,setTextData] = useState("");
+  const [textData, setTextData] = useState("");
 
   const { user } = useSelector((state) => state?.auth);
-
-
+console.log({ChildenRef})
   const EventListManager = [
     "FIBERS_YARNS",
     "FABRICS",
@@ -106,13 +125,13 @@ const useExhibitorCreate = ({ location }) => {
   ];
 
   useEffect(() => {
-    serviceExhibitorsList({ list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP","HALLS"] }).then(
-      (res) => {
-        if (!res.error) {
-          setListData(res.data);
-        }
+    serviceExhibitorsList({
+      list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP", "HALLS"],
+    }).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
       }
-    );
+    });
   }, []);
 
   useEffect(() => {
@@ -131,15 +150,18 @@ const useExhibitorCreate = ({ location }) => {
     setChecked(() => !checked);
   };
 
-
+  const renderImages = (image) => {
+    setSelectImages([...image]);
+  };
   useEffect(() => {
     if (empId) {
       serviceGetExhibitorsDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
           const { business_nature } = data;
-          const {hall} = data;
+          const { hall, children } = data;
 
+          // ChildenRef?.current?.setData(children);
           // setSelectImages(data?.gallery_images);
           setDetailsValue(business_nature);
           // setImage(data?.company_logo);
@@ -163,7 +185,7 @@ const useExhibitorCreate = ({ location }) => {
             // linkedin_link: data?.linkedin_link,
             // facebook_link: data?.facebook_link,
             // twitter_link: data?.twitter_link,
-            hall:data?.hall?.hall_no,
+            hall: data?.hall?.hall_no,
             // zone_tag: data?.zone_tag,
             event_stall: data?.event_stall,
             website: data?.website,
@@ -172,7 +194,9 @@ const useExhibitorCreate = ({ location }) => {
             brand_name: data?.brand_name,
             secondary_email: data?.secondary_email,
             other_conatct_number: data?.other_conatct_number,
-            partner_tag:data?.partner_tag ?  data?.partner_tag?.toUpperCase() : "" ,
+            partner_tag: data?.partner_tag
+              ? data?.partner_tag?.toUpperCase()
+              : "",
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             is_partner: data?.is_partner,
             primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
@@ -181,11 +205,13 @@ const useExhibitorCreate = ({ location }) => {
             country: data?.country,
             zip_code: data?.zip_code,
             business_nature_other: data?.business_nature_other,
-            is_business_nature_other: data?.is_business_nature_other ? data?.is_business_nature_other : false,
-            // pavallian: data?.pavallian,
+            is_business_nature_other: data?.is_business_nature_other
+              ? data?.is_business_nature_other
+              : false,
+            pavallian: data?.pavallian,
           });
           // setPdf(data?.company_brochure);
-          setTextData(form?.business_nature_other)
+          setTextData(form?.business_nature_other);
           // setFeature({ ...feature, });
         } else {
           SnackbarUtils.error(res?.message);
@@ -196,7 +222,7 @@ const useExhibitorCreate = ({ location }) => {
 
   useEffect(() => {
     const updatedFeature = { ...feature };
-  
+
     deatilsValue.forEach((value) => {
       if (value in feature) {
         updatedFeature[value] = true;
@@ -204,7 +230,6 @@ const useExhibitorCreate = ({ location }) => {
     });
     setFeature(updatedFeature);
   }, [deatilsValue]);
-
 
   useEffect(() => {
     const updatedFeature = { ...feature };
@@ -214,7 +239,7 @@ const useExhibitorCreate = ({ location }) => {
           updatedFeature[key] = true;
         }
       });
-      setFeature(updatedFeature)
+      setFeature(updatedFeature);
     }
   }, [empId]);
 
@@ -299,26 +324,27 @@ const useExhibitorCreate = ({ location }) => {
   //   }
   // }, [form?.primary_email]);
 
-  useEffect(()=>{
-    if(!form?.is_business_nature_other){
-      if(form?.business_nature?.includes(form?.business_nature_other)){
-        const index = form?.business_nature.indexOf(form?.business_nature_other);
-        form?.business_nature.splice(index,1);
+  useEffect(() => {
+    if (!form?.is_business_nature_other) {
+      if (form?.business_nature?.includes(form?.business_nature_other)) {
+        const index = form?.business_nature.indexOf(
+          form?.business_nature_other
+        );
+        form?.business_nature.splice(index, 1);
       }
-      setForm(
-        {
-          ...form,
-          business_nature_other:"",
-        }
-      )
-    }
-    else{
-      if(textData !== form?.business_nature_other){
-        const index = form?.business_nature.indexOf(form?.business_nature_other);
-        form?.business_nature.splice(index,1);
+      setForm({
+        ...form,
+        business_nature_other: "",
+      });
+    } else {
+      if (textData !== form?.business_nature_other) {
+        const index = form?.business_nature.indexOf(
+          form?.business_nature_other
+        );
+        form?.business_nature.splice(index, 1);
       }
     }
-  },[form?.is_business_nature_other])
+  }, [form?.is_business_nature_other]);
 
   useEffect(() => {
     if (form?.primary_conatct_number) {
@@ -345,6 +371,10 @@ const useExhibitorCreate = ({ location }) => {
       "primary_conatct_number",
       "company_address",
       "country_code",
+      // "fileName",
+      // "documentUpload",
+      // "title",
+      // "url",
     ];
 
     if (form?.is_partner) {
@@ -353,7 +383,7 @@ const useExhibitorCreate = ({ location }) => {
       delete errors["partner_tag"];
     }
     // if (!empId) {
-    //   required.push("primary_password");
+    //   required.push("images");
     // }
     required.forEach((val) => {
       if (form?.product_categories?.length === 0) {
@@ -368,6 +398,35 @@ const useExhibitorCreate = ({ location }) => {
     });
     if (form?.primary_email && !isEmail(form?.primary_email)) {
       errors["primary_email"] = "Invalid email address ";
+    }
+
+    if (form?.instagram_link && !validateUrl(form?.instagram_link)) {
+      errors.instagram_link = true;
+      SnackbarUtils.error("Please Enter a Valid Instagram URL");
+    }
+    if (form?.facebook_link && !validateUrl(form?.facebook_link)) {
+      errors.facebook_link = true;
+      SnackbarUtils.error("Please Enter a Valid Facebook URL");
+    }
+    if (form?.twitter_link && !validateUrl(form?.twitter_link)) {
+      errors.twitter_link = true;
+      SnackbarUtils.error("Please Enter a Valid Twitter URL");
+    }
+    if (form?.linkedin_link && !validateUrl(form?.linkedin_link)) {
+      errors.linkedin_link = true;
+      SnackbarUtils.error("Please Enter a Valid LinkedIn URL");
+    }
+    if (form?.youtube_link && !validateUrl(form?.youtube_link)) {
+      errors.youtube_link = true;
+      SnackbarUtils.error("Please Enter a Valid YouTube URL");
+    }
+
+    if (form?.email && !isEmail(form?.email)) {
+      errors.email = true;
+    }
+    if (form?.web_url && !validateUrl(form?.web_url)) {
+      errors.web_url = true;
+      SnackbarUtils.error("Please Enter the Valid Url");
     }
     // if (
     //   form?.secondary_email?.length > 0 &&
@@ -387,6 +446,7 @@ const useExhibitorCreate = ({ location }) => {
 
     return errors;
   }, [form, errorData]);
+ 
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -395,12 +455,10 @@ const useExhibitorCreate = ({ location }) => {
     const fd = new FormData();
     Object.keys(form).forEach((key) => {
       if (
-        (
-          // key !== "company_logo",
+        // key !== "company_logo",
         // key !== "gallery_images"
         // key !== "company_brochure"
-        key !== "business_nature_other",
-        key !== "is_business_nature_other")
+        (key !== "business_nature_other", key !== "is_business_nature_other")
       ) {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
@@ -415,7 +473,7 @@ const useExhibitorCreate = ({ location }) => {
           if (key === "business_nature") {
             let values = form[key];
             if (form?.is_business_nature_other) {
-              if(!values.includes(form?.business_nature_other)){
+              if (!values.includes(form?.business_nature_other)) {
                 values.push(form?.business_nature_other);
               }
             }
@@ -435,15 +493,19 @@ const useExhibitorCreate = ({ location }) => {
     // if (form?.company_brochure) {
     //   fd.append("company_brochure", form?.company_brochure);
     // }
+  
+    // const download_documents= JSON.stringify(ChildenRef.current.getData())
+    fd.append("downloads", JSON.stringify(ChildenRef.current.getData()));
+    // digital_bag_images
+    fd.append("digital_bags", JSON.stringify(ChildenRef1.current.getData()));
+    fd.append("is_business_nature_other", form?.is_business_nature_other);
 
-      fd.append("is_business_nature_other",form?.is_business_nature_other)
-     
     // if(empId){
     //   if (form?.company_logo) {
     //     fd.append("company_logo", form?.company_logo);
     //   }
     // }
-   
+
     // if (form?.gallery_images?.length > 0) {
     //   form?.gallery_images?.forEach((item) => {
     //     fd.append("gallery_images", item);
@@ -474,7 +536,14 @@ const useExhibitorCreate = ({ location }) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    if (Object.keys(errors).length > 0) {
+    const isIncludesValid = ChildenRef.current.isValid();
+    const isIncludesValid1 = ChildenRef1.current.isValid();
+    //|| !isIncludesValid
+    if (
+      Object.keys(errors)?.length > 0 ||
+      !isIncludesValid ||
+      !isIncludesValid1
+    ) {
       setErrorData(errors);
       return true;
     }
@@ -556,10 +625,6 @@ const useExhibitorCreate = ({ location }) => {
     setForm({ ...initialForm });
   }, [form, setForm]);
 
-  const renderImages = (image) => {
-    setSelectImages([...image]);
-  };
-
   useEffect(() => {
     servicesPartnerTypeList({
       list: ["SPONSOR_TYPE"],
@@ -568,9 +633,6 @@ const useExhibitorCreate = ({ location }) => {
       .then((res) => setPartnerList(res?.data?.SPONSOR_TYPE))
       .catch((res) => res.error);
   }, []);
-
-
-  
 
   return {
     form,
@@ -597,6 +659,9 @@ const useExhibitorCreate = ({ location }) => {
     feature,
     deatilsValue,
     partnerList,
+    ChildenRef,
+    renderImages,
+    ChildenRef1,
   };
 };
 

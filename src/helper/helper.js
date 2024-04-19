@@ -315,7 +315,7 @@ export const EventData = [
   },
   {
     key: "sponsors",
-    name: "Sponsors",
+    name: "Partners ",
     image: sponsor,
     url: RouteName.EVENT_SPONSOR,
   },

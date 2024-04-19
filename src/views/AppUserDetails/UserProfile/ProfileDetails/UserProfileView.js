@@ -49,9 +49,9 @@ const handleRouteMember =()=>{
             <span className={styles.profileTitleName}>
               <b>{value?.name}</b>
             </span>
-            <span className={styles.profileTitle}>{value?.full_contact}</span>
+            <span className={styles.profileTitle}>{value?.country_code} {value?.contact}</span>
             <span className={styles.profileTitle}>{truncate(value?.email)}</span>
-            <span className={styles.profileTitle}>Category: N/A</span>
+            <span className={styles.profileTitle}>Category: {value?.category || "N/A"}</span>
           </div>
         </div>
         <div className={styles.description_value}>
@@ -73,12 +73,12 @@ const handleRouteMember =()=>{
             <div>
               <span> Designation:</span>
 
-              <span className={styles.des_title}>{value?.title}</span>
+              <span className={styles.des_title}>{value?.title || "N/A"}</span>
             </div>
             <div>
               <span>Registration iD:</span>
 
-              <span className={styles.des_title}>{value?.title}</span>
+              <span className={styles.des_title}>{value?.title || "N/A"}</span>
             </div>
             <div>
               <span> Status:</span>

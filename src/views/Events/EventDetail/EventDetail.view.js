@@ -63,7 +63,7 @@ function EventDetail() {
       <UpperClaimInfo data={employeeDetail} />
       <div className={styles.plainPaper}>
         <div className={styles.toggleWrap}>
-          <div className={styles.timerWrap}>
+          {/* <div className={styles.timerWrap}>
             <div className={styles.uerr}>
               <span className={styles.heading2}>Timer</span>
               <div className={styles.SwitchWrap}>
@@ -82,7 +82,7 @@ function EventDetail() {
               <img src={timer} />
               <div className={styles.timetitle}>SET TIMER</div>
             </div>
-          </div>
+          </div> */}
           {/* <div className={styles.timerWrap}>
             <div className={styles.uerr}>
               <span className={styles.heading2}>Polls</span>

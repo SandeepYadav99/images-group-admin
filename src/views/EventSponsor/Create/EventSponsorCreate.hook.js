@@ -35,6 +35,7 @@ function useEventSponsorCreate({ location }) {
     insta: "",
     youtube: "",
     status: true,
+    
     // country_code:"",
   };
   const [form, setForm] = useState({ ...initialForm });

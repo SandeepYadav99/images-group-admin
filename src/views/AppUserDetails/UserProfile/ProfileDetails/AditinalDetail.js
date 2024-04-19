@@ -160,21 +160,17 @@ const AditnalDetail = ({ id }) => {
       <div className={styles.profileContainer}>
         <div className={styles.profile_image}>
           <div className={styles.profileDetails}>
-            <span className={styles.profileTitle}>
-              <b>Participant Type:</b>  
-             
+            <div className={styles.profileTitle}>
+              <b>Participant_Type:</b>
+
               {value?.participant_type?.length > 0 ? (
                 value.participant_type.map((status, index) => (
-                  <StatusPill
-                    key={index} 
-                    status={status}
-                    style={getStatusPillStyle(status)}
-                  />
+                  <div key={index}>{status}</div>
                 ))
               ) : (
                 <span>N/A</span>
               )}
-            </span>
+            </div>
             <div></div>
             <span className={styles.profileTitle}>
               <b>Award Access: </b>
@@ -208,6 +204,20 @@ const AditnalDetail = ({ id }) => {
               >
                 {value?.company_name}
               </span>
+            </div>
+            <div>
+              <span>
+                <b></b>
+              </span>
+              <span className={styles.textColor}> </span>
+
+              <span
+                style={{
+                  textDecoration: "underline",
+                  color: "#AB183D",
+                  marginLeft: "2rem ",
+                }}
+              ></span>
             </div>
           </div>
         </div>

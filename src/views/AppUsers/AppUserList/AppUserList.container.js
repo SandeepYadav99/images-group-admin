@@ -61,7 +61,7 @@ const AppUserList = ({ }) => {
         key: "name",
         label: "user",
         sortable: false,
-        render: (temp, all) => <div style={{display:"flex",alignItems:"center",justifyItems:"center"}}><img src={all?.image} alt="image" style={{height:"30px",width:"30px",borderRadius:"100%"}}/>{all?.name}</div>,
+        render: (temp, all) => <div style={{display:"flex",alignItems:"center",justifyItems:"center", gap:"8px"}}><img src={all?.image} alt="image" style={{height:"30px",width:"30px",borderRadius:"100%"}}/>{all?.name}</div>,
       },
       {
         key: "email",

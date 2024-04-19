@@ -8,7 +8,7 @@ export async function serviceCreateEventSchedule(params) {
   return await formDataRequest("events/schedule/create", params);
 }
 export async function serviceUpdateEventSchedule(params) {
-  return await postRequest("events/schedule/update", params);
+  return await formDataRequest("events/schedule/update", params);
 }
 export async function serviceDeleteEventSchedule(params) {
   return await postRequest("events/schedule/delete", params);
