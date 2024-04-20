@@ -1,15 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  actionCreateAdminUser,
-  actionDeleteAdminUser,
-  actionFetchAdminUser,
-  actionSetPageAdminUser,
-  actionUpdateAdminUser,
-} from "../../../actions/AdminUser.action";
+
 import historyUtils from "../../../libs/history.utils";
 
 import RouteName from "../../../routes/Route.name";
+import { actionCreateAward, actionDeleteAward, actionFetchAward, actionSetPageAward, actionUpdateAward } from "../../../actions/Award.action";
 
 const useAdminUserList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -27,33 +22,33 @@ const useAdminUserList = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.adminUser);
+  } = useSelector((state) => state.award);
 
   useEffect(() => {
     // dispatch(actionFetchAdminUser());
   }, []);
 
-  useEffect(() => {
-    dispatch(
-      actionFetchAdminUser(1, {}, {
-        query: isMountRef.current ? query : null,
-        query_data: isMountRef.current ? queryData : null,
-      })
-    );
-    isMountRef.current = true;
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     actionFetchAward(1, {}, {
+  //       query: isMountRef.current ? query : null,
+  //       query_data: isMountRef.current ? queryData : null,
+  //     })
+  //   );
+  //   isMountRef.current = true;
+  // }, []);
 
   const handlePageChange = useCallback((type) => {
-    dispatch(actionSetPageAdminUser(type));
+    dispatch(actionSetPageAward(type));
   }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
       // this.props.actionChangeStatus({...data, type: type});
       if (type == "CREATE") {
-        dispatch(actionCreateAdminUser(data));
+        dispatch(actionCreateAward(data));
       } else {
-        dispatch(actionUpdateAdminUser(data));
+        dispatch(actionUpdateAward(data));
       }
       setSidePanel((e) => !e);
       setEditData(null);
@@ -66,7 +61,7 @@ const useAdminUserList = ({}) => {
       console.log("_queryFilter", key, value);
       // dispatch(actionSetPageAdminUserRequests(1));
       dispatch(
-        actionFetchAdminUser(1, sortingData, {
+        actionFetchAward(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -95,7 +90,7 @@ const useAdminUserList = ({}) => {
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       dispatch(
-        actionFetchAdminUser(
+        actionFetchAward(
           1,
           { row, order },
           {
@@ -114,7 +109,7 @@ const useAdminUserList = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteAdminUser(id));
+      dispatch(actionDeleteAward(id));
       setSidePanel(false);
       setEditData(null);
     },

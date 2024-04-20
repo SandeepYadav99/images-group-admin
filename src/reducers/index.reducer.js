@@ -57,6 +57,7 @@ import HallMasterReducer from "./HallMaster.reducer";
 import SplashScreenReducer from "./SplashScreen.reducer";
 import SpeakerMasterReducer from "./SpeakerMaster.reducer";
 import MenuGraphicReducer from "./MenuGraphic.reducer";
+import AwardReducer from "./Award.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -117,7 +118,8 @@ const rootReducer = combineReducers({
   hallMaster:HallMasterReducer,
   SplashScreen:SplashScreenReducer,
   SpeakerMaster:SpeakerMasterReducer,
-  MenuGraphic:MenuGraphicReducer
+  MenuGraphic:MenuGraphicReducer,
+  award:AwardReducer
 });
 
 export default rootReducer;
