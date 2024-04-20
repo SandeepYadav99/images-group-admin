@@ -54,27 +54,20 @@ const ChildrenIncludeFields = ({
   listWarehouse,
   empId
 }) => {
-  // const handleChange = (e) => {
-  //   const name = e?.target?.name;
-  //   const value = e?.target?.value;
-  //   if (name === "title") {
-  //     changeData(index,{['title'] : value})
-  //   } else {
-  //     changeData(index, { [name]: value });
-  //   }
-  // };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    changeData(index, { [name]: value });
-  };
-  const [selectImages, setSelectImages] = useState([]);
-const changeTextData=(value,key)=>{
-  changeData(index, { [key]: value });
+  const handleChange = (e, fieldName) => {
+    // const name = e?.target?.name;
+    // const value = e?.target?.value;
+if(fieldName){
+  if (fieldName === "title") {
+    changeData(index, { [fieldName]: e.target.value });
+  }else if(fieldName === "url"){
+    changeData(index, { [fieldName]: e.target.value });
+  } else {
+    changeData(index, { [fieldName]: e });
+  }
 
 }
-const renderImages = (image) => {
-  setSelectImages([...image]);
-};
+  };
 
   return (
     <div>
@@ -98,7 +91,7 @@ const renderImages = (image) => {
               value={data?.images}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, "images");
+                  handleChange(file, "images");
                 }
               }}
               // onChange={(file) => {
@@ -112,10 +105,10 @@ const renderImages = (image) => {
           <div className={"formGroup"}>
           <TextField
               error={errors?.title}
-              onChange={handleChange}
+              onChange={(e)=>handleChange(e, "title")}
               value={data?.title}
               fullWidth={true}
-              name={"title"}
+              name="title"
               margin={"dense"}
               variant={"outlined"}
               label={"Title"}
@@ -127,10 +120,10 @@ const renderImages = (image) => {
           <div className={"formGroup"}>
           <TextField
               error={errors?.url}
-              onChange={handleChange}
+              onChange={(e)=>handleChange(e, "url")}
               value={data?.url}
               fullWidth={true}
-              name={"url"}
+              name="url"
               margin={"dense"}
               variant={"outlined"}
               label={"URL"}

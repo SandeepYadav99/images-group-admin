@@ -54,49 +54,36 @@ const ChildrenIncludeFields = ({
   currency,
   listWarehouse,
 }) => {
-  // const handleChange = (e) => {
-  //   const name = e?.target?.name;
-  //   const value = e?.target?.value;
-    
-   
-  //   console.log({name, value})
-  //   if (name === "fileName") {
-  //     changeData(index,{[name] : value})
-  //   }else if(name === "documentUpload"){
-  //     console.log({name, value})
-  //     changeData(index, { [name]: value });
-  //   } else {
-  //     changeData(index, { [name]: value });
-  //   }
-  // };
-  
-  const handleChange = useCallback((name, value) => {
-    console.log({name, value})
-    changeData(index, { [name]: value });
-  },[ index]);
-  
+  const handleChange = (e, fieldName) => {
+    // const name = e?.target?.name;
+    // const value = e?.target?.value;
+if(fieldName){
+  if (fieldName === "fileName") {
+    changeData(index, { [fieldName]: e.target.value });
+  } else {
+    changeData(index, { [fieldName]: e });
+  }
 
-
+}
+  };
 
   return (
     <div>
       <div className={styles.flexContainer}>
         <div className={styles.firstRow}>
-        
           <div className={"formFlex"}>
-          <div className={"formGroup"}>
-        
-              {/* <TextField
-              error={errors?.fileName}
-              onChange={(file)=> handleChange('fileName', file)}
-              value={data?.fileName}
-              fullWidth={true}
-              name={"fileName"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"File Name"}
-            /> */}
-               <CustomTextField
+            <div className={"formGroup"}>
+              <TextField
+                error={errors?.fileName}
+                onChange={(e) => handleChange(e, "fileName")}
+                value={data?.fileName}
+                fullWidth={true}
+                name={"fileName"}
+                margin={"dense"}
+                variant={"outlined"}
+                label={"File Name"}
+              />
+              {/* <CustomTextField
               error={data?.fileName}
               // error={data?.fileName}
               label={"File Name"}
@@ -105,30 +92,29 @@ const ChildrenIncludeFields = ({
                 handleChange( "fileName", text);
               }}
              
-            />
+            /> */}
+            </div>
           </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <File
-              max_size={10 * 1024 * 1024}
-              type={["pdf", "doc", "docx"]}
-              fullWidth={true}
-               name={"documentUpload"}
-              label="Upload PDF"
-              accept={"application/pdf,application/msword"}
-              error={errors?.documentUpload}
-              value={data?.documentUpload}
-              placeholder={"Upload PDF"}
-               onChange={(file)=> handleChange('documentUpload', file)}
-              // onChange={(file) => {
-              
-              //    handleChange({ target: { name: 'documentUpload', value: file }});
-              // }}
-              // onChange={handleFileUpload}
-            />
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "doc", "docx"]}
+                fullWidth={true}
+                name="documentUpload"
+                label="Upload PDF"
+                accept={"application/pdf,application/msword"}
+                error={errors?.documentUpload}
+                value={data?.documentUpload}
+                placeholder={"Upload PDF"}
+                onChange={(file) => {
+                  if (file) {
+                    handleChange(file, "documentUpload");
+                  }
+                }}
+              />
+            </div>
           </div>
-        </div>
           <div className={"textCenter"}>
             <ButtonBase
               className={styles.removeBtn}

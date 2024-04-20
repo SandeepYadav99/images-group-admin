@@ -315,53 +315,7 @@ function EventSponsorCreate({ location }) {
           </div>
         </div>
 
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            {/* <MultiFile
-              multiDef={selectImages ? selectImages : []}
-               multiple
-              max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
-              fullWidth={true}
-                name="od1"
-              label="Upload Multiple Image"
-              accept={"image/*"}
-              error={errorData?.digital_bag_images}
-              value={form?.digital_bag_images}
-               //default_image={selectImages ? selectImages[0] : null}
-              placeholder={"Upload Multiple Image"}
-              onChange={(file) => {
-                if (file) {
-                  changeTextData(file, "digital_bag_images");
-                }
-              }}
-              DefChange={(img) => {
-                if (img) {
-                  renderImages(img);
-                }
-              }}
-            />  */}
-            {/* <File
-              // imageClass={styles.inputFileUploader}
-              max_size={5 * 1024 * 1024}
-              type={["png", "jpeg", "jpg"]}
-              fullWidth={true}
-              name="document"
-              accept={"image/*"}
-             
-              default_image={image ? image : null}
-              label="Upload  Image"
-              show_image={true}
-              error={errorData?.digital_bag_images}
-              value={form?.digital_bag_images}
-              onChange={(file) => {
-                if (file) {
-                  changeTextData(file, "digital_bag_images");
-                }
-              }}
-            />   */}
-          </div>
-        </div>
+      
 
          <div className={"formFlex"}>
           <div className={"formGroup"}>

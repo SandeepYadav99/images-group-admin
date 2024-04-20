@@ -18,7 +18,7 @@ import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 
 const TEMP_OBJ = {
-  fileName: null,
+  fileName: '',
   documentUpload: null,
 };
 
@@ -28,14 +28,14 @@ const ChildrenIncludeForm = (
     currency,
     listWarehouse,
     errorData: errorForm,
-    form,
+    downloads,
     changeTextData,
     updateInventory,
     vendorId,
   },
   ref
 ) => {
-  const [fields, setFields] = useState([TEMP_OBJ]);
+  const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
   const { id } = useParams();
@@ -52,6 +52,19 @@ const ChildrenIncludeForm = (
     });
     // updateInventory(sku, qty);
   }, [fields]);
+  useEffect(() => {
+    if (downloads && downloads.length > 0) {
+      
+      const updatedFields = downloads.map((download) => ({
+        fileName: download.fileName || '', 
+        // documentUpload: download.documentUpload || null, 
+      }));
+      setFields(updatedFields);
+    } else {
+     
+      setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
+    }
+  }, [downloads]);
 
   useImperativeHandle(ref, () => ({
     isValid() {
@@ -63,16 +76,19 @@ const ChildrenIncludeForm = (
     resetData() {
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
+    // getData() {
+    //   fields.forEach((obj) => {
+    //     if (obj.hasOwnProperty("employee_id")) {
+    //       delete obj.employee_id;
+    //     }
+    //     if (obj.hasOwnProperty("_id")) {
+    //       delete obj._id;
+    //     }
+    //   });
+      // return JSON.parse(JSON.stringify(fields));
+    // },
     getData() {
-      fields.forEach((obj) => {
-        if (obj.hasOwnProperty("employee_id")) {
-          delete obj.employee_id;
-        }
-        if (obj.hasOwnProperty("_id")) {
-          delete obj._id;
-        }
-      });
-      return JSON.parse(JSON.stringify(fields));
+      return fields;
     },
   }));
 
@@ -92,7 +108,7 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["fileName"];
+      const required = ["fileName", "documentUpload"];
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -106,11 +122,16 @@ const ChildrenIncludeForm = (
     return !(Object.keys(errors).length > 0);
   };
 
+  // useEffect(() => {
+  //   if (data) {
+  //     setFields(data);
+  //   }
+  // }, [data]);
   useEffect(() => {
-    if (data) {
-      setFields(data);
+    if (downloads) {
+      setFields(downloads);
     }
-  }, [data]);
+  }, [downloads]);
 
   const isValid = () => {
     return validateData();
@@ -135,10 +156,26 @@ const ChildrenIncludeForm = (
     [setErrorData, errorData]
   );
 
-  const changeData = (index, data) => {
-    const tempData = JSON.parse(JSON.stringify(fields));
-    tempData[index] = { ...tempData[index], ...data };
+  // const changeData = (index, data) => {
+  //   const tempData = JSON.parse(JSON.stringify(fields));
+  //   tempData[index] = { ...tempData[index], ...data };
 
+  //   setFields(tempData);
+  //   const errArr = [];
+  //   Object.keys(data).forEach((key) => {
+  //     errArr.push(key);
+  //   });
+  //   removeErrors(index, errArr);
+  // };
+  const changeData = (index, data, dateValue) => {
+    // const tempData = JSON.parse(JSON.stringify(fields));
+    const tempData = [...fields];
+    if (dateValue) {
+      tempData.forEach((item) => (item.travel_date = ""));
+    } else {
+      tempData[index] = { ...tempData[index], ...data };
+    }
+    LogUtils.log("data", data);
     setFields(tempData);
     const errArr = [];
     Object.keys(data).forEach((key) => {
@@ -146,6 +183,7 @@ const ChildrenIncludeForm = (
     });
     removeErrors(index, errArr);
   };
+  
 
   const onBlur = useCallback(
     (index, key, value) => {
@@ -157,16 +195,15 @@ const ChildrenIncludeForm = (
     },
     [checkExists]
   );
-
   const handlePress = async (type, index = 0) => {
     LogUtils.log("type", type, index);
-    const oldState = JSON.parse(JSON.stringify(fields));
+    const oldState = [...fields];
     if (type == "ADDITION") {
       oldState.push(JSON.parse(JSON.stringify(TEMP_OBJ)));
     } else {
-      // if (oldState.length === 1) {
-      //   return true;
-      // }
+      if (oldState.length === 1) {
+        return true;
+      }
       oldState.splice(index, 1);
     }
     LogUtils.log("oldState", oldState);
@@ -175,15 +212,13 @@ const ChildrenIncludeForm = (
   };
 
   const renderFields = useMemo(() => {
-    // console.log("fields",fields)
     return fields.map((val, index) => {
       const tempFilters = variants.filter((variant) => {
-        // console.log("===>",variants)
         const index = fields.findIndex((val) => val?.sku?.sku === variant?.sku);
         return index < 0;
       });
       return (
-        <div>
+        <div >
           <ChildrenIncludeFields
             variants={tempFilters}
             listWarehouse={listWarehouse}
@@ -211,6 +246,7 @@ const ChildrenIncludeForm = (
     fields,
   ]);
 
+ 
   return (
     <>
       {renderFields}
@@ -222,6 +258,7 @@ const ChildrenIncludeForm = (
           onClick={() => {
             handlePress("ADDITION", 0);
           }}
+        
         >
           <Add fontSize={"small"} /> <span>Add More</span>
         </ButtonBase>

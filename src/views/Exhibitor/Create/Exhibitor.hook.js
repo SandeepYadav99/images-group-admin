@@ -16,7 +16,8 @@ import { isEmail, validateUrl } from "../../../libs/RegexUtils";
 import useDebounce from "../../../hooks/DebounceHook";
 import Constants from "../../../config/constants";
 import { useSelector } from "react-redux";
-
+import { dataURLtoFile } from "../../../hooks/Helper";
+import nullImg from "../../../assets/img/null.png";
 const initialForm = {
   company_logo: "",
   company_name: "",
@@ -47,7 +48,9 @@ const initialForm = {
   company_description: "",
   status: true,
   country_code: "",
-  country_code1: "",
+  contact: "",
+  show_profile: false,
+  // country_code1: "",
   secondary_perosn_name: "",
   youtube_link: "",
   is_partner: false,
@@ -57,7 +60,7 @@ const initialForm = {
   business_nature: [],
   state: "",
   country: "",
-  country1: "",
+  // country1: "",
   zip_code: "",
   pavallian: "",
   featured: false,
@@ -70,12 +73,12 @@ const initialForm = {
   is_featured: false,
   is_recommended: false,
 
-  download_documents: "",
+  // download_documents: "",
   // fileName: "",
   // title: "",
   // url: "",
   // images: "",
-  show_profile:false
+  show_profile: false,
 };
 
 const featureKey = {
@@ -100,6 +103,8 @@ const useExhibitorCreate = ({ location }) => {
   const [productListData, setProductListData] = useState([]);
   const ChildenRef = useRef(null);
   const ChildenRef1 = useRef(null);
+  const [downloads, setDownloads]=useState(null)
+  const [downloadsDigitalBag, setDownloadsDigitalBag]=useState(null)
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
@@ -112,7 +117,7 @@ const useExhibitorCreate = ({ location }) => {
   const [textData, setTextData] = useState("");
 
   const { user } = useSelector((state) => state?.auth);
-console.log({ChildenRef})
+  console.log({ ChildenRef });
   const EventListManager = [
     "FIBERS_YARNS",
     "FABRICS",
@@ -164,7 +169,7 @@ console.log({ChildenRef})
           // ChildenRef?.current?.setData(children);
           // setSelectImages(data?.gallery_images);
           setDetailsValue(business_nature);
-          // setImage(data?.company_logo);
+           setImage(data?.company_logo);
           setSecondary(data?.secondary_user_id);
           setForm({
             ...form,
@@ -210,6 +215,8 @@ console.log({ChildenRef})
               : false,
             pavallian: data?.pavallian,
           });
+          setDownloads(data?.downloads          )
+          setDownloadsDigitalBag(data?.digital_bags          )
           // setPdf(data?.company_brochure);
           setTextData(form?.business_nature_other);
           // setFeature({ ...feature, });
@@ -361,6 +368,7 @@ console.log({ChildenRef})
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
+      "company_logo",
       "company_name",
       "product_groups",
       "product_categories",
@@ -370,7 +378,7 @@ console.log({ChildenRef})
       "conatct_person_designation",
       "primary_conatct_number",
       "company_address",
-      "country_code",
+      // "country_code",
       // "fileName",
       // "documentUpload",
       // "title",
@@ -446,7 +454,7 @@ console.log({ChildenRef})
 
     return errors;
   }, [form, errorData]);
- 
+  console.log({ form });
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -493,13 +501,29 @@ console.log({ChildenRef})
     // if (form?.company_brochure) {
     //   fd.append("company_brochure", form?.company_brochure);
     // }
-  
-    // const download_documents= JSON.stringify(ChildenRef.current.getData())
-    fd.append("downloads", JSON.stringify(ChildenRef.current.getData()));
-    // digital_bag_images
-    fd.append("digital_bags", JSON.stringify(ChildenRef1.current.getData()));
-    fd.append("is_business_nature_other", form?.is_business_nature_other);
+    const ExpensesData = ChildenRef.current.getData();
+    ExpensesData.forEach((val) => {
+      console.log({ val });
+      if (val?.documentUpload) {
+        fd.append("download_documents", val?.documentUpload);
+      } else {
+        const file = dataURLtoFile(nullImg, "null.png");
+        fd.append("download_documents", file);
+      }
+    });
+    fd.append("downloads", JSON.stringify(ExpensesData));
 
+    const DigitalBag = ChildenRef1.current.getData();
+    DigitalBag.forEach((val) => {
+      if (val?.images) {
+        fd.append("digital_bag_images", val?.images);
+      } else {
+        const file = dataURLtoFile(nullImg, "null.png");
+        fd.append(" digital_bag_images", file);
+      }
+    });
+    fd.append("digital_bags", JSON.stringify(DigitalBag));
+  
     // if(empId){
     //   if (form?.company_logo) {
     //     fd.append("company_logo", form?.company_logo);
@@ -511,6 +535,7 @@ console.log({ChildenRef})
     //     fd.append("gallery_images", item);
     //   });
     // }
+    fd.append("event_id", "65029c5bdf6918136df27e51");
     if (!form?.is_partner) {
       fd.append("partner_tag", "");
     }
@@ -532,20 +557,20 @@ console.log({ChildenRef})
       }
       setIsSubmitting(false);
     });
-  }, [form, errorData, selectImages]);
+  }, [form, errorData, selectImages, checkFormValidation]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     const isIncludesValid = ChildenRef.current.isValid();
     const isIncludesValid1 = ChildenRef1.current.isValid();
-    //|| !isIncludesValid
+
     if (
       Object.keys(errors)?.length > 0 ||
       !isIncludesValid ||
       !isIncludesValid1
     ) {
       setErrorData(errors);
-      return true;
+      //  return true;
     }
     await submitToServer();
   }, [checkFormValidation, setErrorData, form, selectImages]);
@@ -652,7 +677,7 @@ console.log({ChildenRef})
     listData,
     productListData,
     EventListManager,
-    image,
+  
     empId,
     pdf,
     changeFeatureData,
@@ -662,6 +687,8 @@ console.log({ChildenRef})
     ChildenRef,
     renderImages,
     ChildenRef1,
+    downloads,
+    downloadsDigitalBag
   };
 };
 

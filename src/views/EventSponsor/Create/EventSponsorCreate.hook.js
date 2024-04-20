@@ -35,7 +35,7 @@ function useEventSponsorCreate({ location }) {
     insta: "",
     youtube: "",
     status: true,
-    
+
     // country_code:"",
   };
   const [form, setForm] = useState({ ...initialForm });
@@ -48,11 +48,11 @@ function useEventSponsorCreate({ location }) {
   });
   const ChildenRef = useRef(null);
   const ChildenRef1 = useRef(null);
-  const [countryCode,setCountryCode] = useState('')
+  const [countryCode, setCountryCode] = useState("");
 
-  const handleCountryCodeChange =(e)=>{
-    setCountryCode(e.target.value)
-  }
+  const handleCountryCodeChange = (e) => {
+    setCountryCode(e.target.value);
+  };
   const [event, setEvent] = useState("");
   const selectedEventId = useMemo(() => {
     return location?.state?.eventId ? location?.state?.eventId : event;
@@ -111,7 +111,7 @@ function useEventSponsorCreate({ location }) {
       // "contact",
       "type",
     ];
-    
+
     required.forEach((val) => {
       if (
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
@@ -245,8 +245,15 @@ function useEventSponsorCreate({ location }) {
   const handleSubmit = useCallback(
     async (status) => {
       const errors = checkFormValidation();
+      const isIncludesValid = ChildenRef.current.isValid();
+      const isIncludesValid1 = ChildenRef1.current.isValid();
+
       LogUtils.log("errors==>", errors);
-      if (Object.keys(errors)?.length > 0) {
+      if (
+        Object.keys(errors)?.length > 0 ||
+        !isIncludesValid ||
+        !isIncludesValid1
+      ) {
         setErrorData(errors);
         return true;
       }
@@ -271,7 +278,7 @@ function useEventSponsorCreate({ location }) {
     countryCode,
     handleCountryCodeChange,
     ChildenRef,
-    ChildenRef1
+    ChildenRef1,
   };
 }
 

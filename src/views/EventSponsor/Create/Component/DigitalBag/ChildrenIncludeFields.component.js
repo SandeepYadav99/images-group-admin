@@ -60,7 +60,7 @@ if(fieldName){
   
   if (fieldName === "title") {
     changeData(index, { [fieldName]: e.target.value });
-  }if (fieldName === "url") {
+  }else if (fieldName === "url") {
     changeData(index, { [fieldName]: e.target.value });
   } else {
     changeData(index, { [fieldName]: e });
@@ -125,7 +125,7 @@ if(fieldName){
               onChange={(e)=>handleChange(e, "title")}
               value={data?.title}
               fullWidth={true}
-              name={"title"}
+              name="title"
               margin={"dense"}
               variant={"outlined"}
               label={"Title"}
@@ -140,7 +140,7 @@ if(fieldName){
               onChange={(e)=>handleChange(e, "url")}
               value={data?.url}
               fullWidth={true}
-              name={"url"}
+              name="url"
               margin={"dense"}
               variant={"outlined"}
               label={"URL"}
