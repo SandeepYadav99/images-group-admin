@@ -57,7 +57,7 @@ const ExhibitorCreate = () => {
     partnerList,
     ChildenRef,
     ChildenRef1,
-    downloadsDigitalBag
+    downloadsDigitalBag,
   } = useExhibitorCreate({});
 
   const { user } = useSelector((state) => state?.auth);
@@ -461,6 +461,22 @@ const ExhibitorCreate = () => {
             </div>
           </div>
         )}
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.about}
+              errorText={errorData?.about}
+              label={"About"}
+              value={form?.about}
+              onTextChange={(text) => {
+                changeTextData(text, "about");
+              }}
+              onBlur={() => {
+                onBlurHandler("about");
+              }}
+            />
+          </div>
+        </div>
         {/* {user?.role === "ADMIN" && (
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -1104,7 +1120,7 @@ const ExhibitorCreate = () => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm ref={ChildenRef} downloads={downloads}/>
+            <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} />
           </div>
         </div>
       </div>
@@ -1168,7 +1184,10 @@ const ExhibitorCreate = () => {
 
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm1 ref={ChildenRef1} downloads={downloadsDigitalBag} />
+            <ChildrenIncludeForm1
+              ref={ChildenRef1}
+              downloads={downloadsDigitalBag}
+            />
           </div>
         </div>
       </div>

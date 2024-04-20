@@ -72,7 +72,7 @@ const initialForm = {
   twitter_link: "",
   is_featured: false,
   is_recommended: false,
-
+  about: "",
   // download_documents: "",
   // fileName: "",
   // title: "",
@@ -103,8 +103,8 @@ const useExhibitorCreate = ({ location }) => {
   const [productListData, setProductListData] = useState([]);
   const ChildenRef = useRef(null);
   const ChildenRef1 = useRef(null);
-  const [downloads, setDownloads]=useState(null)
-  const [downloadsDigitalBag, setDownloadsDigitalBag]=useState(null)
+  const [downloads, setDownloads] = useState(null);
+  const [downloadsDigitalBag, setDownloadsDigitalBag] = useState(null);
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
@@ -169,7 +169,7 @@ const useExhibitorCreate = ({ location }) => {
           // ChildenRef?.current?.setData(children);
           // setSelectImages(data?.gallery_images);
           setDetailsValue(business_nature);
-           setImage(data?.company_logo);
+          setImage(data?.company_logo);
           setSecondary(data?.secondary_user_id);
           setForm({
             ...form,
@@ -215,8 +215,8 @@ const useExhibitorCreate = ({ location }) => {
               : false,
             pavallian: data?.pavallian,
           });
-          setDownloads(data?.downloads          )
-          setDownloadsDigitalBag(data?.digital_bags          )
+          setDownloads(data?.downloads);
+          setDownloadsDigitalBag(data?.digital_bags);
           // setPdf(data?.company_brochure);
           setTextData(form?.business_nature_other);
           // setFeature({ ...feature, });
@@ -368,7 +368,7 @@ const useExhibitorCreate = ({ location }) => {
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
-      "company_logo",
+      // "company_logo",
       "company_name",
       "product_groups",
       "product_categories",
@@ -390,9 +390,9 @@ const useExhibitorCreate = ({ location }) => {
     } else {
       delete errors["partner_tag"];
     }
-    // if (!empId) {
-    //   required.push("images");
-    // }
+    if (!empId) {
+      required.push("company_logo");
+    }
     required.forEach((val) => {
       if (form?.product_categories?.length === 0) {
         errors["product_categories"] = true;
@@ -523,7 +523,7 @@ const useExhibitorCreate = ({ location }) => {
       }
     });
     fd.append("digital_bags", JSON.stringify(DigitalBag));
-  
+
     // if(empId){
     //   if (form?.company_logo) {
     //     fd.append("company_logo", form?.company_logo);
@@ -677,7 +677,7 @@ const useExhibitorCreate = ({ location }) => {
     listData,
     productListData,
     EventListManager,
-  
+
     empId,
     pdf,
     changeFeatureData,
@@ -688,7 +688,7 @@ const useExhibitorCreate = ({ location }) => {
     renderImages,
     ChildenRef1,
     downloads,
-    downloadsDigitalBag
+    downloadsDigitalBag,
   };
 };
 

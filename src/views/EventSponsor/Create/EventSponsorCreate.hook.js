@@ -18,7 +18,9 @@ import {
   serviceGetEventSponsorDetails,
   serviceUpdateEventSponsor,
 } from "../../../services/EventSponsor.service";
+import nullImg from "../../../assets/img/null.png";
 import { useMemo } from "react";
+import { dataURLtoFile } from "../../../hooks/Helper";
 
 function useEventSponsorCreate({ location }) {
   const initialForm = {
@@ -49,7 +51,8 @@ function useEventSponsorCreate({ location }) {
   const ChildenRef = useRef(null);
   const ChildenRef1 = useRef(null);
   const [countryCode, setCountryCode] = useState("");
-
+  const [downloads, setDownloads] = useState(null);
+  const [downloadsDigitalBag, setDownloadsDigitalBag] = useState(null);
   const handleCountryCodeChange = (e) => {
     setCountryCode(e.target.value);
   };
@@ -92,6 +95,8 @@ function useEventSponsorCreate({ location }) {
             id: id,
             ...fd,
           });
+          setDownloads(data?.downloads);
+          setDownloadsDigitalBag(data?.digital_bags);
           setImg(data?.img_url);
         } else {
           SnackbarUtils.error(res?.message);
@@ -108,7 +113,7 @@ function useEventSponsorCreate({ location }) {
       "name",
       // "web_url",
       "priority",
-      // "contact",
+      "contact",
       "type",
     ];
 
@@ -214,6 +219,29 @@ function useEventSponsorCreate({ location }) {
         if (selectedEventId) {
           fd.append("event_id", selectedEventId);
         }
+        const ExpensesData = ChildenRef.current.getData();
+        ExpensesData.forEach((val) => {
+          console.log({ val });
+          if (val?.documentUpload) {
+            fd.append("download_documents", val?.documentUpload);
+          } else {
+            const file = dataURLtoFile(nullImg, "null.png");
+            fd.append("download_documents", file);
+          }
+        });
+        fd.append("downloads", JSON.stringify(ExpensesData));
+
+        const DigitalBag = ChildenRef1.current.getData();
+        DigitalBag.forEach((val) => {
+          if (val?.images) {
+            fd.append("digital_bag_images", val?.images);
+          } else {
+            const file = dataURLtoFile(nullImg, "null.png");
+            fd.append("digital_bag_images", file);
+          }
+        });
+        fd.append("digital_bags", JSON.stringify(DigitalBag));
+
         let req;
         if (id) {
           req = serviceUpdateEventSponsor(fd);
@@ -255,7 +283,7 @@ function useEventSponsorCreate({ location }) {
         !isIncludesValid1
       ) {
         setErrorData(errors);
-        return true;
+         return true;
       }
       submitToServer(status);
     },
@@ -279,6 +307,8 @@ function useEventSponsorCreate({ location }) {
     handleCountryCodeChange,
     ChildenRef,
     ChildenRef1,
+    downloads,
+    downloadsDigitalBag,
   };
 }
 

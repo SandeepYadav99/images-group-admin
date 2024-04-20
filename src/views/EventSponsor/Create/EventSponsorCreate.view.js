@@ -33,6 +33,8 @@ function EventSponsorCreate({ location }) {
     setImg,
     countryCode,
     handleCountryCodeChange,
+    downloads,
+    downloadsDigitalBag,
   } = useEventSponsorCreate({ location });
 
   return (
@@ -301,7 +303,7 @@ function EventSponsorCreate({ location }) {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm ref={ChildenRef} /> 
+          <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} />
           </div>
         </div>
       </div>
@@ -319,7 +321,7 @@ function EventSponsorCreate({ location }) {
 
          <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm1 ref={ChildenRef1} />
+            <ChildrenIncludeForm1 ref={ChildenRef1} downloads={downloadsDigitalBag}/>
           </div>
         </div>
       </div>
