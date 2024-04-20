@@ -1,5 +1,5 @@
 import { ButtonBase, IconButton, Paper } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./Style.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -8,11 +8,22 @@ import SidePanelComponent from "../../../../components/SidePanel/SidePanel.compo
 import AwardCategories from "../../Create/AwardCategories/AwardCategoriesCreate";
 import AwardCategoriesCreate from "../../Create/AwardCategories/AwardCategoriesCreate";
 import { Delete, Edit } from "@material-ui/icons";
+import DeleteModal from "./DeleteModal/DeleteModal";
 
 const AwardCategoriesList = () => {
   const { editData, isSidePanel, toggleAcceptDialog, handleToggleSidePannel } =
     useAwardCategoriesHook({});
-  const dispatch = useDispatch();
+    const [isAcceptPopUp, setIsAcceptPopUp] = useState(false);
+
+    const toggleAcceptDelete = useCallback(
+      (obj) => {
+        setIsAcceptPopUp((e) => !e);
+        // setDataValue({ ...obj });
+      },
+      [isAcceptPopUp]
+    );
+   
+  
   useEffect(() => {
     // serviceGetAward({
     //     index: 1,
@@ -52,7 +63,7 @@ const AwardCategoriesList = () => {
               <Edit fontSize="small" />
             </IconButton>
             <IconButton className={"tableActionBtnError"}
-              color="secondary">
+              color="secondary" onClick={toggleAcceptDelete}>
               <Delete fontSize="small" />
             </IconButton>
           </div>
@@ -70,6 +81,11 @@ const AwardCategoriesList = () => {
           empId={editData}
         />
       </SidePanelComponent>
+      <DeleteModal
+        isOpen={isAcceptPopUp}
+        handleToggle={toggleAcceptDelete}
+        // candidateId={params?.id}
+      />
     </div>
   );
 };

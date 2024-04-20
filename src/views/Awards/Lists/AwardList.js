@@ -1,15 +1,15 @@
 import { ButtonBase, Paper } from "@material-ui/core";
 import React, { useEffect } from "react";
 import styles from "./Style.module.css";
-import { Sync } from "@material-ui/icons";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import useAwardListHook from "./AwardListHook";
 import UpdateAbout from "../Create/UpdateAbout";
-import { useDispatch, useSelector } from "react-redux";
-import { actionFetchAward } from "../../../actions/Award.action";
+
 import { serviceGetAward } from "../../../services/Award.servcice";
-import AwardCategories from "./Component/AwardCategories";
-import AwardCategoriesList from "./Component/AwardCategories";
+
+import AwardCategoriesList from "./AwardCategoriesList/AwardCategories";
+import PreviousAwardees from "./PreviousAwardees/PreviousAwardees";
+import AwardJuryList from "./AwardJuryList/AwardJuryList";
 
 const AwardList = () => {
   const { editData, isSidePanel, toggleAcceptDialog, handleToggleSidePannel } =
@@ -89,6 +89,8 @@ const AwardList = () => {
       </SidePanelComponent>
       <div>
         <AwardCategoriesList />
+        <PreviousAwardees/>
+        <AwardJuryList/>
       </div>
     </div>
   );

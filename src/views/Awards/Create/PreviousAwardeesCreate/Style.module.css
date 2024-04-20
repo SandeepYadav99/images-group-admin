@@ -1,0 +1,44 @@
+.updatAbout{
+    margin-top: 20px;
+}
+.inputFileUploader{
+  
+   
+}
+.parameterText{
+    font-size: 12px;
+    text-align: end;
+}
+.actionButton{
+   display: flex;
+   justify-content: space-between;
+    padding: 20px;
+}
+.update_status_New{
+    color: #003CD4 !important;
+   border-radius: 20px !important;
+    font-weight: 700 !important;
+    border:1px solid #003cd4 !important;
+  
+    padding:  1rem !important;
+    font-size: 0.8rem !important;
+  
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+    
+    height: 40px;
+}
+.update_status {
+    color: #ffffff !important;
+   border-radius: 4px !important;
+    font-weight: 700 !important;
+    background-color: #003cd4 !important;
+  
+    padding:  1rem !important;
+    font-size: 0.8rem !important;
+  
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+    
+    height: 40px;
+  }
