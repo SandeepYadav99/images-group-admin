@@ -73,7 +73,7 @@ class File extends Component {
 
 
     render() {
-        const {value, children, multiple, accept, error, placeholder,name,component,user_image, title, show_image, default_image,banner, link, circular,bannerLabel} = this.props;
+        const {value, children, multiple, accept, error, placeholder,name,component,user_image, title, show_image, default_image,banner, link, bannerLabelTrue, circular,bannerLabel} = this.props;
         let tempPlaceHolder = this.props.placeholder;
         if (value != '' && value !== null) {
             if (value instanceof Object && !Array.isArray(value)) {
@@ -107,16 +107,16 @@ class File extends Component {
                 </div>
             );
         }
-        if(bannerLabel && !multiple){
+        if(bannerLabel && !multiple ){
             return (
                 <div>
-                <div className={styles.imageBtnContainerShow}>
+                <div className={bannerLabelTrue === 'true' ? styles.imageBanner :  styles.imageBtnContainerShow}>
                     <div>
                         <div className={csx(styles.imagePlusShow, this.props.imageClass)} style={{ backgroundImage: "url("+(this._getImageUrl(value))+")",
                             backgroundSize: 'cover', backgroundPosition: 'center',borderColor: (error ? 'red' : '#c2c2c2')}}></div>
                     </div>
                     <div className={styles.imgLowerContainer}>
-                        <div className={styles.imgFileLabelPlusShow}>
+                        <div className={bannerLabelTrue === 'true' ? styles.imgFileLabel12 : styles.imgFileLabelPlusShow}>
                             <span className={styles.plus}>{!value && !default_image ? '+' :''}</span>
                             <div className={styles.textUpload} style={error ? {} : {}}>{!value  && !default_image ? bannerLabel :''}</div></div>
                         <input multiple={multiple} id="upload" data-value={'JPG'} accept={accept ? accept : 'image/*'}

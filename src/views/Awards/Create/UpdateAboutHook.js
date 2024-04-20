@@ -8,7 +8,7 @@ import SnackbarUtils from '../../../libs/SnackbarUtils';
 const initialForm ={
   about:""
 }
-const useUpdateAboutHook = () => {
+const useUpdateAboutHook = ({isSidePanel}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -119,7 +119,11 @@ const useUpdateAboutHook = () => {
     setForm({ ...initialForm });
   }, [form]);
 
-
+  useEffect(() => {
+    if (!isSidePanel) {
+      handleReset();
+    }
+  }, [isSidePanel]);
 
   return{
     form,

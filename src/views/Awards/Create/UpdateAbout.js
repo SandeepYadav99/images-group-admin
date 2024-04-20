@@ -4,25 +4,28 @@ import useUpdateAboutHook from "./UpdateAboutHook";
 import styles from "./Style.module.css";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import { ButtonBase } from "@material-ui/core";
-const UpdateAbout = () => {
+import Slider from "react-slick";
+const UpdateAbout = ({isSidePanel, handleToggleSidePannel}) => {
   const { form, changeTextData, errorData, onBlurHandler, handleSubmit } =
-    useUpdateAboutHook();
+    useUpdateAboutHook({isSidePanel, handleToggleSidePannel});
   return (
     <div className={styles.updatAbout}>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           {" "}
+        
           <File
             bannerLabel="Upload Event Logo"
             // default_image={logo ? logo : ""}
+            bannerLabelTrue='true'
             imageClass={styles.inputFileUploader}
             max_size={5 * 1024 * 1024}
             type={["png", "jpeg", "jpg"]}
-            fullWidth={true}
+            // fullWidth={true}
             name="document"
             accept={"image/*"}
             label="Please Upload Image"
-            show_image={true}
+            // show_image={true}
             error={errorData?.logo}
             value={form?.logo}
             onChange={(file) => {
