@@ -106,6 +106,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               />
             </div>
           </div>
+         
         </div>
       </div>
 
@@ -167,6 +168,24 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             }}
             onBlur={() => {
               onBlurHandler("eve_description");
+            }}
+            multiline
+            rows={3}
+          />
+        </div>
+      </div>
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomTextField
+            isError={errorData?.overview}
+            errorText={errorData?.overview}
+            label={"Overview"}
+            value={form?.overview}
+            onTextChange={(text) => {
+              changeTextData(text, "overview");
+            }}
+            onBlur={() => {
+              onBlurHandler("overview");
             }}
             multiline
             rows={3}
