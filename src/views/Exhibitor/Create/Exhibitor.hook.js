@@ -175,7 +175,7 @@ const useExhibitorCreate = ({ location }) => {
             ...form,
             // products: data?.products,
             company_name: data?.company_name,
-            product_groups: data?.product_groups,
+            // product_groups: data?.product_groups,
             product_categories: data?.product_categories,
             event_venue: data?.event_venue,
             primary_email: data?.primary_email,
@@ -370,7 +370,7 @@ const useExhibitorCreate = ({ location }) => {
     let required = [
       // "company_logo",
       "company_name",
-      "product_groups",
+      // "product_groups",
       "product_categories",
       "event_venue",
       "primary_email",
@@ -397,9 +397,9 @@ const useExhibitorCreate = ({ location }) => {
       if (form?.product_categories?.length === 0) {
         errors["product_categories"] = true;
       }
-      if (form?.product_groups?.length === 0) {
-        errors["product_groups"] = true;
-      }
+      // if (form?.product_groups?.length === 0) {
+      //   errors["product_groups"] = true;
+      // }
       if (!form?.[val]) {
         errors[val] = true;
       }
@@ -454,7 +454,7 @@ const useExhibitorCreate = ({ location }) => {
 
     return errors;
   }, [form, errorData]);
-  console.log({ form });
+
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -563,18 +563,17 @@ const useExhibitorCreate = ({ location }) => {
     const errors = checkFormValidation();
     const isIncludesValid = ChildenRef.current.isValid();
     const isIncludesValid1 = ChildenRef1.current.isValid();
-
-    if (
-      Object.keys(errors)?.length > 0 ||
-      !isIncludesValid ||
-      !isIncludesValid1
-    ) {
+  
+    if (Object.keys(errors).length > 0 || !isIncludesValid || !isIncludesValid1) {
       setErrorData(errors);
-      //  return true;
+    
+      return; 
     }
+  
+    
     await submitToServer();
-  }, [checkFormValidation, setErrorData, form, selectImages]);
-
+  }, [checkFormValidation, setErrorData, submitToServer]);
+  
   const removeError = useCallback(
     (title) => {
       const temp = JSON.parse(JSON.stringify(errorData));
