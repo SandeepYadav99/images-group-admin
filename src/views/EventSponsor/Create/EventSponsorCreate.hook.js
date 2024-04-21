@@ -111,7 +111,7 @@ function useEventSponsorCreate({ location }) {
     const errors = { ...errorData };
     let required = [
       "name",
-      // "web_url",
+       "web_url",
       "priority",
       "contact",
       "type",
@@ -283,6 +283,7 @@ function useEventSponsorCreate({ location }) {
         !isIncludesValid1
       ) {
         setErrorData(errors);
+      
          return true;
       }
       submitToServer(status);

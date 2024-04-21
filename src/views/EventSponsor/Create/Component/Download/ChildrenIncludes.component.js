@@ -38,6 +38,7 @@ const ChildrenIncludeForm = (
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
+  const [documents, setDocuments]=useState("")
   const { id } = useParams();
 
   useEffect(() => {
@@ -57,7 +58,7 @@ const ChildrenIncludeForm = (
       
       const updatedFields = downloads.map((download) => ({
         fileName: download.fileName || '', 
-        // documentUpload: download.documentUpload || null, 
+         documentUpload: download.document || null, 
       }));
       setFields(updatedFields);
     } else {
@@ -65,6 +66,12 @@ const ChildrenIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     }
   }, [downloads]);
+  // useEffect(() => {
+  //   // Extract documentUpload values from fields and concatenate into a single string
+  //   const documentPaths = downloads.map((field) => field.documentUpload).filter(Boolean);
+  //   const concatenatedDocuments = documentPaths.join(', ');
+  //   setDocuments(concatenatedDocuments);
+  // }, [fields]);
 
   useImperativeHandle(ref, () => ({
     isValid() {
