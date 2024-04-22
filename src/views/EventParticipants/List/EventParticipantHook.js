@@ -11,6 +11,7 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { useParams } from "react-router";
+import { serviceDownloadCsvFile, serviceDownloadsampleCsvFile } from "../../../services/EventParticipant.service";
 
 const useEventParticipantList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -30,7 +31,6 @@ const useEventParticipantList = ({}) => {
   } = useSelector((state) => state.adminUser);
 
   useEffect(() => {
-    // dispatch(actionFetchEventParticipant());
   }, []);
 
   useEffect(() => {
@@ -55,7 +55,6 @@ const useEventParticipantList = ({}) => {
 
   const handleDataSave = useCallback(
     (data, type) => {
-      // this.props.actionChangeStatus({...data, type: type});
       if (type == "CREATE") {
         dispatch(actionCreateEventParticipant(data));
       } else {
@@ -70,7 +69,6 @@ const useEventParticipantList = ({}) => {
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageEventParticipantRequests(1));
       dispatch(
         actionFetchEventParticipant(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
@@ -78,7 +76,6 @@ const useEventParticipantList = ({}) => {
           event_id: id,
         })
       );
-      // dispatch(actionFetchEventParticipant(1, sortingData))
     },
     [sortingData, query, queryData, id]
   );
@@ -101,7 +98,6 @@ const useEventParticipantList = ({}) => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      console.log(`handleSortOrderChange key:${row} order: ${order}`);
       dispatch(actionSetPageEventParticipant(1));
       dispatch(
         actionFetchEventParticipant(
@@ -142,7 +138,6 @@ const useEventParticipantList = ({}) => {
   const handleToggleSidePannel = useCallback(
     (data) => {
       setSidePanel((e) => !e);
-      // setEditData(data?.id);
     },
     [setSidePanel, setEditData]
   );
@@ -188,7 +183,18 @@ const useEventParticipantList = ({}) => {
   const handleCsvUpload = useCallback(() => {
   }, []);
 
-  const handleDownloadCSV = () => {};
+  const handleDownloadCSV = () => {
+    const fd = new FormData();
+    fd.append("event_id",id)
+    serviceDownloadCsvFile(fd)?.then((res)=>{
+      if(!res?.error){
+        const data = res.data?.response;
+        console.log(data,"data is here")
+        window.open(data, "_blank");      }
+    })
+  };
+
+ 
 
   return {
     handlePageChange,

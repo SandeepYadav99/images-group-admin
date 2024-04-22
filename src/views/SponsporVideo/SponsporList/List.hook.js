@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  actionCreateAppUser,
-  actionDeleteAppUser,
-  actionFetchAppUser,
-  actionSetPageAppUser,
-  actionUpdateAppUser,
-} from "../../../actions/AppUser.action";
+  actionCreateSponsporVideo,
+  actionDeleteSponsporVideo,
+  actionFetchSponsporVideo,
+  actionSetPageSponsporVideo,
+  actionUpdateSponsporVideo,
+} from "../../../actions/Sponspor.action";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import { useParams } from "react-router-dom";
 
 const useSponsporList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -21,34 +22,39 @@ const useSponsporList = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.App_User);
+  } = useSelector((state) => state.sponspor_video);
 
-  useEffect(() => {
-    // dispatch(actionFetchAppUser());
-  }, []);
+  const params = useParams();
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     dispatch(
-      actionFetchAppUser(1, {}, {
-        query: isMountRef.current ? query : null,
-        query_data: isMountRef.current ? queryData : null,
-      })
+      actionFetchSponsporVideo(
+        1,
+        params?.id,
+        {},
+        {
+          query: isMountRef.current ? query : null,
+          query_data: isMountRef.current ? queryData : null,
+        }
+      )
     );
     isMountRef.current = true;
   }, []);
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageAppUser(type));
+    dispatch(actionSetPageSponsporVideo(type));
   }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
       // this.props.actionChangeStatus({...data, type: type});
       if (type == "CREATE") {
-        dispatch(actionCreateAppUser(data));
+        dispatch(actionCreateSponsporVideo(data));
       } else {
-        dispatch(actionUpdateAppUser(data));
+        dispatch(actionUpdateSponsporVideo(data));
       }
       setSidePanel((e) => !e);
       setEditData(null);
@@ -58,15 +64,12 @@ const useSponsporList = ({}) => {
 
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageAppUserRequests(1));
       dispatch(
-        actionFetchAppUser(1, sortingData, {
+        actionFetchSponsporVideo(1, params?.id, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
       );
-      // dispatch(actionFetchAppUser(1, sortingData))
     },
     [sortingData, query, queryData]
   );
@@ -89,11 +92,11 @@ const useSponsporList = ({}) => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageAppUser(1));
+      dispatch(actionSetPageSponsporVideo(1));
       dispatch(
-        actionFetchAppUser(
+        actionFetchSponsporVideo(
           1,
+          params?.id,
           { row, order },
           {
             query: query,
@@ -111,7 +114,7 @@ const useSponsporList = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteAppUser(id));
+      dispatch(actionDeleteSponsporVideo(id));
       setSidePanel(false);
       setEditData(null);
     },
@@ -128,7 +131,7 @@ const useSponsporList = ({}) => {
 
   const handleToggleSidePannel = useCallback(
     (data) => {
-      historyUtils.push(`${RouteName.SPONSPOR_VIDE_CREATE}`)
+      historyUtils.push(`${RouteName.SPONSPOR_VIDE_CREATE}`);
     },
     [setSidePanel, setEditData]
   );
@@ -144,11 +147,17 @@ const useSponsporList = ({}) => {
     historyUtils.push(RouteName.LOCATIONS_DETAILS + data.id); //+data.id
   }, []);
 
-  
-
   const handleCreate = useCallback(() => {
-    historyUtils.push(RouteName.LOCATIONS_CREATE);
+    historyUtils.push(`${RouteName.SPONSPOR_VIDE_CREATE}`, {
+      eventId: params?.id,
+    });
   }, []);
+
+  const handleUpdate = useCallback((all) => {
+    historyUtils.push(`${RouteName.SPONSPOR_VIDEO_UPDATE}` + all?.id, {
+      eventId: params?.id,
+    });
+  });
 
   const configFilter = useMemo(() => {
     return [
@@ -178,6 +187,7 @@ const useSponsporList = ({}) => {
     configFilter,
     handleCreate,
     handleToggleSidePannel,
+    handleUpdate,
   };
 };
 

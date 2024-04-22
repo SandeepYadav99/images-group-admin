@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import {
+  
+  serviceDownloadsampleCsvFile,
   serviceParticipantImportFile,
   serviceParticipantImportVerify,
 } from "../../../../../services/EventParticipant.service";
@@ -60,13 +62,14 @@ const useUploadCsvDialogHook = ({
   }, [form, errorData, isVerified, setIsVerified]);
 
   const handleSampleDownload = useCallback(() => {
-    // serviceDownloadSampleCSv().then((res) => {
-    //   if (!res.error) {
-    //     const data = res.data?.file;
-    //     window.open(data, "_blank");
-    //   }
-    // });
+    serviceDownloadsampleCsvFile()?.then((res)=>{
+      if(!res?.error){
+        const data = res?.data?.file;
+        window.open(data, "_blank");      }
+    })
   }, []);
+
+  
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {

@@ -273,7 +273,7 @@ class FilterComponent extends Component {
             <div className={`${this.props.filterWidth ?cstyles.wwe :"" }`}>
                 <br/>
                 <div style={{ display: 'flex', width: '100%', alignItems: 'center', }}>
-                    <div style={{ flex: 1 }}>
+                    <div style={{ flex: 1 }} >
                         <div className={cstyles.inputContainer}>
                             <input onBlur={this._handleSearchBlur} value={this.state.query} onChange={this._handleSearchChange} className={cstyles.searchInput} placeholder={'Search'}/>
                             <div className={'filterSearchIcon'}>

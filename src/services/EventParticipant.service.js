@@ -1,4 +1,4 @@
-import { formDataRequest, postRequest } from "../libs/AxiosService.util";
+import { formDataRequest, postRequest,getRequest} from "../libs/AxiosService.util";
 
 export async function serviceCreateEventParticipant(params) {
   return await formDataRequest("events/participants/create", params);
@@ -53,5 +53,13 @@ export async function serviceParticipantImportFile(params) {
 
 export async function serviceParticipantImportVerify(params) {
   return await formDataRequest("events/participants/import/verify", params);
+}
+
+export async function serviceDownloadCsvFile(params){
+  return await formDataRequest("events/participants/export", params);
+}
+
+export async function serviceDownloadsampleCsvFile(){
+  return await getRequest("events/participants/sample");
 }
 

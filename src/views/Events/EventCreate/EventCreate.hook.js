@@ -72,9 +72,11 @@ function useEventCreate() {
     all_chapters: false,
     chapters: false,
     accessible_chapter_ids: [],
-    linkdin_banner: "",
-    linkdin_content: "",
+    linkedin_image: "",
+    linkedin_content: "",
     background_image: "",
+    login_banner:null,
+
   };
   const featureKey = {
     event_participants: true,
@@ -84,7 +86,7 @@ function useEventCreate() {
     testimonial: false,
     manu_graphic:false,
     event_organizing_committee: false,
-    sponspor_video:true,
+    sponsor_video:true,
     event_speakers: true,
     event_gallery: false,
     analytics: true,
@@ -100,7 +102,9 @@ function useEventCreate() {
     event_banner: false,
     youtube_live: false,
     information_center: false,
-    award:false
+    award:false,
+    event_highlights:true,
+    meeting_rooms:true,
   };
   
   const colorKey = [
@@ -137,7 +141,6 @@ function useEventCreate() {
       serviceGetEventListDetails({ id: id }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
-          console.log("data", data);
           const { accessible_to, features, theme, ...rest } = data;
           const fd = {
             all_event_participants: data?.accessible_to?.all_event_participants,
@@ -241,7 +244,7 @@ function useEventCreate() {
       "is_gallery_public",
     ];
     if (!id) {
-      required.push(...["logo", "thumbnail", "banner"]);
+      required.push(...["logo", "thumbnail", "banner","background_image","linkedin_image"]);
     }
     required.forEach((val) => {
       if (

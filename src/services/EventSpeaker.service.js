@@ -8,7 +8,7 @@ export async function serviceCreateEventSpeaker(params) {
   return await formDataRequest("events/speakers/create", params);
 }
 export async function serviceEventFeatured(params) {
-  return await postRequest("events/speakers/featured", params);
+  return await postRequest("events/speakers/make/featured", params);
 }
 export async function serviceUpdateEventSpeaker(params) {
   return await formDataRequest("events/speakers/update", params);
@@ -28,4 +28,13 @@ export async function serviceDetailsEventSpeaker(params) {
 }
 export async function serviceCheckEventSpeaker(params) {
   return await postRequest("events/speakers/exists", params);
+}
+
+export async function serviceAssociatedSpeaker(params){
+  return await postRequest("events/speakers",params)
+}
+
+export async function serviceAssociatedCommonList(params){
+  return await postRequest("list",params)
+
 }

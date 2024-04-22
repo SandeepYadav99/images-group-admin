@@ -33,8 +33,10 @@ function VideoSponsporCreate({ location }) {
     handleCountryCodeChange,
     selectVideos,
     renderVideo,
+    videoData,
   } = useVideoCreate({ location });
 
+  
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -42,7 +44,7 @@ function VideoSponsporCreate({ location }) {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              {id ? <b>Edit Video Sponspor</b> : <b>Add Video Sponspor</b>}
+              {id ? <b>Edit Video Sponsor</b> : <b>Add Video Sponsor</b>}
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
@@ -51,21 +53,21 @@ function VideoSponsporCreate({ location }) {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>Video Sponspor Details</div>
+            <div className={"heading"}>Video Sponsor Details</div>
           </h4>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.filename}
-              errorText={errorData?.filename}
+              isError={errorData?.name}
+              errorText={errorData?.name}
               label={"File Name"}
-              value={form?.filename}
+              value={form?.name}
               onTextChange={(text) => {
-                changeTextData(text, "filename");
+                changeTextData(text, "name");
               }}
               onBlur={() => {
-                onBlurHandler("filename");
+                onBlurHandler("name");
               }}
             />
           </div>
@@ -83,14 +85,15 @@ function VideoSponsporCreate({ location }) {
               error={errorData?.video}
               value={form?.video}
               placeholder={"Upload Video"}
+
               onChange={(file) => {
                 if (file) {
                   changeTextData(file, "video");
                 }
               }}
-              DefChange={(video) => {
-                if (video) {
-                  renderVideo(video);
+              DefChange={(videoData) => {
+                if (videoData) {
+                  renderVideo(videoData);
                 }
               }}
             />
@@ -120,7 +123,7 @@ function VideoSponsporCreate({ location }) {
             disabled={isSubmitting ? true : false}
             type={"button"}
             className={styles.createBtn}
-            onClick={() => handleSubmit("PENDING")}
+            onClick={handleSubmit}
           >
             {isSubmitting ? (
               <CircularProgress color="success" size="20px" />

@@ -1,5 +1,11 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
+import React, {
+  Component,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { IconButton, MenuItem, ButtonBase, Dialog } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Add, InfoOutlined } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
@@ -13,8 +19,6 @@ import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import useSponsporList from "./List.hook";
 import StatusPill from "../../../components/Status/StatusPill.component";
 // import AppUserCreateView from "../AppUserCreate/AppUserCreate.view";
-import { Link } from "react-router-dom";
-import RouteName from "../../../routes/Route.name";
 
 const SponsporList = ({}) => {
   const {
@@ -32,7 +36,7 @@ const SponsporList = ({}) => {
     isCalling,
     configFilter,
     warehouses,
-    handleToggleSidePannel,
+    handleUpdate,
   } = useSponsporList({});
 
   const {
@@ -40,7 +44,20 @@ const SponsporList = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.App_User);
+  } = useSelector((state) => state.sponspor_video);
+
+  const [openPopUp, setOpenPopUp] = useState(false);
+  const [urlData, setUrlData] = useState("");
+
+  const handleOpenPopUpData = (data) => {
+    setOpenPopUp(true);
+    setUrlData(data?.video);
+  };
+
+  const handleClosePopUp = () => {
+    setOpenPopUp(false);
+    setUrlData("");
+  };
 
   const UpperInfo = useCallback((obj) => {
     if (obj) {
@@ -54,6 +71,22 @@ const SponsporList = ({}) => {
     return null;
   }, []);
 
+  const renderFirstCell = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.firstCellFlex}>
+          <div onClick={() => handleOpenPopUpData(obj)}>
+            <video
+              crossOrigin="anonymous"
+              src={obj?.video}
+              className={styles.video}
+            />
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
   const tableStructure = useMemo(() => {
     return [
       {
@@ -68,11 +101,6 @@ const SponsporList = ({}) => {
               justifyItems: "center",
             }}
           >
-            <img
-              src={all?.image}
-              alt="image"
-              style={{ height: "30px", width: "30px", borderRadius: "100%" }}
-            />
             {all?.name}
           </div>
         ),
@@ -81,29 +109,28 @@ const SponsporList = ({}) => {
         key: "video",
         label: "video",
         sortable: true,
-        render: (value, all) => <div>{all?.email}</div>,
+        render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
 
       {
         key: "status",
         label: "status",
         sortable: true,
-        render: (temp, all) => <div>{all.contact}</div>,
+        render: (temp, all) => <div>{<StatusPill status={all.status} />}</div>,
       },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
           <div>
-            <Link to={RouteName.SPONSPOR_VIDE_CREATE + all.id}>
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-              >
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => handleUpdate(all)}
+            >
               <Edit fontSize={"small"} />
-              </IconButton>
-            </Link>
+            </IconButton>
           </div>
         ),
       },
@@ -136,19 +163,42 @@ const SponsporList = ({}) => {
     currentPage,
   ]);
 
+  const VideoPopUp = ({ open, onClick, url }) => {
+    return (
+      <Dialog
+        open={open}
+        aria-labelledby="dialog-title"
+        sx={{ width: "auto", padding: "20px" }}
+      >
+        <div className={styles.dialogTitle} onClick={onClick}>
+          <div>Sponsor Video</div>
+          <div
+            onClick={onClick}
+            style={{ fontSize: "24px" }}
+            className={styles.crossIconArea}
+          >
+            x
+          </div>
+        </div>
+        <div className={styles.commentArea}>
+          <video  autoPlay controls style={{width:'500px',height:"300px"}}>
+            <source src={url} type="video/mp4" />
+          </video>{" "}
+        </div>
+      </Dialog>
+    );
+  };
+
   return (
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Sponspor Video List</span>
+            <span className={styles.title}>Sponsor Video List</span>
             <div className={styles.newLine} />
           </div>
           <div>
-            <ButtonBase
-              onClick={handleToggleSidePannel}
-              className={"createBtn"}
-            >
+            <ButtonBase onClick={handleCreate} className={"createBtn"}>
               Create
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
@@ -171,6 +221,7 @@ const SponsporList = ({}) => {
             </div>
           </div>
         </div>
+        <VideoPopUp open={openPopUp} url={urlData} onClick={handleClosePopUp} />
       </PageBox>
     </div>
   );

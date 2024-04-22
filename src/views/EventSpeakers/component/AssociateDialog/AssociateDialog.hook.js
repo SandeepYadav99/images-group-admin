@@ -5,6 +5,10 @@ import RouteName from "../../../../routes/Route.name";
 import { serviceGetList } from "../../../../services/index.services";
 import { useParams } from "react-router";
 import { serviceUpdateEventGallery } from "../../../../services/EventGallery.service";
+import {
+  serviceAssociatedCommonList,
+  serviceAssociatedSpeaker,
+} from "../../../../services/EventSpeaker.service";
 
 const initialForm = {
   album_id: [],
@@ -17,25 +21,18 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [listData, setListData] = useState({
-    ALBUMS: [],
+    SPEAKERS: [],
   });
 
   const { id } = useParams();
 
-  // useEffect(() => {
-  //   if (!isOpen) {
-  //     setForm({ ...initialForm });
-  //     setIsSubmitted(false);
-  //     setErrorData({});
-  //   }
-  // }, [isOpen]);
-
+  
   useEffect(() => {
     if (data?.length > 0) {
       const value = data?.map((item) => ({
         id: item?.id,
-        name: item?.name,
-        thumbnail: item?.thumbnail,
+        name: item?.s_name,
+        image: item?.s_image,
       }));
       setForm({ ...form, album_id: [...value] });
     }
@@ -51,12 +48,16 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
   );
 
   useEffect(() => {
-    serviceGetList(["ALBUMS"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
+    serviceAssociatedCommonList({ list: ["SPEAKERS"], event_id: id }).then(
+      (res) => {
+        if (!res.error) {
+          setListData(res.data);
+        }
       }
-    });
+    );
   }, []);
+
+
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
@@ -105,7 +106,7 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
       const UniqueValue = [...new Set(alumId)];
       const uniqueObj =
         UniqueValue?.length > 0
-          ? UniqueValue?.map((item) => ({ album_id: item }))
+          ? UniqueValue?.map((item) => ({ speaker_id: item }))
           : [];
 
       serviceUpdateEventGallery({
@@ -142,6 +143,8 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
     },
     [changeTextData]
   );
+
+  
 
   return {
     form,

@@ -161,9 +161,17 @@ const SponsporListView = lazy(() =>
   import("../views/SponsporVideo/SponsporList/List.js")
 );
 
-const VideoSponsporCreate = lazy(() =>
-  import("../views/SponsporVideo/SponsporCreate/Create.js")
-);
+const VideoSponsporCreate = lazy(()=>import("../views/SponsporVideo/SponsporCreate/Create.js"));
+
+const EventHighLightsList = lazy(()=>import("../views/EventHighlights/EventHightList/List.js"));
+
+const EventHighLightCreate = lazy(()=>import("../views/EventHighlights/EventHighlightCreate/Create.js"));
+
+const MeetingRoomsList = lazy(()=>import("../views/MeetingRooms/MeetingList/MeetingList.js"));
+const MeetingDetails = lazy(()=>import("../views/MeetingRooms/MeetingDetails/MeetingDetails.js"));
+
+const MMaster = lazy(()=>import("../views/MeetingRooms/MMaster/MasterCreate.js"));
+
 
 const Roles = Constants.ROLES;
 
@@ -560,6 +568,7 @@ const dashboardRoutes = [
     is_protect: true,
   },
 
+
   // {
   //   path: `${RouteName.PENDING_EVENTS}`,
   //   sidebarName: "Pending Events Approval",
@@ -928,7 +937,7 @@ const dashboardRoutes = [
     component: ExhibitorList,
     sidebarName: "Exhibitor",
     navbarName: "Exhibitor",
-    is_sidebar: true,
+    is_sidebar:false,
     icon: PeopleOutlined,
     is_protect: true,
   },
@@ -1008,6 +1017,12 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
+    path: `${RouteName.SPONSPOR_VIDEO}:id`,
+    component: SponsporListView,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
+  {
     path: RouteName.SPLASH_SCREEN,
     component: SplashScreen,
     sidebarName: "Splash Screen",
@@ -1049,10 +1064,44 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.SPONSPOR_VIDE_CREATE}:id`,
+    path: `${RouteName.SPONSPOR_VIDEO_UPDATE}:id`,
     component: VideoSponsporCreate,
     is_protect: true,
   },
+  {
+   path:`${RouteName?.EVENT_HIGHLIGHTS}:id`,
+   component: EventHighLightsList,
+   is_sidebar:false,
+   is_protect: true,
+  },
+  {
+    path:`${RouteName?.EVENT_HIGHLIGHTS_CREATE}`,
+    component: EventHighLightCreate,
+    is_protect: true,
+   },
+   {
+    path:`${RouteName?.EVENT_HIGHLIGHTS_UPDATE}:id`,
+    component: EventHighLightCreate,
+    is_protect: true,
+   },
+   {
+    path: `${RouteName.MEETING_ROOMS}:id`,
+    component: MeetingRoomsList,
+    is_sidebar:false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.MEETINGS_DETAIL}:id`,
+    component: MeetingDetails,
+    is_sidebar:false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.MASTER_CREATE}:id`,
+    component: MMaster,
+    is_sidebar:false,
+    is_protect: true,
+  }
 ];
 
 export default dashboardRoutes;

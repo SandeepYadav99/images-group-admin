@@ -56,6 +56,10 @@ import CalendarReducer from "./CalendarCount.reducer";
 import HallMasterReducer from "./HallMaster.reducer";
 import SplashScreenReducer from "./SplashScreen.reducer";
 import SpeakerMasterReducer from "./SpeakerMaster.reducer";
+import SponsporVideoReducer from "./SponsporVideo.reducer";
+import EventHighLight from "./EventHighLight.reducer";
+import MeetingRoomsReducer from "./MeetingRoom.reducer";
+import MeetingRoomSlotReducer from "./MeetingRoomSlots.reducer";
 import MenuGraphicReducer from "./MenuGraphic.reducer";
 import AwardReducer from "./Award.reducer";
 
@@ -107,7 +111,6 @@ const rootReducer = combineReducers({
   Business_Greeting:BusinessGreetingReducer,
   Knowledge_Center:KnowledgeCenter,
   Knowledge_Center_Stamp:KnowledgeCenterStamp,
-  // Product Category 2/01/2024
   productCategory:ProductCategoryReducer,
   productGroups:ProductGroupReducer,
   Exhibitor:ExhibitorReducer,
@@ -119,7 +122,12 @@ const rootReducer = combineReducers({
   SplashScreen:SplashScreenReducer,
   SpeakerMaster:SpeakerMasterReducer,
   MenuGraphic:MenuGraphicReducer,
-  award:AwardReducer
+  award:AwardReducer,
+  sponspor_video:SponsporVideoReducer,
+  event_highlight:EventHighLight,
+  meeting_room:MeetingRoomsReducer,
+  meeting_slots:MeetingRoomSlotReducer,
+ 
 });
 
 export default rootReducer;

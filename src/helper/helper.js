@@ -380,11 +380,23 @@ export const EventData = [
     url: RouteName.MENU_GRAPHIC,
   },
   {
-    key: "sponspor_video",
-    name: "Sponspor Video",
+    key: "sponsor_video",
+    name: "Sponsor Video",
     image: event,
     url: RouteName.SPONSPOR_VIDEO,
   },
+  {
+    key: "event_highlights",
+    name: "Event Highlights",
+    image: event,
+    url: RouteName.EVENT_HIGHLIGHTS,
+  },
+  {
+    key: "meeting_rooms",
+    name: "Meeting Rooms",
+    image: event,
+    url: RouteName.MEETING_ROOMS,
+  }
   // {
   //   key: "award",
   //   name: "Awards",

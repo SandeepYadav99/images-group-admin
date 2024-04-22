@@ -130,7 +130,7 @@ export default {
 
   KNOWLEDGE_CENTER: "/knowledge-center",
   KNOWLEDGE_CENTER_CREATE: "/knowledge-center/create",
-  KNOWLEDGE_CENTER_UPDATE: "/knowledge-center/update",
+  KNOWLEDGE_CENTER_UPDATE: "/knowledge-center/update/",
 
   /*Stamp Center is here*/
   KNOWLEDGE_CENTER_LIST: "/knowledge-center/list",
@@ -162,8 +162,7 @@ export default {
   SPLASH_SCREEN_CREATE: "/splash/screen/create",
   SPLASH_SCREEN_UPDATE: "/splash/screen/update",
   EVENT_PARTICIPANTS: "/events/participants",
-  EVENT_PARTICIPANTS: "/events/participants/",
-  SPONSPOR_VIDEO: "/sponspor/list",
+  SPONSPOR_VIDEO: "/sponspor/list/",
   SPONSPOR_VIDE_CREATE: "/sponspor/create/",
 
   MENU_GRAPHIC:"/event/graphic/",
@@ -171,4 +170,11 @@ export default {
   MENU_GRAPHIC_UPDATE:"/event/graphic/update/",
   AWARD:"/award/",
 
+  SPONSPOR_VIDEO_UPDATE:"/sponspor/update/",
+  EVENT_HIGHLIGHTS:"/event/highlights/",
+  EVENT_HIGHLIGHTS_CREATE:"/eventhighlights/create/",
+  EVENT_HIGHLIGHTS_UPDATE:"/event/highlights/update/",
+  MEETING_ROOMS:"/meeting/rooms/",
+  MEETINGS_DETAIL:"/meetings/detail/",
+  MASTER_CREATE:"/master/create/"
 };

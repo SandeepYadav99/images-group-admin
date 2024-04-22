@@ -12,7 +12,7 @@ import { Add, DoneAll, Edit, Clear } from "@material-ui/icons";
 import useSpeakerListHook from "./SpeakerList_hook";
 import historyUtils from "../../../libs/history.utils";
 import speakerDefault from "../../../assets/img/speaker_list_deafult.png";
-import AssociateDialog from "../component/AssociateDialog/AssociateDialog.view" 
+import AssociateDialog from "../component/AssociateDialog/AssociateDialog.view";
 import { useParams } from "react-router-dom";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 
@@ -32,6 +32,7 @@ const EventSpeakerList = ({}) => {
     toggleAcceptDialog,
     isAcceptPopUp,
     handleCreateFedPage,
+    speakerList,
   } = useSpeakerListHook({});
 
   const {
@@ -55,14 +56,12 @@ const EventSpeakerList = ({}) => {
 
   const params = useParams();
 
-  console.log(params?.id,"it is here")
-
   const tableStructure = useMemo(() => {
     return [
       {
         key: "name",
         label: "NAME",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div className={styles.firstCellFlex}>
             <img
@@ -108,7 +107,8 @@ const EventSpeakerList = ({}) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div style={{display:"flex",gap:"5px"}}>
+          
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -141,15 +141,29 @@ const EventSpeakerList = ({}) => {
               <Edit fontSize={"small"} />
             </IconButton>
            
-             <CustomCheckbox
+             {/* <CustomCheckbox
               value={is_recommended}
               // handleChange={() => 
               //   changeTextHandler()
               //   // changeTextData(!form?.is_moderator, "is_moderator");
               // }}
               label={`Recommended`}
-            /> 
+            />  */}
         
+            {params?.id ? (
+              ""
+            ) : (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleUpdateFed(all);
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            )}
           </div>
         ),
       },
@@ -182,21 +196,23 @@ const EventSpeakerList = ({}) => {
     currentPage,
   ]);
 
-
   return (
     <>
       <PageBox>
         <div className={styles.headerContainer}>
            <ButtonBase onClick={() => historyUtils.goBack()}>
-            <ArrowBackIosIcon fontSize={"small"} /> 
+            <ArrowBackIosIcon fontSize={"small"} />
             <div>
               <span className={styles.title}>Speakers </span>
               <div className={styles.newLine} />
             </div>
-         </ButtonBase> 
+         </ButtonBase>
 
           <div className={styles.BtnWrapper}>
-            <ButtonBase onClick={params?.id ? toggleAcceptDialog : handleCreateFedPage} className={"createBtn"}>
+            <ButtonBase
+              onClick={params?.id ? toggleAcceptDialog : handleCreateFedPage}
+              className={"createBtn"}
+            >
               {params?.id ? "ASSOCIATE SPEAKER" : "ADD SPEAKER"}
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
@@ -205,7 +221,7 @@ const EventSpeakerList = ({}) => {
         <AssociateDialog
           isOpen={isAcceptPopUp}
           handleToggle={toggleAcceptDialog}
-          data={data}
+          data={speakerList}
         />
 
         <div>

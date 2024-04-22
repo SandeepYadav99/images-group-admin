@@ -13,6 +13,7 @@ import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/index.services";
 import { useParams } from "react-router";
 import {
+  serviceAssociatedSpeaker,
   serviceEventFeatured,
 
 } from "../../../services/EventSpeaker.service";
@@ -25,6 +26,7 @@ const useSpeakerListHook = ({}) => {
     LOCATIONS: [],
   });
   const [isAcceptPopUp, setIsAcceptPopUp] = useState(false);
+  const [speakerList,setSpeakerList] = useState([])
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -159,6 +161,10 @@ const useSpeakerListHook = ({}) => {
     setIsAcceptPopUp((e) => !e);
   }, [isAcceptPopUp]);
 
+  useEffect(()=>{
+    serviceAssociatedSpeaker({event_id:id}).then((res)=>setSpeakerList(res?.data))
+  },[id])
+
 
   const handleCreateFedPage =()=>{
     historyUtils.push(RouteName?.ADD_SPEAKERS_CREATE)
@@ -179,7 +185,7 @@ const useSpeakerListHook = ({}) => {
     const newFeaturedStatus = !isCurrentlyFeatured;
 
     const updatedData = {
-      id: data?.id,
+      speaker_id: data?.id,
       event_id: id,
       is_featured: newFeaturedStatus,
     };
@@ -187,7 +193,7 @@ const useSpeakerListHook = ({}) => {
     serviceEventFeatured(updatedData)
       .then((res) => {
         if (!res.error) {
-          window.location.reload()
+          window.location.reload();
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -225,6 +231,7 @@ const useSpeakerListHook = ({}) => {
     toggleAcceptDialog,
     isAcceptPopUp,
     handleCreateFedPage,
+    speakerList,
   };
 };
 

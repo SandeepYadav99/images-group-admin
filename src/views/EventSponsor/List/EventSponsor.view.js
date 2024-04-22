@@ -62,7 +62,6 @@ const EventSponsor = ({}) => {
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
-      console.log(obj);
       return (
         <div className={styles.firstCellFlex}>
           <div className={styles.firstCellInfo}>

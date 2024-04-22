@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import {
   Button,
   ButtonBase,
+  CircularProgress,
   IconButton,
   InputAdornment,
   MenuItem,
@@ -108,9 +109,7 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
         onClose={() => {}}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        // classes={{paper: classes.dialog}}
       >
-        {/*<DialogTitle id="alert-dialog-title">*/}
         <div className={"flex"}>
           <div className={styles.upperFlex}>Import CSV</div>
           <ButtonBase
@@ -120,7 +119,6 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
             <Close />
           </ButtonBase>
         </div>
-        {/*</DialogTitle>*/}
         <DialogContent>
           <CustomSelectField
             isError={errorData?.participant_type}
@@ -221,7 +219,7 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
             onClick={handleSubmit}
             className={styles.btmBtn}
           >
-            {isVerified ? "Upload Csv" : "Verify Csv"}
+            {isSubmitting ? <CircularProgress color="success" size="20px" /> :isVerified ? "Upload Csv" : "Verify Csv" }
           </ButtonBase>
         </div>
         <div className={styles.printFlex}>

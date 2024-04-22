@@ -13,16 +13,16 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import {
-  serviceCreateEventSponsor,
-  serviceDetailsGetSponsorList,
-  serviceGetEventSponsorDetails,
-  serviceUpdateEventSponsor,
-} from "../../../services/EventSponsor.service";
+  serviceCreateSponsporVideo,
+  serviceGetSponsporVideoDetails,
+  serviceUpdateSponsporVideo,
+} from "../../../services/SponsporVideo.service";
 import { useMemo } from "react";
+import constants from "../../../config/constants";
 
 function useVideoCreate({ location }) {
   const initialForm = {
-    filename: "",
+    name: "",
     video: "",
     status: true,
   };
@@ -36,11 +36,13 @@ function useVideoCreate({ location }) {
   });
   const [countryCode, setCountryCode] = useState("");
   const [selectVideos, setSelectVideos] = useState([]);
+  const [videoData,setVideoData] = useState('')
 
   const renderVideo = (videos) => {
     setSelectVideos([...videos]);
   };
 
+  
   const handleCountryCodeChange = (e) => {
     setCountryCode(e.target.value);
   };
@@ -61,40 +63,29 @@ function useVideoCreate({ location }) {
 
   useEffect(() => {
     if (id) {
-      serviceGetEventSponsorDetails({ id: id }).then((res) => {
+      serviceGetSponsporVideoDetails({ id: id }).then((res) => {
         if (!res.error) {
           const data = res?.data;
-          const fd = {};
-          Object.keys({ ...initialForm }).forEach((key) => {
-            if (key !== "img_url") {
-              if (key === "type") {
-                fd[key] = data["typeObj"]?._id;
-              } else if (key === "status") {
-                fd[key] = data[key] === "ACTIVE";
-              } else {
-                fd[key] = data[key];
-              }
-            }
-          });
-          setEvent(data?.event_id);
+          setVideoData(data?.video);
           setForm({
-            ...form,
-            id: id,
-            ...fd,
-          });
-          setImg(data?.img_url);
+            name:data?.name,
+            status: data?.status === constants.GENERAL_STATUS.ACTIVE,
+          })
         } else {
           SnackbarUtils.error(res?.message);
-          historyUtils.goBack();
         }
       });
     }
   }, [id]);
 
-  console.log("errorData", errorData);
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["filename", "video"];
+    let required = ["name"];
+
+    if(!id){
+      required.push(...["video"])
+    }
 
     required.forEach((val) => {
       if (
@@ -126,7 +117,7 @@ function useVideoCreate({ location }) {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "filename") {
+      if (fieldName === "name") {
         t[fieldName] = text;
       } else {
         t[fieldName] = text;
@@ -144,15 +135,21 @@ function useVideoCreate({ location }) {
         const fd = new FormData();
 
         Object.keys(form).forEach((key) => {
-          LogUtils.log("key", key);
-          fd.append(key, form[key]);
+          if (key === "status") {
+            fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+          }
+          else {
+            fd.append(key, form[key]);
+          }
         });
 
+        fd.append("event_id", selectedEventId );
         let req;
         if (id) {
-          req = serviceUpdateEventSponsor(fd);
+          fd.append("id",id);
+          req = serviceUpdateSponsporVideo(fd);
         } else {
-          req = serviceCreateEventSponsor(fd);
+          req = serviceCreateSponsporVideo(fd);
         }
         req.then((res) => {
           if (!res.error) {
@@ -204,6 +201,7 @@ function useVideoCreate({ location }) {
     handleCountryCodeChange,
     selectVideos,
     renderVideo,
+    videoData,
   };
 }
 
