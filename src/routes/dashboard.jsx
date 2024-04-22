@@ -168,7 +168,9 @@ const EventHighLightsList = lazy(()=>import("../views/EventHighlights/EventHight
 const EventHighLightCreate = lazy(()=>import("../views/EventHighlights/EventHighlightCreate/Create.js"));
 
 const MeetingRoomsList = lazy(()=>import("../views/MeetingRooms/MeetingList/MeetingList.js"));
-const MeetingDetails = lazy(()=>import("../views/MeetingRooms/MeetingDetails/MeetingDetails.js"))
+const MeetingDetails = lazy(()=>import("../views/MeetingRooms/MeetingDetails/MeetingDetails.js"));
+
+const MMaster = lazy(()=>import("../views/MeetingRooms/MMaster/MasterCreate.js"));
 
 
 const Roles = Constants.ROLES;
@@ -1093,10 +1095,13 @@ const dashboardRoutes = [
     component: MeetingDetails,
     is_sidebar:false,
     is_protect: true,
+  },
+  {
+    path: `${RouteName.MASTER_CREATE}:id`,
+    component: MMaster,
+    is_sidebar:false,
+    is_protect: true,
   }
-  
-   
-
 ];
 
 export default dashboardRoutes;

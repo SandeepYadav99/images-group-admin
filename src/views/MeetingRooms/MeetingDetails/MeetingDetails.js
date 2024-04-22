@@ -17,6 +17,7 @@ import MeetingCreateView from "../MeetingMaster/MeetingMaster";
 import DateRangeView from "./DateRangeCreate/DateRange";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import UpdateIconData from "../../../assets/ImageGroup/ic_update.png";
+import DuplicateView from "./DuplicateRoom/Duplicate.view";
 
 const MeetingDetails = ({ location }) => {
   const {
@@ -46,6 +47,8 @@ const MeetingDetails = ({ location }) => {
     popupOpen,
     handleOpenPopUp,
     handleClosePopUp,
+    handleOpenDuplicate,
+    duplicate,
   } = useMeetingDetailHook({ location });
 
   const {
@@ -137,13 +140,13 @@ const MeetingDetails = ({ location }) => {
         key: "date",
         label: "DATE",
         sortable: false,
-        render: (value, all) => <div>--</div>,
+        render: (value, all) => <div>{all?.slotDate}</div>,
       },
       {
         key: "slot",
         label: "SLOT",
         sortable: false,
-        render: (temp, all) => <div>--</div>,
+        render: (temp, all) => <div>{all?.slotTime}</div>,
       },
       {
         key: "duration",
@@ -250,7 +253,11 @@ const MeetingDetails = ({ location }) => {
           </ButtonBase>
         </div>
         <div className={styles.btnFlex}>
-          <ButtonBase className={"createBtn"} id={styles.bgColor}>
+          <ButtonBase
+            className={"createBtn"}
+            id={styles.bgColor}
+            onClick={handleOpenDuplicate}
+          >
             DUPLICATE
           </ButtonBase>
           <ButtonBase
@@ -345,6 +352,19 @@ const MeetingDetails = ({ location }) => {
         <DateRangeView
           handleToggleSidePannel={handleOpenDateRange}
           isSidePanel={dateRange}
+          empId={editData}
+          eventIdData={event}
+        />
+      </SidePanelComponent>
+      <SidePanelComponent
+        handleToggle={handleOpenDuplicate}
+        title={"Add Meeting Room"}
+        open={duplicate}
+        side={"right"}
+      >
+        <DuplicateView
+          handleToggleSidePannel={handleOpenDuplicate}
+          isSidePanel={duplicate}
           empId={editData}
           eventIdData={event}
         />

@@ -38,7 +38,8 @@ const MeetingList = ({}) => {
     handleToggleSidePannel,
     isSidePanel,
     editData,
-  } = useMeetingList({ location });
+    handleMeetingMaster
+    } = useMeetingList({ location });
 
   const history = useHistory();
 
@@ -168,7 +169,7 @@ const MeetingList = ({}) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.BtnWrapper}>
-            <ButtonBase className={"createBtn"} id={styles.bgColor}>
+            <ButtonBase className={"createBtn"} id={styles.bgColor} onClick={handleMeetingMaster}>
               MEETING MASTER{" "}
             </ButtonBase>
             <ButtonBase

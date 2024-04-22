@@ -44,6 +44,5 @@ export async function serviceCheckMeetingRoomSlottList(params) {
 
 export async function serviceUpdateSlotStatus(params) {
   return await postRequest("meetings/rooms/slots/update/status", params);
-
 }
 

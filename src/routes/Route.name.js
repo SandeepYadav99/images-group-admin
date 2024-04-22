@@ -176,4 +176,5 @@ export default {
   EVENT_HIGHLIGHTS_UPDATE:"/event/highlights/update/",
   MEETING_ROOMS:"/meeting/rooms/",
   MEETINGS_DETAIL:"/meetings/detail/",
+  MASTER_CREATE:"/master/create/"
 };

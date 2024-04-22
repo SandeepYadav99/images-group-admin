@@ -31,6 +31,7 @@ const useMeetingDetailHook = ({ location }) => {
   const [dateRange, setDateRange] = useState(false);
   const [popupOpen,setPopupOpen] = useState(false);
   const [dataId,setDataId] = useState("");
+  const [duplicate,setDuplicate] = useState(false);
 
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -281,6 +282,10 @@ const useMeetingDetailHook = ({ location }) => {
     [checkFormValidation, setErrorData, form, submitToServer]
   );
 
+  const handleOpenDuplicate =useCallback(()=>{
+      setDuplicate((e)=> !e)
+  },[duplicate])
+
   return {
     form,
     dataValue,
@@ -312,6 +317,8 @@ const useMeetingDetailHook = ({ location }) => {
     popupOpen,
     handleOpenPopUp,
     handleClosePopUp,
+    duplicate,
+    handleOpenDuplicate,
   };
 };
 
