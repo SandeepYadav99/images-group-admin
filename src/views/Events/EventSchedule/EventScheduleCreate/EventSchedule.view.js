@@ -249,7 +249,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             }}
             value={form?.speakers}
             // id="tags-standard"
-            options={listData?.SPEAKERS ? updateSpeakerList : []}
+            options={listData?.EVENT_SPEAKERS ? updateSpeakerList : []}
             getOptionLabel={(option) => option.label}
             defaultValue={form?.speakers}
             renderInput={(params) => (
@@ -285,7 +285,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             }}
             value={form?.chairs}
             // id="tags-standard"
-            options={listData?.SPEAKERS ? updateSpeakerList : []}
+            options={listData?.EVENT_SPEAKERS ? updateSpeakerList : []}
             getOptionLabel={(option) => option.label}
             defaultValue={form?.chairs}
             renderInput={(params) => (
@@ -321,7 +321,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             }}
             value={form?.co_chairs}
             // id="tags-standard"
-            options={listData?.SPEAKERS ? updateSpeakerList : []}
+            options={listData?.EVENT_SPEAKERS ? updateSpeakerList : []}
             getOptionLabel={(option) => option.label}
             defaultValue={form?.co_chairs}
             renderInput={(params) => (
@@ -358,7 +358,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             }}
             value={form?.moderator}
             // id="tags-standard"
-            options={listData?.SPEAKERS ? updateSpeakerList : []}
+            options={listData?.EVENT_SPEAKERS ? updateSpeakerList : []}
             getOptionLabel={(option) => option.label}
             defaultValue={form?.moderator}
             renderInput={(params) => (
