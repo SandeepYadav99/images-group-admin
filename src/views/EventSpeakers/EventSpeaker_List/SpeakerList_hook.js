@@ -15,7 +15,7 @@ import { useParams } from "react-router";
 import {
   serviceAssociatedSpeaker,
   serviceEventFeatured,
-
+  serviceEventMarkRecommend,
 } from "../../../services/EventSpeaker.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 
@@ -26,7 +26,7 @@ const useSpeakerListHook = ({}) => {
     LOCATIONS: [],
   });
   const [isAcceptPopUp, setIsAcceptPopUp] = useState(false);
-  const [speakerList,setSpeakerList] = useState([])
+  const [speakerList, setSpeakerList] = useState([]);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -107,7 +107,6 @@ const useSpeakerListHook = ({}) => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-
       dispatch(
         actionFetchEventSpeaker(
           1,
@@ -161,14 +160,15 @@ const useSpeakerListHook = ({}) => {
     setIsAcceptPopUp((e) => !e);
   }, [isAcceptPopUp]);
 
-  useEffect(()=>{
-    serviceAssociatedSpeaker({event_id:id}).then((res)=>setSpeakerList(res?.data))
-  },[id])
+  useEffect(() => {
+    serviceAssociatedSpeaker({ event_id: id }).then((res) =>
+      setSpeakerList(res?.data)
+    );
+  }, [id]);
 
-
-  const handleCreateFedPage =()=>{
-    historyUtils.push(RouteName?.ADD_SPEAKERS_CREATE)
-  }
+  const handleCreateFedPage = () => {
+    historyUtils.push(RouteName?.ADD_SPEAKERS_CREATE);
+  };
 
   const handleUpdateFed = useCallback(
     (data) => {
@@ -180,26 +180,53 @@ const useSpeakerListHook = ({}) => {
     [id]
   );
 
-  const toggleFeatured = useCallback((data) => {
-    const isCurrentlyFeatured = data?.is_featured;
-    const newFeaturedStatus = !isCurrentlyFeatured;
+  const toggleFeatured = useCallback(
+    (data) => {
+      const isCurrentlyFeatured = data?.is_featured;
+      const newFeaturedStatus = !isCurrentlyFeatured;
 
-    const updatedData = {
-      speaker_id: data?.id,
-      event_id: id,
-      is_featured: newFeaturedStatus,
-    };
+      const updatedData = {
+        speaker_id: data?.id,
+        event_id: id,
+        is_featured: newFeaturedStatus,
+      };
 
-    serviceEventFeatured(updatedData)
-      .then((res) => {
+      serviceEventFeatured(updatedData).then((res) => {
         if (!res.error) {
           window.location.reload();
         } else {
           SnackbarUtils.error(res?.message);
         }
       });
-  }, [dispatch, id, query, queryData]);
+    },
+    [dispatch, id, query, queryData]
+  );
 
+  const toggleRecommended = useCallback(
+    (data) => {
+      const isCurrentlyFeatured = data?.is_recommended;
+      const newFeaturedStatus = !isCurrentlyFeatured;
+
+      const updatedData = {
+        speaker_id: data?.id,
+        event_id: id,
+        is_recommended: newFeaturedStatus,
+      };
+
+      serviceEventMarkRecommend(updatedData).then((res) => {
+        if (!res.error) {
+          dispatch(
+            actionFetchEventSpeaker(1, {
+              event_id: id,
+            })
+          );
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      });
+    },
+    [dispatch, id, query, queryData]
+  );
 
   const configFilter = useMemo(() => {
     return [
@@ -232,6 +259,7 @@ const useSpeakerListHook = ({}) => {
     isAcceptPopUp,
     handleCreateFedPage,
     speakerList,
+    toggleRecommended,
   };
 };
 

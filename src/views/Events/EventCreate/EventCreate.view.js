@@ -914,7 +914,19 @@ function EventCreate() {
               checked={feature?.meeting_rooms}
             />
           </div>
+          <div className={"formGroup"}>
+              {/* <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.award, "award");
+              }}
+              label={"Awards"}
+              checked={feature?.award}
+            /> */}
+          </div>
         </div>
+
+        
       </div>
 
       <div className={"plainPaper"}>

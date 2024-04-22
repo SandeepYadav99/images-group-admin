@@ -375,7 +375,7 @@ export const EventData = [
   // },
   {
     key: "manu_graphic",
-    name: "Manu Graphic",
+    name: "Menu Graphic",
     image: event,
     url: RouteName.MENU_GRAPHIC,
   },
@@ -397,6 +397,12 @@ export const EventData = [
     image: event,
     url: RouteName.MEETING_ROOMS,
   }
+  // {
+  //   key: "award",
+  //   name: "Awards",
+  //   image: event,
+  //   url: RouteName.AWARD,
+  // },
   // {
   //   key: "networking",
   //   name: "Information Center",

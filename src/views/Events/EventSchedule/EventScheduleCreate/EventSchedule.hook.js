@@ -29,13 +29,13 @@ const initialForm = {
   status: true,
   category: "",
   moderator: [],
-  hall_no:"",
-  venue:"",
+  hall_no: "",
+  venue: "",
   chairs: [],
   co_chairs: [],
-  is_recommended:false,
-  image:"",
-  overview:""
+  is_recommended: false,
+  image: "",
+  overview: "",
 };
 
 const useEventScheduleHook = ({
@@ -51,19 +51,19 @@ const useEventScheduleHook = ({
   const [isEdit] = useState(false);
   const includeRef = useRef(null);
   const { id } = useParams();
-  const [thimbnel, setThimbnel]=useState("")
+  const [thimbnel, setThimbnel] = useState("");
   const dispatch = useDispatch();
   const [listData, setListData] = useState({
     SPEAKERS: [],
   });
 
-  const [listDataValue,setListDataValue] = useState({
-    HALLS:[]
-  })
+  const [listDataValue, setListDataValue] = useState({
+    HALLS: [],
+  });
 
-  const {user} = useSelector((state)=>state?.auth)
+  const { user } = useSelector((state) => state?.auth);
 
-  const [categoryList,setCategoryList] = useState([])
+  const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
     serviceGetList(["SPEAKERS"], { event_id: id }).then((res) => {
@@ -75,31 +75,29 @@ const useEventScheduleHook = ({
 
   const params = useParams();
 
-
   const paylaod = {
-    "index": 1,
-    "row": null,
-    "order": null,
-    "query": "",
-    "query_data": null,
-    "event_id": `${user?.event_id}`
-  }
-
-  useEffect(()=>{
-    serviceAddCategoryList(paylaod)?.then((res)=>setCategoryList(res?.data)).catch((res)=>res.error)
-  },[]);
+    index: 1,
+    row: null,
+    order: null,
+    query: "",
+    query_data: null,
+    event_id: `${user?.event_id}`,
+  };
 
   useEffect(() => {
-    serviceExhibitorsList({ list: ["HALLS"] }).then(
-      (res) => {
-        if (!res.error) {
-          setListDataValue(res.data);
-        }
-      }
-    );
+    serviceAddCategoryList(paylaod)
+      ?.then((res) => setCategoryList(res?.data))
+      .catch((res) => res.error);
   }, []);
 
-  
+  useEffect(() => {
+    serviceExhibitorsList({ list: ["HALLS"] }).then((res) => {
+      if (!res.error) {
+        setListDataValue(res.data);
+      }
+    });
+  }, []);
+
   useEffect(() => {
     if (empId) {
       serviceGetEventScheduleDetails({ id: empId }).then((res) => {
@@ -115,36 +113,36 @@ const useEventScheduleHook = ({
             label: `${item?.s_name}  (${item?.s_company})`,
           }));
 
-          const modifiedChairs = data?.chairs?.map((item)=>({
+          const modifiedChairs = data?.chairs?.map((item) => ({
             id: item?.s_id,
             label: `${item?.s_name}  (${item?.s_company})`,
-          }))
+          }));
 
-          const modifiedCoChairs = data?.co_chairs?.map((item)=>({
+          const modifiedCoChairs = data?.co_chairs?.map((item) => ({
             id: item?.s_id,
             label: `${item?.s_name}  (${item?.s_company})`,
-          }))
+          }));
           // const categoryData = data?.category?.toUpperCase();
           // console.log(categoryData,"categoryData is here")
-          setThimbnel(data?.image)
+          setThimbnel(data?.image);
           setForm({
             ...form,
             id: data.id,
             eve_name: data?.eve_name,
             eve_description: data?.eve_description,
-            category:data?.category ,
+            category: data?.category,
             start_time: data?.start_date_time,
             end_time: data?.end_date_time,
             speakers: modifiedSpeaker,
             moderator: modifiedModerator,
-            category:data?.category,
+            category: data?.category,
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
-            hall_no:data?.hall_no,
-            venue:data?.venue,
-            category:data?.category,
-            chairs:modifiedChairs,
-            co_chairs:modifiedCoChairs,
-            is_recommended: data?.is_recommended
+            hall_no: data?.hall_no,
+            venue: data?.venue,
+            category: data?.category,
+            chairs: modifiedChairs,
+            co_chairs: modifiedCoChairs,
+            is_recommended: data?.is_recommended,
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -200,34 +198,58 @@ const useEventScheduleHook = ({
     });
     return errors;
   }, [form, errorData]);
-console.log(form?.chairs)
+
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
 
       const fd = new FormData();
+  
+      const relatedId =
+        Array.isArray(form?.speakers) && form?.speakers.length > 0
+          ? form?.speakers.map((item) => item.id)
+          : [];
+     
+
+      const moderatorId =
+        Array.isArray(form?.moderator) && form?.moderator.length > 0
+          ? form?.moderator.map((item) => item.id)
+          : [];
+     
+      const chairsId =
+        Array.isArray(form?.chairs) && form?.chairs.length > 0
+          ? form?.chairs.map((item) => item.id)
+          : [];
+    
+
+      const co_chairsId =
+        Array.isArray(form?.co_chairs) && form?.co_chairs.length > 0
+          ? form?.co_chairs.map((item) => item.id)
+          : [];
+       
+
       Object.keys(form).forEach((key) => {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-        }else if(key === "speakers"){
-          fd.append(key, JSON.stringify(form?.speakers?.map((val) => val.id)))
-        }else if(key === "moderator"){
-          fd.append(key, JSON.stringify(form?.moderator?.map((val) => val.id)))
-        }else if(key === "chairs"){
-          fd.append(key, JSON.stringify(form?.chairs?.map((val) => val.id)))
-        }else if(key === "status"){
-          fd.append(key, form?.status ? "ACTIVE" : "INACTIVE")
-        }else if(key === "is_recommended"){
-          fd.append(key, form?.is_recommended === true ? true : false,)
-        }else if(key === "co_chairs"){
-          fd.append(key, JSON.stringify(form?.co_chairs?.map((val) => val.id)))
+        }  else if (key === "moderator") {
+          fd.append(key, moderatorId.join(","));
+        } else if (key === "speakers") {
+          fd.append(key, relatedId.join(","));
+        } else if (key === "chairs") {
+          fd.append(key, chairsId.join(","));
+        } else if (key === "status") {
+          fd.append(key, form?.status ? "ACTIVE" : "INACTIVE");
+        } else if (key === "is_recommended") {
+          fd.append(key, form?.is_recommended === true ? true : false);
+        } else if (key === "co_chairs") {
+          fd.append(key, co_chairsId.join(","));
         } else {
           fd.append(key, form[key]);
         }
-      })
+      });
       // if(empId){
-        fd.append("event_id", id)
-      // } 
+      fd.append("event_id", id);
+      // }
       let req;
       if (empId) {
         req = serviceUpdateEventSchedule;
@@ -266,18 +288,27 @@ console.log(form?.chairs)
     [setErrorData, errorData]
   );
 
-
-  const updateSpeakerList = useMemo(()=>{
-    return listData?.SPEAKERS?.filter((val)=>{
-      if(form?.chairs.findIndex(chair=>chair.id === val?.id ) >= 0 || form?.speakers.findIndex(speaker=>speaker.id === val?.id ) >= 0 || form?.co_chairs.findIndex(co_chair=>co_chair.id === val?.id ) >= 0 || form?.moderator.findIndex(moderator=>moderator.id === val?.id ) >= 0){
-        return false
+  const updateSpeakerList = useMemo(() => {
+    return listData?.SPEAKERS?.filter((val) => {
+      if (
+        form?.chairs.findIndex((chair) => chair.id === val?.id) >= 0 ||
+        form?.speakers.findIndex((speaker) => speaker.id === val?.id) >= 0 ||
+        form?.co_chairs.findIndex((co_chair) => co_chair.id === val?.id) >= 0 ||
+        form?.moderator.findIndex((moderator) => moderator.id === val?.id) >= 0
+      ) {
+        return false;
+      } else {
+        return true;
       }
-      else {
-        return true
-      }
-    })
-  },[listData?.SPEAKERS,form?.chairs,form?.co_chairs,form?.moderator,form?.speakers,params?.id])
-
+    });
+  }, [
+    listData?.SPEAKERS,
+    form?.chairs,
+    form?.co_chairs,
+    form?.moderator,
+    form?.speakers,
+    params?.id,
+  ]);
 
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -319,7 +350,6 @@ console.log(form?.chairs)
     setForm({ ...initialForm });
   }, [form]);
 
-
   return {
     form,
     changeTextData,
@@ -340,7 +370,7 @@ console.log(form?.chairs)
     categoryList,
     listDataValue,
     updateSpeakerList,
-    thimbnel
+    thimbnel,
   };
 };
 
