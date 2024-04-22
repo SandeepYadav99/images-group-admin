@@ -461,22 +461,7 @@ const ExhibitorCreate = () => {
             </div>
           </div>
         )}
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.about}
-              errorText={errorData?.about}
-              label={"About"}
-              value={form?.about}
-              onTextChange={(text) => {
-                changeTextData(text, "about");
-              }}
-              onBlur={() => {
-                onBlurHandler("about");
-              }}
-            />
-          </div>
-        </div>
+      
         {/* {user?.role === "ADMIN" && (
           <div className={"formFlex"}>
             <div className={"formGroup"}>

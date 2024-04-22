@@ -194,7 +194,7 @@ function SpeakerMasterCreate({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        {/* <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
@@ -205,7 +205,7 @@ function SpeakerMasterCreate({ location }) {
               checked={form?.is_recommended}
             />
           </div>
-        </div>
+        </div> */}
         <div className={styles.btnWrappepr}>
           <ButtonBase
             disabled={isSubmitting ? true : false}

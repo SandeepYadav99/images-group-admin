@@ -72,7 +72,7 @@ const initialForm = {
   twitter_link: "",
   is_featured: false,
   is_recommended: false,
-  about: "",
+ 
   // download_documents: "",
   // fileName: "",
   // title: "",

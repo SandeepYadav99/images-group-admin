@@ -36,7 +36,7 @@ const ExhibitorDetail = () => {
         <div className={"plainPaper"}>
           <div className={styles.subContainer}>
             <div style={{ width: "150px", paddingTop: "20px" }}>
-              {/* {detail?.details?.company_logo ? (
+               {detail?.details?.company_logo ? (
                 <img
                   src={detail?.details?.company_logo}
                   alt="loogo"
@@ -50,7 +50,7 @@ const ExhibitorDetail = () => {
                     width={"120px"}
                   />
                 </div>
-              )} */}
+              )} 
             </div>
             <div className={styles.second}>
               <div>
