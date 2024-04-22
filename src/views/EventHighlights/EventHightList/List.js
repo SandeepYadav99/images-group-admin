@@ -19,7 +19,7 @@ import { Add, Edit, InfoOutlined } from "@material-ui/icons";
 import useEventHighLight from "./List.hook";
 import { useHistory } from "react-router-dom";
 
-const EventHighLight = ({}) => {
+const EventHighLight = ({location}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -32,7 +32,7 @@ const EventHighLight = ({}) => {
     configFilter,
     handleCreateFed,
     handleUpdate,
-    location,
+    // location,
   } = useEventHighLight({ location });
 
   const history = useHistory();
