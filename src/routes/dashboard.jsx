@@ -1035,7 +1035,7 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: RouteName.AWARD,
+    path: `${RouteName.AWARD}`,
     component: AwardList,
     sidebarName: "Awards",
     navbarName: "Awards",

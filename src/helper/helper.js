@@ -386,6 +386,12 @@ export const EventData = [
     url: RouteName.SPONSPOR_VIDEO,
   },
   // {
+  //   key: "award",
+  //   name: "Awards",
+  //   image: event,
+  //   url: RouteName.AWARD,
+  // },
+  // {
   //   key: "networking",
   //   name: "Information Center",
   //   image: event,

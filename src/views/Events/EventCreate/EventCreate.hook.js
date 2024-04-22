@@ -100,6 +100,7 @@ function useEventCreate() {
     event_banner: false,
     youtube_live: false,
     information_center: false,
+    award:false
   };
   
   const colorKey = [

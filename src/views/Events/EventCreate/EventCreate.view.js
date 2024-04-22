@@ -784,8 +784,19 @@ function EventCreate() {
               checked={feature?.sponspor_video}
             />
           </div>
-          <div className={"formGroup"}></div>
+          <div className={"formGroup"}>
+              <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.award, "award");
+              }}
+              label={"Awards"}
+              checked={feature?.award}
+            />
+          </div>
         </div>
+
+        
       </div>
 
       <div className={"plainPaper"}>

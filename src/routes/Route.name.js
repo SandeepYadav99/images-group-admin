@@ -169,6 +169,6 @@ export default {
   MENU_GRAPHIC:"/event/graphic/",
   MENU_GRAPHIC_CREATE:"/graphic/create",
   MENU_GRAPHIC_UPDATE:"/event/graphic/update/",
-  AWARD:"/award",
+  AWARD:"/award/",
 
 };
