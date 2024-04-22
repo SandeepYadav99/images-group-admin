@@ -18,9 +18,10 @@ import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 
 const TEMP_OBJ = {
-  title:"",
-  url:"",
-  images:null
+  title: "",
+  url: "",
+  images: null,
+  thumbnail: null,
 };
 
 const ChildrenIncludeForm = (
@@ -34,13 +35,14 @@ const ChildrenIncludeForm = (
     updateInventory,
     vendorId,
     empId,
-    downloads
+    downloads,
   },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -58,18 +60,17 @@ const ChildrenIncludeForm = (
 
   useEffect(() => {
     if (downloads && downloads.length > 0) {
-     
       const updatedFields = downloads?.map((download) => ({
-        title: download.title || '', 
-        url: download.url || '',
-        // images: download?.thumbnail || null, 
+        title: download?.title || "",
+        url: download?.url || "",
+        thumbnail: download?.thumbnail || null,
       }));
       setFields(updatedFields);
     } else {
-      
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     }
   }, [downloads]);
+
   useImperativeHandle(ref, () => ({
     isValid() {
       return validateData();
@@ -89,7 +90,7 @@ const ChildrenIncludeForm = (
     //       delete obj._id;
     //     }
     //   });
-      // return JSON.parse(JSON.stringify(fields));
+    // return JSON.parse(JSON.stringify(fields));
     // },
     getData() {
       return fields;
@@ -112,7 +113,10 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["title", "url", "images"];
+      const required = ["title", "url"];
+      if (!downloads) {
+        required.push("images");
+      }
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -182,7 +186,6 @@ const ChildrenIncludeForm = (
     });
     removeErrors(index, errArr);
   };
-  
 
   const onBlur = useCallback(
     (index, key, value) => {
@@ -217,7 +220,7 @@ const ChildrenIncludeForm = (
         return index < 0;
       });
       return (
-        <div >
+        <div>
           <ChildrenIncludeFields
             variants={tempFilters}
             listWarehouse={listWarehouse}
@@ -245,7 +248,6 @@ const ChildrenIncludeForm = (
     fields,
   ]);
 
- 
   return (
     <>
       {renderFields}
@@ -257,7 +259,6 @@ const ChildrenIncludeForm = (
           onClick={() => {
             handlePress("ADDITION", 0);
           }}
-        
         >
           <Add fontSize={"small"} /> <span>Add More</span>
         </ButtonBase>

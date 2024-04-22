@@ -62,7 +62,7 @@ const ChildrenIncludeForm = (
       const updatedFields = downloads?.map((download) => ({
         title: download.title || '', 
         url: download.url || '',
-        // images: download?.thumbnail || null, 
+        thumbnail: download?.thumbnail || null, 
       }));
       setFields(updatedFields);
     } else {

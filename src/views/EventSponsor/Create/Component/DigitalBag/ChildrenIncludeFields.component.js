@@ -76,7 +76,7 @@ if(fieldName){
               fullWidth={true}
               name="images"
               accept={"image/*"}
-              // default_image={image ? image : null}
+                default_image={data?.thumbnail || null}
               label="Upload  Image"
               show_image={true}
               error={errors?.images}
