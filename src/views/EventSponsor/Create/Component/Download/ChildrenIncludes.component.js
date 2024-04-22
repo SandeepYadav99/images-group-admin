@@ -12,7 +12,7 @@ import React, {
 import IncludeFields from "./ChildrenIncludeFields.component";
 import styles from "./style.module.css";
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
-import LogUtils from "../../../../libs/LogUtils";
+import LogUtils from "../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
@@ -20,6 +20,7 @@ import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 const TEMP_OBJ = {
   fileName: '',
   documentUpload: null,
+  document:null
 };
 
 const ChildrenIncludeForm = (
@@ -38,6 +39,7 @@ const ChildrenIncludeForm = (
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
+  const [documents, setDocuments]=useState("")
   const { id } = useParams();
 
   useEffect(() => {
@@ -57,7 +59,7 @@ const ChildrenIncludeForm = (
       
       const updatedFields = downloads.map((download) => ({
         fileName: download.fileName || '', 
-        // documentUpload: download.documentUpload || null, 
+        document: download.document || null, 
       }));
       setFields(updatedFields);
     } else {
@@ -65,6 +67,12 @@ const ChildrenIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     }
   }, [downloads]);
+  // useEffect(() => {
+  //   // Extract documentUpload values from fields and concatenate into a single string
+  //   const documentPaths = downloads.map((field) => field.documentUpload).filter(Boolean);
+  //   const concatenatedDocuments = documentPaths.join(', ');
+  //   setDocuments(concatenatedDocuments);
+  // }, [fields]);
 
   useImperativeHandle(ref, () => ({
     isValid() {
@@ -108,7 +116,10 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["fileName", "documentUpload"];
+      const required = ["fileName"];
+      if(!downloads){
+        required.push("documentUpload")
+      }
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;

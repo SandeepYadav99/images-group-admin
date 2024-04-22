@@ -61,6 +61,7 @@ import SplashScreenCreate from "../views/Splashscreen/Create/SplashScreenCreate.
 import SpeakerMaster from "../views/SpeakerMaster/List/SpeakerMaster.js";
 import SpeakerMasterCreate from "../views/SpeakerMaster/Create/SpeakerMasterCreate.js";
 import MenuGraphic from "../views/MenuGraphic/List/MenuGraphic.js";
+import AwardList from "../views/Awards/Lists/AwardList.js";
 
 const MenuGraphicCreate = lazy(() =>
   import("../views/MenuGraphic/Create/MenuGraphicCreate")
@@ -1043,6 +1044,15 @@ const dashboardRoutes = [
     sidebarName: "Splash Screen",
     navbarName: "Splash Screen",
     is_sidebar: false,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
+  {
+    path: RouteName.AWARD,
+    component: AwardList,
+    sidebarName: "Awards",
+    navbarName: "Awards",
+    is_sidebar: true,
     icon: PeopleOutlined,
     is_protect: true,
   },

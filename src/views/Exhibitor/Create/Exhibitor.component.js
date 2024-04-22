@@ -50,13 +50,14 @@ const ExhibitorCreate = () => {
     EventListManager,
     image,
     empId,
-    pdf,
+    downloads,
     feature,
     changeFeatureData,
     deatilsValue,
     partnerList,
     ChildenRef,
     ChildenRef1,
+    downloadsDigitalBag,
   } = useExhibitorCreate({});
 
   const { user } = useSelector((state) => state?.auth);
@@ -460,6 +461,22 @@ const ExhibitorCreate = () => {
             </div>
           </div>
         )}
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.about}
+              errorText={errorData?.about}
+              label={"About"}
+              value={form?.about}
+              onTextChange={(text) => {
+                changeTextData(text, "about");
+              }}
+              onBlur={() => {
+                onBlurHandler("about");
+              }}
+            />
+          </div>
+        </div>
         {/* {user?.role === "ADMIN" && (
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -1103,7 +1120,7 @@ const ExhibitorCreate = () => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm ref={ChildenRef} />
+            <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} />
           </div>
         </div>
       </div>
@@ -1167,7 +1184,10 @@ const ExhibitorCreate = () => {
 
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm1 ref={ChildenRef1} empId={empId} />
+            <ChildrenIncludeForm1
+              ref={ChildenRef1}
+              downloads={downloadsDigitalBag}
+            />
           </div>
         </div>
       </div>
@@ -1201,10 +1221,10 @@ const ExhibitorCreate = () => {
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
-                changeTextData(!form?.is_recommended, "is_recommended ");
+                changeTextData(!form?.is_recommended, "is_recommended");
               }}
               label={"Recommended "}
-              checked={feature?.is_recommended}
+              checked={form?.is_recommended}
             />
           </div>
         </div>

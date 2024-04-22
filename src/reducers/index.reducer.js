@@ -61,6 +61,7 @@ import EventHighLight from "./EventHighLight.reducer";
 import MeetingRoomsReducer from "./MeetingRoom.reducer";
 import MeetingRoomSlotReducer from "./MeetingRoomSlots.reducer";
 import MenuGraphicReducer from "./MenuGraphic.reducer";
+import AwardReducer from "./Award.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -125,6 +126,8 @@ const rootReducer = combineReducers({
   meeting_room:MeetingRoomsReducer,
   meeting_slots:MeetingRoomSlotReducer,
   MenuGraphic:MenuGraphicReducer,
+  MenuGraphic:MenuGraphicReducer,
+  award:AwardReducer
 });
 
 export default rootReducer;

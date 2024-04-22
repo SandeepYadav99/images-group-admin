@@ -11,16 +11,8 @@ import {
   IconButton,
 } from "@material-ui/core";
 import styles from "./style.module.css";
-import { isAlpha, isNum } from "../../../../libs/RegexUtils";
-import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
-import {
-  AddCircle as AddIcon,
-  Info as EditIcon,
-  RemoveCircleOutline as RemoveIcon,
-} from "@material-ui/icons";
 
-import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
-import File from "../../../../components/FileComponent/FileComponent.component";
+import File from "../../../../../components/FileComponent/FileComponent.component";
 
 
 const useStyles = {
@@ -84,7 +76,7 @@ if(fieldName){
               fullWidth={true}
               name="images"
               accept={"image/*"}
-              // default_image={image ? image : null}
+                default_image={data?.thumbnail || null}
               label="Upload  Image"
               show_image={true}
               error={errors?.images}

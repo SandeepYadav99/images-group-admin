@@ -34,7 +34,8 @@ const initialForm = {
   chairs: [],
   co_chairs: [],
   is_recommended:false,
-  image:""
+  image:"",
+  overview:""
 };
 
 const useEventScheduleHook = ({

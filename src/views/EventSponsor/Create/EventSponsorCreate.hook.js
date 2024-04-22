@@ -18,7 +18,9 @@ import {
   serviceGetEventSponsorDetails,
   serviceUpdateEventSponsor,
 } from "../../../services/EventSponsor.service";
+import nullImg from "../../../assets/img/null.png";
 import { useMemo } from "react";
+import { dataURLtoFile } from "../../../hooks/Helper";
 
 function useEventSponsorCreate({ location }) {
   const initialForm = {
@@ -35,7 +37,7 @@ function useEventSponsorCreate({ location }) {
     insta: "",
     youtube: "",
     status: true,
-    
+
     // country_code:"",
   };
   const [form, setForm] = useState({ ...initialForm });
@@ -46,11 +48,14 @@ function useEventSponsorCreate({ location }) {
   const [listData, setListData] = useState({
     SPONSOR_TYPE: [],
   });
-  const [countryCode,setCountryCode] = useState('')
-
-  const handleCountryCodeChange =(e)=>{
-    setCountryCode(e.target.value)
-  }
+  const ChildenRef = useRef(null);
+  const ChildenRef1 = useRef(null);
+  const [countryCode, setCountryCode] = useState("");
+  const [downloads, setDownloads] = useState(null);
+  const [downloadsDigitalBag, setDownloadsDigitalBag] = useState(null);
+  const handleCountryCodeChange = (e) => {
+    setCountryCode(e.target.value);
+  };
   const [event, setEvent] = useState("");
   const selectedEventId = useMemo(() => {
     return location?.state?.eventId ? location?.state?.eventId : event;
@@ -90,6 +95,8 @@ function useEventSponsorCreate({ location }) {
             id: id,
             ...fd,
           });
+          setDownloads(data?.downloads);
+          setDownloadsDigitalBag(data?.digital_bags);
           setImg(data?.img_url);
         } else {
           SnackbarUtils.error(res?.message);
@@ -104,12 +111,12 @@ function useEventSponsorCreate({ location }) {
     const errors = { ...errorData };
     let required = [
       "name",
-      // "web_url",
+       "web_url",
       "priority",
-      // "contact",
+      "contact",
       "type",
     ];
-    
+
     required.forEach((val) => {
       if (
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
@@ -212,6 +219,29 @@ function useEventSponsorCreate({ location }) {
         if (selectedEventId) {
           fd.append("event_id", selectedEventId);
         }
+        const ExpensesData = ChildenRef.current.getData();
+        ExpensesData.forEach((val) => {
+          console.log({ val });
+          if (val?.documentUpload) {
+            fd.append("download_documents", val?.documentUpload);
+          } else {
+            const file = dataURLtoFile(nullImg, "null.png");
+            fd.append("download_documents", file);
+          }
+        });
+        fd.append("downloads", JSON.stringify(ExpensesData));
+
+        const DigitalBag = ChildenRef1.current.getData();
+        DigitalBag.forEach((val) => {
+          if (val?.images) {
+            fd.append("digital_bag_images", val?.images);
+          } else {
+            const file = dataURLtoFile(nullImg, "null.png");
+            fd.append("digital_bag_images", file);
+          }
+        });
+        fd.append("digital_bags", JSON.stringify(DigitalBag));
+
         let req;
         if (id) {
           req = serviceUpdateEventSponsor(fd);
@@ -243,10 +273,18 @@ function useEventSponsorCreate({ location }) {
   const handleSubmit = useCallback(
     async (status) => {
       const errors = checkFormValidation();
+      const isIncludesValid = ChildenRef.current.isValid();
+      const isIncludesValid1 = ChildenRef1.current.isValid();
+
       LogUtils.log("errors==>", errors);
-      if (Object.keys(errors)?.length > 0) {
+      if (
+        Object.keys(errors)?.length > 0 ||
+        !isIncludesValid ||
+        !isIncludesValid1
+      ) {
         setErrorData(errors);
-        return true;
+      
+         return true;
       }
       submitToServer(status);
     },
@@ -268,6 +306,10 @@ function useEventSponsorCreate({ location }) {
     setImg,
     countryCode,
     handleCountryCodeChange,
+    ChildenRef,
+    ChildenRef1,
+    downloads,
+    downloadsDigitalBag,
   };
 }
 

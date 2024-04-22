@@ -1,0 +1,149 @@
+.update_status {
+  color: #ffffff !important;
+ 
+  font-weight: 700 !important;
+  background-color: #003cd4 !important;
+  border-radius: 20px !important;
+  padding: 0.2px 1rem !important;
+  font-size: 0.8rem !important;
+
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  
+  height: 40px;
+}
+.header_paper1{
+ 
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
+}
+.paperContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
+.header_paper {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+.container {
+  display: flex;
+  gap: 25px;
+  /* display: grid;
+    grid-template-columns: 30% 30% 30%; */
+}
+.content{
+  line-height: 20px;
+}
+.profileContainer {
+  /* align-items: center;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: calc(100% - 20%) !important;
+  gap: 20px !important; */
+}
+.profile_image {
+  display: flex !important;
+  gap: 1rem !important;
+}
+.profile_image img {
+  width: 330px;
+  height: 250px;
+  aspect-ratio: 16/8;
+}
+.profileDetails {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  gap: 10px !important;
+}
+.profileDetails1 {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 10px !important;
+  font-weight: 700 !important;
+}
+.profileTitleHeading {
+  /* float: left !important; */
+}
+.profileTitleHeadingValue {
+  /* float: right !important; */
+}
+.profileTitle {
+  font-size: 14px !important;
+  /* word-wrap: break-word !important; 
+    width: auto !important; */
+  font-weight: 500;
+  color: #161616;
+  display: flex;
+}
+.profileTitleName {
+  font-size: 18px !important;
+  word-wrap: break-word !important;
+  width: 300px !important;
+  font-weight: 600;
+  color: #161616;
+}
+.description_value1 {
+  display: flex !important;
+}
+.profileDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.description_subContainer {
+  display: flex;
+
+  font-size: 12px;
+}
+.description_key {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.description_value {
+  gap: 20% !important;
+}
+.status_description {
+  border: 1px solid #20c997;
+  color: #20c997;
+  padding: 1px;
+  padding-left: 12px;
+  width: fit-content;
+  border-radius: 10px;
+  padding-right: 12px;
+  margin-left: 4rem !important;
+}
+.statusInactive {
+  border: 1px solid #ff4d4f;
+  padding: 1px;
+  padding-left: 12px;
+  width: fit-content;
+  border-radius: 10px;
+  padding-right: 12px;
+  margin-left: 4rem !important;
+  background-color: rgba(255, 77, 79, 0.06274509803921569);
+  color: #ff4d4f;
+}
+.QRCode_Container {
+  /* display: flex;
+  justify-content: flex-end;
+  align-items: flex-end; */
+  
+}
+
+.des_title {
+  margin-left: 5rem !important;
+}
+.textColor {
+  color: #818181;
+}

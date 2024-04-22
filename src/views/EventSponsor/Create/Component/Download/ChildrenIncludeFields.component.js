@@ -11,18 +11,10 @@ import {
   IconButton,
 } from "@material-ui/core";
 import styles from "./style.module.css";
-import { isAlpha, isNum } from "../../../../libs/RegexUtils";
-import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
-import {
-  AddCircle as AddIcon,
-  Info as EditIcon,
-  RemoveCircleOutline as RemoveIcon,
-} from "@material-ui/icons";
-import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
-import LogUtils from "../../../../libs/LogUtils";
-import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
-import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
-import File from "../../../../components/FileComponent/FileComponent.component";
+
+
+
+import File from "../../../../../components/FileComponent/FileComponent.component";
 
 const useStyles = {
   toggleDiv: {

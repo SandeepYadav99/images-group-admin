@@ -1,0 +1,47 @@
+.updatAbout{
+    margin-top: 20px;
+}
+.inputFileUploader{
+    width: 100%;
+}
+.parameterText{
+    font-size: 12px;
+    text-align: end;
+}
+.actionButton{
+    text-align: end;
+    margin-right: 20px;
+}
+.update_status {
+    color: #ffffff !important;
+    border-radius: 20px !important;
+    font-weight: 700 !important;
+    background-color: #003cd4 !important;
+  
+    padding:  1rem !important;
+    font-size: 0.8rem !important;
+  
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+    
+    height: 40px;
+  }
+  .header_paper {
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+  .QRCode_Container{
+    display: flex;
+    gap: 5px;
+  }
+  .primeryButton{
+    border: 1px solid gray;
+  }
+  .container{
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+  }

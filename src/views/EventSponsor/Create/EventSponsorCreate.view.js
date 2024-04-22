@@ -15,7 +15,8 @@ import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CountryInputField from "../../../components/CountryInputField/CountryInputField.js";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox.js";
-
+import ChildrenIncludeForm from "./Component/Download/ChildrenIncludes.component.js";
+import ChildrenIncludeForm1 from "./Component/DigitalBag/ChildrenIncludes.component.js";
 function EventSponsorCreate({ location }) {
   const {
     form,
@@ -23,7 +24,8 @@ function EventSponsorCreate({ location }) {
     listData,
     changeTextData,
     onBlurHandler,
-    removeError,
+    ChildenRef,
+    ChildenRef1,
     handleSubmit,
     isSubmitting,
     img,
@@ -31,6 +33,8 @@ function EventSponsorCreate({ location }) {
     setImg,
     countryCode,
     handleCountryCodeChange,
+    downloads,
+    downloadsDigitalBag,
   } = useEventSponsorCreate({ location });
 
   return (
@@ -264,6 +268,60 @@ function EventSponsorCreate({ location }) {
                 onBlurHandler("youtube");
               }}
             />
+          </div>
+        </div>
+      </div>
+      <div className={"plainPaper"}>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <div className={"heading"}>
+              <b> Add Downloads </b>{" "}
+            </div>
+          </div>
+        </div>
+
+        <div className={"formFlex"}>
+          {/* <div className={"formGroup"}>
+            <File
+            multiple
+              max_size={10 * 1024 * 1024}
+              type={["pdf", "doc", "docx"]}
+              fullWidth={true}
+               name="download_documents"
+              label="Upload PDF"
+              accept={"application/pdf,application/msword"}
+              error={errorData?.download_documents}
+              value={form?.download_documents}
+              placeholder={"Upload PDF"}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "download_documents");
+                }
+              }}
+            />
+          </div> */}
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+          <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} />
+          </div>
+        </div>
+      </div>
+
+      <div className={"plainPaper"}>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <div className={"heading"}>
+              <b> Add Digital Bag </b>{" "}
+            </div>
+          </div>
+        </div>
+
+      
+
+         <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <ChildrenIncludeForm1 ref={ChildenRef1} downloads={downloadsDigitalBag}/>
           </div>
         </div>
       </div>
