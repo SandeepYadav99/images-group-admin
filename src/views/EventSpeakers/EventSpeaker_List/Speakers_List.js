@@ -33,6 +33,7 @@ const EventSpeakerList = ({}) => {
     isAcceptPopUp,
     handleCreateFedPage,
     speakerList,
+    toggleRecommended
   } = useSpeakerListHook({});
 
   const {
@@ -130,7 +131,7 @@ const EventSpeakerList = ({}) => {
               )}
             </IconButton>
 
-            <IconButton
+            {/* <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
@@ -139,6 +140,26 @@ const EventSpeakerList = ({}) => {
               }}
             >
               <Edit fontSize={"small"} />
+            </IconButton> */}
+                <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                toggleRecommended(all);
+              }}
+            >
+              {all?.is_recommended == true ? (
+                <div className={styles.removeFeatured}>
+                  <Clear fontSize={"small"} />
+                  <small>Unmark Recommend</small>
+                </div>
+              ) : (
+                <div className={styles.iconFeatured}>
+                  <DoneAll fontSize={"small"} />
+                  <small>Mark Recommend</small>
+                </div>
+              )}
             </IconButton>
            
              {/* <CustomCheckbox
