@@ -25,12 +25,14 @@ function useVideoCreate({ location }) {
     name: "",
     video: "",
     status: true,
+    image:""
   };
   const [form, setForm] = useState({ ...initialForm });
   const [img, setImg] = useState("");
   const [errorData, setErrorData] = useState({});
   const { id } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [image, setImage]=useState("")
   const [listData, setListData] = useState({
     SPONSOR_TYPE: [],
   });
@@ -67,6 +69,7 @@ function useVideoCreate({ location }) {
         if (!res.error) {
           const data = res?.data;
           setVideoData(data?.video);
+          setImage(data?.image)
           setForm({
             name:data?.name,
             status: data?.status === constants.GENERAL_STATUS.ACTIVE,
@@ -84,7 +87,7 @@ function useVideoCreate({ location }) {
     let required = ["name"];
 
     if(!id){
-      required.push(...["video"])
+      required.push(...["video"]) && required.push(...["image"])
     }
 
     required.forEach((val) => {
@@ -202,6 +205,7 @@ function useVideoCreate({ location }) {
     selectVideos,
     renderVideo,
     videoData,
+    image
   };
 }
 

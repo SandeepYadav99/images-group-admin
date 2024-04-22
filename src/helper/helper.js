@@ -396,13 +396,13 @@ export const EventData = [
     name: "Meeting Rooms",
     image: event,
     url: RouteName.MEETING_ROOMS,
-  }
-  // {
-  //   key: "award",
-  //   name: "Awards",
-  //   image: event,
-  //   url: RouteName.AWARD,
-  // },
+  },
+  {
+    key: "award",
+    name: "Awards",
+    image: event,
+    url: RouteName.AWARD,
+  },
   // {
   //   key: "networking",
   //   name: "Information Center",
