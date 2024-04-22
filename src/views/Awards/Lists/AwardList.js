@@ -1,4 +1,4 @@
-import { ButtonBase, Paper } from "@material-ui/core";
+import { ButtonBase, IconButton, Paper } from "@material-ui/core";
 import React, { useEffect } from "react";
 import styles from "./Style.module.css";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
@@ -10,11 +10,13 @@ import { serviceGetAward } from "../../../services/Award.servcice";
 import AwardCategoriesList from "./AwardCategoriesList/AwardCategories";
 import PreviousAwardees from "./PreviousAwardees/PreviousAwardees";
 import AwardJuryList from "./AwardJuryList/AwardJuryList";
+import { ArrowBack, ArrowBackIos } from "@material-ui/icons";
+import historyUtils from "../../../libs/history.utils";
 
 const AwardList = () => {
   const { editData, isSidePanel, toggleAcceptDialog, handleToggleSidePannel } =
     useAwardListHook({});
-  
+
   useEffect(() => {
     serviceGetAward({
       index: 1,
@@ -29,10 +31,18 @@ const AwardList = () => {
 
   return (
     <div>
-      <div className={styles.header_paper1}>
-        <span className={styles.title}>Awards</span>
-        <div className={styles.newLine} />
+      {/* <div className={styles.header_paper1}> */}
+      <div className={styles.outerFlex}>
+        <div>
+          <ButtonBase onClick={() => historyUtils.goBack()}>
+            <ArrowBackIos fontSize={"small"} />
+
+            <span className={styles.title}>Awards</span>
+          </ButtonBase>
+          <div className={styles.newLine} />
+        </div>
       </div>
+     
       <Paper
         className={styles.paperContainer}
         style={{ height: "auto", padding: "20px", marginTop: "20px" }}
@@ -89,8 +99,8 @@ const AwardList = () => {
       </SidePanelComponent>
       <div>
         <AwardCategoriesList />
-        <PreviousAwardees/>
-        <AwardJuryList/>
+        <PreviousAwardees />
+        <AwardJuryList />
       </div>
     </div>
   );

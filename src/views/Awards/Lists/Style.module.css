@@ -15,6 +15,10 @@
 .header_paper1{
  
 }
+.title{
+  font-size: 18px !important;
+  font-weight: 600;
+}
 .newLine {
   height: 4px;
   width: 30px;
