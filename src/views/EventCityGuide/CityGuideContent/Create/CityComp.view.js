@@ -28,7 +28,7 @@ function CityCompView({ location }) {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b>{params?.id ? "Edit" : "Add"} {" "} Venue guide  Content</b>
+              <b>{params?.id ? "Edit" : "Add"} Venue guide Content</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
@@ -44,18 +44,42 @@ function CityCompView({ location }) {
           onTextChange={(text) => {
             changeTextData(text, "title");
           }}
-         
         />
       </div>
-
+      <div style={{display:"flex"}}>
+        <div className={"formGroup1"}>
+          <CustomTextField
+            type="number"
+            isError={errorData?.lat}
+            errorText={errorData?.lat}
+            label={"Latitude"}
+            value={form?.lat}
+            onTextChange={(text) => {
+              changeTextData(text, "lat");
+            }}
+          />
+        </div>
+        <div className={"formGroup1"}>
+        <CustomTextField
+          type="number"
+          isError={errorData?.lng}
+          errorText={errorData?.lng}
+          label={"Longitude"}
+          value={form?.lng}
+          onTextChange={(text) => {
+            changeTextData(text, "lng");
+          }}
+        />
+      </div>
+      </div>
       <div className={"formGroup"}>
         <CustomTextField
-          isError={errorData?.priority}
-          errorText={errorData?.priority}
-          label={"Priority"}
-          value={form?.priority}
+          isError={errorData?.geospatial_url}
+          errorText={errorData?.geospatial_url}
+          label={"Add Location URL"}
+          value={form?.geospatial_url}
           onTextChange={(text) => {
-            changeTextData(text, "priority");
+            changeTextData(text, "geospatial_url");
           }}
         />
       </div>
@@ -70,8 +94,7 @@ function CityCompView({ location }) {
           descriptionRef.current(html, "description");
         }}
       />
-    
-    
+
       <div className={styles.btnContainer}>
         <div className={styles.btnCont1}>
           <ButtonBase

@@ -202,10 +202,10 @@ const EventList = ({}) => {
               </ButtonBase>
             </div>
             <div className={styles.BtnWrapper}>
-              <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
+              {/* <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
                 ADD SECTION
                 <Add fontSize={"small"} className={"plusIcon"}></Add>
-              </ButtonBase>
+              </ButtonBase> */}
             </div>
           </div>
         </div>
