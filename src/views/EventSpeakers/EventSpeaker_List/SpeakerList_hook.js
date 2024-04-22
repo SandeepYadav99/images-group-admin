@@ -208,7 +208,7 @@ const useSpeakerListHook = ({}) => {
       const newFeaturedStatus = !isCurrentlyFeatured;
 
       const updatedData = {
-        speaker_id: data?.id,
+        speaker_id: data?.id ,
         event_id: id,
         is_recommended: newFeaturedStatus,
       };
@@ -220,6 +220,7 @@ const useSpeakerListHook = ({}) => {
               event_id: id,
             })
           );
+          // window.location.reload()
         } else {
           SnackbarUtils.error(res?.message);
         }
