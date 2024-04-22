@@ -39,6 +39,11 @@ function useEventCreate() {
     "relatedEvents",
     "accessibleChapters",
     "status",
+    "facebook_link",
+    "linkedin_link",
+    "instagram_link",
+    "twitter_link",
+    "youtube_link"
   ];
   const initialForm = {
     name: "",
@@ -76,7 +81,11 @@ function useEventCreate() {
     linkedin_content: "",
     background_image: "",
     login_banner:null,
-
+    facebook_link: "",
+    linkedin_link: "",
+    instagram_link: "",
+    twitter_link: "",
+    youtube_link:""
   };
   const featureKey = {
     event_participants: true,
@@ -259,6 +268,26 @@ function useEventCreate() {
         SnackbarUtils.error("Please Enter the Valid Url");
       }
     });
+    if (form?.instagram_link && !validateUrl(form?.instagram_link)) {
+      errors.instagram_link = true;
+      SnackbarUtils.error("Please Enter a Valid Instagram URL");
+    }
+    if (form?.facebook_link && !validateUrl(form?.facebook_link)) {
+      errors.facebook_link = true;
+      SnackbarUtils.error("Please Enter a Valid Facebook URL");
+    }
+    if (form?.twitter_link && !validateUrl(form?.twitter_link)) {
+      errors.twitter_link = true;
+      SnackbarUtils.error("Please Enter a Valid Twitter URL");
+    }
+    if (form?.linkedin_link && !validateUrl(form?.linkedin_link)) {
+      errors.linkedin_link = true;
+      SnackbarUtils.error("Please Enter a Valid LinkedIn URL");
+    }
+    if (form?.youtube_link && !validateUrl(form?.youtube_link)) {
+      errors.youtube_link = true;
+      SnackbarUtils.error("Please Enter a Valid YouTube URL");
+    }
     colorKey.forEach((item) => {
       if (item && !HexCodeValid(form[item])) {
         errors[item] = true;

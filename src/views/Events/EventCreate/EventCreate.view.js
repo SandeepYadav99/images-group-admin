@@ -372,6 +372,92 @@ function EventCreate() {
         </div>
       </div>
       <div className={"plainPaper"}>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <div className={"heading"}>
+              <b> Add connect on section </b>{" "}
+            </div>
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.youtube_link}
+              errorText={errorData?.youtube_link}
+              label={"Social Media youtube"}
+              value={form?.youtube_link_link}
+              onTextChange={(text) => {
+                changeTextData(text, "youtube_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("youtube_link");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.instagram_link}
+              errorText={errorData?.instagram_link}
+              label={"Social Media Instagram"}
+              value={form?.instagram_link}
+              onTextChange={(text) => {
+                changeTextData(text, "instagram_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("instagram_link");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.facebook_link}
+              errorText={errorData?.facebook_link}
+              label={"Social Media Facebook"}
+              value={form?.facebook_link}
+              onTextChange={(text) => {
+                changeTextData(text, "facebook_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("facebook_link");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.linkedin_link}
+              errorText={errorData?.linkedin_link}
+              label={"Social Media Linkedin"}
+              value={form?.linkedin_link}
+              onTextChange={(text) => {
+                changeTextData(text, "linkedin_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("linkedin_link");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.twitter_link}
+              errorText={errorData?.twitter_link}
+              label={"Social Media Twitter"}
+              value={form?.twitter_link}
+              onTextChange={(text) => {
+                changeTextData(text, "twitter_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("twitter_link");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}></div>
+        </div>
+      </div>
+      <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>LinkedIn splash screen</div>
@@ -410,7 +496,6 @@ function EventCreate() {
           />
         </div>
       </div>
-
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
