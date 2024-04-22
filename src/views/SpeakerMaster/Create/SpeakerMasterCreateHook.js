@@ -10,7 +10,7 @@ import {
   serviceDetailsSpeakerMaster,
   serviceUpdateEventSpeakerMaster,
 } from "../../../services/SpeakerMaster.service";
-import { isNum } from "../../../libs/RegexUtils";
+import { isNum, validateUrl } from "../../../libs/RegexUtils";
 
 function useSpeakerMasterCreate({ location }) {
   const [speaker, setSpeaker] = useState(false);
@@ -23,6 +23,7 @@ function useSpeakerMasterCreate({ location }) {
     s_status: true,
     is_moderator: true,
     priority: "",
+    linkedin_link:""
    
   };
   const { id } = useParams();
@@ -83,7 +84,10 @@ function useSpeakerMasterCreate({ location }) {
         errors[val] = true;
       }
     });
-
+    if (form?.linkedin_link && !validateUrl(form?.linkedin_link)) {
+      errors.linkedin_link = true;
+      SnackbarUtils.error("Please Enter a Valid LinkedIn URL");
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];

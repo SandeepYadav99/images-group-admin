@@ -170,6 +170,22 @@ function SpeakerMasterCreate({ location }) {
             />
           </div>
         </div>
+        <div className={"headerFlex"}>
+        <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.linkedin_link}
+              errorText={errorData?.linkedin_link}
+              label={"Linkedin Link "}
+              value={form?.linkedin_link}
+              onTextChange={(text) => {
+                changeTextData(text, "linkedin_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("linkedin_link");
+              }}
+            />
+          </div>
+        </div> 
       </div>
       <div className={"plainPaper"}>
         {/* <div style={{ display: "flex", marginTop: "10px", gap: "10px" }}>
