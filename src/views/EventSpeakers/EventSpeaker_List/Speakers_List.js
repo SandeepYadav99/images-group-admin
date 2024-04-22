@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { IconButton, ButtonBase } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
@@ -14,8 +14,10 @@ import historyUtils from "../../../libs/history.utils";
 import speakerDefault from "../../../assets/img/speaker_list_deafult.png";
 import AssociateDialog from "../component/AssociateDialog/AssociateDialog.view";
 import { useParams } from "react-router-dom";
+import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 
 const EventSpeakerList = ({}) => {
+  const [is_recommended, setIs_Recommended]=useState(false)
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -31,6 +33,7 @@ const EventSpeakerList = ({}) => {
     isAcceptPopUp,
     handleCreateFedPage,
     speakerList,
+    toggleRecommended
   } = useSpeakerListHook({});
 
   const {
@@ -105,6 +108,7 @@ const EventSpeakerList = ({}) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
+          
           <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
             <IconButton
               className={"tableActionBtn"}
@@ -126,6 +130,47 @@ const EventSpeakerList = ({}) => {
                 </div>
               )}
             </IconButton>
+
+            {/* <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleUpdateFed(all);
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton> */}
+                <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                toggleRecommended(all);
+              }}
+            >
+              {all?.is_recommended == true ? (
+                <div className={styles.removeFeatured}>
+                  <Clear fontSize={"small"} />
+                  <small>Unmark Recommend</small>
+                </div>
+              ) : (
+                <div className={styles.iconFeatured}>
+                  <DoneAll fontSize={"small"} />
+                  <small>Mark Recommend</small>
+                </div>
+              )}
+            </IconButton>
+           
+             {/* <CustomCheckbox
+              value={is_recommended}
+              // handleChange={() => 
+              //   changeTextHandler()
+              //   // changeTextData(!form?.is_moderator, "is_moderator");
+              // }}
+              label={`Recommended`}
+            />  */}
+        
             {params?.id ? (
               ""
             ) : (

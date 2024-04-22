@@ -170,6 +170,22 @@ function SpeakerMasterCreate({ location }) {
             />
           </div>
         </div>
+        <div className={"headerFlex"}>
+        <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.linkedin_link}
+              errorText={errorData?.linkedin_link}
+              label={"Linkedin Link "}
+              value={form?.linkedin_link}
+              onTextChange={(text) => {
+                changeTextData(text, "linkedin_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("linkedin_link");
+              }}
+            />
+          </div>
+        </div> 
       </div>
       <div className={"plainPaper"}>
         {/* <div style={{ display: "flex", marginTop: "10px", gap: "10px" }}>
@@ -194,7 +210,7 @@ function SpeakerMasterCreate({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        {/* <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
@@ -205,7 +221,7 @@ function SpeakerMasterCreate({ location }) {
               checked={form?.is_recommended}
             />
           </div>
-        </div>
+        </div> */}
         <div className={styles.btnWrappepr}>
           <ButtonBase
             disabled={isSubmitting ? true : false}

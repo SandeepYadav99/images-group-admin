@@ -7,8 +7,11 @@ import {
 export async function serviceCreateEventSpeaker(params) {
   return await formDataRequest("events/speakers/create", params);
 }
-export async function serviceEventFeatured(params) {
+export async function serviceEventFeatured(params) { //events/speakers/mark/recommended
   return await postRequest("events/speakers/make/featured", params);
+}
+export async function serviceEventMarkRecommend(params) { //events/speakers/mark/recommended
+  return await postRequest("events/speakers/mark/recommended", params);
 }
 export async function serviceUpdateEventSpeaker(params) {
   return await formDataRequest("events/speakers/update", params);

@@ -37,24 +37,24 @@ const TopNavBar = ({ data }) => {
           >
             <Tab className={"iconTabs"} label="Feed Post" />
           </Link>
-          <Link
+          {/* <Link
             to={"/app/comments/" + params?.id}
             style={{ textDecoration: "none", color: "black" }}
           >
             <Tab className={"iconTabs"} label="Comments" />
-          </Link>
+          </Link> */}
           <Link
             to={"/app/associate-events/" + params?.id}
             style={{ textDecoration: "none", color: "black" }}
           >
             <Tab className={"iconTabs"} label="Associated Events" /> 
           </Link>
-          <Link
+          {/* <Link
             to={"/app/associate-chapters/" + params?.id}
             style={{ textDecoration: "none", color: "black" }}
           >
             <Tab className={"iconTabs"} label="Associated Chapters" /> {" "}
-          </Link>
+          </Link> */}
         </Tabs>{" "}
       </AppBar>{" "}
       <div className={styles.paperBackground}></div>

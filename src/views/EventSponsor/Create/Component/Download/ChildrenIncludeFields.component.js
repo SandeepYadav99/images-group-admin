@@ -50,7 +50,7 @@ const ChildrenIncludeFields = ({
     // const name = e?.target?.name;
     // const value = e?.target?.value;
 if(fieldName){
-  if (fieldName === "fileName") {
+  if (fieldName === "file_name") {
     changeData(index, { [fieldName]: e.target.value });
   } else {
     changeData(index, { [fieldName]: e });
@@ -66,11 +66,11 @@ if(fieldName){
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <TextField
-                error={errors?.fileName}
-                onChange={(e) => handleChange(e, "fileName")}
-                value={data?.fileName}
+                error={errors?.file_name}
+                onChange={(e) => handleChange(e, "file_name")}
+                value={data?.file_name}
                 fullWidth={true}
-                name={"fileName"}
+                name={"file_name"}
                 margin={"dense"}
                 variant={"outlined"}
                 label={"File Name"}

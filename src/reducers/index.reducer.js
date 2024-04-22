@@ -121,13 +121,13 @@ const rootReducer = combineReducers({
   hallMaster:HallMasterReducer,
   SplashScreen:SplashScreenReducer,
   SpeakerMaster:SpeakerMasterReducer,
+  MenuGraphic:MenuGraphicReducer,
+  award:AwardReducer,
   sponspor_video:SponsporVideoReducer,
   event_highlight:EventHighLight,
   meeting_room:MeetingRoomsReducer,
   meeting_slots:MeetingRoomSlotReducer,
-  MenuGraphic:MenuGraphicReducer,
-  MenuGraphic:MenuGraphicReducer,
-  award:AwardReducer
+
 });
 
 export default rootReducer;

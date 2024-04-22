@@ -18,7 +18,7 @@ import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 
 const TEMP_OBJ = {
-  fileName: '',
+  file_name: '',
   documentUpload: null,
 };
 
@@ -56,7 +56,7 @@ const ChildrenIncludeForm = (
     if (downloads && downloads.length > 0) {
       
       const updatedFields = downloads.map((download) => ({
-        fileName: download.fileName || '', 
+        file_name: download.file_name || '', 
         // documentUpload: download.documentUpload || null, 
       }));
       setFields(updatedFields);
@@ -108,7 +108,10 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["fileName", "documentUpload"];
+      const required = ["file_name"];
+      // if(!downloads){
+      //   required.push("documentUpload")
+      // }
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;

@@ -102,6 +102,7 @@ function useEventCreate() {
     event_banner: false,
     youtube_live: false,
     information_center: false,
+    award:false,
     event_highlights:true,
     meeting_rooms:true,
   };

@@ -25,7 +25,7 @@ function useMenuGraphicCreateHook() {
     event_id: "",
     featureName: "",
     priority: "",
-    file: "",
+    // file: "",
     thumbnail: "",
     status: true,
   };
@@ -107,7 +107,7 @@ function useMenuGraphicCreateHook() {
     ];
 
     if (!id) {
-      required.push("thumbnail") && required.push("file");
+      required.push("thumbnail") ;
     }
 
     required.forEach((val) => {
@@ -118,9 +118,9 @@ function useMenuGraphicCreateHook() {
         errors[val] = true;
       }
     });
-    if (form?.file.size <= 5 * 1024 * 1024) {
-      errors["file"] = false;
-    }
+    // if (form?.file.size <= 5 * 1024 * 1024) {
+    //   errors["file"] = false;
+    // }
     // else {
     //   SnackbarUtils.error("Maximum File Upload Size 5 MB");
     //   errors["file"] = true;
@@ -221,7 +221,8 @@ function useMenuGraphicCreateHook() {
       const errors = checkFormValidation();
       if (Object.keys(errors)?.length > 0) {
         setErrorData(errors);
-        // return true;
+        console.log({errors})
+         return true;
       }
       submitToServer(status);
     },
