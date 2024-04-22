@@ -46,10 +46,10 @@ function useYoutubeCreateHook({ location }) {
         errors[val] = true;
       }
     });
-    if (form?.link && !isUrl(form?.link)) {
-      errors.link = true;
-      SnackbarUtils.error("Please Enter the Valid Url");
-    }
+    // if (form?.link && !isUrl(form?.link)) {
+    //   errors.link = true;
+    //   // SnackbarUtils.error("Please Enter the Valid Url");
+    // }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -72,8 +72,8 @@ function useYoutubeCreateHook({ location }) {
       let shouldRemoveError = true;
       const t = { ...form };
 
-      if (fieldName === "name") {
-        t[fieldName] = text;
+      if (fieldName === "link") {
+        t[fieldName] = text.trimStart();
       } else {
         t[fieldName] = text;
       }
