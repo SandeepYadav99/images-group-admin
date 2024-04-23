@@ -27,7 +27,7 @@ const useEventScheduleList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [dataValue, setDataValue] = useState("");
-
+const [detailId,setDetailId]=useState("")
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const { id } = useParams();
@@ -204,6 +204,7 @@ const useEventScheduleList = ({}) => {
     (data) => {
       setScheduleDetail((e) => !e);
       // setEditData(data?.id);
+      setDetailId(data?.id)
       
     },
     [setScheduleDetail, setEditData]
@@ -287,7 +288,8 @@ const useEventScheduleList = ({}) => {
     handleDeleteData,
     handleScheduleDetail,
     isScheduleDetail,
-    toggleRecommended
+    toggleRecommended,
+    detailId
   };
 };
 

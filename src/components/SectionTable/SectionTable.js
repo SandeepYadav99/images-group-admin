@@ -26,7 +26,7 @@ const SessionTable = ({ data }) => {
               </tr>
             </thead>
             <tbody>
-              {data.map((item, index) => (
+              {/* {data?.map((item, index) => (
                 <tr key={index}>
                   <td className={styles.td}>
                     <div className={styles.td1}>
@@ -37,7 +37,7 @@ const SessionTable = ({ data }) => {
                   <td className={styles.td}>{item.rating}</td>
                   <td className={styles.td}>{item.comment}</td>
                 </tr>
-              ))}
+              ))} */}
             </tbody>
           </table>
         </div>

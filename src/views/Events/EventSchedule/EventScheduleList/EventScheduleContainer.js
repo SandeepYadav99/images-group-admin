@@ -41,6 +41,7 @@ const EventScheduleContainer = ({}) => {
     handleScheduleDetail,
     isScheduleDetail,
     toggleRecommended,
+    detailId
   } = useEventScheduleList({});
   // console.log(editData, "Edit Data")
   const {
@@ -325,7 +326,7 @@ const EventScheduleContainer = ({}) => {
           <ScheduleDetail
             handleScheduleDetail={handleScheduleDetail}
             isScheduleDetail={isScheduleDetail}
-            empId={editData}
+            empId={detailId}
           />
         </SidePanelComponent>
       </PageBox>
