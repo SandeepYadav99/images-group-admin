@@ -12,7 +12,7 @@ import {
   servicesPartnerTypeList,
 } from "../../../services/Exhibitor.service";
 import historyUtils from "../../../libs/history.utils";
-import { isEmail, validateUrl } from "../../../libs/RegexUtils";
+import { isEmail, isNum, isNumeric, validateUrl } from "../../../libs/RegexUtils";
 import useDebounce from "../../../hooks/DebounceHook";
 import Constants from "../../../config/constants";
 import { useSelector } from "react-redux";
@@ -47,10 +47,10 @@ const initialForm = {
   // gallery_images: "",
   company_description: "",
   status: true,
-  country_code: "",
+  country_code: "91",
   contact: "",
   show_profile: false,
-  // country_code1: "",
+  country_code1: "91",
   secondary_perosn_name: "",
   youtube_link: "",
   is_partner: false,
@@ -72,7 +72,7 @@ const initialForm = {
   twitter_link: "",
   is_featured: false,
   is_recommended: false,
- 
+  conatct:"",
   // download_documents: "",
   // fileName: "",
   // title: "",
@@ -404,6 +404,18 @@ const useExhibitorCreate = ({ location }) => {
         errors[val] = true;
       }
     });
+    if (
+      form?.contact &&
+      (!isNum(form?.contact) || form?.contact?.length !== 10)
+    ) {
+      errors["contact"] = true;
+    }
+    if (
+      form?.primary_conatct_number &&
+      (!isNum(form?.primary_conatct_number) || form?.primary_conatct_number?.length !== 10)
+    ) {
+      errors["primary_conatct_number"] = true;
+    }
     if (form?.primary_email && !isEmail(form?.primary_email)) {
       errors["primary_email"] = "Invalid email address ";
     }
@@ -563,17 +575,20 @@ const useExhibitorCreate = ({ location }) => {
     const errors = checkFormValidation();
     const isIncludesValid = ChildenRef.current.isValid();
     const isIncludesValid1 = ChildenRef1.current.isValid();
-  
-    if (Object.keys(errors).length > 0 || !isIncludesValid || !isIncludesValid1) {
+
+    if (
+      Object.keys(errors).length > 0 ||
+      !isIncludesValid ||
+      !isIncludesValid1
+    ) {
       setErrorData(errors);
-    
-      return; 
+
+      return;
     }
-  
-    
+
     await submitToServer();
   }, [checkFormValidation, setErrorData, submitToServer]);
-  
+
   const removeError = useCallback(
     (title) => {
       const temp = JSON.parse(JSON.stringify(errorData));
@@ -593,6 +608,13 @@ const useExhibitorCreate = ({ location }) => {
         t[fieldName] = text;
       } else if (fieldName === "secondary_email") {
         t[fieldName] = text;
+      } else if (
+        fieldName === "conatct" || fieldName === "primary_conatct_number"
+      ) {
+        if (isNum(text) && text.toString().length <= 10) {
+          t[fieldName] = text;
+        }
+        
       }
       //  else if (fieldName === "products") {
       //   const newValues = text?.filter((item) => item.trim() !== "");

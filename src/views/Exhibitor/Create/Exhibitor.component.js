@@ -316,8 +316,8 @@ const ExhibitorCreate = () => {
             <div className={"formGroup"} id={styles.oneLineView}>
               <div id={styles.countryCode}>
                 <CustomSelectField
-                  isError={errorData?.country_code}
-                  errorText={errorData?.country_code}
+                  isError={errorData?.country_code1}
+                  errorText={errorData?.country_code1}
                   label={"Country Code"}
                   value={form?.country_code1}
                   handleChange={(value) => {
@@ -336,7 +336,7 @@ const ExhibitorCreate = () => {
               <CustomTextField
                 isError={errorData?.conatct}
                 errorText={errorData?.conatct}
-                label={"Phone"}
+                label={"Contact"}
                 value={form?.conatct}
                 onTextChange={(text) => {
                   changeTextData(text, "conatct");
