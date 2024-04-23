@@ -32,6 +32,7 @@ const ChildrenIncludeForm = (
     changeTextData,
     updateInventory,
     vendorId,
+    exhibitorId
   },
   ref
 ) => {
@@ -109,7 +110,7 @@ const ChildrenIncludeForm = (
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
       const required = ["file_name"];
-      if(!downloads){
+      if(!exhibitorId){
         required.push("documentUpload")
       }
       required?.forEach((key) => {
@@ -233,6 +234,7 @@ const ChildrenIncludeForm = (
             data={val}
             index={index}
             onBlur={onBlur}
+            exhibitorId={exhibitorId}
           />
         </div>
       );

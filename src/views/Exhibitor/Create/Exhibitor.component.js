@@ -1126,7 +1126,7 @@ const ExhibitorCreate = () => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} />
+            <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} exhibitorId={empId}/>
           </div>
         </div>
       </div>
@@ -1193,6 +1193,7 @@ const ExhibitorCreate = () => {
             <ChildrenIncludeForm1
               ref={ChildenRef1}
               downloads={downloadsDigitalBag}
+              exhibitorId={empId}
             />
           </div>
         </div>

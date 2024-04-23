@@ -52,7 +52,7 @@ const ChildrenIncludeFields = ({
   errors,
   onBlur,
   currency,
-  listWarehouse,
+  exhibitorId,
 }) => {
   const handleChange = (e, fieldName) => {
     // const name = e?.target?.name;
@@ -113,7 +113,8 @@ if(fieldName){
                   }
                 }}
               />
-            </div>
+                {exhibitorId && <a className={styles.inst} href={document ?? " "} target="_blank" rel="noreferrer" >View File</a>}
+              </div>
           </div>
           <div className={"textCenter"}>
             <ButtonBase

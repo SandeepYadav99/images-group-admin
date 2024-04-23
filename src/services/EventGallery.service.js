@@ -8,7 +8,7 @@ export async function serviceCreateEventGallery(params) {
   return await formDataRequest("events/albums/create", params);
 }
 export async function serviceUpdateEventGallery(params) {
-  return await postRequest("events/speakers/update", params);
+  return await postRequest("albums/update", params);
 }
 export async function serviceDeleteEventGallery(params) {
   return await postRequest("events/albums/delete", params);

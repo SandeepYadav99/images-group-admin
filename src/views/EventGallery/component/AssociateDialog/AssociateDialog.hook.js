@@ -35,7 +35,7 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
       const value = data?.map((item) => ({
         id: item?.id,
         name: item?.name,
-        thumbnail: item?.thumbnail,
+        // thumbnail: item?.thumbnail ,
       }));
       setForm({ ...form, album_id: [...value] });
     }

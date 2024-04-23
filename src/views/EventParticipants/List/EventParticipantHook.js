@@ -72,18 +72,19 @@ const useEventParticipantList = ({}) => {
       dispatch(
         actionFetchEventParticipant(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
-          query_data: key == "FILTER_DATA" ? value : queryData,
-          event_id: id,
+          // query_data: key == "FILTER_DATA" ? value : queryData,
+          participant_type:value[0].value,
+          event_id: id
         })
       );
     },
     [sortingData, query, queryData, id]
   );
-
+ 
   const handleFilterDataChange = useCallback(
     (value) => {
       console.log("_handleFilterDataChange", value);
-      queryFilter("FILTER_DATA", value);
+       queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
   );
