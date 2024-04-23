@@ -219,8 +219,8 @@ const ExhibitorCreate = () => {
                   changeTextData(value, "is_participant");
                 }}
               >
-                <MenuItem value="true">True</MenuItem>
-                <MenuItem value="false">False</MenuItem>
+                <MenuItem value="true">Yes</MenuItem>
+                <MenuItem value="false">No</MenuItem>
               </CustomSelectField>
             </div>
             {form?.is_participant === "true" && (
@@ -300,18 +300,19 @@ const ExhibitorCreate = () => {
         {user?.role === "ADMIN" && (
           <div className={"formFlex"}>
             <div className={"formGroup"}>
-              <CustomSelectField
-                isError={errorData?.event_venue}
-                errorText={errorData?.event_venue}
-                label={"Event Venue"}
-                value={form?.event_venue}
-                handleChange={(value) => {
-                  changeTextData(value, "event_venue");
-                }}
-              >
-                <MenuItem value="BHARAT_MANDAPAM">BHARAT MANDAPAM</MenuItem>
-                <MenuItem value="YASHOBHOOMI">YASHOBHOOMI</MenuItem>
-              </CustomSelectField>
+            <CustomTextField
+                  isError={errorData?.event_venue}
+                  errorText={errorData?.event_venue}
+                  label={"Event Venue"}
+                  value={form?.event_venue}
+                  onTextChange={(text) => {
+                    changeTextData(text, "event_venue");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("event_venue");
+                  }}
+                />
+            
             </div>
             <div className={"formGroup"} id={styles.oneLineView}>
               <div id={styles.countryCode}>
@@ -427,6 +428,8 @@ const ExhibitorCreate = () => {
           </div>
         )}
         {user.role === "ADMIN" && (
+          <div>
+
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomTextField
@@ -460,6 +463,24 @@ const ExhibitorCreate = () => {
               />
             </div>
           </div>
+          <div className="flexGroup">
+            <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.product_offered}
+              errorText={errorData?.product_offered}
+              label={"Product offered"}
+              value={form?.product_offered}
+              onTextChange={(text) => {
+                changeTextData(text, "product_offered");
+              }}
+              onBlur={() => {
+                onBlurHandler("product_offered");
+              }}
+            />
+          </div>
+        </div>
+          </div>
+      
         )}
       
         {/* {user?.role === "ADMIN" && (
