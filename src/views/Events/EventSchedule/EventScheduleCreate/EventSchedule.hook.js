@@ -204,13 +204,13 @@ const useEventScheduleHook = ({
       setIsSubmitting(true);
 
       const fd = new FormData();
-  
+   
       const relatedId =
         Array.isArray(form?.speakers) && form?.speakers.length > 0
           ? form?.speakers.map((item) => item.id)
           : [];
-     
 
+    
       const moderatorId =
         Array.isArray(form?.moderator) && form?.moderator.length > 0
           ? form?.moderator.map((item) => item.id)
@@ -221,28 +221,30 @@ const useEventScheduleHook = ({
           ? form?.chairs.map((item) => item.id)
           : [];
     
-
       const co_chairsId =
         Array.isArray(form?.co_chairs) && form?.co_chairs.length > 0
           ? form?.co_chairs.map((item) => item.id)
           : [];
-       
 
       Object.keys(form).forEach((key) => {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-        }  else if (key === "moderator") {
-          fd.append(key, moderatorId.join(","));
+        } else if (key === "moderator" ) {
+          moderatorId.length > 0 && fd.append(key, moderatorId.join(","));
         } else if (key === "speakers") {
-          fd.append(key, relatedId.join(","));
+          if (relatedId) {
+            relatedId.length > 0 && fd.append(key, relatedId.join(","));
+          }
         } else if (key === "chairs") {
-          fd.append(key, chairsId.join(","));
+          if (chairsId) {
+            chairsId.length > 0 &&  fd.append(key, chairsId.join(","));
+          }
         } else if (key === "status") {
           fd.append(key, form?.status ? "ACTIVE" : "INACTIVE");
         } else if (key === "is_recommended") {
           fd.append(key, form?.is_recommended === true ? true : false);
         } else if (key === "co_chairs") {
-          fd.append(key, co_chairsId.join(","));
+          co_chairsId.length > 0 && fd.append(key, co_chairsId.join(","));
         } else {
           fd.append(key, form[key]);
         }

@@ -33,10 +33,9 @@ function VideoSponsporCreate({ location }) {
     handleCountryCodeChange,
     selectVideos,
     renderVideo,
-    videoData,
+    image,
   } = useVideoCreate({ location });
 
-  
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -56,6 +55,34 @@ function VideoSponsporCreate({ location }) {
             <div className={"heading"}>Video Sponsor Details</div>
           </h4>
         </div>
+        <div className={styles.flexFlow}>
+
+       
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <File
+              // imageClass={styles.inputFileUploader}
+              max_size={5 * 1024 * 1024}
+              type={["png", "jpeg", "jpg"]}
+              fullWidth={true}
+              name="image"
+              accept={"image/*"}
+              label="Please Upload Image"
+              show_image={true}
+              error={errorData?.image}
+              value={form?.image}
+               default_image={image ? image : null}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "image");
+                }
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.flexSecond}>
+
+     
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
@@ -85,7 +112,6 @@ function VideoSponsporCreate({ location }) {
               error={errorData?.video}
               value={form?.video}
               placeholder={"Upload Video"}
-
               onChange={(file) => {
                 if (file) {
                   changeTextData(file, "video");
@@ -99,6 +125,8 @@ function VideoSponsporCreate({ location }) {
             />
           </div>
         </div>
+        </div>
+      </div>
       </div>
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>

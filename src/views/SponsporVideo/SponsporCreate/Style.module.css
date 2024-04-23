@@ -92,3 +92,10 @@
     font-size: .75rem;
     cursor: pointer;
   }
+  .flexFlow{
+    display: flex;
+    gap: 2px;
+  }
+  .flexSecond{
+    width: 100%;
+  }
