@@ -43,7 +43,8 @@ function useEventCreate() {
     "linkedin_link",
     "instagram_link",
     "twitter_link",
-    "youtube_link"
+    "youtube_link",
+    "linkedin_content"
   ];
   const initialForm = {
     name: "",
@@ -77,15 +78,17 @@ function useEventCreate() {
     all_chapters: false,
     chapters: false,
     accessible_chapter_ids: [],
-    linkedin_image: "",
+    linkedin_image: null,
     linkedin_content: "",
-    background_image: "",
+    background_image: null,
     login_banner:null,
+    // linkdin_banner:null,
     facebook_link: "",
     linkedin_link: "",
     instagram_link: "",
     twitter_link: "",
-    youtube_link:""
+    youtube_link:"",
+    linkdin_content:""
   };
   const featureKey = {
     event_participants: true,
@@ -136,6 +139,9 @@ function useEventCreate() {
   const [logo, setLogo] = useState("");
   const [thumb, setthumb] = useState("");
   const codeDebouncer = useDebounce(form?.name, 500);
+  const [linkBanner,setLinkBanner]=useState("")
+  const [appBanner,setAppBanner]=useState("")
+  const [appBgBanner,setAppBgBanner]=useState("")
 
   const [listData, setListData] = useState({
     ADMIN: [],
@@ -180,6 +186,9 @@ function useEventCreate() {
           setFeature({ ...feature, ...features });
           setLogo(data?.logo);
           setthumb(data?.thumbnail);
+          setLinkBanner(data?.linkedin_image ? data?.linkedin_image : null)
+          setAppBanner(data?.login_banner ? data?.login_banner : null)
+          setAppBgBanner(data?.background_image ? data?.background_image : null)
           if (data?.accessible_to) {
             if (data?.accessible_to?.all_chapters) {
               setSelect("all_chapters");
@@ -481,6 +490,9 @@ function useEventCreate() {
     id,
     logo,
     thumb,
+    linkBanner,
+    appBanner,
+    appBgBanner
   };
 }
 

@@ -42,6 +42,9 @@ function EventCreate() {
     id,
     logo,
     thumb,
+    linkBanner,
+    appBanner,
+    appBgBanner
   } = useEventCreate({});
 
   const { role } = useSelector((state) => state.auth);
@@ -336,7 +339,7 @@ function EventCreate() {
               max_size={10 * 1024 * 1024}
               type={["jpeg", "jpg", "png"]}
               fullWidth={true}
-              name="od1"
+              name="login_banner"
               label="Login Screen Image"
               accept={"application/pdf,application/msword,image/*"}
               error={errorData?.login_banner}
@@ -347,6 +350,7 @@ function EventCreate() {
                   changeTextData(file, "login_banner");
                 }
               }}
+              link = {form?.login_banner ? "" : appBanner}
             />
           </div>
         </div>
@@ -356,7 +360,7 @@ function EventCreate() {
               max_size={10 * 1024 * 1024}
               type={["jpeg", "jpg", "png"]}
               fullWidth={true}
-              name="od1"
+              name="background_image"
               label="Background Image Banner"
               accept={"application/pdf,application/msword,image/*"}
               error={errorData?.background_image}
@@ -367,6 +371,7 @@ function EventCreate() {
                   changeTextData(file, "background_image");
                 }
               }}
+              link = {form?.background_image ? "" : appBgBanner}
             />
           </div>
         </div>
@@ -464,22 +469,23 @@ function EventCreate() {
           </h4>
         </div>
         <div className={"formGroup"}>
-          <File
-            max_size={10 * 1024 * 1024}
-            type={["jpeg", "jpg", "png"]}
-            fullWidth={true}
-            name="od1"
-            label="Upload Banner for LinkedIn "
-            accept={"application/pdf,application/msword,image/*"}
-            error={errorData?.linkdin_banner}
-            value={form?.linkdin_banner}
-            placeholder={"Upload Banner for LinkedIn"}
-            onChange={(file) => {
-              if (file) {
-                changeTextData(file, "linkedin_image");
-              }
-            }}
-          />
+        <File
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="linkedin_image"
+              label="Upload Banner for LinkedIn "
+              accept={"application/pdf,application/msword,image/*"}
+              error={errorData?.linkedin_image}
+              value={form?.linkedin_image}
+              placeholder={"Upload Banner for LinkedIn"}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, "linkedin_image");
+                }
+              }}
+            link = {form?.linkedin_image ? "" : linkBanner}
+            />
         </div>
         <div className={"formGroup"}>
           <CustomTextField
@@ -493,6 +499,8 @@ function EventCreate() {
             onBlur={() => {
               onBlurHandler("linkedin_content");
             }}
+            multiline
+            rows={3}
           />
         </div>
       </div>
