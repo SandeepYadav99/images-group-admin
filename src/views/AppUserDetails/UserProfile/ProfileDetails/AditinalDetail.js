@@ -165,7 +165,10 @@ const AditnalDetail = ({ id }) => {
 
               {value?.participant_type?.length > 0 ? (
                 value.participant_type.map((status, index) => (
-                  <div key={index}>{status}</div>
+                  <div key={index} className={styles.participantStatus}>
+                    {status}
+                    {index < value.participant_type.length - 1 && ",   "}
+                  </div>
                 ))
               ) : (
                 <span>N/A</span>

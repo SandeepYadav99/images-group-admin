@@ -169,12 +169,13 @@ const useEventParticipantList = ({}) => {
     return [
       {
         label: "Participant list",
-        name: "participant_type",
+        name: "participant_type.name",
         type: "select",
         fields: ["EXHIBITOR", "SPEAKER", "AWARD PRESENTATION", "INNOVATORS", "JURY"],
       },
     ];
   }, []);
+
 
   const toggleCsvDialog = useCallback(() => {
     setIsCsvDialog((e) => !e);
