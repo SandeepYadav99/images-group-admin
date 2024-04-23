@@ -4,7 +4,10 @@ import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import RouteName from "../../../../routes/Route.name";
 import { serviceGetList } from "../../../../services/index.services";
 import { useParams } from "react-router";
-import { serviceUpdateEventGallery } from "../../../../services/EventGallery.service";
+import {
+  serviceUpdateEventGallery,
+  serviceUpdateEventGalleryAlbum,
+} from "../../../../services/EventGallery.service";
 
 const initialForm = {
   album_id: [],
@@ -31,11 +34,12 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
   // }, [isOpen]);
 
   useEffect(() => {
+    console.log("Data:", data);
     if (data?.length > 0) {
       const value = data?.map((item) => ({
         id: item?.id,
         name: item?.name,
-        // thumbnail: item?.thumbnail ,
+        thumbnail: item?.thumbnail || "",
       }));
       setForm({ ...form, album_id: [...value] });
     }
@@ -108,7 +112,7 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
           ? UniqueValue?.map((item) => ({ album_id: item }))
           : [];
 
-      serviceUpdateEventGallery({
+      serviceUpdateEventGalleryAlbum({
         event_id: id,
         data: uniqueObj,
       }).then((res) => {

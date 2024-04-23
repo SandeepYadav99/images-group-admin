@@ -45,7 +45,7 @@ const EventGallery = ({}) => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.event_gallery);
-
+console.log({data})
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
