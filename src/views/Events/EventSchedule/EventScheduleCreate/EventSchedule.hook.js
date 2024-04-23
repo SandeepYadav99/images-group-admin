@@ -54,7 +54,7 @@ const useEventScheduleHook = ({
   const [thimbnel, setThimbnel] = useState("");
   const dispatch = useDispatch();
   const [listData, setListData] = useState({
-    SPEAKERS: [],
+    EVENT_SPEAKERS: [],
   });
 
   const [listDataValue, setListDataValue] = useState({
@@ -66,7 +66,7 @@ const useEventScheduleHook = ({
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
-    serviceGetList(["SPEAKERS"], { event_id: id }).then((res) => {
+    serviceGetList(["EVENT_SPEAKERS"], { event_id: id }).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -291,7 +291,7 @@ const useEventScheduleHook = ({
   );
 
   const updateSpeakerList = useMemo(() => {
-    return listData?.SPEAKERS?.filter((val) => {
+    return listData?.EVENT_SPEAKERS?.filter((val) => {
       if (
         form?.chairs.findIndex((chair) => chair.id === val?.id) >= 0 ||
         form?.speakers.findIndex((speaker) => speaker.id === val?.id) >= 0 ||
@@ -304,7 +304,7 @@ const useEventScheduleHook = ({
       }
     });
   }, [
-    listData?.SPEAKERS,
+    listData?.EVENT_SPEAKERS,
     form?.chairs,
     form?.co_chairs,
     form?.moderator,

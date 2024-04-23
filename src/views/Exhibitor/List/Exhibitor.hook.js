@@ -176,18 +176,13 @@ const useExhibitorList = ({}) => {
         type: "select",
         fields: ["ACTIVE", "INACTIVE"],
       },
+   
       {
-        label: "Venue",
-        name: "event_venue",
-        type: "select",
-        fields: ["BHARAT_MANDAPAM", "YASHOBHOOMI"],
-      },
-      {
-        label: "Product Groups",
-        name: "product_groups.name",
+        label: "Product Category",
+        name: "product_category.name",
         type: "selectObject",
         custom: { extract: { id: "name", title: "name" } },
-        fields: listData?.PRODUCT_GROUP,
+        fields: listData?.PRODUCT_CATEGORY,
       },
     ];
   }, [listData]);

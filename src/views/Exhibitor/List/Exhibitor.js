@@ -61,18 +61,17 @@ const ExhibitorList = ({}) => {
         key: "company_name",
         label: "Company Name",
         sortable: true,
-        render: (value, all) => <div>{all?.company_name}</div>,
+        render: (value, all) => <>{capitalizeFirstLetter(all?.company_name)}</>,
       },
       {
-        key: "group_name",
-        label: "Product Group",
+        key: "product_category",
+        label: "Product Category",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all.product_groups?.map((val) => {
-              return <span>{val?.name} ,</span>;
-            })}
-          </div>
+          {all.product_categories?.map((val) => val?.name).join(", ")}
+        </div>
+        
         ),
       },
 
@@ -84,23 +83,23 @@ const ExhibitorList = ({}) => {
           <div>{capitalizeFirstLetter(all?.event_venue)}</div>
         ),
       },
-      {
-        key: "zone",
-        label: "Zone",
-        sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.zone_tag
-              ? all?.zone_tag?.map((zone, index) => (
-                  <React.Fragment key={index}>
-                    {index > 0 && ", "}
-                    {capitalizeFirstLetter(zone)}
-                  </React.Fragment>
-                ))
-              : "--"}
-          </div>
-        ),
-      },
+      // {
+      //   key: "zone",
+      //   label: "Zone",
+      //   sortable: false,
+      //   render: (temp, all) => (
+      //     <div>
+      //       {all?.zone_tag
+      //         ? all?.zone_tag?.map((zone, index) => (
+      //             <React.Fragment key={index}>
+      //               {index > 0 && ", "}
+      //               {capitalizeFirstLetter(zone)}
+      //             </React.Fragment>
+      //           ))
+      //         : "--"}
+      //     </div>
+      //   ),
+      // },
       {
         key: "partner_type",
         label: "Partner Type",

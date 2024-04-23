@@ -44,6 +44,12 @@
   height: 30px;
   white-space: nowrap;
 }
+.actionButton{
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+ 
+}
 .firstCellFlex .driverImgCont {
   width: 40px;
   height: 40px;

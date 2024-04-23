@@ -34,7 +34,7 @@ function useMenuGraphicCreateHook() {
   const selectedEventId = useMemo(() => {
     return location?.state?.event_id;
   }, [location]);
-  console.log(selectedEventId, "Event ID");
+
 
   const { id } = useParams();
   const [form, setForm] = useState({ ...initialForm });

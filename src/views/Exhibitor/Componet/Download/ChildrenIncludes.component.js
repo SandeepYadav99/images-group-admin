@@ -20,6 +20,7 @@ import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 const TEMP_OBJ = {
   file_name: '',
   documentUpload: null,
+ 
 };
 
 const ChildrenIncludeForm = (
@@ -32,6 +33,7 @@ const ChildrenIncludeForm = (
     changeTextData,
     updateInventory,
     vendorId,
+    exhibitorId
   },
   ref
 ) => {
@@ -57,7 +59,7 @@ const ChildrenIncludeForm = (
       
       const updatedFields = downloads.map((download) => ({
         file_name: download.file_name || '', 
-        // documentUpload: download.documentUpload || null, 
+        // preview: download.documentUpload || null, 
       }));
       setFields(updatedFields);
     } else {
@@ -109,9 +111,9 @@ const ChildrenIncludeForm = (
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
       const required = ["file_name"];
-      // if(!downloads){
-      //   required.push("documentUpload")
-      // }
+      if(!exhibitorId){
+        required.push("documentUpload")
+      }
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -233,6 +235,7 @@ const ChildrenIncludeForm = (
             data={val}
             index={index}
             onBlur={onBlur}
+            exhibitorId={exhibitorId}
           />
         </div>
       );
