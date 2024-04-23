@@ -20,6 +20,7 @@ import {
 
 const useEventScheduleList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
+  const [isScheduleDetail, setScheduleDetail] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRejectPopUp, setIsRejectPopUp] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
@@ -198,6 +199,15 @@ const useEventScheduleList = ({}) => {
     [setSidePanel, setEditData]
   );
 
+  const handleScheduleDetail = useCallback(
+    (data) => {
+      setScheduleDetail((e) => !e);
+      // setEditData(data?.id);
+      
+    },
+    [setScheduleDetail, setEditData]
+  );
+  
   const handleSideToggle = useCallback(
     (data) => {
       historyUtils.push(RouteName.LOCATIONS_UPDATE + data?.id);
@@ -247,6 +257,8 @@ const useEventScheduleList = ({}) => {
     dataValue,
     handleAddCategory,
     handleDeleteData,
+    handleScheduleDetail,
+    isScheduleDetail
   };
 };
 
