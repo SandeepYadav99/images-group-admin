@@ -66,7 +66,7 @@ if(fieldName){
 
 }
   };
-
+  console.log({data})
   return (
     <div>
       <div className={styles.flexContainer}>
@@ -101,11 +101,11 @@ if(fieldName){
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "doc", "docx"]}
                 fullWidth={true}
-                name="documentUpload"
+                name="od1"
                 label="Upload PDF"
                 accept={"application/pdf,application/msword"}
                 error={errors?.documentUpload}
-                value={data?.documentUpload}
+                value={data?.documentUpload || ""}
                 placeholder={"Upload PDF"}
                 onChange={(file) => {
                   if (file) {
@@ -113,7 +113,9 @@ if(fieldName){
                   }
                 }}
               />
-                {exhibitorId && <a className={styles.inst} href={document ?? " "} target="_blank" rel="noreferrer" >View File</a>}
+               <div className={styles.inst} >
+                  {exhibitorId && <a href={data?.document ?? " "} target="_blank" rel="noreferrer" >View File</a>}
+               </div>
               </div>
           </div>
           <div className={"textCenter"}>

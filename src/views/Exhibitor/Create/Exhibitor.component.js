@@ -39,25 +39,16 @@ const ExhibitorCreate = () => {
     form,
     changeTextData,
     onBlurHandler,
-    selectImages,
-    setSelectImages,
-    renderImages,
-    handleCheckedData,
-    checked,
-    handleSubmit,
+     handleSubmit,
     listData,
-    productListData,
-    EventListManager,
-    image,
+     image,
     empId,
     downloads,
-    feature,
-    changeFeatureData,
-    deatilsValue,
     partnerList,
     ChildenRef,
     ChildenRef1,
     downloadsDigitalBag,
+    isSubmitting
   } = useExhibitorCreate({});
 
   const { user } = useSelector((state) => state?.auth);
@@ -223,7 +214,7 @@ const ExhibitorCreate = () => {
                 <MenuItem value="false">No</MenuItem>
               </CustomSelectField>
             </div>
-            {form?.is_participant === "true" && (
+            {String(form?.is_participant) === "true"  && (
               <div className={"formFlex"}>
                 <div className={"formGroup"}>
                   <CustomCheckbox
@@ -416,7 +407,7 @@ const ExhibitorCreate = () => {
                 isError={errorData?.country}
                 errorText={errorData?.country}
                 label={"Country"}
-                value={form?.country1}
+                value={form?.country}
                 onTextChange={(text) => {
                   changeTextData(text, "country");
                 }}
@@ -1022,7 +1013,7 @@ const ExhibitorCreate = () => {
               isError={errorData?.youtube_link}
               errorText={errorData?.youtube_link}
               label={"Social Media youtube"}
-              value={form?.youtube_link_link}
+              value={form?.youtube_link}
               onTextChange={(text) => {
                 changeTextData(text, "youtube_link");
               }}
@@ -1241,11 +1232,13 @@ const ExhibitorCreate = () => {
             className={styles.createBtn}
             onClick={handleSubmit}
           >
-            {/* {isSubmitting ? (
-              <CircularProgress color="success" size="20px" />
-            ) : ( */}
-            Add
-            {/* )} */}
+             {isSubmitting ? (
+            <CircularProgress color="success" size="20px" />
+          ) : empId ? (
+            "Update"
+          ) : (
+            "Add"
+          )}
           </ButtonBase>
         </div>
       </div>

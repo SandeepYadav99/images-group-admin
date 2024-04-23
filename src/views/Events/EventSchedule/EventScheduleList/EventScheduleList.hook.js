@@ -16,6 +16,7 @@ import {
   serviceDeleteEventSchedule,
   serviceEventScheduleHideLive,
   serviceEventScheduleLive,
+  serviceEventScheduleScheduleStatus,
 } from "../../../../services/EventSchedule.service";
 
 const useEventScheduleList = ({}) => {
@@ -223,6 +224,33 @@ const useEventScheduleList = ({}) => {
     historyUtils.push(RouteName.LOCATIONS_CREATE);
   }, []);
 
+  const toggleRecommended = useCallback(
+    (data) => {
+      const isCurrentlyFeatured = data?.is_completed;
+      const newFeaturedStatus = !isCurrentlyFeatured;
+
+      const updatedData = {
+        id: data?.id ,
+        event_id: id,
+        is_completed: newFeaturedStatus,
+      };
+
+      serviceEventScheduleScheduleStatus(updatedData).then((res) => {
+        if (!res.error) {
+          dispatch(
+            actionFetchEventSchedule(1, {},{
+              event_id: id,
+            })
+          );
+          // window.location.reload()
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      });
+    },
+    [dispatch, id, query, queryData]
+  );
+
   const configFilter = useMemo(() => {
     return [
       {
@@ -258,7 +286,8 @@ const useEventScheduleList = ({}) => {
     handleAddCategory,
     handleDeleteData,
     handleScheduleDetail,
-    isScheduleDetail
+    isScheduleDetail,
+    toggleRecommended
   };
 };
 
