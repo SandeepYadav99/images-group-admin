@@ -264,6 +264,14 @@ export const removeUnderScore = (value) => {
   return value ? value.replace(/_/g, " ") : "";
 };
 
+export const cleanContactNumber = (value) => {
+  const contactStr = value.replace(/[()+-]/g, '');
+  const arr = contactStr.split(" ");
+  if (arr.length > 1) {
+    return `${arr[0]} ${arr.slice(1, arr.length).join('')}`
+  } return arr[0];
+}
+
 export const EventData = [
   {
     key: "event_participants",

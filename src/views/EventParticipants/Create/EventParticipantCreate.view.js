@@ -11,6 +11,7 @@ import CountryInputField from "../../../components/CountryInputField/CountryInpu
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import { MenuItem } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
+import CustomCountryFC from "../../../components/CountryFC/CustomCountryFC";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -51,7 +52,17 @@ const EventParticipantCreateView = ({
     <div className={styles.departmentWrap}>
       <div className="formFlex">
         <div className={"formGroup"}>
-          <div style={{ display: "flex", gap: "10px" }}>
+        <CustomCountryFC
+          type="tel"
+          isError={errorData?.contact}
+          errorText={errorData?.contact}
+          label={"Contact"}
+          value={form?.contact}
+          onTextChange={(text) => {
+              changeTextData(text, "contact");
+          }}   
+          />
+          {/* <div style={{ display: "flex", gap: "10px" }}>
             <CountryInputField
               countryCode={countryCode}
               handleCountryCodeChange={handleCountryCode}
@@ -68,7 +79,7 @@ const EventParticipantCreateView = ({
                 onBlurHandler("contact");
               }}
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={"formFlex"}>

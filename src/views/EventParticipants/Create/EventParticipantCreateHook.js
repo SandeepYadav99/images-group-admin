@@ -22,6 +22,7 @@ import { serviceUpdateAdminUserSearch } from "../../../services/AdminUser.servic
 import LogUtils from "../../../libs/LogUtils";
 import { serviceGetList } from "../../../services/Common.service";
 import { useParams } from "react-router";
+import { cleanContactNumber } from "../../../helper/helper";
 
 const initialForm = {
   name: "",
@@ -105,7 +106,8 @@ const useEventParticipantCreate = ({
 
   const checkCodeValidation = useCallback(() => {
     serviceUpdateAdminUserSearch({
-      contact: `91 ${form?.contact}`,
+      contact: cleanContactNumber(form?.contact),
+      // contact: `91 ${form?.contact}`,
       id: empId ? empId : "",
     }).then((res) => {
       if (!res.error) {
@@ -198,7 +200,8 @@ const useEventParticipantCreate = ({
       } else {
         req = serviceCreateEventParticipant({
           ...form,
-          contact: `${countryCode} ${form?.contact}`,
+          contact: `${cleanContactNumber(form?.contact)}`,
+          // contact: `${countryCode} ${form?.contact}`,
           category: form?.category,
           event_id: id,
         });

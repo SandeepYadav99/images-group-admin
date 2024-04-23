@@ -113,10 +113,10 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["title", "url"];
-      if (!downloads) {
-        required.push("images");
-      }
+      const required = [];
+      // if (!downloads) {
+      //   required.push("images");
+      // }
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;

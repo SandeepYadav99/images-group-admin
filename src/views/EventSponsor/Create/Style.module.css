@@ -18,6 +18,16 @@
   margin-left: 20px;
   background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
 }
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  /* gap: 10px; */
+  margin-top: 10px;
+}
+.lowerdec {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
 .adharWrap {
   display: flex;
   flex-direction: column;
