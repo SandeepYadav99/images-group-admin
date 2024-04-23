@@ -5,19 +5,23 @@ import styles from "./Style.module.css";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import { ButtonBase } from "@material-ui/core";
 import Slider from "react-slick";
-const UpdateAbout = ({isSidePanel, handleToggleSidePannel}) => {
-  const { form, changeTextData, errorData, onBlurHandler, handleSubmit } =
-    useUpdateAboutHook({isSidePanel, handleToggleSidePannel});
+const UpdateAbout = ({ isSidePanel, handleToggleSidePannel, aboutData ,handleClose }) => {
+  const {
+    form,
+    changeTextData,
+    errorData,
+    onBlurHandler,
+    handleSubmit,
+    image,
+  } = useUpdateAboutHook({ isSidePanel, handleToggleSidePannel, aboutData ,handleClose });
   return (
     <div className={styles.updatAbout}>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
-          {" "}
-        
           <File
             bannerLabel="Upload Event Logo"
-            // default_image={logo ? logo : ""}
-            bannerLabelTrue='true'
+            default_image={image ? image : ""}
+            bannerLabelTrue="true"
             imageClass={styles.inputFileUploader}
             max_size={5 * 1024 * 1024}
             type={["png", "jpeg", "jpg"]}
@@ -42,15 +46,15 @@ const UpdateAbout = ({isSidePanel, handleToggleSidePannel}) => {
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomTextField
-            isError={errorData?.about}
-            errorText={errorData?.about}
+            isError={errorData?.contant}
+            errorText={errorData?.contant}
             label={"About Content"}
-            value={form?.about}
+            value={form?.contant}
             onTextChange={(text) => {
-              changeTextData(text, "about");
+              changeTextData(text, "contant");
             }}
             onBlur={() => {
-              onBlurHandler("about");
+              onBlurHandler("contant");
             }}
             multiline
             rows={"4"}

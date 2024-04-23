@@ -4,31 +4,21 @@ import styles from "./Style.module.css";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import useAwardListHook from "./AwardListHook";
 import UpdateAbout from "../Create/UpdateAbout";
-
-import { serviceGetAward } from "../../../services/Award.servcice";
-
 import AwardCategoriesList from "./AwardCategoriesList/AwardCategories";
 import PreviousAwardees from "./PreviousAwardees/PreviousAwardees";
 import AwardJuryList from "./AwardJuryList/AwardJuryList";
-import { ArrowBack, ArrowBackIos } from "@material-ui/icons";
+import { ArrowBackIos } from "@material-ui/icons";
 import historyUtils from "../../../libs/history.utils";
 
 const AwardList = () => {
-  const { editData, isSidePanel, toggleAcceptDialog, handleToggleSidePannel } =
-    useAwardListHook({});
-
-  useEffect(() => {
-    serviceGetAward({
-      index: 1,
-      row: null,
-      order: null,
-      query: "",
-      query_data: null,
-    }).then((res) => {
-      console.log(res);
-    });
-  }, []);
-
+  const {
+    editData,
+    isSidePanel,
+    handleToggleSidePannel,
+    data,
+    aboutData,
+    handleClose,
+  } = useAwardListHook({});
   return (
     <div>
       {/* <div className={styles.header_paper1}> */}
@@ -42,7 +32,7 @@ const AwardList = () => {
           <div className={styles.newLine} />
         </div>
       </div>
-     
+
       <Paper
         className={styles.paperContainer}
         style={{ height: "auto", padding: "20px", marginTop: "20px" }}
@@ -61,26 +51,23 @@ const AwardList = () => {
         </div>
         <div className={styles.container}>
           <div className={styles.profileContainer}>
-            Banner <br />
+            <b>Banner</b>
+            <br />
             <div className={styles.profile_image}>
               <img
-                src={require("../../../assets/img/ic_default_post@2x.png")}
+                src={
+                  data?.image
+                    ? data?.image
+                    : require("../../../assets/img/ic_default_post@2x.png")
+                }
                 alt="Profile_Image"
               />
             </div>
           </div>
-
           <div className={styles.QRCode_Container}>
-            <p>Content</p>
+            <b>Content</b>
             <p className={styles.content}>
-              Instituted in 2004, the IMAGES Retail Awards (IRA) recognise and
-              honour outstanding achievements in every major format and category
-              of modern retail in India. They employ a unique, 360-degree
-              evaluation process that covers a host of operational benchmarks
-              along with qualitative factors such as innovation and excellence
-              in customer service, supplier relations, employee management,
-              marketing/consumer promotions, including any other features or
-              achievements, for the duration of the assessment.
+              {data?.contant ? data?.contant : "-"}
             </p>
           </div>
         </div>
@@ -94,13 +81,16 @@ const AwardList = () => {
         <UpdateAbout
           handleToggleSidePannel={handleToggleSidePannel}
           isSidePanel={isSidePanel}
-          empId={editData}
+          aboutData={aboutData}
+          handleClose={handleClose}
         />
       </SidePanelComponent>
       <div>
-        <AwardCategoriesList />
-        <PreviousAwardees />
+        <AwardCategoriesList
+          data={data?.award_categories ? data?.award_categories : []}
+        />
         <AwardJuryList />
+        <PreviousAwardees />
       </div>
     </div>
   );
