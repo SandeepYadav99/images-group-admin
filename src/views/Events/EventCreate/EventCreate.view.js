@@ -385,7 +385,7 @@ function EventCreate() {
               isError={errorData?.youtube_link}
               errorText={errorData?.youtube_link}
               label={"Social Media youtube"}
-              value={form?.youtube_link_link}
+              value={form?.youtube_link}
               onTextChange={(text) => {
                 changeTextData(text, "youtube_link");
               }}
