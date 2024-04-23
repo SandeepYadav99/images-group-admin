@@ -28,3 +28,11 @@ export async function serviceEventScheduleLive(params) {
 export async function serviceEventScheduleHideLive(params) {
   return await postRequest("events/schedule/hide/live", params);
 }
+
+export async function serviceEventScheduleScheduleStatus(params) {
+  return await postRequest("events/schedule/is/complete", params);
+}
+
+export async function serviceEventScheduleRatingCount(params) {
+  return await postRequest("events/schedule/rating/count", params);
+}

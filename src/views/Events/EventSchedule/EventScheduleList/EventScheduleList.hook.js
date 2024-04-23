@@ -16,6 +16,7 @@ import {
   serviceDeleteEventSchedule,
   serviceEventScheduleHideLive,
   serviceEventScheduleLive,
+  serviceEventScheduleScheduleStatus,
 } from "../../../../services/EventSchedule.service";
 
 const useEventScheduleList = ({}) => {
@@ -26,7 +27,7 @@ const useEventScheduleList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [dataValue, setDataValue] = useState("");
-
+const [detailId,setDetailId]=useState("")
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const { id } = useParams();
@@ -203,6 +204,7 @@ const useEventScheduleList = ({}) => {
     (data) => {
       setScheduleDetail((e) => !e);
       // setEditData(data?.id);
+      setDetailId(data?.id)
       
     },
     [setScheduleDetail, setEditData]
@@ -222,6 +224,33 @@ const useEventScheduleList = ({}) => {
   const handleCreate = useCallback(() => {
     historyUtils.push(RouteName.LOCATIONS_CREATE);
   }, []);
+
+  const toggleRecommended = useCallback(
+    (data) => {
+      const isCurrentlyFeatured = data?.is_completed;
+      const newFeaturedStatus = !isCurrentlyFeatured;
+
+      const updatedData = {
+        id: data?.id ,
+        event_id: id,
+        is_completed: newFeaturedStatus,
+      };
+
+      serviceEventScheduleScheduleStatus(updatedData).then((res) => {
+        if (!res.error) {
+          dispatch(
+            actionFetchEventSchedule(1, {},{
+              event_id: id,
+            })
+          );
+          // window.location.reload()
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      });
+    },
+    [dispatch, id, query, queryData]
+  );
 
   const configFilter = useMemo(() => {
     return [
@@ -258,7 +287,9 @@ const useEventScheduleList = ({}) => {
     handleAddCategory,
     handleDeleteData,
     handleScheduleDetail,
-    isScheduleDetail
+    isScheduleDetail,
+    toggleRecommended,
+    detailId
   };
 };
 

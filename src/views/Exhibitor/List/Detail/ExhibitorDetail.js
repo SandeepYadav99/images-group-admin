@@ -5,6 +5,7 @@ import { ArrowBackIos } from "@material-ui/icons";
 import historyUtils from "../../../../libs/history.utils";
 import defaultCompany from "../../../../assets/img/defaultCompany.jpg";
 import { removeUnderScore } from "../../../../helper/helper";
+import { capitalizeFirstLetter } from "../../../../hooks/CapsLetter";
 
 const ExhibitorDetail = () => {
   const { detail } = useExhibitorDetail({});
@@ -57,19 +58,19 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Company Name:</p>
                   {detail?.details?.company_name
-                    ? removeUnderScore(detail?.details?.company_name)
+                    ? capitalizeFirstLetter(removeUnderScore(detail?.details?.company_name))
                     : "--"}
                 </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Brand Name:</p>
                   {detail?.details?.brand_name
-                    ? detail?.details?.brand_name
+                    ? capitalizeFirstLetter(detail?.details?.brand_name)
                     : "--"}
                 </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Venue:</p>
                   {detail?.details?.event_venue
-                    ? removeUnderScore(detail?.details?.event_venue)
+                    ? capitalizeFirstLetter(removeUnderScore(detail?.details?.event_venue))
                     : "--"}
                     {""}
                 </div>
@@ -99,6 +100,11 @@ const ExhibitorDetail = () => {
                   {""}
                   {detail?.details?.zip_code ? detail?.details?.zip_code : "--"}
                 </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Product offered:</p>
+                  {""}
+                  {detail?.details?.product_offer ? detail?.details?.product_offer : "--"}
+                </div>
                 {/* <div className={styles.headingDataType}>
                   <p className={styles.text}>Pavallian:</p>
                   {""}
@@ -111,14 +117,14 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Partner Type:</p>
                   {detail?.details?.partner_tag
-                    ? removeUnderScore(detail?.details?.partner_tag)
+                    ? capitalizeFirstLetter(removeUnderScore(detail?.details?.partner_tag))
                     : "--"}
                 </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Booth:</p>
                   {""}
                   {detail?.details?.event_stall
-                    ? removeUnderScore(detail?.details?.event_stall)
+                    ? capitalizeFirstLetter(removeUnderScore(detail?.details?.event_stall))
                     : "--"}
                 </div>
                 <div className={styles.headingDataType}>
@@ -140,12 +146,12 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>State:</p>
                   {""}
-                  {detail?.details?.state ? removeUnderScore(detail?.details?.state) : "--"}
+                  {detail?.details?.state ? capitalizeFirstLetter(removeUnderScore(detail?.details?.state)) : "--"}
                 </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Country:</p>
                   {""}
-                  {detail?.details?.country ? removeUnderScore(detail?.details?.country) : "--"}
+                  {detail?.details?.country ? capitalizeFirstLetter(removeUnderScore(detail?.details?.country)) : "--"}
                 </div>
               </div>
             </div>
@@ -192,7 +198,7 @@ const ExhibitorDetail = () => {
               <div className={styles.headingDataType}>
                 <p className={styles.text}>Person Name:</p>
                 {detail?.details?.company_perosn_name
-                  ? detail?.details?.company_perosn_name
+                  ? capitalizeFirstLetter(detail?.details?.company_perosn_name)
                   : "--"}
               </div>
               <div className={styles.headingDataType}>
@@ -230,7 +236,7 @@ const ExhibitorDetail = () => {
               <div className={styles.headingDataType}>
                 <p className={styles.text}>Designation:</p>
                 {detail?.details?.conatct_person_designation
-                  ? detail?.details?.conatct_person_designation
+                  ? capitalizeFirstLetter(detail?.details?.conatct_person_designation)
                   : "--"}
               </div>
               <div className={styles.headingDataType}>

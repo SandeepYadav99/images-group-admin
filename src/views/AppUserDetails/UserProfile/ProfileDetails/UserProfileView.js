@@ -61,13 +61,14 @@ const handleRouteMember =()=>{
 
               <span
                 style={{
-                  textDecoration: "underline",
-                  color: "#AB183D",
+                  // textDecoration: "underline",
+                  // color: "#AB183D",
+                  
                   marginLeft: "2rem ",
                 }}
                 onClick={handleRouteMember}
               >
-                {value?.company_name}
+                {value?.company_name || "N/A"}
               </span>
             </div>
             <div>

@@ -39,25 +39,16 @@ const ExhibitorCreate = () => {
     form,
     changeTextData,
     onBlurHandler,
-    selectImages,
-    setSelectImages,
-    renderImages,
-    handleCheckedData,
-    checked,
-    handleSubmit,
+     handleSubmit,
     listData,
-    productListData,
-    EventListManager,
-    image,
+     image,
     empId,
     downloads,
-    feature,
-    changeFeatureData,
-    deatilsValue,
     partnerList,
     ChildenRef,
     ChildenRef1,
     downloadsDigitalBag,
+    isSubmitting
   } = useExhibitorCreate({});
 
   const { user } = useSelector((state) => state?.auth);
@@ -219,11 +210,11 @@ const ExhibitorCreate = () => {
                   changeTextData(value, "is_participant");
                 }}
               >
-                <MenuItem value="true">True</MenuItem>
-                <MenuItem value="false">False</MenuItem>
+                <MenuItem value="true">Yes</MenuItem>
+                <MenuItem value="false">No</MenuItem>
               </CustomSelectField>
             </div>
-            {form?.is_participant === "true" && (
+            {String(form?.is_participant) === "true"  && (
               <div className={"formFlex"}>
                 <div className={"formGroup"}>
                   <CustomCheckbox
@@ -300,24 +291,25 @@ const ExhibitorCreate = () => {
         {user?.role === "ADMIN" && (
           <div className={"formFlex"}>
             <div className={"formGroup"}>
-              <CustomSelectField
-                isError={errorData?.event_venue}
-                errorText={errorData?.event_venue}
-                label={"Event Venue"}
-                value={form?.event_venue}
-                handleChange={(value) => {
-                  changeTextData(value, "event_venue");
-                }}
-              >
-                <MenuItem value="BHARAT_MANDAPAM">BHARAT MANDAPAM</MenuItem>
-                <MenuItem value="YASHOBHOOMI">YASHOBHOOMI</MenuItem>
-              </CustomSelectField>
+            <CustomTextField
+                  isError={errorData?.event_venue}
+                  errorText={errorData?.event_venue}
+                  label={"Event Venue"}
+                  value={form?.event_venue}
+                  onTextChange={(text) => {
+                    changeTextData(text, "event_venue");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("event_venue");
+                  }}
+                />
+            
             </div>
             <div className={"formGroup"} id={styles.oneLineView}>
               <div id={styles.countryCode}>
                 <CustomSelectField
-                  isError={errorData?.country_code}
-                  errorText={errorData?.country_code}
+                  isError={errorData?.country_code1}
+                  errorText={errorData?.country_code1}
                   label={"Country Code"}
                   value={form?.country_code1}
                   handleChange={(value) => {
@@ -336,7 +328,7 @@ const ExhibitorCreate = () => {
               <CustomTextField
                 isError={errorData?.conatct}
                 errorText={errorData?.conatct}
-                label={"Phone"}
+                label={"Contact"}
                 value={form?.conatct}
                 onTextChange={(text) => {
                   changeTextData(text, "conatct");
@@ -415,7 +407,7 @@ const ExhibitorCreate = () => {
                 isError={errorData?.country}
                 errorText={errorData?.country}
                 label={"Country"}
-                value={form?.country1}
+                value={form?.country}
                 onTextChange={(text) => {
                   changeTextData(text, "country");
                 }}
@@ -427,6 +419,8 @@ const ExhibitorCreate = () => {
           </div>
         )}
         {user.role === "ADMIN" && (
+          <div>
+
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomTextField
@@ -460,6 +454,24 @@ const ExhibitorCreate = () => {
               />
             </div>
           </div>
+          <div className="flexGroup">
+            <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.product_offered}
+              errorText={errorData?.product_offered}
+              label={"Product offered"}
+              value={form?.product_offered}
+              onTextChange={(text) => {
+                changeTextData(text, "product_offered");
+              }}
+              onBlur={() => {
+                onBlurHandler("product_offered");
+              }}
+            />
+          </div>
+        </div>
+          </div>
+      
         )}
       
         {/* {user?.role === "ADMIN" && (
@@ -1001,7 +1013,7 @@ const ExhibitorCreate = () => {
               isError={errorData?.youtube_link}
               errorText={errorData?.youtube_link}
               label={"Social Media youtube"}
-              value={form?.youtube_link_link}
+              value={form?.youtube_link}
               onTextChange={(text) => {
                 changeTextData(text, "youtube_link");
               }}
@@ -1105,7 +1117,7 @@ const ExhibitorCreate = () => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} />
+            <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} exhibitorId={empId}/>
           </div>
         </div>
       </div>
@@ -1172,6 +1184,7 @@ const ExhibitorCreate = () => {
             <ChildrenIncludeForm1
               ref={ChildenRef1}
               downloads={downloadsDigitalBag}
+              exhibitorId={empId}
             />
           </div>
         </div>
@@ -1219,11 +1232,13 @@ const ExhibitorCreate = () => {
             className={styles.createBtn}
             onClick={handleSubmit}
           >
-            {/* {isSubmitting ? (
-              <CircularProgress color="success" size="20px" />
-            ) : ( */}
-            Add
-            {/* )} */}
+             {isSubmitting ? (
+            <CircularProgress color="success" size="20px" />
+          ) : empId ? (
+            "Update"
+          ) : (
+            "Add"
+          )}
           </ButtonBase>
         </div>
       </div>

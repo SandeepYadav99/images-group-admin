@@ -22,7 +22,6 @@ import {
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import File from "../../../../components/FileComponent/FileComponent.component";
 
-
 const useStyles = {
   toggleDiv: {
     maxWidth: 300,
@@ -52,90 +51,85 @@ const ChildrenIncludeFields = ({
   onBlur,
   currency,
   listWarehouse,
-  empId
+  empId,
+  exhibitorId,
 }) => {
   const handleChange = (e, fieldName) => {
     // const name = e?.target?.name;
     // const value = e?.target?.value;
-if(fieldName){
-  if (fieldName === "title") {
-    changeData(index, { [fieldName]: e.target.value });
-  }else if(fieldName === "url"){
-    changeData(index, { [fieldName]: e.target.value });
-  } else {
-    changeData(index, { [fieldName]: e });
-  }
-
-}
+    if (fieldName) {
+      if (fieldName === "title") {
+        changeData(index, { [fieldName]: e.target.value });
+      } else if (fieldName === "url") {
+        changeData(index, { [fieldName]: e.target.value });
+      } else {
+        changeData(index, { [fieldName]: e });
+      }
+    }
   };
-
+  console.log({ data });
   return (
     <div>
       <div className={styles.flexContainer}>
         <div className={styles.firstRow}>
-        <div className={styles.cont}>
+          <div className={styles.cont}>
             <div className={"formFlex"}>
-          <div className={"formGroup"}>
-           
-               <File
-              // imageClass={styles.inputFileUploader}
-              max_size={5 * 1024 * 1024}
-              type={["png", "jpeg", "jpg"]}
-              fullWidth={true}
-              name="images"
-              accept={"image/*"}
-              // default_image={image ? image : null}
-              label="Upload  Image"
-              show_image={true}
-              error={errors?.images}
-              value={data?.images}
-              onChange={(file) => {
-                if (file) {
-                  handleChange(file, "images");
-                }
-              }}
-              // onChange={(file) => {
-              //   handleChange({ target: { name: 'documentUpload', value: file }});
-              // }}
-            />
+              <div className={"formGroup"}>
+                <File
+                  // imageClass={styles.inputFileUploader}
+                  max_size={5 * 1024 * 1024}
+                  type={["png", "jpeg", "jpg"]}
+                  fullWidth={true}
+                  name="images"
+                  accept={"image/*"}
+                  // default_image={data?.thumbnail ? data?.thumbnail : null}
+                  label="Upload  Image"
+                  show_image={true}
+                  error={errors?.images || ""}
+                  value={data?.images}
+                  onChange={(file) => {
+                    if (file) {
+                      handleChange(file, "images");
+                    }
+                  }}
+                  // onChange={(file) => {
+                  //   handleChange({ target: { name: 'documentUpload', value: file }});
+                  // }}
+                />
+              </div>
+            </div>
+            <div className={styles.lowerWrap}>
+              <div className={"formFlex"}>
+                <div className={"formGroup"}>
+                  <TextField
+                    error={errors?.title}
+                    onChange={(e) => handleChange(e, "title")}
+                    value={data?.title}
+                    fullWidth={true}
+                    name="title"
+                    margin={"dense"}
+                    variant={"outlined"}
+                    label={"Title"}
+                  />
+                </div>
+              </div>
+              <div className={"formFlex"}>
+                <div className={"formGroup"}>
+                  <TextField
+                    error={errors?.url}
+                    onChange={(e) => handleChange(e, "url")}
+                    value={data?.url}
+                    fullWidth={true}
+                    name="url"
+                    margin={"dense"}
+                    variant={"outlined"}
+                    label={"URL"}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className={styles.lowerWrap}>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-          <TextField
-              error={errors?.title}
-              onChange={(e)=>handleChange(e, "title")}
-              value={data?.title}
-              fullWidth={true}
-              name="title"
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Title"}
-            />
-          
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-          <TextField
-              error={errors?.url}
-              onChange={(e)=>handleChange(e, "url")}
-              value={data?.url}
-              fullWidth={true}
-              name="url"
-              margin={"dense"}
-              variant={"outlined"}
-              label={"URL"}
-            />
-          
-          </div>
-        </div>
-        </div>
-        </div>
-         
-       
-      
+
           <div className={"textCenter"}>
             <ButtonBase
               className={styles.removeBtn}

@@ -10,6 +10,9 @@ export async function serviceCreateEventGallery(params) {
 export async function serviceUpdateEventGallery(params) {
   return await postRequest("events/speakers/update", params);
 }
+export async function serviceUpdateEventGalleryAlbum(params) {
+  return await postRequest("events/albums/update", params);
+}
 export async function serviceDeleteEventGallery(params) {
   return await postRequest("events/albums/delete", params);
 }

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { IconButton, ButtonBase } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { Add, InfoOutlined, Link } from "@material-ui/icons";
+import { Add, Clear, DoneAll, InfoOutlined, Link } from "@material-ui/icons";
 import PageBox from "../../../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
@@ -40,6 +40,8 @@ const EventScheduleContainer = ({}) => {
     handleDeleteData,
     handleScheduleDetail,
     isScheduleDetail,
+    toggleRecommended,
+    detailId
   } = useEventScheduleList({});
   // console.log(editData, "Edit Data")
   const {
@@ -163,13 +165,12 @@ const EventScheduleContainer = ({}) => {
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  toggleRejectDialog("hide", all?.id);
+                  toggleRecommended(all);
                 }}
               >
-                <WifiTetheringIcon
-                  style={{ color: "#E92828" }}
-                  fontSize={"small"}
-                />
+                <div style={{ color: "#E92828" }}>
+                  <Clear fontSize={"small"} />
+                </div>
                 <span className={styles.make}>UNCOMPLETED</span>
               </IconButton>
             ) : (
@@ -178,13 +179,12 @@ const EventScheduleContainer = ({}) => {
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  toggleRejectDialog("live", all?.id);
+                  toggleRecommended(all);
                 }}
               >
-                <WifiTetheringIcon
-                  style={{ color: "#0BCF66" }}
-                  fontSize={"small"}
-                />
+                <div style={{ color: "#0BCF66" }}>
+                  <DoneAll fontSize={"small"} />
+                </div>
                 <span className={styles.hide}>COMPLETED</span>
               </IconButton>
             )}
@@ -212,6 +212,7 @@ const EventScheduleContainer = ({}) => {
                 height={"20px"}
                 width={"20px"}
                 style={{ border: "none !important" }}
+                alt=""
               />
             </IconButton>
             <IconButton
@@ -325,7 +326,7 @@ const EventScheduleContainer = ({}) => {
           <ScheduleDetail
             handleScheduleDetail={handleScheduleDetail}
             isScheduleDetail={isScheduleDetail}
-            empId={editData}
+            empId={detailId}
           />
         </SidePanelComponent>
       </PageBox>

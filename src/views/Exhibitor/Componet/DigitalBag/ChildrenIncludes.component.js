@@ -16,11 +16,13 @@ import LogUtils from "../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
+import { validateUrl } from "../../../../libs/RegexUtils";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
 const TEMP_OBJ = {
-  title:"",
-  url:"",
-  images:null
+  title: "",
+  url: "",
+  images: null,
 };
 
 const ChildrenIncludeForm = (
@@ -34,7 +36,8 @@ const ChildrenIncludeForm = (
     updateInventory,
     vendorId,
     empId,
-    downloads
+    downloads,
+    exhibitorId,
   },
   ref
 ) => {
@@ -58,15 +61,13 @@ const ChildrenIncludeForm = (
 
   useEffect(() => {
     if (downloads && downloads.length > 0) {
-     
       const updatedFields = downloads?.map((download) => ({
-        title: download.title || '', 
-        url: download.url || '',
-        thumbnail: download?.thumbnail || null, 
+        title: download.title,
+        url: download.url,
+        thumbnail: download?.thumbnail || null,
       }));
       setFields(updatedFields);
     } else {
-      
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     }
   }, [downloads]);
@@ -89,7 +90,7 @@ const ChildrenIncludeForm = (
     //       delete obj._id;
     //     }
     //   });
-      // return JSON.parse(JSON.stringify(fields));
+    // return JSON.parse(JSON.stringify(fields));
     // },
     getData() {
       return fields;
@@ -118,6 +119,10 @@ const ChildrenIncludeForm = (
           err[key] = true;
         }
       });
+      if (val.url && !validateUrl(val.url)) {
+        err.url = true;
+        SnackbarUtils.error("Please Enter the Valid Url");
+      }
       if (Object.keys(err).length > 0) {
         errors[index] = err;
       }
@@ -182,7 +187,6 @@ const ChildrenIncludeForm = (
     });
     removeErrors(index, errArr);
   };
-  
 
   const onBlur = useCallback(
     (index, key, value) => {
@@ -217,7 +221,7 @@ const ChildrenIncludeForm = (
         return index < 0;
       });
       return (
-        <div >
+        <div>
           <ChildrenIncludeFields
             variants={tempFilters}
             listWarehouse={listWarehouse}
@@ -229,6 +233,8 @@ const ChildrenIncludeForm = (
             data={val}
             index={index}
             onBlur={onBlur}
+
+            // exhibitorId={exhibitorId}
           />
         </div>
       );
@@ -245,7 +251,6 @@ const ChildrenIncludeForm = (
     fields,
   ]);
 
- 
   return (
     <>
       {renderFields}
@@ -257,7 +262,6 @@ const ChildrenIncludeForm = (
           onClick={() => {
             handlePress("ADDITION", 0);
           }}
-        
         >
           <Add fontSize={"small"} /> <span>Add More</span>
         </ButtonBase>
