@@ -168,10 +168,10 @@ const useEventParticipantList = ({}) => {
   const configFilter = useMemo(() => {
     return [
       {
-        label: "Status",
-        name: "status",
+        label: "Participant list",
+        name: "participant_type",
         type: "select",
-        fields: ["ACTIVE", "INACTIVE"],
+        fields: ["EXHIBITOR", "SPEAKER", "AWARD PRESENTATION", "INNOVATORS", "JURY"],
       },
     ];
   }, []);

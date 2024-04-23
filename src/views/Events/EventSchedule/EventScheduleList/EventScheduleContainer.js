@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { IconButton, ButtonBase } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { Add, Link } from "@material-ui/icons";
+import { Add, InfoOutlined, Link } from "@material-ui/icons";
 import PageBox from "../../../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
@@ -17,7 +17,7 @@ import WifiTetheringIcon from "@material-ui/icons/WifiTethering";
 import historyUtils from "../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import DeleteIcon from "../../../../assets/img/ic_delete.png";
-
+import ScheduleDetail from "../ScheduleDetail/ScheduleDetail";
 const EventScheduleContainer = ({}) => {
   const {
     handleSortOrderChange,
@@ -38,6 +38,8 @@ const EventScheduleContainer = ({}) => {
     handleAddCategory,
     dataValue,
     handleDeleteData,
+    handleScheduleDetail,
+    isScheduleDetail,
   } = useEventScheduleList({});
   // console.log(editData, "Edit Data")
   const {
@@ -64,18 +66,28 @@ const EventScheduleContainer = ({}) => {
     [editData]
   );
 
+  const ScheduleDetailUperView = useCallback(
+    (obj) => {
+      if (obj) {
+        return (
+          <div className={styles.InfoWrap}>
+            <div>Schedule Detail</div>
+            <div className={styles.newLine}></div>
+          </div>
+        );
+      }
+      return null;
+    },
+    [editData]
+  );
+
   const tableStructure = useMemo(() => {
     return [
       {
         key: "name",
         label: "NAME",
         sortable: true,
-        render: (temp, all) => (
-          <div>
-            {console.log(all)}
-            {all?.eve_name}
-          </div>
-        ),
+        render: (temp, all) => <>{all?.eve_name}</>,
       },
       {
         key: "description",
@@ -113,7 +125,7 @@ const EventScheduleContainer = ({}) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div style={{display:"flex",gap:"5px",flexWrap:"wrap"}}>
+          <div className={styles.actionButton}>
             {all?.is_live ? (
               <IconButton
                 className={"tableActionBtn"}
@@ -145,6 +157,37 @@ const EventScheduleContainer = ({}) => {
                 <span className={styles.hide}>Make Live</span>
               </IconButton>
             )}
+            {all?.is_completed ? (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  toggleRejectDialog("hide", all?.id);
+                }}
+              >
+                <WifiTetheringIcon
+                  style={{ color: "#E92828" }}
+                  fontSize={"small"}
+                />
+                <span className={styles.make}>UNCOMPLETED</span>
+              </IconButton>
+            ) : (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  toggleRejectDialog("live", all?.id);
+                }}
+              >
+                <WifiTetheringIcon
+                  style={{ color: "#0BCF66" }}
+                  fontSize={"small"}
+                />
+                <span className={styles.hide}>COMPLETED</span>
+              </IconButton>
+            )}
 
             <IconButton
               className={"tableActionBtn"}
@@ -161,16 +204,31 @@ const EventScheduleContainer = ({}) => {
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                handleDeleteData(all)
+                handleDeleteData(all);
               }}
             >
-              <img src={DeleteIcon} height={"20px"} width={"20px"} style={{border:"none !important"}}/>
+              <img
+                src={DeleteIcon}
+                height={"20px"}
+                width={"20px"}
+                style={{ border: "none !important" }}
+              />
+            </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleScheduleDetail(all);
+              }}
+            >
+              <InfoOutlined fontSize="small" />
             </IconButton>
           </div>
         ),
       },
     ];
-  }, [handleViewDetails, handleEdit, isCalling]);
+  }, [handleViewDetails, handleEdit, isCalling, handleScheduleDetail]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -211,10 +269,7 @@ const EventScheduleContainer = ({}) => {
           </ButtonBase>
           <div></div>
           <div className={styles.btnContainer}>
-          <ButtonBase
-              onClick={handleAddCategory}
-              className={styles.download}
-            >
+            <ButtonBase onClick={handleAddCategory} className={styles.download}>
               Add Category
             </ButtonBase>
             <ButtonBase
@@ -258,6 +313,18 @@ const EventScheduleContainer = ({}) => {
           <EventScheduleView
             handleToggleSidePannel={handleToggleSidePannel}
             isSidePanel={isSidePanel}
+            empId={editData}
+          />
+        </SidePanelComponent>
+        <SidePanelComponent
+          handleToggle={handleScheduleDetail}
+          title={<ScheduleDetailUperView />}
+          open={isScheduleDetail}
+          side={"right"}
+        >
+          <ScheduleDetail
+            handleScheduleDetail={handleScheduleDetail}
+            isScheduleDetail={isScheduleDetail}
             empId={editData}
           />
         </SidePanelComponent>
