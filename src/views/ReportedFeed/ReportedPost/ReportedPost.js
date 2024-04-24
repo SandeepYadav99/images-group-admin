@@ -23,13 +23,14 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Dialog from "@material-ui/core/Dialog";
 import { useDispatch } from "react-redux";
 import { serviceDeleteReportedFeedPostValue } from "../../../services/ReportedPost.service";
-import { actionReportedByPostData } from "../../../actions/ReportedPost.action";
+import {
+  actionFetchReportedPost,
+  actionReportedByPostData,
+} from "../../../actions/ReportedPost.action";
 import ImageCourselPopUp from "../../../components/ImageCourselPopUp/ImageCourselPopUp";
 import VideoDialog from "../ReportedComment/VideoDialog/VideoDialog";
 
 const PostPopUp = ({ open, title, commentDetail, onClick }) => {
- 
-
   const {
     reportedPostValue,
     data,
@@ -37,10 +38,6 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.Reported_Post);
- 
-
-
-
 
   const {
     handleSortOrderChange,
@@ -53,9 +50,6 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
     handleViewUpdate,
   } = useReportedPost({});
 
-  
-
-
   const renderStatus = useCallback((status) => {
     return (
       <StatusPill
@@ -67,8 +61,7 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
   const handleUserProfile = useCallback((data) => {
     historyUtils.push(RouteName.USER_PROFILE + data?.id);
   }, []);
-  
-  
+
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
@@ -147,7 +140,11 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
           {title}
           <div className={styles.newLine} />{" "}
         </div>
-        <div onClick={onClick} style={{ fontSize: "24px" }} className={styles.crossIconArea}>
+        <div
+          onClick={onClick}
+          style={{ fontSize: "24px" }}
+          className={styles.crossIconArea}
+        >
           x
         </div>
       </div>
@@ -165,7 +162,7 @@ const ReportedPost = ({}) => {
   const dispatch = useDispatch();
   const [contentData, setContentData] = useState([]);
   const [openCoursel, setOpenCoursel] = useState();
- 
+
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -212,19 +209,20 @@ const ReportedPost = ({}) => {
     setOpenCoursel(false);
   };
   const handleOpen = (all) => {
-    let params ={
-      "postId":all?.id
-    }
+    let params = {
+      postId: all?.id,
+    };
     setPopUp(true);
-    dispatch(actionReportedByPostData(params))
+    dispatch(actionReportedByPostData(params));
   };
 
-  const handleDeletePost =(all)=>{
-    let params ={
-      "post_id":all?.id
-    }
-    serviceDeleteReportedFeedPostValue(params)
-  }
+  const handleDeletePost = (all) => {
+    let params = {
+      post_id: all?.id,
+    };
+    serviceDeleteReportedFeedPostValue(params);
+    dispatch(actionFetchReportedPost(1));
+  };
 
   const renderStatus = useCallback((status) => {
     return (
@@ -264,22 +262,27 @@ const ReportedPost = ({}) => {
             {all?.images.length > 0 ? (
               <img
                 src={all?.images[0]}
-                 onClick={() => handleOpenDetailPopUp(all?.images)}
+                onClick={() => handleOpenDetailPopUp(all?.images)}
                 alt="image"
-                style={{ height: "50px", width: "50px", cursor:"pointer" }}
-               
+                style={{ height: "50px", width: "50px", cursor: "pointer" }}
               />
-            ) :   (
-              all?.video ?
+            ) : all?.video ? (
               <img
                 src={all?.user?.image}
-                  onClick={() => {toggleVideoModal(all?.video)}}
+                onClick={() => {
+                  toggleVideoModal(all?.video);
+                }}
                 alt="image"
-                style={{ height: "50px", width: "50px" , cursor:"pointer" }}
-              />:"-No Image-"
+                style={{ height: "50px", width: "50px", cursor: "pointer" }}
+              />
+            ) : (
+              "-No Image-"
             )}
             {/*  */}
-            <p className={styles.alignUnderline} onClick={() => handleOpenDetailPopUp(all?.images)} >
+            <p
+              className={styles.alignUnderline}
+              onClick={() => handleOpenDetailPopUp(all?.images)}
+            >
               {all?.images?.length > 0 ? "+" : ""}
               {all?.images?.length > 0 ? all?.images.length + 1 : ""}
             </p>
@@ -321,7 +324,7 @@ const ReportedPost = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              onClick={()=>handleOpen(all)}
+              onClick={() => handleOpen(all)}
             >
               <RemoveRedEyeOutlinedIcon fontSize={"small"} />
             </IconButton>
@@ -329,7 +332,7 @@ const ReportedPost = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              onClick={()=>handleDeletePost(all)}
+              onClick={() => handleDeletePost(all)}
             >
               <DeleteIcon fontSize={"small"} />
             </IconButton>
@@ -337,7 +340,7 @@ const ReportedPost = ({}) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleEdit, isCalling,handleDeletePost]);
+  }, [renderStatus, renderFirstCell, handleEdit, isCalling, handleDeletePost]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -364,7 +367,7 @@ const ReportedPost = ({}) => {
     handleRowSize,
     data,
     currentPage,
-    handleDeletePost
+    handleDeletePost,
   ]);
 
   return (
@@ -403,7 +406,7 @@ const ReportedPost = ({}) => {
           title={"Reported by User"}
           onClick={handleClosePopUp}
         />
-            <ImageCourselPopUp
+        <ImageCourselPopUp
           content={contentData}
           open={openCoursel}
           handleClose={handleCloseCoursel}
@@ -411,8 +414,10 @@ const ReportedPost = ({}) => {
         <VideoDialog
           isOpen={isVideoModal}
           videoLink={isVideoModal}
-          handleDialog={() => {toggleVideoModal(null)}}
-      />
+          handleDialog={() => {
+            toggleVideoModal(null);
+          }}
+        />
       </PageBox>
     </div>
   );
