@@ -1,39 +1,23 @@
 import { ButtonBase, IconButton, Paper } from "@material-ui/core";
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./Style.module.css";
-
 import SidePanelComponent from "../../../../components/SidePanel/SidePanel.component";
-
 import { Delete, DeleteOutline, Edit } from "@material-ui/icons";
-// import DeleteModal from "./DeleteModal/DeleteModal";
-
 import AwardJuryCreate from "../../Create/AwardJuryCreate/AwardJuryCreate";
 import useAwardJuryListHook from "./AwardJuryListHook";
+import DeleteModal from "../AwardCategoriesList/DeleteModal/DeleteModal";
 
-const AwardJuryList = () => {
-  const { editData, isSidePanel, toggleAcceptDialog, handleToggleSidePannel } =
-  useAwardJuryListHook({});
-  const [isAcceptPopUp, setIsAcceptPopUp] = useState(false);
-
-  const toggleAcceptDelete = useCallback(
-    (obj) => {
-      setIsAcceptPopUp((e) => !e);
-      // setDataValue({ ...obj });
-    },
-    [isAcceptPopUp]
-  );
-
-  useEffect(() => {
-    // serviceGetAward({
-    //     index: 1,
-    //     row: null,
-    //     order: null,
-    //     query: "",
-    //     query_data: null,
-    //   }).then((res)=>{
-    //     console.log(res)
-    //   })
-  }, []);
+const AwardJuryList = ({ data, awardId, callAPi }) => {
+  const {
+    handleToggleSidePannel,
+    isSidePanel,
+    isAcceptPopUp,
+    toggleAcceptDelete,
+    handleDelete,
+    handleDetail,
+    selectedData,
+    handleCallDetail,
+  } = useAwardJuryListHook({ data, awardId, callAPi });
 
   return (
     <div>
@@ -53,15 +37,25 @@ const AwardJuryList = () => {
             ADD JURY MEMBER
           </ButtonBase>
         </div>
-        <div className={styles.container}>
-          <img
-            src={require("../../../../assets/img/video_icon.png")}
-            alt=".."
-          />
-          <div className={styles.delete}>
-            <DeleteOutline fontSize="small" />
-          </div>
-        </div>
+        {data?.length > 0 &&
+          data?.map((item, index) => (
+            <div className={styles.container} key={`jury_${index}`}>
+              <img
+                src={
+                  item?.image
+                    ? item?.image
+                    : require("../../../../assets/img/video_icon.png")
+                }
+                alt=".."
+              />
+              <div className={styles.delete}>
+                <DeleteOutline
+                  fontSize="small"
+                  onClick={() => toggleAcceptDelete(item?.id)}
+                />
+              </div>
+            </div>
+          ))}
       </Paper>
       <SidePanelComponent
         handleToggle={handleToggleSidePannel}
@@ -72,14 +66,16 @@ const AwardJuryList = () => {
         <AwardJuryCreate
           handleToggleSidePannel={handleToggleSidePannel}
           isSidePanel={isSidePanel}
-          empId={editData}
+          selectedData={selectedData}
+          awardId={awardId}
+          handleCallDetail={handleCallDetail}
         />
       </SidePanelComponent>
-      {/* <DeleteModal
+      <DeleteModal
         isOpen={isAcceptPopUp}
         handleToggle={toggleAcceptDelete}
-        // candidateId={params?.id}
-      /> */}
+        handleSubmit={handleDelete}
+      />
     </div>
   );
 };

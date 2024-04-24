@@ -41,3 +41,10 @@ import {
     export async function serviceCreateAwardImage(params) {
       return await formDataRequest("awards/images/create", params);
     }
+    export async function serviceDeleteAwardJury(params) {
+      return await postRequest("awards/jury/delete", params);
+    }
+    export async function serviceCreateAwardJury(params) {
+      return await formDataRequest("awards/jury/create", params);
+    }
+    

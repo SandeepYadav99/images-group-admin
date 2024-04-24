@@ -18,7 +18,8 @@ const useAwardCategoriesCreate = ({ isSidePanel, selectedData, awardId ,handleCa
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [image, setImage] = useState("");
   const [form, setForm] = useState({ ...initialForm });
-  console.log(">>>", { selectedData, awardId,handleCallDetail });
+ 
+  
   useEffect(() => {
     if (selectedData?.id) {
       setForm({
@@ -150,6 +151,7 @@ const useAwardCategoriesCreate = ({ isSidePanel, selectedData, awardId ,handleCa
     changeTextData,
     onBlurHandler,
     image,
+    errorData
   };
 };
 

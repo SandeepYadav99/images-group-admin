@@ -24,7 +24,7 @@ const usePreviousAwardeesCreateHook = ({
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [];
+    let required = ["image"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -130,6 +130,7 @@ const usePreviousAwardeesCreateHook = ({
     onBlurHandler,
     renderImages,
     selectImages,
+    errorData
   };
 };
 
