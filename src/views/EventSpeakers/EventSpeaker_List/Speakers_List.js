@@ -71,7 +71,7 @@ const EventSpeakerList = ({}) => {
               className={styles.driverImgCont}
               crossOrigin="anonymous"
             />
-            {all?.s_name}
+            {all?.s_name || "N/A"}
           </div>
         ),
       },
@@ -80,7 +80,7 @@ const EventSpeakerList = ({}) => {
         label: "DESCRIPTION",
         sortable: false,
         render: (value, all) => (
-          <div className={styles.desData}>{all?.s_description}</div>
+          <div className={styles.desData}>{all?.s_description || "N/A"}</div>
         ),
       },
 
@@ -88,13 +88,13 @@ const EventSpeakerList = ({}) => {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.s_designation}</div>,
+        render: (temp, all) => <div>{all?.s_designation || "N/A"}</div>,
       },
       {
         key: "company",
         label: "COMPANY",
         sortable: false,
-        render: (temp, all) => <div>{all?.s_company}</div>,
+        render: (temp, all) => <div>{all?.s_company || "N/A"}</div>,
       },
       {
         key: "status",
