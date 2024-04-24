@@ -12,6 +12,7 @@ import { Add, Edit, InfoOutlined } from "@material-ui/icons";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { formatUrl } from "../../../hooks/Helper";
 
 const EventBanner = ({}) => {
   const {
@@ -84,9 +85,10 @@ const EventBanner = ({}) => {
         render: (temp, all) => (
           <div>
             <a
-              href={all?.link}
+              href={formatUrl(all?.link)}
               target="_blank"
               className={styles.hyperlinkText}
+               rel="noreferrer"
             >
               {all?.link}
             </a>

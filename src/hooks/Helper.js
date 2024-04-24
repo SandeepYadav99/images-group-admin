@@ -10,3 +10,11 @@ export function dataURLtoFile(dataurl, filename) {
     }
     return new File([u8arr], filename, { type: mime });
   }
+
+
+ export const formatUrl = (url) => {
+    if (url && !url.startsWith("http://") && !url.startsWith("https://")) {
+      return "http://" + url;
+    }
+    return url;
+  };
