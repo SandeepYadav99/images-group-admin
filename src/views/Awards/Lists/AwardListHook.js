@@ -46,6 +46,7 @@ const useAdminUserList = ({}) => {
     data,
     aboutData,
     handleClose,
+    callAPi
   };
 };
 

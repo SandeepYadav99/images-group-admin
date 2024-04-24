@@ -26,3 +26,12 @@ import {
       return await postRequest("awards/detail", params);
     }
   
+    export async function serviceCreateAwardCategory(params) {
+      return await formDataRequest("awards/category/create", params);
+    }
+    export async function serviceUpdateAwardCategory(params) {
+      return await formDataRequest("awards/category/update", params);
+    }
+    export async function serviceDeleteAwardCategory(params) {
+      return await postRequest("awards/category/delete", params);
+    }

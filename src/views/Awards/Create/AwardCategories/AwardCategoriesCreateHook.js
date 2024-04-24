@@ -1,24 +1,34 @@
+import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router";
 
-import  { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router';
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
+import {
+  serviceCreateAwardCategory,
+  serviceUpdateAwardCategory,
+} from "../../../../services/Award.servcice";
 
-
-import historyUtils from '../../../../libs/history.utils';
-import SnackbarUtils from '../../../../libs/SnackbarUtils';
-import { serviceCreateAward, serviceUpdateAward } from '../../../../services/Award.servcice';
-
-const initialForm ={
-  about:"",
-  image:"",
-  title:""
-}
-const useAwardCategoriesCreate = ({isSidePanel}) => {
+const initialForm = {
+  description: "",
+  image: "",
+  title: "",
+};
+const useAwardCategoriesCreate = ({ isSidePanel, selectedData, awardId ,handleCallDetail}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [image, setImage] = useState("");
   const [form, setForm] = useState({ ...initialForm });
- 
+  console.log(">>>", { selectedData, awardId,handleCallDetail });
+  useEffect(() => {
+    if (selectedData?.id) {
+      setForm({
+        ...form,
+        title: selectedData?.title,
+        description: selectedData?.description,
+      });
+      setImage(selectedData?.image);
+    }
+  }, [selectedData]);
 
   const { id } = useParams();
 
@@ -26,7 +36,7 @@ const useAwardCategoriesCreate = ({isSidePanel}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["about"];
+    let required = ["description"];
     // if (!id) {
     //   required.push("thumbnail");
     // }
@@ -37,7 +47,6 @@ const useAwardCategoriesCreate = ({isSidePanel}) => {
       ) {
         errors[val] = true;
       }
-      
     });
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -51,26 +60,31 @@ const useAwardCategoriesCreate = ({isSidePanel}) => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
-      fd.append("content", form?.about)
-      fd.append("image", form?.image)
-     
-  
-      let req = serviceCreateAward;
-      if (id) {
-        req = serviceUpdateAward;
+      fd.append("description", form?.description);
+      fd.append("title", form?.title);
+      if (form?.image) {
+        fd.append("image", form?.image);
       }
-
+      if (awardId) {
+        fd.append("award_id", awardId);
+      }
+      if(selectedData?.id){
+        fd.append("id",selectedData?.id)
+      }
+      let req = serviceCreateAwardCategory;
+      if (selectedData?.id) {
+        req = serviceUpdateAwardCategory;
+      }
       req(fd).then((res) => {
         if (!res.error) {
-          historyUtils.push("/business-list");
+          handleCallDetail()
         } else {
           SnackbarUtils.success(res.message);
         }
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id, selectImages]);
-
+  }, [form, isSubmitting, setIsSubmitting, id, selectedData, awardId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -80,7 +94,7 @@ const useAwardCategoriesCreate = ({isSidePanel}) => {
     }
     setIsSubmitting(true);
     submitToServer();
-  }, [checkFormValidation, setErrorData, form,selectImages]);
+  }, [checkFormValidation, setErrorData, form, selectedData, awardId]);
 
   const removeError = useCallback(
     (title) => {
@@ -98,10 +112,8 @@ const useAwardCategoriesCreate = ({isSidePanel}) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "about") {
-     
-          t[fieldName] = text;
-        
+      if (fieldName === "description") {
+        t[fieldName] = text;
       } else {
         t[fieldName] = text;
       }
@@ -132,12 +144,13 @@ const useAwardCategoriesCreate = ({isSidePanel}) => {
     }
   }, [isSidePanel]);
 
-  return{
+  return {
     form,
     handleSubmit,
     changeTextData,
-    onBlurHandler
-  }
-}
+    onBlurHandler,
+    image,
+  };
+};
 
-export default useAwardCategoriesCreate
+export default useAwardCategoriesCreate;

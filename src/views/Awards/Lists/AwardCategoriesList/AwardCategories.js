@@ -10,31 +10,20 @@ import AwardCategoriesCreate from "../../Create/AwardCategories/AwardCategoriesC
 import { Delete, Edit } from "@material-ui/icons";
 import DeleteModal from "./DeleteModal/DeleteModal";
 
-const AwardCategoriesList = () => {
-  const { editData, isSidePanel, toggleAcceptDialog, handleToggleSidePannel } =
-    useAwardCategoriesHook({});
-    const [isAcceptPopUp, setIsAcceptPopUp] = useState(false);
+const AwardCategoriesList = ({ data, callAPi, awardId }) => {
+  const {
+    isCalling,
+    handleToggleSidePannel,
+    isSidePanel,
+    isAcceptPopUp,
+    toggleAcceptDelete,
+    handleDelete,
+    handleDetail,
+    selectedData,
+    handleCallDetail,
+  } = useAwardCategoriesHook({ data, callAPi });
 
-    const toggleAcceptDelete = useCallback(
-      (obj) => {
-        setIsAcceptPopUp((e) => !e);
-        // setDataValue({ ...obj });
-      },
-      [isAcceptPopUp]
-    );
-   
-  
-  useEffect(() => {
-    // serviceGetAward({
-    //     index: 1,
-    //     row: null,
-    //     order: null,
-    //     query: "",
-    //     query_data: null,
-    //   }).then((res)=>{
-    //     console.log(res)
-    //   })
-  }, []);
+  console.log("data1", data);
 
   return (
     <div>
@@ -54,19 +43,29 @@ const AwardCategoriesList = () => {
             ADD CATEGORY
           </ButtonBase>
         </div>
-        <div className={styles.container}>
-          <div className={styles.profileContainer}>hii</div>
-
-          <div >
-            <IconButton   className={"tableActionBtnAction"}  color="secondary"
-             >
-              <Edit fontSize="small" />
-            </IconButton>
-            <IconButton className={"tableActionBtnError"}
-              color="secondary" onClick={toggleAcceptDelete}>
-              <Delete fontSize="small" />
-            </IconButton>
-          </div>
+        <div className={styles.cateWrap}>
+          {data?.length > 0 &&
+            data?.map((item, index) => (
+              <div className={styles.container} key={`profile_${index}`}>
+                <div className={styles.profileContainer}>{item?.title}</div>
+                <div>
+                  <IconButton
+                    className={"tableActionBtnAction"}
+                    color="secondary"
+                    onClick={() => handleDetail(item)}
+                  >
+                    <Edit fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    className={"tableActionBtnError"}
+                    color="secondary"
+                    onClick={() => toggleAcceptDelete(item?.id)}
+                  >
+                    <Delete fontSize="small" />
+                  </IconButton>
+                </div>
+              </div>
+            ))}
         </div>
       </Paper>
       <SidePanelComponent
@@ -78,13 +77,15 @@ const AwardCategoriesList = () => {
         <AwardCategoriesCreate
           handleToggleSidePannel={handleToggleSidePannel}
           isSidePanel={isSidePanel}
-          empId={editData}
+          selectedData={selectedData}
+          awardId={awardId}
+          handleCallDetail={handleCallDetail}
         />
       </SidePanelComponent>
       <DeleteModal
         isOpen={isAcceptPopUp}
         handleToggle={toggleAcceptDelete}
-        // candidateId={params?.id}
+        handleSubmit={handleDelete}
       />
     </div>
   );

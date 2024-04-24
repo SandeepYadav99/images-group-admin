@@ -54,7 +54,7 @@ const useUpdateAboutHook = ({ isSidePanel, aboutData, handleClose }) => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
-      fd.append("content", form?.contant);
+      fd.append("contant", form?.contant);
       if (form?.image) {
         fd.append("image", form?.image);
       }
