@@ -48,7 +48,7 @@ const EventSpeakerList = ({}) => {
       {
         key: "thumbnail",
         label: "THUMBNAIL",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div className={styles.firstCellFlex}>
             <img src={all?.thumbnail} alt="" className={styles.driverImgCont} />
@@ -72,7 +72,7 @@ const EventSpeakerList = ({}) => {
       {
         key: "status",
         label: "STATUS",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
       },
       {
@@ -129,7 +129,7 @@ const EventSpeakerList = ({}) => {
         <div>
             <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
-            <span className={styles.title}>Hall Layouts</span>
+            <span className={styles.title}>Information Center</span>
             </ButtonBase>
             <div className={styles.newLine} />
           </div>

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { isAlphaNumChars, isEmail } from "../../../../libs/RegexUtils";
+import { isAlphaNumChars, isEmail, isNum } from "../../../../libs/RegexUtils";
 import useDebounce from "../../../../hooks/DebounceHook";
 import {
   serviceEventCategoryCheck,
@@ -17,7 +17,7 @@ const initialForm = {
   name: "",
   contact: "",
   priority: "",
-  email:"",
+  email: "",
   status: true,
 };
 
@@ -26,30 +26,29 @@ const useCategoryCreate = ({ location }) => {
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
-  const [countryCode,setCountryCode] = useState('');
+  const [countryCode, setCountryCode] = useState("");
   const codeDebouncer = useDebounce(form?.name, 500);
   const { id } = useParams();
 
   const eventId = location?.state?.event_id;
   const parentId = location?.state?.parentId;
 
-  const handleCountryCodeChange =(e)=>{
-    setCountryCode(e.target.value)
-  }
-
+  const handleCountryCodeChange = (e) => {
+    setCountryCode(e.target.value);
+  };
 
   useEffect(() => {
     if (id) {
       serviceGetEventCategoryDetails({ id: id }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
-          console.log(data)
+          console.log(data);
           setForm({
             ...form,
             name: data?.name,
             contact: data?.contact,
-            email:data?.email,
-            priority:data?.priority ? data?.priority.toString() : "",
+            email: data?.email,
+            priority: data?.priority ? data?.priority.toString() : "",
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             id: data?.id,
           });
@@ -98,6 +97,12 @@ const useCategoryCreate = ({ location }) => {
         delete errors[val];
       }
     });
+    if (
+      form?.contact &&
+      (!isNum(form?.contact) || form?.contact?.length !== 10)
+    ) {
+      errors["contact"] = true;
+    }
     if (form?.email && !isEmail(form?.email)) {
       errors["email"] = true;
     }
@@ -164,9 +169,13 @@ const useCategoryCreate = ({ location }) => {
         if (!text || isAlphaNumChars(text)) {
           t[fieldName] = text;
         }
-      } else if (fieldName === "contact" || fieldName === "priority") {
-        if (text > 0 && text?.length <= 10 ) {
-          t[fieldName] = text.trim();
+      } else if (fieldName === "priority") {
+        if (text?.length <= 10) {
+          t[fieldName] = text.trimStart();
+        }
+      } else if (fieldName === "contact") {
+        if (isNum(text) && text.toString().length <= 10) {
+          t[fieldName] = text;
         }
       } else {
         t[fieldName] = text;

@@ -20,7 +20,7 @@ const CategoryCreateView = ({ location }) => {
     countryCode,
     handleCountryCodeChange,
   } = useAdminCreate({ location });
-  console.log(form);
+ 
   return (
     <div>
       <div className={styles.outerFlex}>
