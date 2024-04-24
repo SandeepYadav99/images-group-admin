@@ -59,7 +59,7 @@ const AwardJuryList = ({ data, awardId, callAPi }) => {
       </Paper>
       <SidePanelComponent
         handleToggle={handleToggleSidePannel}
-        title={"Update About"}
+        title={"Add Jury"}
         open={isSidePanel}
         side={"right"}
       >

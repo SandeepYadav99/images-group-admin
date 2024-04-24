@@ -82,7 +82,7 @@ const AwardJuryCreate = ({
           <CustomTextField
             isError={errorData?.company}
             errorText={errorData?.company}
-            label={"About Content"}
+            label={"Company"}
             value={form?.company}
             onTextChange={(text) => {
               changeTextData(text, "company");

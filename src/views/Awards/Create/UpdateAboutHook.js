@@ -138,6 +138,7 @@ const useUpdateAboutHook = ({ isSidePanel, aboutData, handleClose }) => {
     changeTextData,
     onBlurHandler,
     image,
+    errorData
   };
 };
 

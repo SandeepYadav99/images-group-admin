@@ -12,14 +12,27 @@ const initialForm = {
   image: "",
   title: "",
 };
-const useAwardCategoriesCreate = ({ isSidePanel, selectedData, awardId ,handleCallDetail}) => {
+const useAwardCategoriesCreate = ({
+  isSidePanel,
+  selectedData,
+  awardId,
+  handleCallDetail,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [image, setImage] = useState("");
   const [form, setForm] = useState({ ...initialForm });
- 
-  
+  const [selectImages, setSelectImages] = useState([]);
+
+  useEffect(() => {
+    if (!isSidePanel) {
+      setErrorData({});
+      setForm({ ...initialForm });
+      setImage(null);
+    }
+  }, [isSidePanel]);
+
   useEffect(() => {
     if (selectedData?.id) {
       setForm({
@@ -33,11 +46,9 @@ const useAwardCategoriesCreate = ({ isSidePanel, selectedData, awardId ,handleCa
 
   const { id } = useParams();
 
-  const [selectImages, setSelectImages] = useState([]);
-
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["description"];
+    let required = ["description", "title"];
     // if (!id) {
     //   required.push("thumbnail");
     // }
@@ -69,8 +80,8 @@ const useAwardCategoriesCreate = ({ isSidePanel, selectedData, awardId ,handleCa
       if (awardId) {
         fd.append("award_id", awardId);
       }
-      if(selectedData?.id){
-        fd.append("id",selectedData?.id)
+      if (selectedData?.id) {
+        fd.append("id", selectedData?.id);
       }
       let req = serviceCreateAwardCategory;
       if (selectedData?.id) {
@@ -78,7 +89,7 @@ const useAwardCategoriesCreate = ({ isSidePanel, selectedData, awardId ,handleCa
       }
       req(fd).then((res) => {
         if (!res.error) {
-          handleCallDetail()
+          handleCallDetail();
         } else {
           SnackbarUtils.success(res.message);
         }
@@ -151,7 +162,7 @@ const useAwardCategoriesCreate = ({ isSidePanel, selectedData, awardId ,handleCa
     changeTextData,
     onBlurHandler,
     image,
-    errorData
+    errorData,
   };
 };
 

@@ -68,7 +68,7 @@ const AwardCategoriesList = ({ data, callAPi, awardId }) => {
       </Paper>
       <SidePanelComponent
         handleToggle={handleToggleSidePannel}
-        title={"Update About"}
+        title={`${selectedData?.id ? 'Update' : 'Add'} Award Category` }
         open={isSidePanel}
         side={"right"}
       >
