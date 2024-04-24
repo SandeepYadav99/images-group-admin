@@ -45,12 +45,12 @@ function useEventCreate() {
     "instagram_link",
     "twitter_link",
     "youtube_link",
-    "linkedin_content"
+    "linkedin_content",
   ];
   const initialForm = {
     name: "",
     slug: "",
-    project_id:"",
+    project_id: "",
     organised_by: "",
     start_date: "",
     end_date: "",
@@ -83,14 +83,14 @@ function useEventCreate() {
     linkedin_image: null,
     linkedin_content: "",
     background_image: null,
-    login_banner:null,
+    login_banner: null,
     // linkdin_banner:null,
     facebook_link: "",
     linkedin_link: "",
     instagram_link: "",
     twitter_link: "",
-    youtube_link:"",
-    linkdin_content:""
+    youtube_link: "",
+    linkdin_content: "",
   };
   const featureKey = {
     event_participants: true,
@@ -98,9 +98,9 @@ function useEventCreate() {
     about_event: true,
     exhibitor: false,
     testimonial: false,
-    manu_graphic:false,
+    manu_graphic: false,
     event_organizing_committee: false,
-    sponsor_video:true,
+    sponsor_video: true,
     event_speakers: true,
     event_gallery: false,
     analytics: true,
@@ -116,11 +116,11 @@ function useEventCreate() {
     event_banner: false,
     youtube_live: false,
     information_center: false,
-    award:false,
-    event_highlights:true,
-    meeting_rooms:true,
+    award: false,
+    event_highlights: true,
+    meeting_rooms: true,
   };
-  
+
   const colorKey = [
     "primary_colour",
     "secondary_colour",
@@ -141,9 +141,9 @@ function useEventCreate() {
   const [logo, setLogo] = useState("");
   const [thumb, setthumb] = useState("");
   const codeDebouncer = useDebounce(form?.name, 500);
-  const [linkBanner,setLinkBanner]=useState("")
-  const [appBanner,setAppBanner]=useState("")
-  const [appBgBanner,setAppBgBanner]=useState("")
+  const [linkBanner, setLinkBanner] = useState("");
+  const [appBanner, setAppBanner] = useState("");
+  const [appBgBanner, setAppBgBanner] = useState("");
 
   const [listData, setListData] = useState({
     ADMIN: [],
@@ -188,9 +188,11 @@ function useEventCreate() {
           setFeature({ ...feature, ...features });
           setLogo(data?.logo);
           setthumb(data?.thumbnail);
-          setLinkBanner(data?.linkedin_image ? data?.linkedin_image : null)
-          setAppBanner(data?.login_banner ? data?.login_banner : null)
-          setAppBgBanner(data?.background_image ? data?.background_image : null)
+          setLinkBanner(data?.linkedin_image ? data?.linkedin_image : null);
+          setAppBanner(data?.login_banner ? data?.login_banner : null);
+          setAppBgBanner(
+            data?.background_image ? data?.background_image : null
+          );
           if (data?.accessible_to) {
             if (data?.accessible_to?.all_chapters) {
               setSelect("all_chapters");
@@ -264,7 +266,9 @@ function useEventCreate() {
       "is_gallery_public",
     ];
     if (!id) {
-      required.push(...["logo", "thumbnail", "banner","background_image","linkedin_image"]);
+      required.push(
+        ...["logo", "thumbnail", "banner", "background_image", "linkedin_image"]
+      );
     }
     required.forEach((val) => {
       if (
@@ -341,7 +345,7 @@ function useEventCreate() {
     },
     [setErrorData, errorData]
   );
-
+  console.log({ form });
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
@@ -349,7 +353,7 @@ function useEventCreate() {
       if (fieldName === "name") {
         t[fieldName] = text;
         t["slug"] = text.toLowerCase().replace(/ /g, "-");
-      } else if (fieldName === "accessible_chapter_ids") {
+      }  else if (fieldName === "accessible_chapter_ids") {
         t[fieldName] = text.filter((item, index, self) => {
           return index === self.findIndex((i) => i.id === item.id);
         });
@@ -409,11 +413,13 @@ function useEventCreate() {
         form.theme = themeData;
         Object.keys(form).forEach((key) => {
           LogUtils.log("key", key);
-          if(!colorKey?.includes(key)){
+          if (!colorKey?.includes(key)) {
             if (
-              ["registration_status", "is_gallery_public", "is_digital"].includes(
-                key
-              )
+              [
+                "registration_status",
+                "is_gallery_public",
+                "is_digital",
+              ].includes(key)
             ) {
               fd.append(key, form[key] === "YES" ? true : false);
             } else if (
@@ -501,7 +507,7 @@ function useEventCreate() {
     thumb,
     linkBanner,
     appBanner,
-    appBgBanner
+    appBgBanner,
   };
 }
 

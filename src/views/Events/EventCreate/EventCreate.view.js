@@ -44,7 +44,7 @@ function EventCreate() {
     thumb,
     linkBanner,
     appBanner,
-    appBgBanner
+    appBgBanner,
   } = useEventCreate({});
 
   const { role } = useSelector((state) => state.auth);
@@ -366,7 +366,7 @@ function EventCreate() {
                   changeTextData(file, "login_banner");
                 }
               }}
-              link = {form?.login_banner ? "" : appBanner}
+              link={form?.login_banner ? "" : appBanner}
             />
           </div>
         </div>
@@ -387,7 +387,7 @@ function EventCreate() {
                   changeTextData(file, "background_image");
                 }
               }}
-              link = {form?.background_image ? "" : appBgBanner}
+              link={form?.background_image ? "" : appBgBanner}
             />
           </div>
         </div>
@@ -485,23 +485,23 @@ function EventCreate() {
           </h4>
         </div>
         <div className={"formGroup"}>
-        <File
-              max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
-              fullWidth={true}
-              name="linkedin_image"
-              label="Upload Banner for LinkedIn "
-              accept={"application/pdf,application/msword,image/*"}
-              error={errorData?.linkedin_image}
-              value={form?.linkedin_image}
-              placeholder={"Upload Banner for LinkedIn"}
-              onChange={(file) => {
-                if (file) {
-                  changeTextData(file, "linkedin_image");
-                }
-              }}
-            link = {form?.linkedin_image ? "" : linkBanner}
-            />
+          <File
+            max_size={10 * 1024 * 1024}
+            type={["jpeg", "jpg", "png"]}
+            fullWidth={true}
+            name="linkedin_image"
+            label="Upload Banner for LinkedIn "
+            accept={"application/pdf,application/msword,image/*"}
+            error={errorData?.linkedin_image}
+            value={form?.linkedin_image}
+            placeholder={"Upload Banner for LinkedIn"}
+            onChange={(file) => {
+              if (file) {
+                changeTextData(file, "linkedin_image");
+              }
+            }}
+            link={form?.linkedin_image ? "" : linkBanner}
+          />
         </div>
         <div className={"formGroup"}>
           <CustomTextField
@@ -510,10 +510,10 @@ function EventCreate() {
             label={"LinkedIn Content"}
             value={form?.linkdin_content}
             onTextChange={(text) => {
-              changeTextData(text, "linkedin_content");
+              changeTextData(text, "linkdin_content");
             }}
             onBlur={() => {
-              onBlurHandler("linkedin_content");
+              onBlurHandler("linkdin_content");
             }}
             multiline
             rows={3}
@@ -882,10 +882,9 @@ function EventCreate() {
               checked={feature?.exhibitor}
             />
           </div>
-
         </div>
         <div className={"formFlex"}>
-        <div className={"formGroup"}>
+          <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
@@ -939,18 +938,16 @@ function EventCreate() {
             />
           </div>
           <div className={"formGroup"}>
-               <CustomCheckbox
+            <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
                 changeFeatureData(!feature?.award, "award");
               }}
               label={"Awards"}
               checked={feature?.award}
-            /> 
+            />
           </div>
         </div>
-
-        
       </div>
 
       <div className={"plainPaper"}>
