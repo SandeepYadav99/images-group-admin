@@ -53,6 +53,7 @@ function useSpeakerMasterCreate({ location }) {
             s_designation: data?.s_designation,
             s_status: data?.s_status === constants.GENERAL_STATUS.ACTIVE,
             priority: data?.priority,
+            linkedin_link:data?.linkedin_link
             // is_moderator
           });
           setImage(data?.s_image);
@@ -135,6 +136,7 @@ function useSpeakerMasterCreate({ location }) {
           s_description: "s_description",
           s_designation: "s_designation",
           s_company: "s_company",
+          linkedin_link:"linkedin_link"
         };
         for (const key in form) {
           if (SPEAKER_KEY.hasOwnProperty(key)) {
