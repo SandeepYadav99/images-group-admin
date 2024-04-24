@@ -539,12 +539,13 @@ const useExhibitorCreate = ({ location }) => {
     fd.append("downloads", JSON.stringify(ExpensesData));
 
     const DigitalBag = ChildenRef1.current.getData();
+
     DigitalBag.forEach((val) => {
       if (val?.images) {
         fd.append("digital_bag_images", val?.images);
       } else {
         const file = dataURLtoFile(nullImg, "null.png");
-        fd.append(" digital_bag_images", file);
+        fd.append("digital_bag_images", file);
       }
     });
     fd.append("digital_bags", JSON.stringify(DigitalBag));

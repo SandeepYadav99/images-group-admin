@@ -64,7 +64,7 @@ const ChildrenIncludeForm = (
       const updatedFields = downloads?.map((download) => ({
         title: download.title,
         url: download.url,
-        thumbnail: download?.thumbnail || null,
+        thumbnail: download?.thumbnail || "",
       }));
       setFields(updatedFields);
     } else {
@@ -113,7 +113,7 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["title", "url", "images"];
+      const required = ["title", "url",  ...(exhibitorId ? [] : ["images"])];
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
