@@ -13,7 +13,8 @@ const SessionTable = ({ data }) => {
           </div>
           <div className={styles.timeing}>
             Overall Rating
-            <br />4 ⭐ (120)
+            <br />
+            {data?.avg} ⭐ ({data?.totalCount})
           </div>
         </div>
         <div className={styles.tableContainer}>
@@ -26,18 +27,24 @@ const SessionTable = ({ data }) => {
               </tr>
             </thead>
             <tbody>
-              {/* {data?.map((item, index) => (
-                <tr key={index}>
-                  <td className={styles.td}>
-                    <div className={styles.td1}>
-                      <img src={item.avatar} alt={item.name} />
-                      <div>{item.name}</div>
-                    </div>
-                  </td>
-                  <td className={styles.td}>{item.rating}</td>
-                  <td className={styles.td}>{item.comment}</td>
-                </tr>
-              ))} */}
+              {data?.user?.length > 0 ? (
+                data?.user?.map((item, index) => (
+                  <tr key={index}>
+                    <td className={styles.td}>
+                      <div className={styles.td1}>
+                        <img src={item?.user.image} alt={item.name} />
+                        <a href={`${"/app/user-profile/"}${item?.user?.id}`}>
+                          {item?.user.name}
+                        </a>
+                      </div>
+                    </td>
+                    <td className={styles.td}>{item.rating}</td>
+                    <td className={styles.td}>{item.comment}</td>
+                  </tr>
+                ))
+              ) : (
+                <div className={styles.notFound}></div>
+              )}
             </tbody>
           </table>
         </div>

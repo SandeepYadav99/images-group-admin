@@ -17,16 +17,18 @@ const ScheduleDetail = ({ handleScheduleDetail, isScheduleDetail, empId }) => {
       }
     });
   }, [empId]);
-  
+
   return (
     <div className={styles.pageContainer}>
       <PageBoxComponent>
-        <h3>Session Name</h3>
+        <h3>{updateData?.schedule?.eve_name}</h3>
         <p className={styles.timeing}>
-          Session description will be shown here. Session description will be
-          shown here.
+          {updateData?.schedule?.eve_description}
         </p>
-        <p className={styles.timeing}>8 MAY | 11:00 AM - 12:00 PM</p>
+        <p className={styles.timeing}>
+          {updateData?.schedule?.date} | {updateData?.schedule?.start_time} -{" "}
+          {updateData?.schedule?.end_time}
+        </p>
       </PageBoxComponent>
       <div className={"mt"}>
         <SessionTable data={updateData} />
