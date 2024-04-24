@@ -6,6 +6,7 @@ import historyUtils from "../../../../libs/history.utils";
 import defaultCompany from "../../../../assets/img/defaultCompany.jpg";
 import { removeUnderScore } from "../../../../helper/helper";
 import { capitalizeFirstLetter } from "../../../../hooks/CapsLetter";
+import DownloadSection from "./Componet/DownloadSection/DownloadSection";
 
 const ExhibitorDetail = () => {
   const { detail } = useExhibitorDetail({});
@@ -75,7 +76,7 @@ const ExhibitorDetail = () => {
                     : "--"}
                   {""}
                 </div>
-           
+
                 {/* <div className={styles.headingDataType}>
                   <p className={styles.text}>Zone:</p>
                   <div className={styles.wrappedContent}>
@@ -137,7 +138,7 @@ const ExhibitorDetail = () => {
                     : "--"}
                 </div>
                 <div className={styles.headingDataType}>
-                  <p className={styles.text}>Booth:</p>
+                  <p className={styles.text}>Booth Number:</p>
                   {""}
                   {detail?.details?.event_stall
                     ? capitalizeFirstLetter(
@@ -202,7 +203,6 @@ const ExhibitorDetail = () => {
             </div>
           </div>
           <div className={styles.productListing}>
-         
             <div className={styles.headingDataType}>
               <p className={styles.text}>Product Categories:</p>
               <div className={styles.wrappedContent}>
@@ -427,6 +427,7 @@ const ExhibitorDetail = () => {
             <br />
           </div>
         )}
+        <DownloadSection details={detail?.details?.downloads} />
       </div>
     </div>
   );

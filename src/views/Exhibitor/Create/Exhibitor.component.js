@@ -1212,6 +1212,7 @@ const ExhibitorCreate = () => {
               }}
               label={"Featured"}
               checked={form?.is_featured}
+              disabled={form?.is_participant}
             />
           </div>
         </div>

@@ -26,7 +26,7 @@ const ScheduleDetail = ({ handleScheduleDetail, isScheduleDetail, empId }) => {
           {updateData?.schedule?.eve_description}
         </p>
         <p className={styles.timeing}>
-          {updateData?.schedule?.date} | {updateData?.schedule?.start_time} -{" "}
+          {updateData?.schedule?.schedule_date || "N/A"} | {updateData?.schedule?.start_time} -{" "}
           {updateData?.schedule?.end_time}
         </p>
       </PageBoxComponent>

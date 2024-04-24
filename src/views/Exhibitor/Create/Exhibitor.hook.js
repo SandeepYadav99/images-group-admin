@@ -621,6 +621,25 @@ const useExhibitorCreate = ({ location }) => {
         t[fieldName] = text;
       } else if (fieldName === "secondary_email") {
         t[fieldName] = text;
+      } else if (fieldName === "product_categories") {
+        // console.log({text})
+        // t[fieldName] = text;
+        const newValues = text?.filter((item) => item !== "");
+
+        const uniqueValues = newValues
+          ? newValues.filter(
+              (item, index, self) =>
+                self?.findIndex(
+                  (t) => t?.name?.toLowerCase() === item?.name?.toLowerCase()
+                ) === index
+            )
+          : [];
+
+        if (uniqueValues.length <= 2) {
+          t[fieldName] = uniqueValues;
+        } else {
+          SnackbarUtils.error("Maximum 2 products can be added");
+        }
       } else if (
         fieldName === "conatct" ||
         fieldName === "primary_conatct_number"
@@ -629,23 +648,7 @@ const useExhibitorCreate = ({ location }) => {
           t[fieldName] = text;
         }
       }
-      //  else if (fieldName === "products") {
-      //   const newValues = text?.filter((item) => item.trim() !== "");
-      //   const uniqueValues = text
-      //     ? newValues?.filter(
-      //         (item, index, self) =>
-      //           self.findIndex(
-      //             (t) => t.toLowerCase() === item.toLowerCase()
-      //           ) === index
-      //       )
-      //     : [];
 
-      //   if (uniqueValues.length <= 2) {
-      //     t[fieldName] = uniqueValues;
-      //   } else {
-      //     SnackbarUtils.error("Maximum 2 products can be added");
-      //   }
-      // }
       // else if (fieldName === "is_partner") {
       //    if(fieldName === "partner_tag"){
 
