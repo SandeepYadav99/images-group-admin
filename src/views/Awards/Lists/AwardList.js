@@ -18,7 +18,7 @@ const AwardList = () => {
     data,
     aboutData,
     handleClose,
-    callAPi
+    callAPi,
   } = useAwardListHook({});
   return (
     <div>
@@ -92,8 +92,16 @@ const AwardList = () => {
           awardId={data?.id ? data?.id : ""}
           callAPi={callAPi}
         />
-        <AwardJuryList />
-        <PreviousAwardees />
+        <PreviousAwardees
+          data={data?.award_images ? data?.award_images : []}
+          awardId={data?.id ? data?.id : ""}
+          callAPi={callAPi}
+        />
+        <AwardJuryList
+          data={data?.award_juries ? data?.award_juries : []}
+          awardId={data?.id ? data?.id : ""}
+          callAPi={callAPi}
+        />
       </div>
     </div>
   );

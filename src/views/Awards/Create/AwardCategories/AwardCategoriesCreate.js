@@ -11,7 +11,6 @@ import CustomTextField from "../../../../components/FormFields/TextField/TextFie
 const AwardCategoriesCreate = ({
   isSidePanel,
   handleToggleSidePannel,
-  handleClose,
   selectedData,
   awardId,
   handleCallDetail
@@ -26,7 +25,6 @@ const AwardCategoriesCreate = ({
   } = useAwardCategoriesCreate({
     isSidePanel,
     handleToggleSidePannel,
-    handleClose,
     selectedData,
     awardId,
     handleCallDetail

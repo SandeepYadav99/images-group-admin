@@ -23,8 +23,6 @@ const AwardCategoriesList = ({ data, callAPi, awardId }) => {
     handleCallDetail,
   } = useAwardCategoriesHook({ data, callAPi });
 
-  console.log("data1", data);
-
   return (
     <div>
       <Paper

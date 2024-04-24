@@ -1,54 +1,30 @@
 import React from "react";
-
 import styles from "./Style.module.css";
-
 import { ButtonBase } from "@material-ui/core";
-
 import File from "../../../../components/FileComponent/FileComponent.component";
-
 import usePreviousAwardeesCreateHook from "./PreviousAwardeesCreateHook";
-import MultiFile from "../../../GalleryAlbum/Create/Component/FileComponent/FileMultiComponent.component";
 
-const PreviousAwardeesCreate = ({ isSidePanel, handleToggleSidePannel }) => {
+const PreviousAwardeesCreate = ({
+  isSidePanel,
+  handleToggleSidePannel,
+  awardId,
+  handleCallDetail,
+}) => {
   const {
     form,
     changeTextData,
     errorData,
-    onBlurHandler,
     handleSubmit,
-    renderImages,
-    selectImages,
-  } = usePreviousAwardeesCreateHook({ isSidePanel, handleToggleSidePannel });
+  } = usePreviousAwardeesCreateHook({
+    isSidePanel,
+    handleToggleSidePannel,
+    awardId,
+    handleCallDetail,
+  });
   return (
     <div className={styles.updatAbout}>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
-          {" "}
-          {/* <MultiFile
-              multiDef={selectImages ? selectImages : []}
-              multiple
-              max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
-              fullWidth={true}
-              name="od1"
-              label="Upload Awardee Logo"
-              accept={"image/*"}
-              error={errorData?.images}
-              value={form?.images}
-              // bannerLabel="Upload Awardee Logo"
-              // default_image={selectImages ? selectImages[0] : null}
-              placeholder={"Upload Awardee Logo"}
-              onChange={(file) => {
-                if (file) {
-                  changeTextData(file, "images");
-                }
-              }}
-              DefChange={(img) => {
-                if (img) {
-                  renderImages(img);
-                }
-              }}
-            /> */}
           <File
             bannerLabel="Upload Awardee Logo"
             // default_image={logo ? logo : ""}
@@ -73,9 +49,9 @@ const PreviousAwardeesCreate = ({ isSidePanel, handleToggleSidePannel }) => {
       </div>
 
       <div className={styles.actionButton}>
-        <ButtonBase className={styles.update_status_New} onClick={handleSubmit}>
+        {/* <ButtonBase className={styles.update_status_New} onClick={handleSubmit}>
           Add New
-        </ButtonBase>
+        </ButtonBase> */}
         <ButtonBase className={styles.update_status} onClick={handleSubmit}>
           Add
         </ButtonBase>

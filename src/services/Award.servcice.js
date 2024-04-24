@@ -35,3 +35,9 @@ import {
     export async function serviceDeleteAwardCategory(params) {
       return await postRequest("awards/category/delete", params);
     }
+    export async function serviceDeleteAwardImages(params) {
+      return await postRequest("awards/images/delete", params);
+    }
+    export async function serviceCreateAwardImage(params) {
+      return await formDataRequest("awards/images/create", params);
+    }
