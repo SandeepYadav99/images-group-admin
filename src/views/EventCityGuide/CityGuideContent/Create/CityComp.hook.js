@@ -10,12 +10,15 @@ import {
 import historyUtils from "../../../../libs/history.utils";
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import { isUrl } from "../../../../libs/RegexUtils";
 
 function useCityCompHook({ location }) {
   const initialForm = {
     title: "",
-    priority: "",
+    geospatial_url: "",
     description: "",
+    lng:"",
+    lat:""
   };
   const [form, setForm] = useState({ ...initialForm });
   const descriptionRef = useRef(null);
@@ -25,7 +28,7 @@ function useCityCompHook({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    ["priority", "title", "description"].forEach((val) => {
+    [ "title", "description"].forEach((val) => {
       if (!form?.[val]) {
         errors[val] = true;
       } else {
@@ -37,6 +40,10 @@ function useCityCompHook({ location }) {
     //     "Description is required."
     //   );
     // }
+    if (form?.geospatial_url && !isUrl(form?.geospatial_url)) {
+      errors.geospatial_url = true;
+      SnackbarUtils.error("Please Enter the Valid Url");
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -58,7 +65,9 @@ function useCityCompHook({ location }) {
             event_city_guide_id: data?.event_city_guide_id,
             title: data?.title,
             description: data?.description,
-            priority: data?.priority,
+            lng: data?.lng,
+            lat: data?.lat,
+            geospatial_url: data?.geospatial_url,
           });
         } else {
           SnackbarUtils.error(res?.message);

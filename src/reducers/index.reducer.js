@@ -127,7 +127,7 @@ const rootReducer = combineReducers({
   event_highlight:EventHighLight,
   meeting_room:MeetingRoomsReducer,
   meeting_slots:MeetingRoomSlotReducer,
- 
+
 });
 
 export default rootReducer;

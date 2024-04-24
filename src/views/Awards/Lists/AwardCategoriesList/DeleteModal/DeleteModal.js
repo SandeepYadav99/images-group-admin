@@ -1,14 +1,15 @@
 import React from "react";
-import { Button, ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
+import {
+  Button,
+  ButtonBase,
+  CircularProgress,
+  MenuItem,
+} from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
-
-
-import useDeleteModalHook from "./DeleteModalHook";
-import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -33,17 +34,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DeleteModal = ({ isOpen, handleToggle, candidateId }) => {
+const DeleteModal = ({ isOpen, handleToggle, handleSubmit }) => {
   const classes = useStyles();
-  const {
-    changeTextData,
-    errorData,
-    form,
-    handleSubmit,
-    onBlurHandler,
-    listData,
-    isSubmitting
-  } = useDeleteModalHook({ isOpen, handleToggle, candidateId });
 
   return (
     <div>
@@ -52,7 +44,6 @@ const DeleteModal = ({ isOpen, handleToggle, candidateId }) => {
         keepMounted
         //  fullWidth={false}
         maxWidth={"sm"}
-        
         TransitionComponent={Transition}
         open={isOpen}
         onClose={() => {}}
@@ -63,25 +54,25 @@ const DeleteModal = ({ isOpen, handleToggle, candidateId }) => {
           <div className={styles.resetWrapper}>
             <ButtonBase
               classes={{ root: classes.closeBtn }}
-              onClick={handleToggle}
+              onClick={()=>handleToggle()}
             >
               <Close />
             </ButtonBase>
           </div>
           <div className={styles.headingWrapper}>
             {/* <div className={styles.heading}>Approve Request</div> */}
-            
+
             <div className={styles.des}>Delete Confirmation</div>
-            <div className={styles.newLine}></div> 
+            <div className={styles.newLine}></div>
           </div>
 
           <div className={styles.fieldWrapper}>
-          Are you sure you want to delete this entry? This action can not be undone.
+            Are you sure you want to delete this entry? This action can not be
+            undone.
           </div>
           <div className={styles.printFlex}>
             <ButtonBase onClick={handleSubmit} className={styles.createBtn}>
-              {isSubmitting ? <CircularProgress color="success" size="20px" /> : 
-              'DELETE' }
+              DELETE
             </ButtonBase>
           </div>
         </div>

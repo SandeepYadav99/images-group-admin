@@ -24,6 +24,7 @@ function useEventCreate() {
   const InitialKeys = [
     "name",
     "slug",
+    "project_id",
     "start_date",
     "end_date",
     "location",
@@ -39,10 +40,17 @@ function useEventCreate() {
     "relatedEvents",
     "accessibleChapters",
     "status",
+    "facebook_link",
+    "linkedin_link",
+    "instagram_link",
+    "twitter_link",
+    "youtube_link",
+    "linkedin_content"
   ];
   const initialForm = {
     name: "",
     slug: "",
+    project_id:"",
     organised_by: "",
     start_date: "",
     end_date: "",
@@ -72,11 +80,17 @@ function useEventCreate() {
     all_chapters: false,
     chapters: false,
     accessible_chapter_ids: [],
-    linkedin_image: "",
+    linkedin_image: null,
     linkedin_content: "",
-    background_image: "",
+    background_image: null,
     login_banner:null,
-
+    // linkdin_banner:null,
+    facebook_link: "",
+    linkedin_link: "",
+    instagram_link: "",
+    twitter_link: "",
+    youtube_link:"",
+    linkdin_content:""
   };
   const featureKey = {
     event_participants: true,
@@ -127,6 +141,9 @@ function useEventCreate() {
   const [logo, setLogo] = useState("");
   const [thumb, setthumb] = useState("");
   const codeDebouncer = useDebounce(form?.name, 500);
+  const [linkBanner,setLinkBanner]=useState("")
+  const [appBanner,setAppBanner]=useState("")
+  const [appBgBanner,setAppBgBanner]=useState("")
 
   const [listData, setListData] = useState({
     ADMIN: [],
@@ -171,6 +188,9 @@ function useEventCreate() {
           setFeature({ ...feature, ...features });
           setLogo(data?.logo);
           setthumb(data?.thumbnail);
+          setLinkBanner(data?.linkedin_image ? data?.linkedin_image : null)
+          setAppBanner(data?.login_banner ? data?.login_banner : null)
+          setAppBgBanner(data?.background_image ? data?.background_image : null)
           if (data?.accessible_to) {
             if (data?.accessible_to?.all_chapters) {
               setSelect("all_chapters");
@@ -260,6 +280,26 @@ function useEventCreate() {
         SnackbarUtils.error("Please Enter the Valid Url");
       }
     });
+    if (form?.instagram_link && !validateUrl(form?.instagram_link)) {
+      errors.instagram_link = true;
+      SnackbarUtils.error("Please Enter a Valid Instagram URL");
+    }
+    if (form?.facebook_link && !validateUrl(form?.facebook_link)) {
+      errors.facebook_link = true;
+      SnackbarUtils.error("Please Enter a Valid Facebook URL");
+    }
+    if (form?.twitter_link && !validateUrl(form?.twitter_link)) {
+      errors.twitter_link = true;
+      SnackbarUtils.error("Please Enter a Valid Twitter URL");
+    }
+    if (form?.linkedin_link && !validateUrl(form?.linkedin_link)) {
+      errors.linkedin_link = true;
+      SnackbarUtils.error("Please Enter a Valid LinkedIn URL");
+    }
+    if (form?.youtube_link && !validateUrl(form?.youtube_link)) {
+      errors.youtube_link = true;
+      SnackbarUtils.error("Please Enter a Valid YouTube URL");
+    }
     colorKey.forEach((item) => {
       if (item && !HexCodeValid(form[item])) {
         errors[item] = true;
@@ -354,7 +394,7 @@ function useEventCreate() {
         for (const prop in form) {
           if (colorKey.includes(prop)) {
             themeData[prop] = form[prop];
-            delete form[prop];
+            // delete form[prop];
           }
           if (eventkeys.includes(prop)) {
             if (prop === "chapters" || prop === "all_chapters") {
@@ -369,24 +409,26 @@ function useEventCreate() {
         form.theme = themeData;
         Object.keys(form).forEach((key) => {
           LogUtils.log("key", key);
-          if (
-            ["registration_status", "is_gallery_public", "is_digital"].includes(
-              key
-            )
-          ) {
-            fd.append(key, form[key] === "YES" ? true : false);
-          } else if (
-            [
-              "related_event_ids",
-              "accessible_chapter_ids",
-              "theme",
-              "accessible_to",
-            ].includes(key)
-          ) {
-            fd.append(key, JSON.stringify(form[key]));
-          } else {
-            if (form[key]) {
-              fd.append(key, form[key]);
+          if(!colorKey?.includes(key)){
+            if (
+              ["registration_status", "is_gallery_public", "is_digital"].includes(
+                key
+              )
+            ) {
+              fd.append(key, form[key] === "YES" ? true : false);
+            } else if (
+              [
+                "related_event_ids",
+                "accessible_chapter_ids",
+                "theme",
+                "accessible_to",
+              ].includes(key)
+            ) {
+              fd.append(key, JSON.stringify(form[key]));
+            } else {
+              if (form[key]) {
+                fd.append(key, form[key]);
+              }
             }
           }
         });
@@ -457,6 +499,9 @@ function useEventCreate() {
     id,
     logo,
     thumb,
+    linkBanner,
+    appBanner,
+    appBgBanner
   };
 }
 

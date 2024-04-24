@@ -1,24 +1,20 @@
+import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
+import { serviceCreateAwardJury } from "../../../../services/Award.servcice";
 
-import  { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router';
-
-
-import historyUtils from '../../../../libs/history.utils';
-import SnackbarUtils from '../../../../libs/SnackbarUtils';
-import { serviceCreateAward, serviceUpdateAward } from '../../../../services/Award.servcice';
-
-const initialForm ={
-  about:"",
-  image:"",
-  title:""
-}
-const useAwardJuryCreateHook = ({isSidePanel}) => {
+const initialForm = {
+  name: "",
+  image: "",
+  designation: "",
+  company: "",
+};
+const useAwardJuryCreateHook = ({ isSidePanel, awardId, handleCallDetail }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [image, setImage] = useState("");
   const [form, setForm] = useState({ ...initialForm });
- 
 
   const { id } = useParams();
 
@@ -26,7 +22,7 @@ const useAwardJuryCreateHook = ({isSidePanel}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["about"];
+    let required = ["name", "image", "company", "designation"];
     // if (!id) {
     //   required.push("thumbnail");
     // }
@@ -37,7 +33,6 @@ const useAwardJuryCreateHook = ({isSidePanel}) => {
       ) {
         errors[val] = true;
       }
-      
     });
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -47,30 +42,42 @@ const useAwardJuryCreateHook = ({isSidePanel}) => {
     return errors;
   }, [form, errorData]);
 
+  console.log("errorData",errorData)
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
-      fd.append("content", form?.about)
-      fd.append("image", form?.image)
-     
-  
-      let req = serviceCreateAward;
-      if (id) {
-        req = serviceUpdateAward;
+      fd.append("name", form?.name);
+      fd.append("company", form?.company);
+      fd.append("designation", form?.designation);
+      if (form?.image) {
+        fd.append("image", form?.image);
       }
+      fd.append("award_id", awardId);
+
+      let req = serviceCreateAwardJury;
+      // if (id) {
+      //   req = serviceUpdateAward;
+      // }
 
       req(fd).then((res) => {
         if (!res.error) {
-          historyUtils.push("/business-list");
+          handleCallDetail();
         } else {
           SnackbarUtils.success(res.message);
         }
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id, selectImages]);
-
+  }, [
+    form,
+    isSubmitting,
+    setIsSubmitting,
+    id,
+    selectImages,
+    awardId,
+    handleCallDetail,
+  ]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -80,7 +87,14 @@ const useAwardJuryCreateHook = ({isSidePanel}) => {
     }
     setIsSubmitting(true);
     submitToServer();
-  }, [checkFormValidation, setErrorData, form,selectImages]);
+  }, [
+    checkFormValidation,
+    setErrorData,
+    form,
+    selectImages,
+    awardId,
+    handleCallDetail,
+  ]);
 
   const removeError = useCallback(
     (title) => {
@@ -98,10 +112,8 @@ const useAwardJuryCreateHook = ({isSidePanel}) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "about") {
-     
-          t[fieldName] = text;
-        
+      if (fieldName === "name") {
+        t[fieldName] = text;
       } else {
         t[fieldName] = text;
       }
@@ -132,12 +144,13 @@ const useAwardJuryCreateHook = ({isSidePanel}) => {
     }
   }, [isSidePanel]);
 
-  return{
+  return {
     form,
     handleSubmit,
     changeTextData,
-    onBlurHandler
-  }
-}
+    onBlurHandler,
+    errorData
+  };
+};
 
-export default useAwardJuryCreateHook
+export default useAwardJuryCreateHook;

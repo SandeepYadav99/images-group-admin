@@ -1,38 +1,23 @@
-import { ButtonBase, IconButton, Paper } from "@material-ui/core";
-import React, { useCallback, useEffect, useState } from "react";
+import { ButtonBase, Paper } from "@material-ui/core";
+import React from "react";
 import styles from "./Style.module.css";
-
 import SidePanelComponent from "../../../../components/SidePanel/SidePanel.component";
-
-import { Delete, DeleteOutline, Edit } from "@material-ui/icons";
-// import DeleteModal from "./DeleteModal/DeleteModal";
+import { DeleteOutline, Edit } from "@material-ui/icons";
 import usePreviousAwardeesHook from "./PreviousAwardeesHook";
 import PreviousAwardeesCreate from "../../Create/PreviousAwardeesCreate/PreviousAwardeesCreate";
+import DeleteModal from "../AwardCategoriesList/DeleteModal/DeleteModal";
 
-const PreviousAwardees = () => {
-  const { editData, isSidePanel, toggleAcceptDialog, handleToggleSidePannel } =
-    usePreviousAwardeesHook({});
-  const [isAcceptPopUp, setIsAcceptPopUp] = useState(false);
-
-  const toggleAcceptDelete = useCallback(
-    (obj) => {
-      setIsAcceptPopUp((e) => !e);
-      // setDataValue({ ...obj });
-    },
-    [isAcceptPopUp]
-  );
-
-  useEffect(() => {
-    // serviceGetAward({
-    //     index: 1,
-    //     row: null,
-    //     order: null,
-    //     query: "",
-    //     query_data: null,
-    //   }).then((res)=>{
-    //     console.log(res)
-    //   })
-  }, []);
+const PreviousAwardees = ({ data, awardId, callAPi }) => {
+  const {
+    handleToggleSidePannel,
+    isSidePanel,
+    isAcceptPopUp,
+    toggleAcceptDelete,
+    handleDelete,
+    handleDetail,
+    selectedData,
+    handleCallDetail,
+  } = usePreviousAwardeesHook({ data, awardId, callAPi });
 
   return (
     <div>
@@ -52,33 +37,45 @@ const PreviousAwardees = () => {
             ADD AWARDEE
           </ButtonBase>
         </div>
-        <div className={styles.container}>
-          <img
-            src={require("../../../../assets/img/video_icon.png")}
-            alt=".."
-          />
-          <div className={styles.delete}>
-            <DeleteOutline fontSize="small" />
-          </div>
-        </div>
+        {data?.length > 0 &&
+          data?.map((item, index) => (
+            <div className={styles.container} key={`prev_${index}`}>
+              <img
+                src={
+                  item?.image
+                    ? item?.image
+                    : require("../../../../assets/img/video_icon.png")
+                }
+                alt=".."
+              />
+              <div className={styles.delete}>
+                <DeleteOutline
+                  fontSize="small"
+                  onClick={() => toggleAcceptDelete(item?.id)}
+                />
+              </div>
+            </div>
+          ))}
       </Paper>
       <SidePanelComponent
         handleToggle={handleToggleSidePannel}
-        title={"Update About"}
+        title={"Add Awardees"}
         open={isSidePanel}
         side={"right"}
       >
         <PreviousAwardeesCreate
           handleToggleSidePannel={handleToggleSidePannel}
           isSidePanel={isSidePanel}
-          empId={editData}
+          selectedData={selectedData}
+          awardId={awardId}
+          handleCallDetail={handleCallDetail}
         />
       </SidePanelComponent>
-      {/* <DeleteModal
+      <DeleteModal
         isOpen={isAcceptPopUp}
         handleToggle={toggleAcceptDelete}
-        // candidateId={params?.id}
-      /> */}
+        handleSubmit={handleDelete}
+      />
     </div>
   );
 };

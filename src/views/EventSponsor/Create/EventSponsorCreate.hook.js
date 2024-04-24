@@ -37,7 +37,7 @@ function useEventSponsorCreate({ location }) {
     insta: "",
     youtube: "",
     status: true,
-
+    is_featured:false
     // country_code:"",
   };
   const [form, setForm] = useState({ ...initialForm });
@@ -84,6 +84,8 @@ function useEventSponsorCreate({ location }) {
                 fd[key] = data["typeObj"]?._id;
               } else if (key === "status") {
                 fd[key] = data[key] === "ACTIVE";
+              }else if (key === "is_featured"){
+                fd[key] = data[key] ? true :false
               } else {
                 fd[key] = data[key];
               }
@@ -208,6 +210,8 @@ function useEventSponsorCreate({ location }) {
               fd.append(key, JSON.stringify(form[key]));
             } else if (key === "status") {
               fd.append("status", form[key] ? "ACTIVE" : "INACTIVE");
+            }else if (key === "is_featured"){
+              fd.append("is_featured",form?.is_featured ? true : false)
             } else {
               fd.append(key, form[key]);
             }

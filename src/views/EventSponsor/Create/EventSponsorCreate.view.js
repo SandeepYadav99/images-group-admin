@@ -3,6 +3,7 @@ import history from "../../../libs/history.utils";
 import {
   Button,
   ButtonBase,
+  Checkbox,
   CircularProgress,
   MenuItem,
 } from "@material-ui/core";
@@ -342,7 +343,23 @@ function EventSponsorCreate({ location }) {
             />
           </div>
         </div>
-     
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+          <div className={styles.checkboxWrapper}>
+          <Checkbox
+            style={{ padding: 0, marginRight: "10px" }}
+            name={"form?.is_featured"}
+            checked={form?.is_featured}
+            onChange={() =>
+              changeTextData(!form?.is_featured, "is_featured")
+            }
+          />
+          <div className={styles.lowerdec}>
+            <span>Is Featured</span>
+          </div>
+        </div>
+          </div>
+        </div>
         <div className={styles.btnWrappepr}>
           <ButtonBase
             disabled={isSubmitting ? true : false}

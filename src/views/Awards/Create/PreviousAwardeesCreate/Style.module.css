@@ -11,7 +11,7 @@
 }
 .actionButton{
    display: flex;
-   justify-content: space-between;
+   justify-content: flex-end;
     padding: 20px;
 }
 .update_status_New{
