@@ -454,7 +454,7 @@ const ExhibitorCreate = () => {
               />
             </div>
           </div>
-          <div className="flexGroup">
+          <div className={"formFlex"}>
             <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.product_offered}
@@ -469,6 +469,20 @@ const ExhibitorCreate = () => {
               }}
             />
           </div>
+          <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.website}
+                errorText={errorData?.website}
+                label={"Website"}
+                value={form?.website}
+                onTextChange={(text) => {
+                  changeTextData(text, "website");
+                }}
+                onBlur={() => {
+                  onBlurHandler("website");
+                }}
+              />
+            </div>
         </div>
           </div>
       
@@ -818,20 +832,7 @@ const ExhibitorCreate = () => {
                 }}
               />
             </div>
-            <div className={"formGroup"}>
-              <CustomTextField
-                isError={errorData?.website}
-                errorText={errorData?.website}
-                label={"Website"}
-                value={form?.website}
-                onTextChange={(text) => {
-                  changeTextData(text, "website");
-                }}
-                onBlur={() => {
-                  onBlurHandler("website");
-                }}
-              />
-            </div>
+           
           </div>
         )}
 
