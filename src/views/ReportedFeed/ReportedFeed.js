@@ -6,7 +6,7 @@ const ReportedFeed = () => {
   return (
     <div className={styles.cont}>
       <ReportedPost />
-      <ReportedComment />
+      {/* <ReportedComment /> */}
     </div>
   );
 };

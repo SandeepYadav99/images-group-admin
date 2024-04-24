@@ -62,6 +62,7 @@ import SpeakerMaster from "../views/SpeakerMaster/List/SpeakerMaster.js";
 import SpeakerMasterCreate from "../views/SpeakerMaster/Create/SpeakerMasterCreate.js";
 import MenuGraphic from "../views/MenuGraphic/List/MenuGraphic.js";
 import AwardList from "../views/Awards/Lists/AwardList.js";
+import ReportedFeed from "../views/ReportedFeed/ReportedFeed.js";
 
 const MenuGraphicCreate = lazy(() =>
   import("../views/MenuGraphic/Create/MenuGraphicCreate")
@@ -794,16 +795,16 @@ const dashboardRoutes = [
   //   is_protect: true,
   //   roles:[Roles.GENERAL]
   // },
-  // {
-  //   path: `${RouteName.REPORTED_FEED}`,
-  //   sidebarName: "Reported Feed",
-  //   navbarName: "Reported Feed",
-  //   icon: PeopleOutlined,
-  //   component: ReportedFeed,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  //   roles:[Roles.GENERAL]
-  // },
+  {
+    path: `${RouteName.REPORTED_FEED}`,
+    sidebarName: "Reported Feed",
+    navbarName: "Reported Feed",
+    icon: PeopleOutlined,
+    component: ReportedFeed,
+    is_sidebar: true,
+    is_protect: true,
+    // roles:[Roles.GENERAL]
+  },
   // {
   //   path: `${RouteName.BUSINESS_GREETING}`,
   //   sidebarName: "Business Greeting",
