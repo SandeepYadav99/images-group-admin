@@ -48,7 +48,7 @@ const AwardJuryList = ({ data, awardId, callAPi }) => {
                 }
                 alt=".."
               />
-              <div>{item?.name}</div>
+              <div className={styles.titleCompany}>{item?.name}</div>
               <div>{item?.company}</div>
               <div className={styles.delete}>
                 <DeleteOutline

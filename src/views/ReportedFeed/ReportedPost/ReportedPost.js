@@ -90,7 +90,7 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
         key: "username",
         label: "USER NAME ",
         sortable: false,
-        render: (value, all) => <div>{all?.reportedData?.name}</div>,
+        render: (value, all) => <div>{all?.reportedData?.name || "N/A"}</div>,
       },
 
       {
