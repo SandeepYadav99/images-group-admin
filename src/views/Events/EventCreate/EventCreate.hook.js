@@ -24,6 +24,7 @@ function useEventCreate() {
   const InitialKeys = [
     "name",
     "slug",
+    "project_id",
     "start_date",
     "end_date",
     "location",
@@ -49,6 +50,7 @@ function useEventCreate() {
   const initialForm = {
     name: "",
     slug: "",
+    project_id:"",
     organised_by: "",
     start_date: "",
     end_date: "",
@@ -392,7 +394,7 @@ function useEventCreate() {
         for (const prop in form) {
           if (colorKey.includes(prop)) {
             themeData[prop] = form[prop];
-            delete form[prop];
+            // delete form[prop];
           }
           if (eventkeys.includes(prop)) {
             if (prop === "chapters" || prop === "all_chapters") {
@@ -407,24 +409,26 @@ function useEventCreate() {
         form.theme = themeData;
         Object.keys(form).forEach((key) => {
           LogUtils.log("key", key);
-          if (
-            ["registration_status", "is_gallery_public", "is_digital"].includes(
-              key
-            )
-          ) {
-            fd.append(key, form[key] === "YES" ? true : false);
-          } else if (
-            [
-              "related_event_ids",
-              "accessible_chapter_ids",
-              "theme",
-              "accessible_to",
-            ].includes(key)
-          ) {
-            fd.append(key, JSON.stringify(form[key]));
-          } else {
-            if (form[key]) {
-              fd.append(key, form[key]);
+          if(!colorKey?.includes(key)){
+            if (
+              ["registration_status", "is_gallery_public", "is_digital"].includes(
+                key
+              )
+            ) {
+              fd.append(key, form[key] === "YES" ? true : false);
+            } else if (
+              [
+                "related_event_ids",
+                "accessible_chapter_ids",
+                "theme",
+                "accessible_to",
+              ].includes(key)
+            ) {
+              fd.append(key, JSON.stringify(form[key]));
+            } else {
+              if (form[key]) {
+                fd.append(key, form[key]);
+              }
             }
           }
         });
