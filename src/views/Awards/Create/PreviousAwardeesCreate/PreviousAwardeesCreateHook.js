@@ -1,18 +1,16 @@
+import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
+import { serviceCreateAwardImage } from "../../../../services/Award.servcice";
 
-import  { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router';
-
-
-import historyUtils from '../../../../libs/history.utils';
-import SnackbarUtils from '../../../../libs/SnackbarUtils';
-import { serviceCreateAward, serviceUpdateAward } from '../../../../services/Award.servcice';
-
-const initialForm ={
- 
-  images:"",
-
-}
-const usePreviousAwardeesCreateHook = ({isSidePanel}) => {
+const initialForm = {
+  image: "",
+};
+const usePreviousAwardeesCreateHook = ({
+  isSidePanel,
+  awardId,
+  handleCallDetail,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,10 +24,7 @@ const usePreviousAwardeesCreateHook = ({isSidePanel}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["about"];
-    // if (!id) {
-    //   required.push("thumbnail");
-    // }
+    let required = ["image"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -37,7 +32,6 @@ const usePreviousAwardeesCreateHook = ({isSidePanel}) => {
       ) {
         errors[val] = true;
       }
-      
     });
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -51,26 +45,25 @@ const usePreviousAwardeesCreateHook = ({isSidePanel}) => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
-      fd.append("content", form?.about)
-      fd.append("image", form?.image)
-     
-  
-      let req = serviceCreateAward;
-      if (id) {
-        req = serviceUpdateAward;
+      if (form?.image) {
+        fd.append("image", form?.image);
       }
+      fd.append("award_id", awardId);
+      let req = serviceCreateAwardImage;
+      // if (id) {
+      //   req = serviceUpdateAward;
+      // }
 
       req(fd).then((res) => {
         if (!res.error) {
-          historyUtils.push("/business-list");
+          handleCallDetail();
         } else {
           SnackbarUtils.success(res.message);
         }
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id, selectImages]);
-
+  }, [form, isSubmitting, setIsSubmitting, id, selectImages, awardId,handleCallDetail]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -80,7 +73,7 @@ const usePreviousAwardeesCreateHook = ({isSidePanel}) => {
     }
     setIsSubmitting(true);
     submitToServer();
-  }, [checkFormValidation, setErrorData, form,selectImages]);
+  }, [checkFormValidation, setErrorData, form, selectImages, awardId,handleCallDetail]);
 
   const removeError = useCallback(
     (title) => {
@@ -99,9 +92,7 @@ const usePreviousAwardeesCreateHook = ({isSidePanel}) => {
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "about") {
-     
-          t[fieldName] = text;
-        
+        t[fieldName] = text;
       } else {
         t[fieldName] = text;
       }
@@ -132,15 +123,15 @@ const usePreviousAwardeesCreateHook = ({isSidePanel}) => {
     }
   }, [isSidePanel]);
 
- 
-  return{
+  return {
     form,
     handleSubmit,
     changeTextData,
     onBlurHandler,
     renderImages,
-    selectImages
-  }
-}
+    selectImages,
+    errorData
+  };
+};
 
-export default usePreviousAwardeesCreateHook
+export default usePreviousAwardeesCreateHook;

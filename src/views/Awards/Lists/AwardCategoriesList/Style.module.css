@@ -12,6 +12,12 @@
     text-align: end;
     margin-right: 20px;
 }
+.cateWrap{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
 .update_status {
     color: #ffffff !important;
     border-radius: 20px !important;
@@ -43,5 +49,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px;
+    padding: 5px 10px;
+    font-weight: 600;
+    font-size: .8rem;
+    text-transform: uppercase;
   }

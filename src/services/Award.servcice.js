@@ -26,3 +26,25 @@ import {
       return await postRequest("awards/detail", params);
     }
   
+    export async function serviceCreateAwardCategory(params) {
+      return await formDataRequest("awards/category/create", params);
+    }
+    export async function serviceUpdateAwardCategory(params) {
+      return await formDataRequest("awards/category/update", params);
+    }
+    export async function serviceDeleteAwardCategory(params) {
+      return await postRequest("awards/category/delete", params);
+    }
+    export async function serviceDeleteAwardImages(params) {
+      return await postRequest("awards/images/delete", params);
+    }
+    export async function serviceCreateAwardImage(params) {
+      return await formDataRequest("awards/images/create", params);
+    }
+    export async function serviceDeleteAwardJury(params) {
+      return await postRequest("awards/jury/delete", params);
+    }
+    export async function serviceCreateAwardJury(params) {
+      return await formDataRequest("awards/jury/create", params);
+    }
+    
