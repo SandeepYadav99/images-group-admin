@@ -531,10 +531,11 @@ const useExhibitorCreate = ({ location }) => {
       console.log({ val });
       if (val?.documentUpload) {
         fd.append("download_documents", val?.documentUpload);
-      } else {
-        const file = dataURLtoFile(nullImg, "null.png");
-        fd.append("download_documents", file);
-      }
+      } 
+      // else {
+      //   const file = dataURLtoFile(nullImg, "null.png");
+      //   fd.append("download_documents", file);
+      // }
     });
     fd.append("downloads", JSON.stringify(ExpensesData));
 
@@ -543,10 +544,11 @@ const useExhibitorCreate = ({ location }) => {
     DigitalBag.forEach((val) => {
       if (val?.images) {
         fd.append("digital_bag_images", val?.images);
-      } else {
-        const file = dataURLtoFile(nullImg, "null.png");
-        fd.append("digital_bag_images", file);
       }
+      //  else {
+      //   const file = dataURLtoFile(nullImg, "null.png");
+      //   fd.append("digital_bag_images", file);
+      // }
     });
     fd.append("digital_bags", JSON.stringify(DigitalBag));
 
