@@ -20,10 +20,9 @@ const useEventHighLightCreateHook = ({ location }) => {
     link: "",
     priority: "",
     status: true,
-    event_id:"",
+    // event_id: "",
   };
   const eventPass = location?.state?.eventId;
-
 
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
@@ -106,11 +105,7 @@ const useEventHighLightCreateHook = ({ location }) => {
             if (!id) {
               fd.append(key, form[key]);
             }
-          }
-          else if (form[key] === "event_id"){
-            fd.append("event_id",eventPass)
-          }
-          else {
+          } else {
             fd.append(key, form[key]);
           }
         });
@@ -118,7 +113,7 @@ const useEventHighLightCreateHook = ({ location }) => {
         if (id && form?.image) {
           fd.append("image", form?.image ? form?.image : thumbnail);
         }
-
+        fd.append("event_id", eventPass);
         if (id) {
           fd.append("id", id);
         }

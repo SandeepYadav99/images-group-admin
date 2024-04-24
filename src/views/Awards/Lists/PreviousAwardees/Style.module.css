@@ -38,12 +38,7 @@
   border: 1px solid gray;
 }
 .container {
-  /* border: 1px solid #DDDDDD;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px; */
+  padding: 10px;
   position: relative;
   display: inline-block;
 }
