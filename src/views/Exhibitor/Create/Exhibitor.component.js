@@ -326,12 +326,12 @@ const ExhibitorCreate = () => {
                 </CustomSelectField>
               </div>
               <CustomTextField
-                isError={errorData?.conatct}
-                errorText={errorData?.conatct}
+                isError={errorData?.contact}
+                errorText={errorData?.contact}
                 label={"Contact"}
-                value={form?.conatct}
+                value={form?.contact}
                 onTextChange={(text) => {
-                  changeTextData(text, "conatct");
+                  changeTextData(text, "contact");
                 }}
                 // onBlur={() => {
                 //   onBlurHandler("primary_conatct_number");

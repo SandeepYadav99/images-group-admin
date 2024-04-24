@@ -78,7 +78,7 @@ const initialForm = {
   twitter_link: "",
   is_featured: false,
   is_recommended: false,
-  conatct: "",
+ 
   // download_documents: "",
   // fileName: "",
   // title: "",
@@ -642,7 +642,7 @@ const useExhibitorCreate = ({ location }) => {
           SnackbarUtils.error("Maximum 2 products can be added");
         }
       } else if (
-        fieldName === "conatct" ||
+        fieldName === "contact" ||
         fieldName === "primary_conatct_number"
       ) {
         if (isNum(text) && text.toString().length <= 10) {
