@@ -59,7 +59,7 @@ const PreviousAwardees = ({ data, awardId, callAPi }) => {
       </Paper>
       <SidePanelComponent
         handleToggle={handleToggleSidePannel}
-        title={"Update About"}
+        title={"Add Awardees"}
         open={isSidePanel}
         side={"right"}
       >

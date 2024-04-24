@@ -36,7 +36,7 @@ const AwardCategoriesCreate = ({
           {" "}
           <div style={{ display: "flex", justifyContent: "center" }}>
             <File
-              bannerLabel="Upload Event Logo"
+              bannerLabel="Upload Image"
               default_image={image ? image : ""}
               imageClass={styles.inputFileUploader}
               max_size={5 * 1024 * 1024}
@@ -78,7 +78,7 @@ const AwardCategoriesCreate = ({
           <CustomTextField
             isError={errorData?.description}
             errorText={errorData?.description}
-            label={"About Content"}
+            label={"Description"}
             value={form?.description}
             onTextChange={(text) => {
               changeTextData(text, "description");

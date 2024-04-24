@@ -72,7 +72,7 @@ const DeleteModal = ({ isOpen, handleToggle, handleSubmit }) => {
           </div>
           <div className={styles.printFlex}>
             <ButtonBase onClick={handleSubmit} className={styles.createBtn}>
-              "DELETE"
+              DELETE
             </ButtonBase>
           </div>
         </div>
