@@ -390,6 +390,11 @@ function useEventCreate() {
             }
           }
         });
+        // Need to update
+        // fd.append("no_of_rating", 0);
+        // fd.append("totals_rating", 0);
+        // fd.append("avg_rating", 0);
+
         fd.append("features", JSON.stringify(feature));
         if (status) {
           fd.append("status", status);

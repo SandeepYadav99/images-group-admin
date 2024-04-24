@@ -243,6 +243,9 @@ const [detailId,setDetailId]=useState("")
               event_id: id,
             })
           );
+          SnackbarUtils.success(
+            `${newFeaturedStatus === false ? "Completed" : "UnCompleted"} Successfully`
+          );
           // window.location.reload()
         } else {
           SnackbarUtils.error(res?.message);
