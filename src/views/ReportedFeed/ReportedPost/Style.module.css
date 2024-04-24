@@ -142,10 +142,12 @@
 .alignSpace{
   display: flex;
   gap:10px; 
+  
 }
 .alignUnderline{
   color: #AB183D;
   text-decoration: underline;
+  cursor: pointer;
 }
 .dialogTitle{
   width: 40vw;

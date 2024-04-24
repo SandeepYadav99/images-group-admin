@@ -158,5 +158,5 @@
   font-size: 14px !important;
 }
 .crossIconArea{
-  cursor:alias;
+  cursor:pointer !important;
 }

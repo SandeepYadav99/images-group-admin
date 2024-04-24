@@ -16,6 +16,7 @@ import { useParams } from "react-router";
 const useReportedPost = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [isVideoModal,setIsVideoModal] = useState(false);
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
@@ -135,6 +136,17 @@ const useReportedPost = ({}) => {
     [id]
   );
 
+  const toggleVideoModal = useCallback(
+    (link) => {
+      if (!isVideoModal) {
+        setIsVideoModal(link);
+      } else {
+        setIsVideoModal(null);
+      }
+    },
+    [isVideoModal, setIsVideoModal]
+  );
+  
   const handleViewUpdate = useCallback((data) => {
     LogUtils.log("data", data);
     historyUtils.push(`${RouteName.EVENT_BANNER_UPDATE}${data?.id}`, {
@@ -180,6 +192,8 @@ const useReportedPost = ({}) => {
     editData,
     configFilter,
     handleViewUpdate,
+    toggleVideoModal,
+    isVideoModal,
   };
 };
 

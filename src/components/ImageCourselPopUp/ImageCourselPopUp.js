@@ -14,7 +14,7 @@ const ImageCourselPopUp=({open,handleClose,content})=> {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  
+  console.log({content})
     return (
       <div  className={styles.container} >
         <Dialog
@@ -28,7 +28,7 @@ const ImageCourselPopUp=({open,handleClose,content})=> {
           {content?.map((val,i)=>{
             return(
               <div key={i}>
-                <img src={val.images} alt="text-image" style={{width:"400px",height:"400px"}} />
+                <img src={val?.images || val} alt="text-image" style={{width:"400px",height:"400px"}} />
               </div>
             )
           })}

@@ -24,8 +24,12 @@ import Dialog from "@material-ui/core/Dialog";
 import { useDispatch } from "react-redux";
 import { serviceDeleteReportedFeedPostValue } from "../../../services/ReportedPost.service";
 import { actionReportedByPostData } from "../../../actions/ReportedPost.action";
+import ImageCourselPopUp from "../../../components/ImageCourselPopUp/ImageCourselPopUp";
+import VideoDialog from "../ReportedComment/VideoDialog/VideoDialog";
 
 const PostPopUp = ({ open, title, commentDetail, onClick }) => {
+ 
+
   const {
     reportedPostValue,
     data,
@@ -33,6 +37,8 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.Reported_Post);
+ 
+
 
 
 
@@ -49,6 +55,7 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
 
   
 
+
   const renderStatus = useCallback((status) => {
     return (
       <StatusPill
@@ -60,6 +67,7 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
   const handleUserProfile = useCallback((data) => {
     historyUtils.push(RouteName.USER_PROFILE + data?.id);
   }, []);
+  
   
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
@@ -155,6 +163,9 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
 
 const ReportedPost = ({}) => {
   const dispatch = useDispatch();
+  const [contentData, setContentData] = useState([]);
+  const [openCoursel, setOpenCoursel] = useState();
+ 
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -164,6 +175,8 @@ const ReportedPost = ({}) => {
     isCalling,
     configFilter,
     handleViewUpdate,
+    toggleVideoModal,
+    isVideoModal,
   } = useReportedPost({});
 
   const {
@@ -175,10 +188,29 @@ const ReportedPost = ({}) => {
 
   const [popUp, setPopUp] = useState(false);
 
+  // const handleClosePopUp = () => {
+  //   setPopUp(false);
+  // };
   const handleClosePopUp = () => {
     setPopUp(false);
   };
 
+  // const handleOpen = (all) => {
+  //   let params = {
+  //     postId: all?.id,
+  //   };
+  //   setPopUp(true);
+  //   // dispatch(actionReportedByPostData(params));
+  // };
+
+  const handleOpenDetailPopUp = (all) => {
+    setContentData(all);
+    setOpenCoursel(true);
+  };
+
+  const handleCloseCoursel = () => {
+    setOpenCoursel(false);
+  };
   const handleOpen = (all) => {
     let params ={
       "postId":all?.id
@@ -232,18 +264,22 @@ const ReportedPost = ({}) => {
             {all?.images.length > 0 ? (
               <img
                 src={all?.images[0]}
+                 onClick={() => handleOpenDetailPopUp(all?.images)}
                 alt="image"
-                style={{ height: "50px", width: "50px" }}
+                style={{ height: "50px", width: "50px", cursor:"pointer" }}
+               
               />
             ) :   (
-              all?.user?.image ?
+              all?.video ?
               <img
                 src={all?.user?.image}
+                  onClick={() => {toggleVideoModal(all?.video)}}
                 alt="image"
-                style={{ height: "50px", width: "50px" }}
+                style={{ height: "50px", width: "50px" , cursor:"pointer" }}
               />:"-No Image-"
             )}
-            <p className={styles.alignUnderline}>
+            {/*  */}
+            <p className={styles.alignUnderline} onClick={() => handleOpenDetailPopUp(all?.images)} >
               {all?.images?.length > 0 ? "+" : ""}
               {all?.images?.length > 0 ? all?.images.length + 1 : ""}
             </p>
@@ -367,6 +403,16 @@ const ReportedPost = ({}) => {
           title={"Reported by User"}
           onClick={handleClosePopUp}
         />
+            <ImageCourselPopUp
+          content={contentData}
+          open={openCoursel}
+          handleClose={handleCloseCoursel}
+        />
+        <VideoDialog
+          isOpen={isVideoModal}
+          videoLink={isVideoModal}
+          handleDialog={() => {toggleVideoModal(null)}}
+      />
       </PageBox>
     </div>
   );
