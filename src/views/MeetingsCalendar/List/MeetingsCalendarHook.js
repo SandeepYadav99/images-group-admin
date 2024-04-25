@@ -17,7 +17,8 @@ import {
 
 } from "../../../services/EventSpeaker.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-import { actionCreateEventSpeakerMaster, actionDeleteEventSpeakerMaster, actionFetchEventSpeakerMaster, actionSetPageEventSpeakerMaster, actionUpdateEventSpeakerMaster } from "../../../actions/SpeakerMaster.action";
+import { actionCreateMeetingCallendarList, actionFetchMeetingCallendarList, actionSetPageMeetingCallendarList } from "../../../actions/MeetingsCalendar.action";
+// import { actionCreateEventSpeakerMaster, actionDeleteEventSpeakerMaster, actionFetchMeetingCallendarList, actionSetPageEventSpeakerMaster, actionUpdateEventSpeakerMaster } from "../../../actions/SpeakerMaster.action";
 
 const useMeetingsCalendarHook = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -34,11 +35,11 @@ const useMeetingsCalendarHook = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.SpeakerMaster);
+  } = useSelector((state) => state.meeting_callendar);
 
   useEffect(() => {
     dispatch(
-      actionFetchEventSpeakerMaster(1, sortingData, {
+      actionFetchMeetingCallendarList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
         event_id: id,
@@ -56,17 +57,18 @@ const useMeetingsCalendarHook = ({}) => {
   }, []);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageEventSpeakerMaster(type));
+    dispatch(actionSetPageMeetingCallendarList(type));
   }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
       // this.props.actionChangeStatus({...data, type: type});
       if (type == "CREATE") {
-        dispatch(actionCreateEventSpeakerMaster(data));
-      } else {
-        dispatch(actionUpdateEventSpeakerMaster(data));
+        dispatch(actionCreateMeetingCallendarList(data));
       }
+      //  else {
+      //   dispatch(actionUpdateEventSpeakerMaster(data));
+      // }
       setEditData(null);
     },
     [setEditData]
@@ -77,7 +79,7 @@ const useMeetingsCalendarHook = ({}) => {
       console.log("_queryFilter", key, value);
       // dispatch(actionSetPageEventSpeakerRequests(1));
       dispatch(
-        actionFetchEventSpeakerMaster(1, sortingData, {
+        actionFetchMeetingCallendarList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
           event_id: id,
@@ -107,7 +109,7 @@ const useMeetingsCalendarHook = ({}) => {
     (row, order) => {
 
       dispatch(
-        actionFetchEventSpeakerMaster(
+        actionFetchMeetingCallendarList(
           1,
           { row, order },
           {
@@ -127,7 +129,7 @@ const useMeetingsCalendarHook = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteEventSpeakerMaster(id));
+      // dispatch(actionDeleteEventSpeakerMaster(id));
       setEditData(null);
     },
     [setEditData]

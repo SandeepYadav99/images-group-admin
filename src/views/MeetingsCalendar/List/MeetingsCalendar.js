@@ -39,7 +39,7 @@ const MeetingsCalendar = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.SpeakerMaster);
+  } = useSelector((state) => state.meeting_callendar);
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
