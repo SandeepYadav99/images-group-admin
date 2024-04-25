@@ -90,7 +90,7 @@ function useEventCreate() {
     instagram_link: "",
     twitter_link: "",
     youtube_link: "",
-    linkdin_content: "",
+    // linkdin_content: "",
   };
   const featureKey = {
     event_participants: true,
@@ -345,7 +345,7 @@ function useEventCreate() {
     },
     [setErrorData, errorData]
   );
-  console.log({ form });
+
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;

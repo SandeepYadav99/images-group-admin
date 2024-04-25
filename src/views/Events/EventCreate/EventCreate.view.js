@@ -505,15 +505,15 @@ function EventCreate() {
         </div>
         <div className={"formGroup"}>
           <CustomTextField
-            isError={errorData?.linkdin_content}
-            errorText={errorData?.linkdin_content}
+            isError={errorData?.linkedin_content}
+            errorText={errorData?.linkedin_content}
             label={"LinkedIn Content"}
-            value={form?.linkdin_content}
+            value={form?.linkedin_content}
             onTextChange={(text) => {
-              changeTextData(text, "linkdin_content");
+              changeTextData(text, "linkedin_content");
             }}
             onBlur={() => {
-              onBlurHandler("linkdin_content");
+              onBlurHandler("linkedin_content");
             }}
             multiline
             rows={3}
