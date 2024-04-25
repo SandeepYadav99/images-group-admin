@@ -155,7 +155,7 @@ function useSpeakerMasterCreate({ location }) {
         }
         console.log({images})
         if (!images) {
-          fd.append("s_image", "removed");
+          fd.append("is_image_removed", true);
         }
 
         if (form?.priority) {
