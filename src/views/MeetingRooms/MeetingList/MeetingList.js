@@ -21,7 +21,7 @@ import { useHistory } from "react-router-dom";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import MeetingCreateView from "../MeetingMaster/MeetingMaster";
 
-const MeetingList = ({}) => {
+const MeetingList = ({location}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -34,7 +34,7 @@ const MeetingList = ({}) => {
     configFilter,
     handleCreateFed,
     handleUpdate,
-    location,
+    
     handleToggleSidePannel,
     isSidePanel,
     editData,
