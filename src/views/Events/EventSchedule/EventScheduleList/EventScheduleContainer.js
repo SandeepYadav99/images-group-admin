@@ -12,12 +12,12 @@ import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import StatusPill from "../../../../components/Status/StatusPill.component";
 import EventScheduleView from "../EventScheduleCreate/EventSchedule.view";
 import useEventScheduleList from "./EventScheduleList.hook";
-import LiveDialog from "./component/LiveDialog/LiveDialog";
-import WifiTetheringIcon from "@material-ui/icons/WifiTethering";
+
 import historyUtils from "../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import DeleteIcon from "../../../../assets/img/ic_delete.png";
 import ScheduleDetail from "../ScheduleDetail/ScheduleDetail";
+import UpdateStatusView from "./component/UpdateStatus/UpdateStatusView";
 const EventScheduleContainer = ({}) => {
   const {
     handleSortOrderChange,
@@ -40,8 +40,11 @@ const EventScheduleContainer = ({}) => {
     handleDeleteData,
     handleScheduleDetail,
     isScheduleDetail,
-    toggleRecommended,
-    detailId
+    scheduleStatus,
+    detailId,
+    speakerId,
+    toggleUpdateStatus,
+    isUpdateStatus
   } = useEventScheduleList({});
   // console.log(editData, "Edit Data")
   const {
@@ -128,7 +131,7 @@ const EventScheduleContainer = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div className={styles.actionButton}>
-            {all?.is_live ? (
+            {/* {all?.is_live ? (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
@@ -158,8 +161,8 @@ const EventScheduleContainer = ({}) => {
                 />
                 <span className={styles.hide}>Make Live</span>
               </IconButton>
-            )}
-            {all?.is_completed ? (
+            )} */}
+            {/* {all?.is_completed ? (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
@@ -187,8 +190,21 @@ const EventScheduleContainer = ({}) => {
                 </div>
                 <span className={styles.hide}>COMPLETED</span>
               </IconButton>
-            )}
-
+            )} */}
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                toggleUpdateStatus(all);
+              }}
+            >
+              {/* <WifiTetheringIcon
+                style={{ color: "#0BCF66" }}
+                fontSize={"small"}
+              /> */}
+              <span className={styles.hide}>Update Status</span>
+            </IconButton>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -282,11 +298,18 @@ const EventScheduleContainer = ({}) => {
             </ButtonBase>
           </div>
         </div>
-        <LiveDialog
+        {/* <LiveDialog
           handleConfirm={handleLiveApi}
           handleDialog={toggleRejectDialog}
           isOpen={isRejectPopUp}
           title={dataValue?.type === "hide" ? "Hide" : "Live"}
+        /> */}
+           <UpdateStatusView
+           candidateId={speakerId}
+           handleToggle={toggleUpdateStatus}
+           isOpen={isUpdateStatus}
+           scheduleStatus={scheduleStatus}
+          // title={dataValue?.type === "hide" ? "Hide" : "Live"}
         />
         <div>
           <FilterComponent
