@@ -61,6 +61,9 @@ function useEventSponsorCreate({ location }) {
     return location?.state?.eventId ? location?.state?.eventId : event;
   }, [location, event, setEvent]);
 
+  const images = useMemo(() => {
+    return img;
+  }, [img]);
   useEffect(() => {
     serviceGetList(["SPONSOR_TYPE"], { event_id: selectedEventId }).then(
       (res) => {
@@ -245,7 +248,9 @@ function useEventSponsorCreate({ location }) {
           }
         });
         fd.append("digital_bags", JSON.stringify(DigitalBag));
-
+        if (!images) {
+          fd.append("is_image_removed", true);
+        }
         let req;
         if (id) {
           req = serviceUpdateEventSponsor(fd);
@@ -262,7 +267,7 @@ function useEventSponsorCreate({ location }) {
         });
       }
     },
-    [form, isSubmitting, setIsSubmitting]
+    [form, isSubmitting, setIsSubmitting, images]
   );
 
   const onBlurHandler = useCallback(
@@ -292,7 +297,7 @@ function useEventSponsorCreate({ location }) {
       }
       submitToServer(status);
     },
-    [checkFormValidation, setErrorData, form, submitToServer]
+    [checkFormValidation, setErrorData, form, submitToServer, images]
   );
 
   console.log("form", form);
@@ -314,6 +319,7 @@ function useEventSponsorCreate({ location }) {
     ChildenRef1,
     downloads,
     downloadsDigitalBag,
+    images
   };
 }
 

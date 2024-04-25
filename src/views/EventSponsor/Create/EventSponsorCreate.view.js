@@ -36,6 +36,7 @@ function EventSponsorCreate({ location }) {
     handleCountryCodeChange,
     downloads,
     downloadsDigitalBag,
+    images
   } = useEventSponsorCreate({ location });
 
   return (
@@ -70,14 +71,14 @@ function EventSponsorCreate({ location }) {
               show_image={true}
               error={errorData?.img_url}
               value={form?.img_url}
-              default_image={img ? img : null}
+              default_image={images ? images : null}
               onChange={(file) => {
                 if (file) {
                   changeTextData(file, "img_url");
                 }
               }}
             />
-            {img && (
+            {images && (
               <div className={styles.remove} onClick={() => setImg("")}>
                 Remove
               </div>
