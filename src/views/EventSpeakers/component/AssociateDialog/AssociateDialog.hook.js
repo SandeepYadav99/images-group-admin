@@ -25,7 +25,7 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
   });
 
   const { id } = useParams();
-
+console.log({data})
   useEffect(() => {
     if (data?.length > 0) {
       const value = data?.map((item) => ({

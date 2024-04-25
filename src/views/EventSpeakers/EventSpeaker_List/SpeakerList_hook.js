@@ -215,12 +215,12 @@ const useSpeakerListHook = ({}) => {
 
       serviceEventMarkRecommend(updatedData).then((res) => {
         if (!res.error) {
-          dispatch(
-            actionFetchEventSpeaker(1, {
-              event_id: id,
-            })
-          );
-          // window.location.reload()
+          // dispatch(
+          //   actionFetchEventSpeaker(1, {
+          //     event_id: id,
+          //   })
+          // );
+           window.location.reload()
         } else {
           SnackbarUtils.error(res?.message);
         }
