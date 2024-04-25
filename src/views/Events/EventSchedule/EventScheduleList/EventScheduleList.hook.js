@@ -27,7 +27,10 @@ const useEventScheduleList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [dataValue, setDataValue] = useState("");
-const [detailId,setDetailId]=useState("")
+  const [detailId, setDetailId] = useState("");
+  const [speakerId, setSpeakerId] = useState("");
+  const [scheduleStatus, setScheduleStatus] = useState("");
+  const [isUpdateStatus, setIsUpdateStatus] = useState(false);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const { id } = useParams();
@@ -46,6 +49,18 @@ const [detailId,setDetailId]=useState("")
       }
     },
     [isRejectPopUp, setDataValue]
+  );
+
+  const toggleUpdateStatus = useCallback(
+    (all) => {
+      setIsUpdateStatus((e) => !e);
+      setSpeakerId(all?.id);
+      setScheduleStatus(all?.schedule_activity);
+      // if (obj) {
+      //   setDataValue({ type: obj, id: id });
+      // }
+    },
+    [setIsUpdateStatus, setDataValue]
   );
 
   useEffect(() => {
@@ -99,10 +114,9 @@ const [detailId,setDetailId]=useState("")
     [sortingData, query, queryData, id]
   );
 
-
-  const handleAddCategory =()=>{
-   historyUtils.push(RouteName.CATEGORY_LIST)
-  }
+  const handleAddCategory = () => {
+    historyUtils.push(RouteName.CATEGORY_LIST);
+  };
 
   const handleFilterDataChange = useCallback(
     (value) => {
@@ -130,7 +144,7 @@ const [detailId,setDetailId]=useState("")
         } else {
           request = serviceEventScheduleHideLive;
         }
-        console.log('dataValue',dataValue)
+        console.log("dataValue", dataValue);
         request({ id: dataValue?.id }).then((res) => {
           if (!res.error) {
             SnackbarUtils.success(
@@ -147,10 +161,11 @@ const [detailId,setDetailId]=useState("")
     [setIsSubmitting, isSubmitting, dataValue]
   );
 
-
-  const handleDeleteData =(all)=>{
-    serviceDeleteEventSchedule({id:all?.id}).then((res)=>window.location.reload())
-  }
+  const handleDeleteData = (all) => {
+    serviceDeleteEventSchedule({ id: all?.id }).then((res) =>
+      window.location.reload()
+    );
+  };
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
@@ -204,12 +219,11 @@ const [detailId,setDetailId]=useState("")
     (data) => {
       setScheduleDetail((e) => !e);
       // setEditData(data?.id);
-      setDetailId(data?.id)
-      
+      setDetailId(data?.id);
     },
     [setScheduleDetail, setEditData]
   );
-  
+
   const handleSideToggle = useCallback(
     (data) => {
       historyUtils.push(RouteName.LOCATIONS_UPDATE + data?.id);
@@ -231,7 +245,7 @@ const [detailId,setDetailId]=useState("")
       const newFeaturedStatus = !isCurrentlyFeatured;
 
       const updatedData = {
-        id: data?.id ,
+        id: data?.id,
         event_id: id,
         is_completed: newFeaturedStatus,
       };
@@ -239,12 +253,18 @@ const [detailId,setDetailId]=useState("")
       serviceEventScheduleScheduleStatus(updatedData).then((res) => {
         if (!res.error) {
           dispatch(
-            actionFetchEventSchedule(1, {},{
-              event_id: id,
-            })
+            actionFetchEventSchedule(
+              1,
+              {},
+              {
+                event_id: id,
+              }
+            )
           );
           SnackbarUtils.success(
-            `${newFeaturedStatus === false ? "Completed" : "UnCompleted"} Successfully`
+            `${
+              newFeaturedStatus === false ? "Completed" : "UnCompleted"
+            } Successfully`
           );
           // window.location.reload()
         } else {
@@ -292,7 +312,11 @@ const [detailId,setDetailId]=useState("")
     handleScheduleDetail,
     isScheduleDetail,
     toggleRecommended,
-    detailId
+    detailId,
+    speakerId,
+    toggleUpdateStatus,
+    isUpdateStatus,
+    scheduleStatus,
   };
 };
 
