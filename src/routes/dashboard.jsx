@@ -1108,9 +1108,6 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
 
-    // icon: PeopleOutlined,
-    // sidebarName: "Meeting",
-    // navbarName: "Meeting",
   },
   {
     path: `${RouteName.MEETINGS_DETAIL}:id`,

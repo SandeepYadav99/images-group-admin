@@ -12,9 +12,11 @@ import { actionFetchHallMasterList } from "../../../actions/HallMaster.action";
 import { useDispatch } from "react-redux";
 
 const initialForm = {
-  name: "",
-  des: "",
-  status: true,
+  choose_date: "",
+  choose_time: "",
+  booked_by:"",
+  booked_with:"",
+  meeting_room: "",
 };
 
 const useMeetingsCalendarCreateHook = ({ handleToggleSidePannel, isSidePanel, empId }) => {

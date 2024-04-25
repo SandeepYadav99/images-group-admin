@@ -178,5 +178,5 @@ export default {
   MEETINGS_DETAIL: "/meetings/detail/",
   MASTER_CREATE: "/master/create/",
 
-  MEETING_CALENDAR: "/meeting/calendar",
+  MEETING_CALENDAR: "/meeting/calendar/",
 };

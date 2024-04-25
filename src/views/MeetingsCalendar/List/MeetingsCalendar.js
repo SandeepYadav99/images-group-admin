@@ -16,6 +16,7 @@ import { capitalizeFirstLetter } from "../../../hooks/CapsLetter";
 import useMeetingsCalendarHook from "./MeetingsCalendarHook";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import MeetingsCalendarCreate from "../Create/MeetingsCalendarCreate";
+import ListHeader from "../../../components/ListPageHeader/ListHeader";
 
 const MeetingsCalendar = ({}) => {
   const {
@@ -27,10 +28,10 @@ const MeetingsCalendar = ({}) => {
     handleViewDetails,
     isCalling,
     handleCreateFed,
-    handleUpdateFed,
-    toggleFeatured,
+    handleFilterDataChange,
+    configFilter,
     handleToggleSidePannel,
-    isSidePanel
+    isSidePanel,
   } = useMeetingsCalendarHook({});
 
   const {
@@ -52,74 +53,84 @@ const MeetingsCalendar = ({}) => {
     return null;
   }, []);
 
-  const UpperInfo = useCallback(
-    (obj) => {
-      if (obj) {
-        return (
-          <div className={styles.InfoWrap}>
-            <div>
-              {true ? "Edit Meeting Calendar " : "Add Meeting Calendar "}{" "}
-            </div>
-            <div className={styles.newLine}></div>
+  const UpperInfo = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.InfoWrap}>
+          <div>
+            {true ? "Edit Meeting Calendar " : "Add Meeting Calendar "}{" "}
           </div>
-        );
-      }
-      return null;
-    },
-    []
-  );
+          <div className={styles.newLine}></div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
   const tableStructure = useMemo(() => {
     return [
       {
         key: "name",
         label: "NAME",
         sortable: false,
-        render: (temp, all) => (
-          <div className={styles.firstCellFlex}>
-            <img
-              src={all?.s_image ? all?.s_image : speakerDefault}
-              alt=""
-              className={styles.driverImgCont}
-              crossOrigin="anonymous"
-            />
-            {capitalizeFirstLetter(all?.s_name)}
-          </div>
-        ),
+        render: (temp, all) => <div className={styles.firstCellFlex}></div>,
       },
       {
-        key: "description",
-        label: "DESCRIPTION",
+        key: "code",
+        label: "CODE",
         sortable: false,
-        render: (value, all) => (
-          <div className={styles.desData}>{ all?.s_description ? capitalizeFirstLetter(all?.s_description) : "N/A"}</div>
-        ),
+        render: (value, all) => <div>{}</div>,
       },
 
       {
-        key: "designation",
-        label: "DESIGNATION",
+        key: "date",
+        label: "DATE",
         sortable: false,
-        render: (temp, all) => <div>{all?.s_designation ? capitalizeFirstLetter(all?.s_designation) : "N/A"}</div>,
+        render: (temp, all) => <div>{}</div>,
       },
       {
-        key: "company",
-        label: "COMPANY",
+        key: "slot",
+        label: "SLOT",
         sortable: false,
-        render: (temp, all) => <div>{all?.s_company}</div>,
+        render: (temp, all) => <div>{}</div>,
+      },
+      {
+        key: "booked_by",
+        label: "BOOKED BY",
+        sortable: false,
+        render: (temp, all) => <div>{}</div>,
+      },
+      {
+        key: "booked_with",
+        label: "BOOKED WITH",
+        sortable: false,
+        render: (temp, all) => <div>{}</div>,
+      },
+      {
+        key: "booked_with",
+        label: "BOOKED WITH",
+        sortable: false,
+        render: (temp, all) => <div>{}</div>,
+      },
+      {
+        key: "ref_id",
+        label: "REF ID",
+        sortable: false,
+        render: (temp, all) => (
+          <></>
+          // <div>{<StatusPill status={all?.s_status} />}</div>
+        ),
       },
       {
         key: "status",
         label: "STATUS",
         sortable: false,
-        render: (temp, all) => (
-          <div>{<StatusPill status={all?.s_status} />}</div>
-        ),
+        render: (temp, all) => <div>{}</div>,
       },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div style={{display:"flex",flexWrap:"wrap",gap:"5px"}}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
             {/* <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -141,7 +152,7 @@ const MeetingsCalendar = ({}) => {
               )}
             </IconButton> */}
 
-            <IconButton
+            {/* <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
@@ -150,7 +161,7 @@ const MeetingsCalendar = ({}) => {
               }}
             >
               <Edit fontSize={"small"} />
-            </IconButton>
+            </IconButton> */}
           </div>
         ),
       },
@@ -186,30 +197,20 @@ const MeetingsCalendar = ({}) => {
   return (
     <>
       <PageBox>
-        <div className={styles.headerContainer}>
-          {/* <ButtonBase onClick={() => historyUtils.goBack()}>
-            <ArrowBackIosIcon fontSize={"small"} /> */}
-            <div>
-              <span className={styles.title}>Speakers Master</span>
-              <div className={styles.newLine} />
-            </div>
-          {/* </ButtonBase> */}
+        <ListHeader
+          title={"Meeting Calendar"}
+          handleCreateFed={handleToggleSidePannel}
+          actionTitle={"ADD MEETING"}
+          arrowIcon="true"
+        />
 
-          <div className={styles.BtnWrapper}>
-            <ButtonBase onClick={handleToggleSidePannel} className={"createBtn"}>
-              ADD SPEAKER 
-              <Add fontSize={"small"} className={"plusIcon"}></Add>
-            </ButtonBase>
-          </div>
-        </div>
-
-        <div>
-          <div style={{ width: "88%" }}>
+        <>
+          <div style={{ width: "100%" }}>
             <FilterComponent
               is_progress={isFetching}
-              filters={""}
+              filters={configFilter}
               handleSearchValueChange={handleSearchValueChange}
-              handleFilterDataChange={"handleFilterDataChange"}
+              handleFilterDataChange={handleFilterDataChange}
             />
           </div>
           <div>
@@ -221,7 +222,7 @@ const MeetingsCalendar = ({}) => {
               />
             </div>
           </div>
-        </div>
+        </>
         <SidePanelComponent
           handleToggle={handleToggleSidePannel}
           title={<UpperInfo />}
