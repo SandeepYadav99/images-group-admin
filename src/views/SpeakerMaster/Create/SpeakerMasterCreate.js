@@ -10,6 +10,7 @@ import historyUtils from "../../../libs/history.utils";
 
 import useSpeakerMasterCreate from "./SpeakerMasterCreateHook";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
+import { useCallback } from "react";
 
 function SpeakerMasterCreate({ location }) {
   const {
@@ -25,9 +26,24 @@ function SpeakerMasterCreate({ location }) {
     setImage,
     speaker,
     id,
-    setRemove
+    setRemove,
   } = useSpeakerMasterCreate({ location });
 
+  const renderImage = useCallback(() => {
+    if (images !== "https://just4emails.in/public/user_images/ic_profile_2.png") {
+     return <div
+        className={styles.remove}
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          setImage("");
+          // setRemove(true);
+        }}
+      >
+        Remove
+      </div>;
+    }
+    return null
+  }, [images, setImage]);
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -67,7 +83,7 @@ function SpeakerMasterCreate({ location }) {
                 }
               }}
             />
-            {images !== "https://just4emails.in/public/user_images/ic_profile_2.png" && (
+            {/* {images  && (
               <div
                 className={styles.remove}
                 style={{ cursor: "pointer" }}
@@ -78,7 +94,8 @@ function SpeakerMasterCreate({ location }) {
               >
                 Remove
               </div>
-            )}
+            )} */}
+            {renderImage()}
           </div>
           <div></div>
           <div className={styles.lowerWrap}>
@@ -162,7 +179,6 @@ function SpeakerMasterCreate({ location }) {
               isError={errorData?.priority}
               errorText={errorData?.priority}
               label={"Priority"}
-           
               value={form?.priority}
               onTextChange={(text) => {
                 changeTextData(text, "priority");
@@ -174,7 +190,7 @@ function SpeakerMasterCreate({ location }) {
           </div>
         </div>
         <div className={"headerFlex"}>
-        <div className={"formGroup"}>
+          <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.linkedin_link}
               errorText={errorData?.linkedin_link}
@@ -188,7 +204,7 @@ function SpeakerMasterCreate({ location }) {
               }}
             />
           </div>
-        </div> 
+        </div>
       </div>
       <div className={"plainPaper"}>
         {/* <div style={{ display: "flex", marginTop: "10px", gap: "10px" }}>

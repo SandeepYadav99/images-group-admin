@@ -83,7 +83,7 @@ const UpdateStatusView = ({ isOpen, handleToggle, candidateId , scheduleStatus})
                   changeTextData(value, "status");
                 }}
               >
-                <MenuItem value="UPCOMMING">Upcoming </MenuItem>
+                <MenuItem value="UPCOMING">Upcoming </MenuItem>
                 <MenuItem value="ONGOING">Ongoing </MenuItem>
                 <MenuItem value="COMPLETED">Completed </MenuItem>                
               </CustomSelectField>

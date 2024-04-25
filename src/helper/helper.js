@@ -406,6 +406,12 @@ export const EventData = [
     url: RouteName.MEETING_ROOMS,
   },
   {
+    key: "meeting_calendar",
+    name: "Meeting Calendar",
+    image: event,
+    url: RouteName.MEETING_CALENDAR,
+  },
+  {
     key: "award",
     name: "Awards",
     image: event,
