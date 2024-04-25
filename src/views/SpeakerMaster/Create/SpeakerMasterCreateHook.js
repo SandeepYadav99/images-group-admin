@@ -43,18 +43,21 @@ function useSpeakerMasterCreate({ location }) {
       serviceDetailsSpeakerMaster({ id: id }).then((res) => {
         if (!res.error) {
           const data = res?.data;
-          setForm({
-            ...form,
-            id: data?.s_id,
-            s_name: data?.s_name,
-            s_description: data?.s_description,
-            s_company: data?.s_company,
-            s_designation: data?.s_designation,
-            s_status: data?.s_status === constants.GENERAL_STATUS.ACTIVE,
-            priority: data?.priority,
-            linkedin_link: data?.linkedin_link,
-            // is_moderator
-          });
+       
+           setForm({
+             ...form,
+             id: data?.s_id,
+             s_name: data?.s_name,
+             s_description: data?.s_description,
+             s_company: data?.s_company,
+             s_designation: data?.s_designation,
+             s_status: data?.s_status === constants.GENERAL_STATUS.ACTIVE,
+             priority: data?.priority,
+             linkedin_link: data?.linkedin_link,
+             // is_moderator
+           });
+
+     
         
             setImage(data?.s_image);
           
@@ -139,6 +142,7 @@ function useSpeakerMasterCreate({ location }) {
           s_designation: "s_designation",
           s_company: "s_company",
           linkedin_link: "linkedin_link",
+          
         };
         for (const key in form) {
           if (SPEAKER_KEY.hasOwnProperty(key)) {
@@ -148,9 +152,13 @@ function useSpeakerMasterCreate({ location }) {
 
         fd.append("s_status", form.s_status ? "ACTIVE" : "INACTIVE"); // is_moderator
         // fd.append("is_moderator", form.is_moderator ? "ACTIVE" : "INACTIVE");// is_moderator
+        // console.log(form?.s_image )
         if (form?.s_image) {
           fd.append("s_image", form?.s_image);
         }
+        // else{
+        //   fd.append("s_image", null);
+        // }
         // console.log({ remove, images });
         // if (remove && !images) {
         //   fd.append("s_image", null);
