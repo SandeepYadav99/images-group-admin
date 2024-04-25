@@ -25,7 +25,7 @@ function SpeakerMasterCreate({ location }) {
     setImage,
     speaker,
     id,
-    setRemoveImage
+    setRemove
   } = useSpeakerMasterCreate({ location });
 
   return (
@@ -71,7 +71,10 @@ function SpeakerMasterCreate({ location }) {
               <div
                 className={styles.remove}
                 style={{ cursor: "pointer" }}
-                onClick={() => {setImage(""); setRemoveImage(null)}}
+                onClick={() => {
+                  setImage(""); 
+                  // setRemove(true); 
+                }}
               >
                 Remove
               </div>

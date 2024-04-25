@@ -26,13 +26,14 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
 
   const { id } = useParams();
 
-  
   useEffect(() => {
     if (data?.length > 0) {
       const value = data?.map((item) => ({
         id: item?.id,
         name: item?.s_name,
         image: item?.s_image,
+        is_featured: item?.is_featured,
+        is_recommended: item?.is_recommended,
       }));
       setForm({ ...form, album_id: [...value] });
     }
@@ -56,7 +57,6 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
       }
     );
   }, []);
-
 
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -101,12 +101,21 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
       setIsSubmitting(true);
       const alumId =
         form?.album_id?.length > 0
-          ? form?.album_id?.map((item) => item?.id)
+          ? form?.album_id?.map((item) => ({
+              id: item?.id,
+              is_featured: item?.is_featured,
+              is_recommended: item?.is_recommended,
+            }))
           : [];
       const UniqueValue = [...new Set(alumId)];
+      console.log({ UniqueValue });
       const uniqueObj =
         UniqueValue?.length > 0
-          ? UniqueValue?.map((item) => ({ speaker_id: item }))
+          ? UniqueValue?.map((item) => ({
+              speaker_id: item?.id,
+              is_featured: item?.is_featured,
+              is_recommended: item?.is_recommended,
+            }))
           : [];
 
       serviceUpdateEventGallery({
@@ -143,8 +152,6 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
     },
     [changeTextData]
   );
-
-  
 
   return {
     form,
