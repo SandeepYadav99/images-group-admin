@@ -80,10 +80,10 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   changeTextData(value, "category");
                 }}
               >
-                {categoryList?.map((val) => {
+                {listData?.EVENT_SCHEDULE_CATEGORIES?.map((val) => {
                   return (
-                    <MenuItem value={val?.name} id={val?.id}>
-                      {val?.name}
+                    <MenuItem value={val} id={val}>
+                      {val}
                     </MenuItem>
                   );
                 })}

@@ -55,6 +55,7 @@ const useEventScheduleHook = ({
   const dispatch = useDispatch();
   const [listData, setListData] = useState({
     EVENT_SPEAKERS: [],
+    EVENT_SCHEDULE_CATEGORIES:[]
   });
 
   const [listDataValue, setListDataValue] = useState({
@@ -66,7 +67,7 @@ const useEventScheduleHook = ({
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
-    serviceGetList(["EVENT_SPEAKERS"], { event_id: id }).then((res) => {
+    serviceGetList(["EVENT_SPEAKERS", "EVENT_SCHEDULE_CATEGORIES"], { event_id: id }).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
