@@ -25,7 +25,7 @@ function SpeakerMasterCreate({ location }) {
     setImage,
     speaker,
     id,
-    setRemoveImage
+    setRemove
   } = useSpeakerMasterCreate({ location });
 
   return (
@@ -67,11 +67,14 @@ function SpeakerMasterCreate({ location }) {
                 }
               }}
             />
-            {images && (
+            {images !== "https://just4emails.in/public/user_images/ic_profile_2.png" && (
               <div
                 className={styles.remove}
                 style={{ cursor: "pointer" }}
-                onClick={() => {setImage(""); setRemoveImage(null)}}
+                onClick={() => {
+                  setImage(""); 
+                  // setRemove(true); 
+                }}
               >
                 Remove
               </div>

@@ -216,7 +216,7 @@ const EventSpeakerList = ({}) => {
     data,
     currentPage,
   ]);
-
+  
   return (
     <>
       <PageBox>
@@ -239,6 +239,7 @@ const EventSpeakerList = ({}) => {
             </ButtonBase>
           </div>
         </div>
+       
         <AssociateDialog
           isOpen={isAcceptPopUp}
           handleToggle={toggleAcceptDialog}
