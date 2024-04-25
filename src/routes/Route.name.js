@@ -165,16 +165,18 @@ export default {
   SPONSPOR_VIDEO: "/sponspor/list/",
   SPONSPOR_VIDE_CREATE: "/sponspor/create/",
 
-  MENU_GRAPHIC:"/event/graphic/",
-  MENU_GRAPHIC_CREATE:"/graphic/create",
-  MENU_GRAPHIC_UPDATE:"/event/graphic/update/",
-  AWARD:"/event/award/",
+  MENU_GRAPHIC: "/event/graphic/",
+  MENU_GRAPHIC_CREATE: "/graphic/create",
+  MENU_GRAPHIC_UPDATE: "/event/graphic/update/",
+  AWARD: "/event/award/",
 
-  SPONSPOR_VIDEO_UPDATE:"/sponspor/update/",
-  EVENT_HIGHLIGHTS:"/event/highlights/",
-  EVENT_HIGHLIGHTS_CREATE:"/eventhighlights/create/",
-  EVENT_HIGHLIGHTS_UPDATE:"/event/highlights/update/",
-  MEETING_ROOMS:"/meeting/rooms/",
-  MEETINGS_DETAIL:"/meetings/detail/",
-  MASTER_CREATE:"/master/create/"
+  SPONSPOR_VIDEO_UPDATE: "/sponspor/update/",
+  EVENT_HIGHLIGHTS: "/event/highlights/",
+  EVENT_HIGHLIGHTS_CREATE: "/eventhighlights/create/",
+  EVENT_HIGHLIGHTS_UPDATE: "/event/highlights/update/",
+  MEETING_ROOMS: "/meeting/rooms/",
+  MEETINGS_DETAIL: "/meetings/detail/",
+  MASTER_CREATE: "/master/create/",
+
+  MEETING_CALENDAR: "/meeting/calendar",
 };

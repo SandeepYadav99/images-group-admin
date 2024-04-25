@@ -63,6 +63,7 @@ import SpeakerMasterCreate from "../views/SpeakerMaster/Create/SpeakerMasterCrea
 import MenuGraphic from "../views/MenuGraphic/List/MenuGraphic.js";
 import AwardList from "../views/Awards/Lists/AwardList.js";
 import ReportedFeed from "../views/ReportedFeed/ReportedFeed.js";
+import MeetingsCalendar from "../views/MeetingsCalendar/List/MeetingsCalendar.js";
 
 const MenuGraphicCreate = lazy(() =>
   import("../views/MenuGraphic/Create/MenuGraphicCreate")
@@ -1100,6 +1101,16 @@ const dashboardRoutes = [
     component: MeetingRoomsList,
     is_sidebar: false,
     is_protect: true,
+  },
+  {
+    path: `${RouteName.MEETING_CALENDAR}:id`,
+    component: MeetingsCalendar,
+    is_sidebar: false,
+    is_protect: true,
+
+    // icon: PeopleOutlined,
+    // sidebarName: "Meeting",
+    // navbarName: "Meeting",
   },
   {
     path: `${RouteName.MEETINGS_DETAIL}:id`,

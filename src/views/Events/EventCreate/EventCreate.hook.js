@@ -119,6 +119,7 @@ function useEventCreate() {
     award: false,
     event_highlights: true,
     meeting_rooms: true,
+    meeting_calendar:true
   };
 
   const colorKey = [

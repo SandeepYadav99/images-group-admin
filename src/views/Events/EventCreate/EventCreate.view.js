@@ -948,8 +948,20 @@ function EventCreate() {
             />
           </div>
         </div>
+        <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              changeFeatureData(!feature?.meeting_calendar, "meeting_calendar");
+            }}
+            label={"Meeting Calendar"}
+            checked={feature?.meeting_calendar}
+          />
+        </div>
       </div>
-
+      </div>
+     
       <div className={"plainPaper"}>
         {id ? (
           <>
