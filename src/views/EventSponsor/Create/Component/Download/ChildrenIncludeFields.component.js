@@ -107,7 +107,7 @@ if(fieldName){
                 }}
               />
                 <div className={styles.inst} >
-                  {exhibitorId && <a href={data?.document ?? " "} target="_blank" rel="noreferrer" >View File</a>}
+                  {exhibitorId   && <a href={data?.document ?? " "} target="_blank" rel="noreferrer" >View File</a>}
                </div>
             </div>
           </div>
