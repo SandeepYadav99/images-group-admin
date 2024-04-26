@@ -105,6 +105,8 @@ const useEventHighLightCreateHook = ({ location }) => {
             if (!id) {
               fd.append(key, form[key]);
             }
+          }else if(key === "link"){
+            fd.append("link" , form[key] ? form[key] : "")
           } else {
             fd.append(key, form[key]);
           }

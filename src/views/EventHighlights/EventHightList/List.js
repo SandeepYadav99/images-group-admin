@@ -15,11 +15,12 @@ import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import { Add, Edit, InfoOutlined } from "@material-ui/icons";
+import { Add, ArrowBackIos, Edit, InfoOutlined } from "@material-ui/icons";
 import useEventHighLight from "./List.hook";
 import { useHistory } from "react-router-dom";
+import historyUtils from "../../../libs/history.utils";
 
-const EventHighLight = ({location}) => {
+const EventHighLight = ({ location }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -135,7 +136,10 @@ const EventHighLight = ({location}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Event Highlight</span>
+            <ButtonBase onClick={() => historyUtils.goBack()}>
+              <ArrowBackIos fontSize={"small"} />
+              <span className={styles.title}>Event Highlight</span>
+            </ButtonBase>
             <div className={styles.newLine} />
           </div>
           <div className={styles.BtnWrapper}>
