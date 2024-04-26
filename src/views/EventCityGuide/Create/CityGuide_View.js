@@ -6,7 +6,7 @@ import CustomTextField from "../../../components/FormFields/TextField/TextField.
 import File from "../../../components/FileComponent/FileComponent.component";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import history from "../../../libs/history.utils";
-import NewEditor from "../../../components/NewEditor/NewEditor.component";
+// import NewEditor from "../../../components/NewEditor/NewEditor.component";
 import useCityGuidCreateHook from "./CityGuide.hook";
 
 const CityGuidView = ({ location }) => {
@@ -56,7 +56,7 @@ const CityGuidView = ({ location }) => {
         </div>
         <div className={styles.cont}>
           <div>
-            <File
+            {/* <File
               // imageClass={styles.inputFileUploader}
               max_size={5 * 1024 * 1024}
               type={["png", "jpeg", "jpg"]}
@@ -73,7 +73,7 @@ const CityGuidView = ({ location }) => {
                   changeTextData(file, "thumbnail");
                 }
               }}
-            />
+            /> */}
           </div>
           <div className={styles.lowerWrap}>
             <div className={"formFlex"}>
@@ -92,7 +92,7 @@ const CityGuidView = ({ location }) => {
                 />
               </div>
             </div>
-            <div className={"formFlex"}>
+            {/* <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomTextField
                   isError={errorData?.priority}
@@ -107,11 +107,11 @@ const CityGuidView = ({ location }) => {
                   // }}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
-        <div className={"headerFlex"}>
+        {/* <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>Description</div>
           </h4>
@@ -129,7 +129,7 @@ const CityGuidView = ({ location }) => {
             //   onBlurHandler("description");
             // }}
           />
-        </div>
+        </div> */}
         {!banner && (
           <div className={"formGroup"}>
             <File

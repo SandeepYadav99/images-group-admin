@@ -83,9 +83,8 @@ const useUpdateAboutHook = ({ isSidePanel, aboutData, handleClose }) => {
       setErrorData(errors);
       return true;
     }
-    setIsSubmitting(true);
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, id, aboutData]);
+  }, [checkFormValidation, setErrorData, form, id, aboutData,isSubmitting,setIsSubmitting]);
 
   const removeError = useCallback(
     (title) => {
@@ -138,7 +137,8 @@ const useUpdateAboutHook = ({ isSidePanel, aboutData, handleClose }) => {
     changeTextData,
     onBlurHandler,
     image,
-    errorData
+    errorData,
+    isSubmitting
   };
 };
 

@@ -35,6 +35,12 @@ function useCityCompHook({ location }) {
         delete errors[val];
       }
     });
+    if(form?.lat && !form?.lng){
+      errors["lng"] = true;
+    }
+    if(form?.lng && !form?.lat){
+      errors["lat"] = true;
+    }
     // if (form?.description === "") {
     //   SnackbarUtils.error(
     //     "Description is required."

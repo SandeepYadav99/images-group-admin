@@ -71,9 +71,9 @@ const usePreviousAwardeesCreateHook = ({
       setErrorData(errors);
       return true;
     }
-    setIsSubmitting(true);
+    // setIsSubmitting(true);
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, selectImages, awardId,handleCallDetail]);
+  }, [checkFormValidation, setErrorData, form, selectImages, awardId,handleCallDetail,isSubmitting, setIsSubmitting]);
 
   const removeError = useCallback(
     (title) => {
@@ -130,7 +130,8 @@ const usePreviousAwardeesCreateHook = ({
     onBlurHandler,
     renderImages,
     selectImages,
-    errorData
+    errorData,
+    isSubmitting
   };
 };
 

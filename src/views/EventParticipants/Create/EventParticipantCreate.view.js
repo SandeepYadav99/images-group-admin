@@ -12,6 +12,7 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import { MenuItem } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import CustomCountryFC from "../../../components/CountryFC/CustomCountryFC";
+import { removeUnderScore } from "../../../helper/helper";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -189,6 +190,7 @@ const EventParticipantCreateView = ({
             onChange={(e, value) => {
               changeTextData(value, "participant_type");
             }}
+            getOptionLabel={(option) => removeUnderScore(option)}
             value={form?.participant_type}
             options={DataSetName ? DataSetName : []}
             defaultValue={form?.participant_type}
@@ -209,7 +211,7 @@ const EventParticipantCreateView = ({
           <CustomSelectField
             isError={errorData?.is_award}
             errorText={errorData?.is_award}
-            label={"Awards"}
+            label={"Awards Access"}
             value={form?.is_award ? form?.is_award : ""}
             handleChange={(value) => {
               changeTextData(value, "is_award");
@@ -225,7 +227,7 @@ const EventParticipantCreateView = ({
           <CustomSelectField
             isError={errorData?.is_lunch}
             errorText={errorData?.is_lunch}
-            label={"Lunch"}
+            label={"Lunch Access"}
             value={form?.is_lunch ? form?.is_lunch : ""}
             handleChange={(value) => {
               changeTextData(value, "is_lunch");
@@ -238,17 +240,17 @@ const EventParticipantCreateView = ({
         </div>
       </div>
 
-      <div className={"formFlex"}>
+      {/* <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomSwitch
-            value={form?.status}
+            value={form?.is_auto}
             handleChange={() => {
-              changeTextData(!form?.status, "status");
+              changeTextData(!form?.is_auto, "is_auto");
             }}
-            label={`Set default password for new mobile user`}
+            label={`Send email to all new users`}
           />
         </div>
-      </div>
+      </div> */}
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomSwitch
