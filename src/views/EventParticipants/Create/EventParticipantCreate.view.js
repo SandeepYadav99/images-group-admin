@@ -12,6 +12,7 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import { MenuItem } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import CustomCountryFC from "../../../components/CountryFC/CustomCountryFC";
+import { removeUnderScore } from "../../../helper/helper";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -189,6 +190,7 @@ const EventParticipantCreateView = ({
             onChange={(e, value) => {
               changeTextData(value, "participant_type");
             }}
+            getOptionLabel={(option) => removeUnderScore(option)}
             value={form?.participant_type}
             options={DataSetName ? DataSetName : []}
             defaultValue={form?.participant_type}
@@ -241,11 +243,11 @@ const EventParticipantCreateView = ({
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomSwitch
-            value={form?.status}
+            value={form?.is_auto}
             handleChange={() => {
-              changeTextData(!form?.status, "status");
+              changeTextData(!form?.is_auto, "is_auto");
             }}
-            label={`Set default password for new mobile user`}
+            label={`Send email to all new users`}
           />
         </div>
       </div>
