@@ -96,7 +96,7 @@ const useAwardCategoriesCreate = ({
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id, selectedData, awardId]);
+  }, [form, isSubmitting,setIsSubmitting, id, selectedData, awardId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -104,9 +104,9 @@ const useAwardCategoriesCreate = ({
       setErrorData(errors);
       return true;
     }
-    setIsSubmitting(true);
+    // setIsSubmitting(true);
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, selectedData, awardId]);
+  }, [checkFormValidation, setErrorData, form, selectedData, awardId,isSubmitting,setIsSubmitting]);
 
   const removeError = useCallback(
     (title) => {
@@ -163,6 +163,7 @@ const useAwardCategoriesCreate = ({
     onBlurHandler,
     image,
     errorData,
+    isSubmitting
   };
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Style.module.css";
-import { ButtonBase } from "@material-ui/core";
+import { ButtonBase, CircularProgress } from "@material-ui/core";
 import File from "../../../../components/FileComponent/FileComponent.component";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import useAwardJuryCreateHook from "./AwardJuryCreateHook";
@@ -11,7 +11,7 @@ const AwardJuryCreate = ({
   awardId,
   handleCallDetail,
 }) => {
-  const { form, changeTextData, errorData, onBlurHandler, handleSubmit } =
+  const { form, changeTextData, errorData, onBlurHandler, handleSubmit,isSubmitting } =
     useAwardJuryCreateHook({
       isSidePanel,
       handleToggleSidePannel,
@@ -96,8 +96,10 @@ const AwardJuryCreate = ({
         </div>
       </div>
       <div className={styles.actionButton}>
-        <ButtonBase className={styles.update_status} onClick={handleSubmit}>
-          Add
+        <ButtonBase className={styles.update_status}   disabled={isSubmitting ? true : false}
+        onClick={handleSubmit}>
+        {isSubmitting ? <CircularProgress color="success" size="20px" /> : 
+          'UPDATE' } 
         </ButtonBase>
       </div>
     </div>

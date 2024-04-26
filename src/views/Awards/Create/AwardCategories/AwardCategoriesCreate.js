@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./Style.module.css";
 
-import { ButtonBase } from "@material-ui/core";
+import { ButtonBase, CircularProgress } from "@material-ui/core";
 
 import useAwardCategoriesCreate from "./AwardCategoriesCreateHook";
 import File from "../../../../components/FileComponent/FileComponent.component";
@@ -22,6 +22,7 @@ const AwardCategoriesCreate = ({
     onBlurHandler,
     handleSubmit,
     image,
+    isSubmitting
   } = useAwardCategoriesCreate({
     isSidePanel,
     handleToggleSidePannel,
@@ -92,8 +93,10 @@ const AwardCategoriesCreate = ({
         </div>
       </div>
       <div className={styles.actionButton}>
-        <ButtonBase className={styles.update_status} onClick={handleSubmit}>
-          Add
+        <ButtonBase className={styles.update_status} disabled={isSubmitting ? true : false}
+        onClick={handleSubmit}>
+        {isSubmitting ? <CircularProgress color="success" size="20px" /> : 
+          'Add' } 
         </ButtonBase>
       </div>
     </div>
