@@ -114,9 +114,11 @@ const ChildrenIncludeForm = (
     //     setErrorData(errorData);
     //     return false;
     // }
+    console.log(fields)
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
+        if(!val?.file_name && !val?.documentUpload) return;
       const required = ["file_name"];
       if(!exhibitorId){
         required.push("documentUpload")
