@@ -153,7 +153,7 @@ function useSpeakerMasterCreate({ location }) {
         if (form?.s_image) {
           fd.append("s_image", form?.s_image);
         }
-        console.log({images})
+      
         if (!images) {
           fd.append("is_image_removed", true);
         }

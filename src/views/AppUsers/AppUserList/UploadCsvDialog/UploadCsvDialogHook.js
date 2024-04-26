@@ -8,6 +8,7 @@ import {
 } from "../../../../services/EventParticipant.service";
 
 import { useParams } from "react-router-dom";
+import { serviceAppUserImportFile, serviceAppUserImportVerify, serviceDownloadCsvFile } from "../../../../services/AppUser.service";
 
 const initialForm = {
   file: null,
@@ -62,7 +63,7 @@ const useUploadCsvDialogHook = ({
   }, [form, errorData, isVerified, setIsVerified]);
 
   const handleSampleDownload = useCallback(() => {
-    serviceDownloadsampleCsvFile()?.then((res)=>{
+    serviceAppUserImportFile()?.then((res)=>{
       if(!res?.error){
         const data = res?.data?.file;
         window.open(data, "_blank");      }
@@ -78,14 +79,15 @@ const useUploadCsvDialogHook = ({
       const fd = new FormData();
 
       fd.append("file", form?.file);
+      fd.append("participant_type", form?.participant_type)
       if (isVerified) {
         fd.append("send_email", form?.is_active_email);
         fd.append("is_default_password", form?.is_active_registration);
         fd.append("event_id", id);
       }
       let req = isVerified
-        ? serviceParticipantImportFile
-        : serviceParticipantImportVerify;
+        ? serviceDownloadCsvFile
+        : serviceAppUserImportVerify;
 
       req(fd).then((res) => {
         if (!res.error) {

@@ -1,13 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import historyUtils from "../../../../libs/history.utils";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
-
-import { serviceGetList } from "../../../../services/index.services";
-import { serviceAcceptLeadMemberList } from "../../../../services/LeadMemberList.service";
 import { serviceUpdateUserStatus } from "../../../../services/AppUser.service";
 import { actionDetailAppUser } from "../../../../actions/AppUser.action";
 import { useDispatch, useSelector } from "react-redux";
-// import { serviceGetNewEmployeeReject } from "../../../../services/NewEmployeeList.service";
 
 const initialForm = {
   status: "",
@@ -88,7 +83,7 @@ const useUpdateStatusPopupHook = ({ isOpen, handleToggle, candidateId }) => {
       }
       serviceUpdateUserStatus(updatedData).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Accepted");
+          SnackbarUtils.success("Status updated successfully");
           handleToggle();
           // window.location.reload()
           dispatch(actionDetailAppUser({ id: candidateId }));

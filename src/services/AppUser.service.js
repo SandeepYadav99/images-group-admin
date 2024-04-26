@@ -56,3 +56,15 @@ export async function serviceFeedDetailsComment(params){
 export async function serviceUpdateUserStatus(params){
   return await postRequest("users/update/status",params)
 }
+
+export async function serviceAppUserImportFile(params) {
+  return await formDataRequest("users/export", params);
+}  // Download 
+
+export async function serviceAppUserImportVerify(params) {
+  return await formDataRequest("users/import/verify", params);
+}
+
+export async function serviceDownloadCsvFile(params){
+  return await formDataRequest("users/import", params);
+}

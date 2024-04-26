@@ -9,6 +9,7 @@ import {
 } from "../../../actions/AppUser.action";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import { serviceAppUserImportFile, serviceDownloadCsvFile } from "../../../services/AppUser.service";
 
 const useAppUserList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -171,14 +172,14 @@ const useAppUserList = ({}) => {
   }, []);
 
   const handleDownloadCSV = () => {
-    const fd = new FormData();
-    // fd.append("event_id",id)
-    // serviceDownloadCsvFile(fd)?.then((res)=>{
-    //   if(!res?.error){
-    //     const data = res.data?.response;
-    //     console.log(data,"data is here")
-    //     window.open(data, "_blank");      }
-    // })
+    // const fd = new FormData();
+    // //  fd.append("file",)
+     serviceAppUserImportFile()?.then((res)=>{
+      if(!res?.error){
+        const data = res.data?.response;
+       
+        window.open(data, "_blank");      }
+    })
   };
   return {
     handlePageChange,
