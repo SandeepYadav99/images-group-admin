@@ -305,7 +305,7 @@ function EventSponsorCreate({ location }) {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-          <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} />
+          <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} exhibitorId={id}/>
           </div>
         </div>
       </div>
@@ -323,7 +323,7 @@ function EventSponsorCreate({ location }) {
 
          <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm1 ref={ChildenRef1} downloads={downloadsDigitalBag}/>
+            <ChildrenIncludeForm1 ref={ChildenRef1} downloads={downloadsDigitalBag} exhibitorId={id}/>
           </div>
         </div>
       </div>

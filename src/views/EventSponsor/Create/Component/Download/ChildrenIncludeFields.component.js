@@ -45,6 +45,7 @@ const ChildrenIncludeFields = ({
   onBlur,
   currency,
   listWarehouse,
+  exhibitorId
 }) => {
   const handleChange = (e, fieldName) => {
     // const name = e?.target?.name;
@@ -97,7 +98,7 @@ if(fieldName){
                 label="Upload PDF"
                 accept={"application/pdf,application/msword"}
                 error={errors?.documentUpload}
-                value={data?.documentUpload}
+                value={data?.documentUpload || ""}
                 placeholder={"Upload PDF"}
                 onChange={(file) => {
                   if (file) {
@@ -105,6 +106,9 @@ if(fieldName){
                   }
                 }}
               />
+                <div className={styles.inst} >
+                  {exhibitorId && <a href={data?.document ?? " "} target="_blank" rel="noreferrer" >View File</a>}
+               </div>
             </div>
           </div>
           <div className={"textCenter"}>

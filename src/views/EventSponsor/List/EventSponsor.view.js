@@ -92,7 +92,7 @@ const EventSponsor = ({}) => {
         key: "name",
         label: "name",
         sortable: false,
-        render: (value, all) => <div>{all?.name}</div>,
+        render: (value, all) => <div>{ all?.name}</div>,
       },
       // {
       //   key: "email",

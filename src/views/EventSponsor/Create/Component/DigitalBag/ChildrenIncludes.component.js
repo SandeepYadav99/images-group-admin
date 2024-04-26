@@ -36,6 +36,7 @@ const ChildrenIncludeForm = (
     vendorId,
     empId,
     downloads,
+    exhibitorId
   },
   ref
 ) => {
@@ -113,7 +114,7 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [];
+        const required = ["title", "url",  ...(exhibitorId ? [] : ["images"])];
       // if (!downloads) {
       //   required.push("images");
       // }
