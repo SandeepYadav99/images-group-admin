@@ -110,7 +110,7 @@ const CityGuidContent_List = ({ location }) => {
             >
               <Edit fontSize={"small"} />
             </IconButton>
-            <IconButton
+            {/* <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
@@ -119,7 +119,7 @@ const CityGuidContent_List = ({ location }) => {
               }}
             >
               <Delete fontSize={"small"} />
-            </IconButton>
+            </IconButton> */}
           </div>
         ),
       },
@@ -168,14 +168,14 @@ const CityGuidContent_List = ({ location }) => {
             </div>
           </div>
 
-          <div className={styles.create_Sction}>
+          {/* <div className={styles.create_Sction}>
             <div className={styles.BtnWrapper}>
               <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
                 ADD NEW
                 <Add fontSize={"small"} className={"plusIcon"}></Add>
               </ButtonBase>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div>
