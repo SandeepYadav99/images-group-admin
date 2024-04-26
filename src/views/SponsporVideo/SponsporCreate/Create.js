@@ -103,7 +103,7 @@ function VideoSponsporCreate({ location }) {
           <div className={"formGroup"}>
             <MultiFile
               multiDef={selectVideos ? selectVideos : []}
-              max_size={10 * 1024 * 1024}
+              max_size={5 * 1024 * 1024}
               type={["mp4"]}
               fullWidth={true}
               name="od1"

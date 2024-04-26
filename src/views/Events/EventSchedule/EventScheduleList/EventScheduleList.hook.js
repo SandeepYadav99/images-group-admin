@@ -162,8 +162,13 @@ const useEventScheduleList = ({}) => {
   );
 
   const handleDeleteData = (all) => {
-    serviceDeleteEventSchedule({ id: all?.id }).then((res) =>
-      window.location.reload()
+    serviceDeleteEventSchedule({ id: all?.id }).then((res) =>{
+      if(!res.error){
+        SnackbarUtils.success("Updated successfully")
+        window.location.reload()
+      }
+    }
+    
     );
   };
 

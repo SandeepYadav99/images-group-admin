@@ -283,8 +283,8 @@ const ReportedPost = ({}) => {
               className={styles.alignUnderline}
               onClick={() => handleOpenDetailPopUp(all?.images)}
             >
-              {all?.images?.length > 0 ? "+" : ""}
-              {all?.images?.length > 0 ? all?.images.length + 1 : ""}
+              {all?.images?.length > 1 ? "+" : ""}
+              {all?.images?.length > 1 ? all?.images.length : ""}
             </p>
           </div>
         ),

@@ -384,7 +384,7 @@ const useExhibitorCreate = ({ location }) => {
       "company_name",
       // "product_groups",
       "product_categories",
-      "event_venue",
+      // "event_venue",
       "primary_email",
       "company_perosn_name",
       "conatct_person_designation",

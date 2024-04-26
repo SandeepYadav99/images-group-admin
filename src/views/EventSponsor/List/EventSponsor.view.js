@@ -21,6 +21,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import historyUtils from "../../../libs/history.utils";
 
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { capitalizeFirstLetter } from "../../../hooks/CapsLetter";
 
 const EventSponsor = ({}) => {
   const {
@@ -40,7 +41,7 @@ const EventSponsor = ({}) => {
     handleCsvDownload,
     handleViewUpdate,
     handlesponsorType,
-    formatedUrl
+    formatedUrl,
   } = useEventSponsor({});
 
   const {
@@ -59,7 +60,6 @@ const EventSponsor = ({}) => {
     );
   }, []);
 
-
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
@@ -68,7 +68,7 @@ const EventSponsor = ({}) => {
             <div>
               <img src={obj?.img_url} />
             </div>
-            <div >
+            <div>
               {/* <span className={styles.productName}>{obj?.name}</span> <br /> */}
               <a
                 href={obj?.url}
@@ -104,7 +104,9 @@ const EventSponsor = ({}) => {
         key: "image",
         label: "IMAGE",
         sortable: false,
-        render: (temp, all) => <div className={styles.hyperlinkBlock}>{renderFirstCell(all)}</div>,
+        render: (temp, all) => (
+          <div className={styles.hyperlinkBlock}>{renderFirstCell(all)}</div>
+        ),
       },
       {
         key: "link",
@@ -118,7 +120,6 @@ const EventSponsor = ({}) => {
               className={styles.hyperlinkText}
             >
               {all?.web_url}
-             
             </a>
           </div>
         ),

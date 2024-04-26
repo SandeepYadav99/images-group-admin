@@ -9,9 +9,8 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import IncludeFields from "./ChildrenIncludeFields.component";
 import styles from "./style.module.css";
-import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
+import {  ButtonBase } from "@material-ui/core";
 import LogUtils from "../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
@@ -32,7 +31,7 @@ const ChildrenIncludeForm = (
     downloads,
     changeTextData,
     updateInventory,
-    vendorId,
+    exhibitorId,
   },
   ref
 ) => {
@@ -54,6 +53,7 @@ const ChildrenIncludeForm = (
     });
     // updateInventory(sku, qty);
   }, [fields]);
+
   useEffect(() => {
     if (downloads && downloads.length > 0) {
       
@@ -67,6 +67,7 @@ const ChildrenIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     }
   }, [downloads]);
+  
   // useEffect(() => {
   //   // Extract documentUpload values from fields and concatenate into a single string
   //   const documentPaths = downloads.map((field) => field.documentUpload).filter(Boolean);
@@ -116,10 +117,10 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [];
-      // if(!downloads){
-      //   required.push("documentUpload")
-      // }
+      const required = ["file_name"];
+      if(!exhibitorId){
+        required.push("documentUpload")
+      }
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -241,6 +242,7 @@ const ChildrenIncludeForm = (
             data={val}
             index={index}
             onBlur={onBlur}
+             exhibitorId={exhibitorId}
           />
         </div>
       );

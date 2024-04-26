@@ -136,7 +136,7 @@ const ExhibitorList = ({}) => {
               color="secondary"
               disabled={isCalling}
               onClick={() =>
-                historyUtils.push(`${RouteName.EXHIBITOR_CREATE}` + all?.id)
+                historyUtils.push(`${RouteName.EXHIBITOR_UPDATE}` + all?.id)
               }
             >
               <Edit fontSize={"small"} />

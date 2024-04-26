@@ -62,6 +62,7 @@ import MeetingRoomsReducer from "./MeetingRoom.reducer";
 import MeetingRoomSlotReducer from "./MeetingRoomSlots.reducer";
 import MenuGraphicReducer from "./MenuGraphic.reducer";
 import AwardReducer from "./Award.reducer";
+import MeetingsCalendarReducer from "./MeetingsCalendar.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -127,6 +128,7 @@ const rootReducer = combineReducers({
   event_highlight:EventHighLight,
   meeting_room:MeetingRoomsReducer,
   meeting_slots:MeetingRoomSlotReducer,
+  meeting_callendar:MeetingsCalendarReducer
 
 });
 

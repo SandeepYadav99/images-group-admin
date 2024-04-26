@@ -29,24 +29,24 @@ const useMeetingsCalendarCreateHook = ({ handleToggleSidePannel, isSidePanel, em
   const includeRef = useRef(null);
   // const { id: empId } = useParams();
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (empId) {
-      serviceGetHallMasterDetails({ id: empId }).then((res) => {
-        if (!res.error) {
-          const data = res?.data;
-          console.log(data, "Data ");
-          setForm({
-            ...form,
-            name: data?.hall_no,
-            des: data?.description,
-            status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
-          });
-        } else {
-          SnackbarUtils.error(res?.message);
-        }
-      });
-    }
-  }, [empId]);
+  // useEffect(() => {
+  //   if (empId) {
+  //     serviceGetHallMasterDetails({ id: empId }).then((res) => {
+  //       if (!res.error) {
+  //         const data = res?.data;
+  //         console.log(data, "Data ");
+  //         setForm({
+  //           ...form,
+  //           name: data?.hall_no,
+  //           des: data?.description,
+  //           status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
+  //         });
+  //       } else {
+  //         SnackbarUtils.error(res?.message);
+  //       }
+  //     });
+  //   }
+  // }, [empId]);
 
   useEffect(() => {
     if (!isSidePanel) {

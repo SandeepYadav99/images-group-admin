@@ -14,7 +14,7 @@ const SessionTable = ({ data }) => {
           <div className={styles.timeing}>
             Overall Rating
             <br />
-            {data?.avg} ⭐ ({data?.totalCount})
+            {data?.avg ? data?.avg : "0"} ⭐ ({data?.totalCount ? data?.totalCount : "0"})
           </div>
         </div>
         <div className={styles.tableContainer}>
@@ -38,8 +38,8 @@ const SessionTable = ({ data }) => {
                         </a>
                       </div>
                     </td>
-                    <td className={styles.td}>{item.rating}</td>
-                    <td className={styles.td}>{item.comment}</td>
+                    <td className={styles.td}>{item.rating || 0}</td>
+                    <td className={styles.td}>{item.comment || "N/A"}</td>
                   </tr>
                 ))
               ) : (

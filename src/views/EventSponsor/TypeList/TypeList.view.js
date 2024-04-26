@@ -11,6 +11,7 @@ import { Add, Edit, InfoOutlined } from "@material-ui/icons";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { capitalizeFirstLetter } from "../../../hooks/CapsLetter";
 
 const TypeList = ({}) => {
   const {
@@ -74,7 +75,7 @@ const TypeList = ({}) => {
         key: "type",
         label: "TYPE",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div>{capitalizeFirstLetter(all?.type)}</div>,
       },
       {
         key: "priority",

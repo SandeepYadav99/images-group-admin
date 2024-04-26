@@ -55,7 +55,7 @@ const useEventScheduleHook = ({
   const dispatch = useDispatch();
   const [listData, setListData] = useState({
     EVENT_SPEAKERS: [],
-    EVENT_SCHEDULE_CATEGORIES:[]
+    EVENT_SCHEDULE_CATEGORIES: [],
   });
 
   const [listDataValue, setListDataValue] = useState({
@@ -67,7 +67,9 @@ const useEventScheduleHook = ({
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
-    serviceGetList(["EVENT_SPEAKERS", "EVENT_SCHEDULE_CATEGORIES"], { event_id: id }).then((res) => {
+    serviceGetList(["EVENT_SPEAKERS", "EVENT_SCHEDULE_CATEGORIES"], {
+      event_id: id,
+    }).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -136,14 +138,13 @@ const useEventScheduleHook = ({
             end_time: data?.end_date_time,
             speakers: modifiedSpeaker,
             moderator: modifiedModerator,
-            category: data?.category,
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             hall_no: data?.hall_no,
             venue: data?.venue,
-            category: data?.category,
             chairs: modifiedChairs,
             co_chairs: modifiedCoChairs,
             is_recommended: data?.is_recommended,
+            overview: data?.overview,
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -205,23 +206,22 @@ const useEventScheduleHook = ({
       setIsSubmitting(true);
 
       const fd = new FormData();
-   
+
       const relatedId =
         Array.isArray(form?.speakers) && form?.speakers.length > 0
           ? form?.speakers.map((item) => item.id)
           : [];
 
-    
       const moderatorId =
         Array.isArray(form?.moderator) && form?.moderator.length > 0
           ? form?.moderator.map((item) => item.id)
           : [];
-     
+
       const chairsId =
         Array.isArray(form?.chairs) && form?.chairs.length > 0
           ? form?.chairs.map((item) => item.id)
           : [];
-    
+
       const co_chairsId =
         Array.isArray(form?.co_chairs) && form?.co_chairs.length > 0
           ? form?.co_chairs.map((item) => item.id)
@@ -230,7 +230,7 @@ const useEventScheduleHook = ({
       Object.keys(form).forEach((key) => {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-        } else if (key === "moderator" ) {
+        } else if (key === "moderator") {
           moderatorId.length > 0 && fd.append(key, moderatorId.join(","));
         } else if (key === "speakers") {
           if (relatedId) {
@@ -238,7 +238,7 @@ const useEventScheduleHook = ({
           }
         } else if (key === "chairs") {
           if (chairsId) {
-            chairsId.length > 0 &&  fd.append(key, chairsId.join(","));
+            chairsId.length > 0 && fd.append(key, chairsId.join(","));
           }
         } else if (key === "status") {
           fd.append(key, form?.status ? "ACTIVE" : "INACTIVE");

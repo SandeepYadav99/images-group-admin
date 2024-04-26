@@ -151,7 +151,8 @@ export default {
   TESTIMONIAL_CREATE: "/testimonial/create",
   TESTIMONIAL_UPDATE: "/testimonial/update/",
   EXHIBITOR_LIST: "/exhibitor/",
-  EXHIBITOR_CREATE: "/exhibitor/list/create/",
+  EXHIBITOR_CREATE: "/exhibitor/list/create",
+  EXHIBITOR_UPDATE: "/exhibitor/list/update/",
   EXHIBITOR_DETAILS: "/exhibitor/detail/",
   EXHIBITOR_QUERY: "/exhibitor-query",
 
@@ -161,7 +162,7 @@ export default {
   SPLASH_SCREEN: "/splash/screen",
   SPLASH_SCREEN_CREATE: "/splash/screen/create",
   SPLASH_SCREEN_UPDATE: "/splash/screen/update",
-  EVENT_PARTICIPANTS: "/events/participants",
+  EVENT_PARTICIPANTS: "/events/participants/",
   SPONSPOR_VIDEO: "/sponspor/list/",
   SPONSPOR_VIDE_CREATE: "/sponspor/create/",
 
