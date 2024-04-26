@@ -58,7 +58,7 @@ function VideoSponsporCreate({ location }) {
         <div className={styles.flexFlow}>
 
        
-        <div className={"formFlex"}>
+        {/* <div className={"formFlex"}>
           <div className={"formGroup"}>
             <File
               // imageClass={styles.inputFileUploader}
@@ -79,7 +79,7 @@ function VideoSponsporCreate({ location }) {
               }}
             />
           </div>
-        </div>
+        </div> */}
         <div className={styles.flexSecond}>
 
      
@@ -103,8 +103,8 @@ function VideoSponsporCreate({ location }) {
           <div className={"formGroup"}>
             <MultiFile
               multiDef={selectVideos ? selectVideos : []}
-              max_size={5 * 1024 * 1024}
-              type={["mp4"]}
+              max_size={10 * 1024 * 1024}
+              type={["mp4","png", "jpeg", "jpg"]}
               fullWidth={true}
               name="od1"
               label="Upload"

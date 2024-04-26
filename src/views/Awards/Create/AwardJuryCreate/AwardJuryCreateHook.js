@@ -85,7 +85,7 @@ const useAwardJuryCreateHook = ({ isSidePanel, awardId, handleCallDetail }) => {
       setErrorData(errors);
       return true;
     }
-    setIsSubmitting(true);
+    // setIsSubmitting(true);
     submitToServer();
   }, [
     checkFormValidation,
@@ -94,6 +94,8 @@ const useAwardJuryCreateHook = ({ isSidePanel, awardId, handleCallDetail }) => {
     selectImages,
     awardId,
     handleCallDetail,
+    isSubmitting,
+    setIsSubmitting,
   ]);
 
   const removeError = useCallback(
@@ -149,7 +151,8 @@ const useAwardJuryCreateHook = ({ isSidePanel, awardId, handleCallDetail }) => {
     handleSubmit,
     changeTextData,
     onBlurHandler,
-    errorData
+    errorData,
+    isSubmitting
   };
 };
 

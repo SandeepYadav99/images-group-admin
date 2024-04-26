@@ -89,26 +89,26 @@ const EventParticipantList = ({}) => {
       {
         key: "email",
         label: "EMAIL",
-        sortable: true,
+        sortable: false,
         render: (value, all) => <div>{all?.email}</div>,
       },
 
       {
         key: "contact",
         label: "PHONE NUMBER",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{all.contact}</div>,
       },
       {
         key: "is_member",
         label: "MEMBER USER",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{all.is_member ? "YES" : "NO"}</div>,
       },
       {
         key: "reg_id",
         label: "REG ID",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{all.reg_id}</div>,
       },
       {
