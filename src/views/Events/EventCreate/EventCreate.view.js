@@ -949,21 +949,24 @@ function EventCreate() {
           </div>
         </div>
         <div className={"formFlex"}>
-        <div className={"formGroup"}>
-          <CustomCheckbox
-            color={"primary"}
-            handleChange={(text) => {
-              changeFeatureData(!feature?.meeting_calendar, "meeting_calendar");
-            }}
-            label={"Meeting Calendar"}
-            checked={feature?.meeting_calendar}
-          />
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.meeting_calendar,
+                  "meeting_calendar"
+                );
+              }}
+              label={"Meeting Calendar"}
+              checked={feature?.meeting_calendar}
+            />
+          </div>
         </div>
       </div>
-      </div>
-     
+
       <div className={"plainPaper"}>
-        {id ? (
+        {/* {id ? (
           <>
             {form?.status !== "INDRAFT" ? (
               <div className={styles.btnWrappepr}>
@@ -1036,7 +1039,21 @@ function EventCreate() {
               )}
             </ButtonBase>
           </div>
-        )}
+        )} */}
+        <div className={styles.actionButton}>
+          <ButtonBase
+            // disabled={isSubmitting ? true : false}
+            type={"button"}
+            className={styles.createBtn}
+            onClick={() => handleSubmit("PENDING")}
+          >
+            {isSubmitting ? (
+              <CircularProgress color="success" size="20px" />
+            ) : (
+              "Add "
+            )}
+          </ButtonBase>
+        </div>
       </div>
     </div>
   );

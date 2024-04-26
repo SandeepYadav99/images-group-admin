@@ -29,14 +29,14 @@ function useEventCreate() {
     "end_date",
     "location",
     "url",
-    "admin_id",
+    // "admin_id",
     "registration_url",
     "description",
-    "organised_by",
+    // "organised_by",
     "id",
     "registration_status",
     "is_digital",
-    "is_gallery_public",
+    // "is_gallery_public",
     "relatedEvents",
     "accessibleChapters",
     "status",
@@ -51,16 +51,16 @@ function useEventCreate() {
     name: "",
     slug: "",
     project_id: "",
-    organised_by: "",
+    // organised_by: "",
     start_date: "",
     end_date: "",
     location: "",
-    admin_id: "",
+    // admin_id: "",
     url: "",
     registration_url: "",
     registration_status: "",
     is_digital: "",
-    is_gallery_public: "",
+    // is_gallery_public: "",
     related_event_ids: [],
     description: "",
     logo: "",
@@ -167,7 +167,7 @@ function useEventCreate() {
             if (
               [
                 "registration_status",
-                "is_gallery_public",
+                // "is_gallery_public",
                 "is_digital",
               ].includes(key)
             ) {
@@ -248,11 +248,11 @@ function useEventCreate() {
     const errors = { ...errorData };
     let required = [
       "name",
-      "organised_by",
+      // "organised_by",
       "start_date",
       "end_date",
       "location",
-      "admin_id",
+      // "admin_id",
       "registration_status",
       "is_digital",
       "description",
@@ -264,7 +264,7 @@ function useEventCreate() {
       "primary_button_text_color",
       "Secondary_button_bg_color",
       "Secondary_button_text_color",
-      "is_gallery_public",
+      // "is_gallery_public",
     ];
     if (!id) {
       required.push(
@@ -346,7 +346,7 @@ function useEventCreate() {
     },
     [setErrorData, errorData]
   );
-
+console.log({errorData})
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
@@ -418,7 +418,7 @@ function useEventCreate() {
             if (
               [
                 "registration_status",
-                "is_gallery_public",
+                // "is_gallery_public",
                 "is_digital",
               ].includes(key)
             ) {

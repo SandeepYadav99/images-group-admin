@@ -168,14 +168,14 @@ const EventList = ({}) => {
             <span className={styles.title}>Event List</span>
             <div className={styles.newLine} />
           </div>
-          {(role === "GENERAL" || role === "CHAPTER_ADMIN") && (
+          {/* {(role === "GENERAL" || role === "CHAPTER_ADMIN") && ( */}
             <div className={styles.BtnWrapper}>
               <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
                 ADD Event
                 <Add fontSize={"small"} className={"plusIcon"}></Add>
               </ButtonBase>
             </div>
-          )}
+          {/* )} */}
         </div>
 
         <div>

@@ -1,7 +1,7 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
 import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { InfoOutlined } from "@material-ui/icons";
+import { CloudDownload, CloudUpload, InfoOutlined } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
@@ -15,6 +15,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import AppUserCreateView from "../AppUserCreate/AppUserCreate.view";
 import { Link } from 'react-router-dom';
 import RouteName from "../../../routes/Route.name";
+import UploadCsvDialog from "./UploadCsvDialog/UploadCsvDialog.js";
 
 const AppUserList = ({ }) => {
   const {
@@ -33,6 +34,12 @@ const AppUserList = ({ }) => {
     configFilter,
     warehouses,
     handleToggleSidePannel,
+    handleToggleEditSidePannel,
+    isEditSidePanel,
+    toggleCsvDialog,
+    handleDownloadCSV,
+    isCsvDialog,
+    handleCsvUpload,
   } = useAppUserList({});
 
   const {
@@ -148,13 +155,40 @@ const AppUserList = ({ }) => {
 
   return (
     <div>
+       <UploadCsvDialog
+        isOpen={isCsvDialog}
+        handleToggle={toggleCsvDialog}
+        handleCsvUpload={handleCsvUpload}
+      />
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
             <span className={styles.title}>App Users List</span>
             <div className={styles.newLine} />
           </div>
-          <div></div>
+          <div className={styles.btnWrapper}>
+            <ButtonBase
+              onClick={toggleCsvDialog}
+              className={"createBtn"}
+              id={styles.btnHideResponsive}
+            >
+              Upload
+              <CloudUpload
+                fontSize={"small"}
+                className={"plusIcon"}
+              ></CloudUpload>
+            </ButtonBase>
+            <div className={styles.eventButton}>
+              <ButtonBase onClick={handleDownloadCSV} className={"createBtn"}>
+                DOWNLOAD CSV
+                <CloudDownload
+                  fontSize={"small"}
+                  className={"plusIcon"}
+                ></CloudDownload>
+              </ButtonBase>
+            
+            </div>
+          </div>
         </div>
         <div>
           <FilterComponent
