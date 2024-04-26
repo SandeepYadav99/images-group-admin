@@ -202,6 +202,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             }}
             value={form?.start_time}
             isError={errorData?.start_time}
+            minDate={new Date()}
           />
           {/*<CustomDatePicker*/}
           {/*  clearable*/}
@@ -223,6 +224,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             }}
             value={form?.end_time}
             isError={errorData?.end_time}
+            minDate={new Date()}
           />
         </div>
       </div>

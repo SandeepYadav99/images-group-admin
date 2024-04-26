@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import SnackbarUtils from "../../../../../../libs/SnackbarUtils";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { serviceEventScheduleStatusUpdate } from "../../../../../../services/EventSchedule.service";
 import { actionFetchEventSchedule } from "../../../../../../actions/EventSchedule.action";
-// import { serviceGetNewEmployeeReject } from "../../../../services/NewEmployeeList.service";
+
 
 const initialForm = {
   status: "",
@@ -18,13 +18,6 @@ const useUpdateStatusViewHook = ({
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
-
-  const {
-    data,
-    all: allData,
-    currentPage,
-    is_fetching: isFetching,
-  } = useSelector((state) => state.App_User);
 
   useEffect(() => {
     if (isOpen) {
@@ -97,7 +90,7 @@ const useUpdateStatusViewHook = ({
       };
       serviceEventScheduleStatusUpdate(updatedData).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Accepted");
+          SnackbarUtils.success("Updated successfully");
           handleToggle();
           // window.location.reload()
           // dispatch(actionDetailAppUser({ id: candidateId }));
