@@ -40,7 +40,7 @@ function EventSponsorCreate({ location }) {
   } = useEventSponsorCreate({ location });
 
   const renderImage = useCallback(() => {
-    if (images !== null) {
+    if (images) {
      return <div
         className={styles.remove}
         style={{ cursor: "pointer" }}
