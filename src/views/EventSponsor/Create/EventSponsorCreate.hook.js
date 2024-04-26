@@ -51,12 +51,13 @@ function useEventSponsorCreate({ location }) {
   });
   const ChildenRef = useRef(null);
   const ChildenRef1 = useRef(null);
-  const [countryCode, setCountryCode] = useState("");
+  const [countryCode, setCountryCode] = useState("91");
   const [downloads, setDownloads] = useState(null);
   const [downloadsDigitalBag, setDownloadsDigitalBag] = useState(null);
-  const handleCountryCodeChange = (e) => {
+  const handleCountryCodeChange = useCallback((e) => {
     setCountryCode(e.target.value);
-  };
+  },[setCountryCode]);
+ 
   const [event, setEvent] = useState("");
   const selectedEventId = useMemo(() => {
     return location?.state?.eventId ? location?.state?.eventId : event;
@@ -104,6 +105,7 @@ function useEventSponsorCreate({ location }) {
           setDownloads(data?.downloads);
           setDownloadsDigitalBag(data?.digital_bags);
           setImg(data?.img_url);
+          setCountryCode(data?.country_code)
         } else {
           SnackbarUtils.error(res?.message);
           historyUtils.goBack();
@@ -222,6 +224,9 @@ function useEventSponsorCreate({ location }) {
             }
           }
         });
+        if(countryCode){
+          fd.append("country_code", countryCode)
+        }
         if (form?.img_url) {
           fd.append("img_url", form?.img_url);
         }
@@ -263,7 +268,7 @@ function useEventSponsorCreate({ location }) {
         });
       }
     },
-    [form, isSubmitting, setIsSubmitting, images]
+    [form, isSubmitting, setIsSubmitting, images, countryCode]
   );
 
   const onBlurHandler = useCallback(
@@ -293,10 +298,10 @@ function useEventSponsorCreate({ location }) {
       }
       submitToServer(status);
     },
-    [checkFormValidation, setErrorData, form, submitToServer, images]
+    [checkFormValidation, setErrorData, form, submitToServer, images, countryCode]
   );
 
-  console.log("form", form);
+
   return {
     form,
     errorData,
