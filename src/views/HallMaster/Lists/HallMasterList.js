@@ -65,7 +65,7 @@ const HallMasterList = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.hall_no}
+            {all?.hall_no}.
           </div>
         ),
       },
