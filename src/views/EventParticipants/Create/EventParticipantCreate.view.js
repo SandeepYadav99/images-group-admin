@@ -211,7 +211,7 @@ const EventParticipantCreateView = ({
           <CustomSelectField
             isError={errorData?.is_award}
             errorText={errorData?.is_award}
-            label={"Awards"}
+            label={"Awards Access"}
             value={form?.is_award ? form?.is_award : ""}
             handleChange={(value) => {
               changeTextData(value, "is_award");
@@ -227,7 +227,7 @@ const EventParticipantCreateView = ({
           <CustomSelectField
             isError={errorData?.is_lunch}
             errorText={errorData?.is_lunch}
-            label={"Lunch"}
+            label={"Lunch Access"}
             value={form?.is_lunch ? form?.is_lunch : ""}
             handleChange={(value) => {
               changeTextData(value, "is_lunch");
@@ -240,7 +240,7 @@ const EventParticipantCreateView = ({
         </div>
       </div>
 
-      <div className={"formFlex"}>
+      {/* <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomSwitch
             value={form?.is_auto}
@@ -250,7 +250,7 @@ const EventParticipantCreateView = ({
             label={`Send email to all new users`}
           />
         </div>
-      </div>
+      </div> */}
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomSwitch

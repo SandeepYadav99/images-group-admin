@@ -33,7 +33,7 @@ const initialForm = {
   is_default_password: true,
   reg_id: "",
   user_id: "",
-  is_auto: true,
+  // is_auto: true,
   category: "",
   participant_type: [],
   company_name: "",
