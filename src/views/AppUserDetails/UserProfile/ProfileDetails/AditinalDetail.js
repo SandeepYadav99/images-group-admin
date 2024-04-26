@@ -161,7 +161,7 @@ const AditnalDetail = ({ id }) => {
         <div className={styles.profile_image}>
           <div className={styles.profileDetails}>
             <div className={styles.profileTitle}>
-              <b>Participant_Type:</b>
+              <b>Participant Type:</b>
 
               {value?.participant_type?.length > 0 ? (
                 value.participant_type.map((status, index) => (
@@ -197,7 +197,7 @@ const AditnalDetail = ({ id }) => {
                 {value?.is_lunch ? "Yes" : "No"}
               </span>
 
-              <span
+              {/* <span
                 style={{
                   textDecoration: "underline",
                   color: "#AB183D",
@@ -206,7 +206,7 @@ const AditnalDetail = ({ id }) => {
                 onClick={handleRouteMember}
               >
                 {value?.company_name}
-              </span>
+              </span> */}
             </div>
             <div>
               <span>

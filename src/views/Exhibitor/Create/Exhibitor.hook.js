@@ -192,7 +192,7 @@ const useExhibitorCreate = ({ location }) => {
             company_address: data?.company_address,
             country_code: data?.country_code,
             is_participant: data?.is_participant,
-
+            contact:data?.contact,
             is_recommended: data?.is_recommended,
             show_profile: data?.show_profile,
             country: data?.country,
@@ -204,6 +204,7 @@ const useExhibitorCreate = ({ location }) => {
             twitter_link: data?.twitter_link,
             hall: data?.hall?.hall_no,
             // zone_tag: data?.zone_tag,
+            country_code1:data?.country_code1,
             event_stall: data?.event_stall,
             website: data?.website,
             secondary_perosn_name: data?.secondary_perosn_name,
