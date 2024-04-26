@@ -15,6 +15,11 @@
     color: grey;
     margin-bottom: 5px;
   }
+  .btnWrapper{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
   .headerContainer {
     display: flex;
     justify-content: space-between;

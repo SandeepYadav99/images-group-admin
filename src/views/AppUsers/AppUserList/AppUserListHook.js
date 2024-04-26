@@ -15,6 +15,7 @@ const useAppUserList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
+  const [isCsvDialog, setIsCsvDialog] = useState(false);
   const isMountRef = useRef(false);
   const {
     sorting_data: sortingData,
@@ -162,6 +163,23 @@ const useAppUserList = ({}) => {
     ];
   }, []);
 
+  const toggleCsvDialog = useCallback(() => {
+    setIsCsvDialog((e) => !e);
+  }, [setIsCsvDialog]);
+
+  const handleCsvUpload = useCallback(() => {
+  }, []);
+
+  const handleDownloadCSV = () => {
+    const fd = new FormData();
+    // fd.append("event_id",id)
+    // serviceDownloadCsvFile(fd)?.then((res)=>{
+    //   if(!res?.error){
+    //     const data = res.data?.response;
+    //     console.log(data,"data is here")
+    //     window.open(data, "_blank");      }
+    // })
+  };
   return {
     handlePageChange,
     handleDataSave,
@@ -179,6 +197,9 @@ const useAppUserList = ({}) => {
     configFilter,
     handleCreate,
     handleToggleSidePannel,
+    isCsvDialog,
+    toggleCsvDialog,
+    handleDownloadCSV
   };
 };
 
