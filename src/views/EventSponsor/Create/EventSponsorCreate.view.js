@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import history from "../../../libs/history.utils";
 import {
   Button,
@@ -39,6 +39,22 @@ function EventSponsorCreate({ location }) {
     images
   } = useEventSponsorCreate({ location });
 
+  const renderImage = useCallback(() => {
+    if (images !== null) {
+     return <div
+        className={styles.remove}
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          setImg("");
+          // setRemove(true);
+        }}
+      >
+        Remove
+      </div>;
+    }
+    return null
+  }, [images, setImg]);
+
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -78,11 +94,12 @@ function EventSponsorCreate({ location }) {
                 }
               }}
             />
-            {images && (
+            {/* {images && (
               <div className={styles.remove} onClick={() => setImg("")}>
                 Remove
               </div>
-            )}
+            )} */}
+            {renderImage()}
           </div>
 
           <div className={styles.lowerWrap}>

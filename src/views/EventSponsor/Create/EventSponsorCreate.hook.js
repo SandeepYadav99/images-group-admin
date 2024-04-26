@@ -38,7 +38,7 @@ function useEventSponsorCreate({ location }) {
     insta: "",
     youtube: "",
     status: true,
-    is_featured:false
+    is_featured: false,
     // country_code:"",
   };
   const [form, setForm] = useState({ ...initialForm });
@@ -54,10 +54,13 @@ function useEventSponsorCreate({ location }) {
   const [countryCode, setCountryCode] = useState("91");
   const [downloads, setDownloads] = useState(null);
   const [downloadsDigitalBag, setDownloadsDigitalBag] = useState(null);
-  const handleCountryCodeChange = useCallback((e) => {
-    setCountryCode(e.target.value);
-  },[setCountryCode]);
- 
+  const handleCountryCodeChange = useCallback(
+    (e) => {
+      setCountryCode(e.target.value);
+    },
+    [setCountryCode]
+  );
+
   const [event, setEvent] = useState("");
   const selectedEventId = useMemo(() => {
     return location?.state?.eventId ? location?.state?.eventId : event;
@@ -89,8 +92,8 @@ function useEventSponsorCreate({ location }) {
                 fd[key] = data["typeObj"]?._id;
               } else if (key === "status") {
                 fd[key] = data[key] === "ACTIVE";
-              }else if (key === "is_featured"){
-                fd[key] = data[key] ? true :false
+              } else if (key === "is_featured") {
+                fd[key] = data[key] ? true : false;
               } else {
                 fd[key] = data[key];
               }
@@ -104,8 +107,9 @@ function useEventSponsorCreate({ location }) {
           });
           setDownloads(data?.downloads);
           setDownloadsDigitalBag(data?.digital_bags);
+
           setImg(data?.img_url);
-          setCountryCode(data?.country_code)
+          setCountryCode(data?.country_code);
         } else {
           SnackbarUtils.error(res?.message);
           historyUtils.goBack();
@@ -114,16 +118,9 @@ function useEventSponsorCreate({ location }) {
     }
   }, [id]);
 
- 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [
-      "name",
-       "web_url",
-      "priority",
-      "contact",
-      "type",
-    ];
+    let required = ["name", "web_url", "priority", "contact", "type"];
 
     required.forEach((val) => {
       if (
@@ -187,8 +184,7 @@ function useEventSponsorCreate({ location }) {
       if (fieldName === "name") {
         t[fieldName] = text;
       } else if (fieldName === "priority") {
-        if ( (isNum(text))) {
-          
+        if (isNum(text)) {
           t[fieldName] = text;
         }
       } else if (fieldName === "contact") {
@@ -203,7 +199,7 @@ function useEventSponsorCreate({ location }) {
     },
     [removeError, form, setForm]
   );
-
+  console.log({ images });
   const submitToServer = useCallback(
     (status) => {
       if (!isSubmitting) {
@@ -217,18 +213,22 @@ function useEventSponsorCreate({ location }) {
               fd.append(key, JSON.stringify(form[key]));
             } else if (key === "status") {
               fd.append("status", form[key] ? "ACTIVE" : "INACTIVE");
-            }else if (key === "is_featured"){
-              fd.append("is_featured",form?.is_featured ? true : false)
+            } else if (key === "is_featured") {
+              fd.append("is_featured", form?.is_featured ? true : false);
             } else {
               fd.append(key, form[key]);
             }
           }
         });
-        if(countryCode){
-          fd.append("country_code", countryCode)
+        if (countryCode) {
+          fd.append("country_code", countryCode);
         }
         if (form?.img_url) {
           fd.append("img_url", form?.img_url);
+        }
+        console.log({ images , form});
+        if (!images && !form?.img_url) {
+          fd.append("is_image_removed", true);
         }
         if (selectedEventId) {
           fd.append("event_id", selectedEventId);
@@ -249,9 +249,7 @@ function useEventSponsorCreate({ location }) {
           }
         });
         fd.append("digital_bags", JSON.stringify(DigitalBag));
-        if (!images) {
-          fd.append("is_image_removed", true);
-        }
+       
         let req;
         if (id) {
           req = serviceUpdateEventSponsor(fd);
@@ -268,7 +266,7 @@ function useEventSponsorCreate({ location }) {
         });
       }
     },
-    [form, isSubmitting, setIsSubmitting, images, countryCode]
+    [form, isSubmitting, setIsSubmitting, images, countryCode, setImg]
   );
 
   const onBlurHandler = useCallback(
@@ -293,14 +291,21 @@ function useEventSponsorCreate({ location }) {
         !isIncludesValid1
       ) {
         setErrorData(errors);
-      
-         return true;
+
+        return true;
       }
       submitToServer(status);
     },
-    [checkFormValidation, setErrorData, form, submitToServer, images, countryCode]
+    [
+      checkFormValidation,
+      setErrorData,
+      form,
+      submitToServer,
+      images,
+      countryCode,
+      setImg,
+    ]
   );
-
 
   return {
     form,
@@ -320,7 +325,7 @@ function useEventSponsorCreate({ location }) {
     ChildenRef1,
     downloads,
     downloadsDigitalBag,
-    images
+    images,
   };
 }
 
