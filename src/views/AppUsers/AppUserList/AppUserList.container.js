@@ -13,11 +13,12 @@ import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import useAppUserList from "./AppUserListHook.js";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import AppUserCreateView from "../AppUserCreate/AppUserCreate.view";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import RouteName from "../../../routes/Route.name";
 import UploadCsvDialog from "./UploadCsvDialog/UploadCsvDialog.js";
+import { capitalizeFirstLetter } from "../../../hooks/CapsLetter.js";
 
-const AppUserList = ({ }) => {
+const AppUserList = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -61,50 +62,69 @@ const AppUserList = ({ }) => {
     return null;
   }, []);
 
-
   const tableStructure = useMemo(() => {
     return [
       {
         key: "name",
-        label: "user",
+        label: "User Name",
         sortable: false,
-        render: (temp, all) => <div style={{display:"flex",alignItems:"center",justifyItems:"center", gap:"8px"}}><img src={all?.image} alt="image" style={{height:"30px",width:"30px",borderRadius:"100%"}}/>{all?.name}</div>,
+        render: (temp, all) => (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyItems: "center",
+              gap: "8px",
+            }}
+          >
+            <img
+              src={all?.image}
+              alt="image"
+              style={{ height: "30px", width: "30px", borderRadius: "100%" }}
+            />
+            {capitalizeFirstLetter(all?.name)}
+          </div>
+        ),
       },
       {
         key: "email",
         label: "email",
-        sortable: true,
-        render: (value, all) => <div>{all?.email}</div>,
+        sortable: false,
+        render: (value, all) => (
+          <div className={styles.limitCharector}>{all?.email}</div>
+        ),
       },
 
       {
         key: "contact",
         label: "PHONE NUMBER",
-        sortable: true,
-        render: (temp, all) => <div>{all.contact}</div>,
+        sortable: false,
+        render: (temp, all) => (
+          <div>{`${all?.country_code} ${all.contact}`}</div>
+        ),
       },
       {
         key: "company",
         label: "COMPANY",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{all.company_name}</div>,
       },
       {
         key: "memberuser",
         label: "is Member User",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{all.is_member ? "Yes" : "No"}</div>,
       },
       {
         key: "flagged",
         label: "is Flagged",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{all.is_flagged ? "Yes" : "No"}</div>,
       },
       {
         key: "status",
         label: "STATUS",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{<StatusPill status={all.status} />}</div>,
       },
       {
@@ -112,14 +132,14 @@ const AppUserList = ({ }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-          <Link to={RouteName.USER_PROFILE+all.id}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            <Link to={RouteName.USER_PROFILE + all.id}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+              >
+                <InfoOutlined fontSize={"small"} />
+              </IconButton>
             </Link>
           </div>
         ),
@@ -155,7 +175,7 @@ const AppUserList = ({ }) => {
 
   return (
     <div>
-       <UploadCsvDialog
+      <UploadCsvDialog
         isOpen={isCsvDialog}
         handleToggle={toggleCsvDialog}
         handleCsvUpload={handleCsvUpload}
@@ -186,7 +206,6 @@ const AppUserList = ({ }) => {
                   className={"plusIcon"}
                 ></CloudDownload>
               </ButtonBase>
-            
             </div>
           </div>
         </div>
