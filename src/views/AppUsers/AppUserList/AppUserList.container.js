@@ -202,7 +202,7 @@ const AppUserList = ({}) => {
             </ButtonBase> */}
             <div className={styles.eventButton}>
               <ButtonBase onClick={handleDownloadCSV} className={"createBtn"}>
-                DOWNLOAD CSV
+                DOWNLOAD 
                 <CloudDownload
                   fontSize={"small"}
                   className={"plusIcon"}
