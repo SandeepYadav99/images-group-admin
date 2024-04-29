@@ -16,6 +16,7 @@ import useAdminCreate from "./AdminCreateHook";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import ResetPasswordDialog from "./Component/ResetPassword/ResetPasswordPopUp";
 import country_code from "../../../assets/country_code.json";
+import CustomCountryFC from "../../../components/CountryFC/CustomCountryFC";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -69,6 +70,21 @@ const AdminCreateView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       </div>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
+            <CustomCountryFC
+                type="tel"
+                isError={errorData?.contact}
+                errorText={errorData?.contact}
+                label={"Contact"}
+                value={form?.contact}
+                country_code={form?.country_code}
+                onTextChange={(text) => {
+                    changeTextData(text, "contact");
+                }}
+            />
+        </div>
+      </div>
+      <div className={"formFlex"}>
+        {/* <div className={"formGroup"}>
           <div className={"formGroup"}>
             <div className={styles.formGrid}>
             <CustomSelectField
@@ -103,7 +119,7 @@ const AdminCreateView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
         {!empId && (
           <div className={"formGroup"}>
             <CustomTextField
