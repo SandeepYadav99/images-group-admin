@@ -18,7 +18,8 @@ import {
 } from "../../../services/AdminUser.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import Constants from "../../../config/constants";
-
+import { getCountryCode } from "../../../libs/general.utils";
+import { cleanContactNumber } from "../../../helper/helper";
 const initialForm = {
   name: "",
   contact: "",
@@ -26,7 +27,7 @@ const initialForm = {
   password: "",
   type: "ADMIN",
   role: "",
-  country_code:'',
+  country_code: "",
   status: true,
 };
 
@@ -41,17 +42,21 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   const [isRejectPopUp, setIsRejectPopUp] = useState(false);
   const [dataValue, setDataValue] = useState({});
   const [countryCode, setCountryCode] = useState();
+  const [contactErr, setContactErr] = useState();
+
+  useEffect(() => {
+    setContactErr(empId);
+  }, [empId, form?.contact]);
 
   const handleCountryCode = (e) => {
     setCountryCode(e.target.value);
   };
 
-  useEffect(()=>{
-    if(!countryCode){
-       setCountryCode("91")
+  useEffect(() => {
+    if (!countryCode) {
+      setCountryCode("91");
     }
-  })
-
+  }, []);
 
   const codeDebouncer = useDebounce(form?.contact, 500);
   useEffect(() => {
@@ -59,12 +64,14 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       serviceGetAdminUserDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
+          const contactSplit = data?.contact?.split(" ");
+          const countryCode = getCountryCode(contactSplit[0]);
           setForm({
             ...form,
             name: data?.name,
             contact: data?.contact,
             email: data?.email,
-            country_code:data?.country_code,
+            country_code: countryCode,
             role: data?.role,
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
           });
@@ -82,21 +89,54 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   }, [isSidePanel]);
 
   const checkCodeValidation = useCallback(() => {
-    serviceAdminUserCheckExist({
-      contact: `${form?.contact}`,
-    }).then((res) => {
-      if (!res.error) {
-        const errors = JSON.parse(JSON.stringify(errorData));
-        if (res.data.is_exists) {
-          errors["contact"] = "Admin User Contact Exists";
-          setErrorData(errors);
-        } else {
-          delete errors.contact;
-          setErrorData(errors);
+    const temp = form?.contact?.split(" ");
+    console.log({ temp });
+    if (temp[1]?.replace("-", "")?.length === 10) {
+      serviceAdminUserCheckExist({
+        contact: `${cleanContactNumber(form?.contact)}`,
+      }).then((res) => {
+        if (!res.error) {
+          const errors = JSON.parse(JSON.stringify(errorData));
+          if (res.data.is_exists) {
+            errors["contact"] = "Admin User Contact Exists";
+            setErrorData(errors);
+          } else {
+            delete errors.contact;
+            setErrorData(errors);
+          }
         }
-      }
-    });
+      });
+    }
   }, [errorData, setErrorData]);
+
+  //  useEffect(() => {
+  //   const temp = form?.contact?.split(" ");
+  //   if (temp[1]?.replace("-","")?.length === 10) {
+  //     serviceAdminUserCheckExist({
+  //       contact: `${cleanContactNumber(form?.contact)}`,
+  //     })?.then((res) => {
+  //       const response = res?.data;
+  //       const contactSplit = response?.contact?.split(" ");
+  //       const countryCode = getCountryCode(contactSplit[0]);
+  //       setContactErr(response?.id);
+  //       setForm({
+  //         ...form,
+  //         name: response?.name,
+  //         contact: response?.full_contact,
+  //         email: response?.email,
+  //         role: response?.role,
+  //         status: response?.status === Constants.GENERAL_STATUS.ACTIVE,
+  //         country_code: countryCode,
+  //       });
+  //     });
+  //   } else if (temp[1]?.length < 10) {
+  //     setContactErr("");
+  //     setForm({
+  //       ...form,
+  //       contact:form?.contact,
+  //     });
+  //   }
+  // }, [form?.contact]);
 
   useEffect(() => {
     if (codeDebouncer) {
@@ -106,9 +146,10 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
+    const temp = form?.contact?.split(" ");
     let required = [
       "name",
-      "country_code",
+      // "country_code",
       "contact",
       "email",
       // "password",
@@ -116,8 +157,12 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       "role",
       // "image",
     ];
-    if (!empId){
+    if (!empId || !contactErr) {
       required?.push("password");
+    }
+    if (empId || contactErr) {
+      const indexData = required?.indexOf("password");
+      required.splice(indexData, 1);
     }
     required.forEach((val) => {
       if (
@@ -127,18 +172,23 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         errors[val] = true;
       } else if (["code"].indexOf(val) < 0) {
         delete errors[val];
+      } else if (["contact"].indexOf(val) < 0) {
+        delete errors[val];
       }
       if (form?.email && !isEmail(form?.email)) {
         errors["email"] = true;
       }
     });
+    if (temp[1]?.replace("-", "")?.length < 10) {
+      errors["contact"] = true;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
       }
     });
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData, contactErr]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -148,23 +198,26 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
         } else if (key === "contact") {
-          fd.append(key, `${form?.country_code} ${form?.contact}`);
+          fd.append(key, cleanContactNumber(form?.contact));
         } else {
           fd.append(key, form[key]);
         }
       });
-      if(empId){
-        fd.delete("password")
-        fd.append("id",empId);
+      fd.delete("country_code");
+      
+      if (empId && contactErr) {
+        fd.delete("password");
+        // fd.delete("country_code");
+        fd.append("id", empId);
       }
       let req;
-      
+
       if (empId) {
         req = serviceUpdateAdminUser(fd);
       } else {
         req = serviceCreateAdminUser(fd);
       }
-      
+
       req.then((res) => {
         if (!res.error) {
           handleToggleSidePannel();
@@ -181,6 +234,7 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     const errors = checkFormValidation();
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
+      console.log({ errors });
       return true;
     }
     submitToServer();
@@ -207,9 +261,9 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         }
         shouldRemoveError = false;
       } else if (fieldName === "contact") {
-        if (text >= 0 && text?.length <= 10) {
-          t[fieldName] = text;
-        }
+        // if (text >= 0 && text?.length <= 10) {
+        t[fieldName] = text;
+        // }
       } else {
         t[fieldName] = text;
       }

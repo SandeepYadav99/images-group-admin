@@ -57,17 +57,15 @@ const AdminUserList = ({}) => {
     return null;
   }, []);
 
-  const removeUnderScore =(data)=>{
-      if(data  === "CHAPTER_ADMIN" ){
-         return "CHAPTER ADMIN"
-      }
-      else if(data  === "EVENT_MANAGER" ){
-        return "EVENT MANAGER"
-     }
-     else {
-      return "GENERAL"
-     }
-  }
+  const removeUnderScore = (data) => {
+    if (data === "CHAPTER_ADMIN") {
+      return "CHAPTER ADMIN";
+    } else if (data === "EVENT_MANAGER") {
+      return "EVENT MANAGER";
+    } else {
+      return "GENERAL";
+    }
+  };
 
   const tableStructure = useMemo(() => {
     return [
@@ -88,7 +86,13 @@ const AdminUserList = ({}) => {
         key: "contact",
         label: "PHONE NUMBER",
         sortable: true,
-        render: (temp, all) => <div>{all.contact}</div>,
+        render: (temp, all) => (
+          <div>
+            {/* const contactSplit = data?.contact?.split(" ");
+          const countryCode = getCountryCode(contactSplit[0]); */}
+             {all?.country_code ? `${all?.country_code}` : ""} {all.contact?.split(" ")}
+          </div>
+        ),
       },
       {
         key: "role",
