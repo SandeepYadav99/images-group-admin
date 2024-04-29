@@ -152,6 +152,7 @@ const useEventParticipantCreate = ({
     "AWARD_PRESENTATION",
     "INNOVATORS_CLUB",
     "JURY",
+    "DELEGATE"
   ];
 
   const checkFormValidation = useCallback(() => {

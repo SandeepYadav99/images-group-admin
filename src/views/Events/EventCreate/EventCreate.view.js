@@ -24,6 +24,7 @@ import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import { Autocomplete } from "@material-ui/lab";
 import { useSelector } from "react-redux";
+import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 
 function EventCreate() {
   const {
@@ -107,7 +108,7 @@ function EventCreate() {
               <CustomTextField
                 isError={errorData?.project_id}
                 errorText={errorData?.project_id}
-                label={"Project ID"}
+                label={"Premagic Project ID"}
                 value={form?.project_id}
                 onTextChange={(text) => {
                   changeTextData(text, "project_id");
@@ -222,6 +223,20 @@ function EventCreate() {
           </div>
         </div>
         <div className={"formFlex"}></div>
+        <div className={"formGroup"}>
+        <CustomTextField
+              isError={errorData?.event_prefix}
+              errorText={errorData?.event_prefix}
+              label={"RegID Prefix"}
+              value={form?.event_prefix}
+              onTextChange={(text) => {
+                changeTextData(text, "event_prefix");
+              }}
+              onBlur={() => {
+                onBlurHandler("event_prefix");
+              }}
+            />
+            </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
@@ -368,6 +383,10 @@ function EventCreate() {
               }}
               link={form?.login_banner ? "" : appBanner}
             />
+              <div className={styles.inst}>
+              <InfoOutlinedIcon />
+              Recommended Size for banner image is 1080x960 px.
+            </div>
           </div>
         </div>
         <div className={"formFlex"}>
@@ -389,6 +408,10 @@ function EventCreate() {
               }}
               link={form?.background_image ? "" : appBgBanner}
             />
+            <div className={styles.inst}>
+              <InfoOutlinedIcon />
+              Recommended Size for banner image is 1600x900 px.
+            </div>
           </div>
         </div>
       </div>
@@ -481,12 +504,12 @@ function EventCreate() {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>LinkedIn splash screen</div>
+            <div className={"heading"}>Linkedin Popup</div>
           </h4>
         </div>
         <div className={"formGroup"}>
           <File
-            max_size={10 * 1024 * 1024}
+            max_size={5 * 1024 * 1024}
             type={["jpeg", "jpg", "png"]}
             fullWidth={true}
             name="linkedin_image"
@@ -502,6 +525,10 @@ function EventCreate() {
             }}
             link={form?.linkedin_image ? "" : linkBanner}
           />
+           <div className={styles.inst}>
+              <InfoOutlinedIcon />
+              Recommended Size for banner image is 1200x628 px and size upto 5mb .
+            </div>
         </div>
         <div className={"formGroup"}>
           <CustomTextField
@@ -518,6 +545,15 @@ function EventCreate() {
             multiline
             rows={3}
           />
+        </div>
+        <div className={"formGroup"}>
+        <CustomSwitch
+           value={form?.show_linkedin}
+           handleChange={() => {
+             changeTextData(!form?.show_linkedin, "show_linkedin");
+           }}
+           label={`Show linkedin`}
+         />
         </div>
       </div>
       <div className={"plainPaper"}>
@@ -949,20 +985,26 @@ function EventCreate() {
           </div>
         </div>
         <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomCheckbox
-              color={"primary"}
-              handleChange={(text) => {
-                changeFeatureData(
-                  !feature?.meeting_calendar,
-                  "meeting_calendar"
-                );
-              }}
-              label={"Meeting Calendar"}
-              checked={feature?.meeting_calendar}
-            />
-          </div>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              changeFeatureData(!feature?.meeting_calendar, "meeting_calendar");
+            }}
+            label={"Meeting Calendar"}
+            checked={feature?.meeting_calendar}
+          />
+        <div style={{marginLeft:"35px"}}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              changeFeatureData(!feature?.event_calendar, "event_calendar");
+            }}
+            label={"Event Calendar"}
+            checked={feature?.event_calendar}
+          />
+         </div>
         </div>
+       
       </div>
 
       <div className={"plainPaper"}>
