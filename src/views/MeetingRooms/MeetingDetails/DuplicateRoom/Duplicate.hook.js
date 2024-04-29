@@ -12,6 +12,7 @@ import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import Constants from "../../../../config/constants";
 import { useParams } from "react-router-dom";
 import {
+  serviceCreateDuplicateAPi,
   serviceCreateMeetingRoomList,
   serviceUpdateMeetingRoomList,
 } from "../../../../services/MeetingRoom.service";
@@ -94,12 +95,7 @@ const useDuplicate = ({
 
       let req ;
 
-      if (detailsData) {
-        req = serviceUpdateMeetingRoomList(updateRoomPayload);
-      }
-      else {
-        req = serviceCreateMeetingRoomList(updatePayload);
-      }
+        req = serviceCreateDuplicateAPi(updatePayload);
 
       req.then((res) => {
         if (!res.error) {

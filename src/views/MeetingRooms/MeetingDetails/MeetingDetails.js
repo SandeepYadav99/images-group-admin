@@ -1,6 +1,6 @@
 import styles from "./Style.module.css";
 import history from "../../../libs/history.utils";
-import { ButtonBase, Dialog, IconButton, MenuItem } from "@material-ui/core";
+import { ButtonBase, CircularProgress, Dialog, IconButton, MenuItem } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useMeetingDetailHook from "./MeetingDetails.hook";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -77,6 +77,7 @@ const MeetingDetails = ({ location }) => {
   }, []);
 
   const UpdateStatusPopUp = ({ open, onClick }) => {
+    console.log(isSubmitting, "isSubmitting is here ");
     return (
       <Dialog
         open={open}
@@ -121,14 +122,18 @@ const MeetingDetails = ({ location }) => {
           </CustomSelectField>
         </div>
         <div className={styles.btnCenterContainer}>
-          <ButtonBase
-            disabled={isSubmitting ? true : false}
-            type={"button"}
-            className={styles.createBtn}
-            onClick={handleSubmit}
-          >
-            UPDATE
-          </ButtonBase>
+          {isSubmitting ? (
+            <CircularProgress color="success" size="20px" />
+          ) : (
+            <ButtonBase
+              disabled={isSubmitting ? true : false}
+              type={"button"}
+              className={styles.createBtn}
+              onClick={handleSubmit}
+            >
+              UPDATE
+            </ButtonBase>
+          )}
         </div>
       </Dialog>
     );
@@ -247,11 +252,7 @@ const MeetingDetails = ({ location }) => {
           <span className={styles.name}>{dataValue?.name}</span>
           <span className={styles.code}>{dataValue?.code}</span>
         </div>
-        <div>
-          <ButtonBase className={"createBtn"} id={styles.bgColor}>
-            {dataValue?.status}
-          </ButtonBase>
-        </div>
+        <div>{<StatusPill status={dataValue?.status} />}</div>
         <div className={styles.btnFlex}>
           <ButtonBase
             className={"createBtn"}
@@ -332,7 +333,7 @@ const MeetingDetails = ({ location }) => {
       <UpdateStatusPopUp open={popupOpen} onClick={handleClosePopUp} />
       <SidePanelComponent
         handleToggle={handleToggleSidePannel}
-        title={"Add Meeting Room"}
+        title={"Update Meeting Room Details"}
         open={isSidePanel}
         side={"right"}
       >
