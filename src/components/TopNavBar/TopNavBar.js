@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 const TopNavBar = ({ data }) => {
   const params = useParams();
   const [value, setValue] = useState(data);
+  console.log({value})
   const handleChange = useCallback(
     (event, newValue) => {
       setValue(newValue);
