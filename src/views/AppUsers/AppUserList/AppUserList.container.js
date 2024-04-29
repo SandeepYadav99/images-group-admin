@@ -111,18 +111,18 @@ const AppUserList = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{all.company_name}</div>,
       },
-      {
-        key: "memberuser",
-        label: "is Member User",
-        sortable: false,
-        render: (temp, all) => <div>{all.is_member ? "Yes" : "No"}</div>,
-      },
-      {
-        key: "flagged",
-        label: "is Flagged",
-        sortable: false,
-        render: (temp, all) => <div>{all.is_flagged ? "Yes" : "No"}</div>,
-      },
+      // {
+      //   key: "memberuser",
+      //   label: "is Member User",
+      //   sortable: false,
+      //   render: (temp, all) => <div>{all.is_member ? "Yes" : "No"}</div>,
+      // },
+      // {
+      //   key: "flagged",
+      //   label: "is Flagged",
+      //   sortable: false,
+      //   render: (temp, all) => <div>{all.is_flagged ? "Yes" : "No"}</div>,
+      // },
       {
         key: "status",
         label: "STATUS",

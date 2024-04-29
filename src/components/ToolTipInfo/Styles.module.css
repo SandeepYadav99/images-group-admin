@@ -1,0 +1,12 @@
+.imageInfo {
+  display: flex;
+  font-size: 12px;
+  color: #161616;
+  cursor: pointer !important;
+}
+.customTooltip {
+  background-color: white !important;
+  color: #161616 !important;
+  margin-top: -10% !important;
+  padding: 8px !important;
+}

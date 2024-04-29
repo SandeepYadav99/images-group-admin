@@ -12,6 +12,7 @@ import useSpeakerMasterCreate from "./SpeakerMasterCreateHook";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 import { useCallback } from "react";
 import { InfoOutlined } from "@material-ui/icons";
+import ToolTipInfo from "../../../components/ToolTipInfo/ToolTipInfo";
 
 function SpeakerMasterCreate({ location }) {
   const {
@@ -103,15 +104,7 @@ console.log({images})
             )} */}
             {renderImage()}
             <div>
-              <Tooltip
-                classes={{ tooltip: styles.customTooltip }}
-                title="Image size less than 2mb | 1000x1000 px"
-              >
-                <div className={styles.imageInfo}>
-                  <InfoOutlined fontSize="small" />
-                  Image Guide
-                </div>
-              </Tooltip>
+             <ToolTipInfo/>
             </div>
           </div>
           <div></div>
