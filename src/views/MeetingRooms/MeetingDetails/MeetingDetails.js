@@ -1,6 +1,12 @@
 import styles from "./Style.module.css";
 import history from "../../../libs/history.utils";
-import { ButtonBase, Dialog, IconButton, MenuItem } from "@material-ui/core";
+import {
+  ButtonBase,
+  CircularProgress,
+  Dialog,
+  IconButton,
+  MenuItem,
+} from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useMeetingDetailHook from "./MeetingDetails.hook";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -77,6 +83,7 @@ const MeetingDetails = ({ location }) => {
   }, []);
 
   const UpdateStatusPopUp = ({ open, onClick }) => {
+    console.log(isSubmitting, "isSubmitting is here ");
     return (
       <Dialog
         open={open}
@@ -121,14 +128,18 @@ const MeetingDetails = ({ location }) => {
           </CustomSelectField>
         </div>
         <div className={styles.btnCenterContainer}>
-          <ButtonBase
-            disabled={isSubmitting ? true : false}
-            type={"button"}
-            className={styles.createBtn}
-            onClick={handleSubmit}
-          >
-            UPDATE
-          </ButtonBase>
+          {isSubmitting ? (
+            <CircularProgress color="success" size="20px" />
+          ) : (
+            <ButtonBase
+              disabled={isSubmitting ? true : false}
+              type={"button"}
+              className={styles.createBtn}
+              onClick={handleSubmit}
+            >
+              UPDATE
+            </ButtonBase>
+          )}
         </div>
       </Dialog>
     );
@@ -164,13 +175,33 @@ const MeetingDetails = ({ location }) => {
         key: "booked_by",
         label: "BOOKED BY",
         sortable: false,
-        render: (value, all) => <div>--</div>,
+        render: (value, all) => (
+          <div className={styles.bookedBy}>
+            <img
+              src={all?.bookedBy?.image && all.bookedBy?.image}
+              style={{ height: "30px", width: "30px", borderRadius: "10px" }}
+            />
+            <span className={styles.textBookedBy}>
+              {all?.bookedBy?.contact ? all?.bookedBy?.contact : "--"}
+            </span>
+          </div>
+        ),
       },
       {
         key: "booked_with",
         label: "BOOKED WITH",
         sortable: false,
-        render: (temp, all) => <div>--</div>,
+        render: (temp, all) => (
+          <div className={styles.bookedBy}>
+            <img
+              src={all?.bookedWith?.image && all.bookedWith?.image}
+              style={{ height: "30px", width: "30px", borderRadius: "10px" }}
+            />
+            <span className={styles.textBookedBy}>
+              {all?.bookedWith?.contact ? all?.bookedWith?.contact : "--"}
+            </span>
+          </div>
+        ),
       },
       {
         key: "ref_id",
@@ -247,11 +278,7 @@ const MeetingDetails = ({ location }) => {
           <span className={styles.name}>{dataValue?.name}</span>
           <span className={styles.code}>{dataValue?.code}</span>
         </div>
-        <div>
-          <ButtonBase className={"createBtn"} id={styles.bgColor}>
-            {dataValue?.status}
-          </ButtonBase>
-        </div>
+        <div>{<StatusPill status={dataValue?.status} />}</div>
         <div className={styles.btnFlex}>
           <ButtonBase
             className={"createBtn"}
@@ -332,7 +359,7 @@ const MeetingDetails = ({ location }) => {
       <UpdateStatusPopUp open={popupOpen} onClick={handleClosePopUp} />
       <SidePanelComponent
         handleToggle={handleToggleSidePannel}
-        title={"Add Meeting Room"}
+        title={"Update Meeting Room Details"}
         open={isSidePanel}
         side={"right"}
       >
@@ -367,6 +394,7 @@ const MeetingDetails = ({ location }) => {
           isSidePanel={duplicate}
           empId={editData}
           eventIdData={event}
+          detailsData={dataValue}
         />
       </SidePanelComponent>
     </>

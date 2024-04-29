@@ -128,7 +128,7 @@ const EventList = ({}) => {
             >
               <Menu fontSize={"small"} />
             </IconButton>
-            <IconButton
+            {/* <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
@@ -137,7 +137,7 @@ const EventList = ({}) => {
               }}
             >
               <Delete fontSize={"small"} />
-            </IconButton>
+            </IconButton> */}
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -193,14 +193,14 @@ const EventList = ({}) => {
           </ButtonBase>
 
           <div className={styles.create_Sction}>
-            <div className={styles.BtnWrapper}>
+            {/* <div className={styles.BtnWrapper}>
               <ButtonBase
                 onClick={() => toggleRejectDialog()}
                 className={"createBtnMng"}
               >
                 MANAGE BANNER
               </ButtonBase>
-            </div>
+            </div> */}
             <div className={styles.BtnWrapper}>
               {/* <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
                 ADD SECTION

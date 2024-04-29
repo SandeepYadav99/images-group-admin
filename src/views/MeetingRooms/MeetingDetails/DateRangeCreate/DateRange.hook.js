@@ -15,11 +15,16 @@ import { serviceCreateMeetingRoomSlotList } from "../../../../services/MeetingSl
 const initialForm = {
   start_date: "",
   end_date: "",
-  duration:'',
-  event_id:'',
+  duration: "",
+  event_id: "",
 };
 
-const useDateRange = ({ handleToggleSidePannel, isSidePanel, empId,eventIdData }) => {
+const useDateRange = ({
+  handleToggleSidePannel,
+  isSidePanel,
+  empId,
+  eventIdData,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [errorData, setErrorData] = useState({});
@@ -32,12 +37,7 @@ const useDateRange = ({ handleToggleSidePannel, isSidePanel, empId,eventIdData }
 
   const params = useParams();
 
-
-  const slotDuration =[
-    "30","60","90","120","150","180"
-  ]
-
-  
+  const slotDuration = ["15", "20", "30", "40", "45", "60"];
 
   useEffect(() => {
     if (!isSidePanel) {
@@ -49,7 +49,7 @@ const useDateRange = ({ handleToggleSidePannel, isSidePanel, empId,eventIdData }
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["start_date", "end_date","duration"];
+    let required = ["start_date", "end_date", "duration"];
 
     required.forEach((val) => {
       if (
@@ -74,7 +74,7 @@ const useDateRange = ({ handleToggleSidePannel, isSidePanel, empId,eventIdData }
       const updatePayload = {
         ...form,
         event_id: eventIdData,
-        room_id:params?.id,
+        room_id: params?.id,
       };
 
       let req = serviceCreateMeetingRoomSlotList(updatePayload);

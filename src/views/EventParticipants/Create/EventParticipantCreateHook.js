@@ -30,10 +30,10 @@ const initialForm = {
   contact: "",
   email: "",
   title: "",
-  is_default_password: false,
+  is_default_password: true,
   reg_id: "",
   user_id: "",
-  is_auto: false,
+  // is_auto: true,
   category: "",
   participant_type: [],
   company_name: "",
@@ -152,6 +152,7 @@ const useEventParticipantCreate = ({
     "AWARD_PRESENTATION",
     "INNOVATORS_CLUB",
     "JURY",
+    "DELEGATE"
   ];
 
   const checkFormValidation = useCallback(() => {
@@ -165,6 +166,7 @@ const useEventParticipantCreate = ({
       "title",
       "category",
       "participant_type",
+      "company_name"
     ];
     required.forEach((val) => {
       if (
@@ -178,6 +180,14 @@ const useEventParticipantCreate = ({
       if (form?.email && !isEmail(form?.email)) {
         errors["email"] = true;
       }
+      if(form?.contact){
+        const cleanCode = cleanContactNumber(form?.contact);
+        const number = cleanCode?.split(" ")[1] ? cleanCode?.split(" ")[1] : ""
+        if(!number || number?.length < 10){
+          errors["contact"] = true
+        }
+      }
+
     });
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -243,7 +253,7 @@ const useEventParticipantCreate = ({
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name") {
-        if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
+        if (!text || (isAlphaNumChars(text) && text.toString().length <= 50)) {
           t[fieldName] = text;
         }
       } else if (fieldName === "code") {

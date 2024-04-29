@@ -25,7 +25,7 @@ function useVideoCreate({ location }) {
     name: "",
     video: "",
     status: true,
-    image:""
+    // image:""
   };
   const [form, setForm] = useState({ ...initialForm });
   const [img, setImg] = useState("");
@@ -69,7 +69,7 @@ function useVideoCreate({ location }) {
         if (!res.error) {
           const data = res?.data;
           setVideoData(data?.video);
-          setImage(data?.image)
+          // setImage(data?.image)
           setForm({
             name:data?.name,
             status: data?.status === constants.GENERAL_STATUS.ACTIVE,
@@ -87,7 +87,7 @@ function useVideoCreate({ location }) {
     let required = ["name"];
 
     if(!id){
-      required.push(...["video"]) && required.push(...["image"])
+      required.push(...["video"])
     }
 
     required.forEach((val) => {

@@ -16,6 +16,7 @@ import {
   serviceUpdateMeetingRoomList,
 } from "../../../services/MeetingRoom.service";
 import { serviceGetMeetingRoomSlottListDetails } from "../../../services/MeetingSlots.service";
+import constants from "../../../config/constants";
 
 const initialForm = {
   name: "",
@@ -49,10 +50,12 @@ const useMeetingCreate = ({
 
   useEffect(() => {
     if (detailsData) {
+      console.log(detailsData, "detailsData is here where are you ?");
       setForm({
         ...form,
         name: detailsData?.name,
         code: detailsData?.code,
+        is_active: detailsData?.status === constants.GENERAL_STATUS.ACTIVE,
       });
     }
   }, [detailsData?.event_id]);
@@ -92,12 +95,11 @@ const useMeetingCreate = ({
         id: params?.id,
       };
 
-      let req ;
+      let req;
 
       if (detailsData) {
         req = serviceUpdateMeetingRoomList(updateRoomPayload);
-      }
-      else {
+      } else {
         req = serviceCreateMeetingRoomList(updatePayload);
       }
 

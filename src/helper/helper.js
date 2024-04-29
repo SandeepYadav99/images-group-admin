@@ -333,18 +333,18 @@ export const EventData = [
   //   image: polls,
   //   url: RouteName.EVENT_POLLS,
   // },
-  {
-    key: "analytics",
-    name: "Analytics",
-    image: analytics,
-    url: "",
-  },
-  {
-    key: "surveys",
-    name: "Event Survey",
-    image: event,
-    url: "",
-  },
+  // {
+  //   key: "analytics",
+  //   name: "Analytics",
+  //   image: analytics,
+  //   url: "",
+  // },
+  // {
+  //   key: "surveys",
+  //   name: "Event Survey",
+  //   image: event,
+  //   url: "",
+  // },
   {
     key: "event_banner",
     name: "Event Banners",
@@ -417,12 +417,12 @@ export const EventData = [
     image: event,
     url: RouteName.AWARD,
   },
-  // {
-  //   key: "networking",
-  //   name: "Information Center",
-  //   image: event,
-  //   url:  RouteName.INFOR_CENTER,
-  // },
+  {
+    key: "calandar",
+    name: "Event Calendar",
+    image: event,
+    url:  RouteName.CALENDAR_COUNT,
+  },
   // {
   //   key: "about_event",
   //   name: "About Event",

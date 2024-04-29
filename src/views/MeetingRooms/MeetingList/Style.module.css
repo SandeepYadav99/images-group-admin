@@ -9,6 +9,8 @@
 .headerContainer .title {
   font-size: 0.8rem;
   font-weight: 600;
+  display: flex;
+  cursor: pointer;
 }
 .bottomLine {
   opacity: 0.4;
@@ -145,4 +147,10 @@
   color: #29cb97 !important ;
   width: 210px;
   height: 40px;
+}
+.backBtn{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start !important;
 }
