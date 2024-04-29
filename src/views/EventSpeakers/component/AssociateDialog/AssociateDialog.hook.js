@@ -41,7 +41,6 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
 
   useEffect(() => {
     const filteredSpeakers = [];
-
     listData?.SPEAKERS?.forEach((val) => {
       const exist = form?.album_id?.some((opt) => opt?.id === val?.id);
       if (!exist) {
