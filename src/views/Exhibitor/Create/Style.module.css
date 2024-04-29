@@ -80,3 +80,8 @@
   width: 50% !important;
 }
 
+.paragraph{
+  font-size: 0.6rem;
+  font-weight: 400;
+  /* margin-left: 14px; */
+}

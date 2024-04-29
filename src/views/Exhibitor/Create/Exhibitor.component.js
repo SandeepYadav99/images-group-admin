@@ -39,16 +39,17 @@ const ExhibitorCreate = () => {
     form,
     changeTextData,
     onBlurHandler,
-     handleSubmit,
+    handleSubmit,
     listData,
-     image,
+    image,
     empId,
     downloads,
     partnerList,
     ChildenRef,
     ChildenRef1,
     downloadsDigitalBag,
-    isSubmitting
+    isSubmitting,
+    categoryLists,
   } = useExhibitorCreate({});
 
   const { user } = useSelector((state) => state?.auth);
@@ -214,7 +215,7 @@ const ExhibitorCreate = () => {
                 <MenuItem value="false">No</MenuItem>
               </CustomSelectField>
             </div>
-            {String(form?.is_participant) === "true"  && (
+            {String(form?.is_participant) === "true" && (
               <div className={"formFlex"}>
                 <div className={"formGroup"}>
                   <CustomCheckbox
@@ -291,19 +292,18 @@ const ExhibitorCreate = () => {
         {user?.role === "ADMIN" && (
           <div className={"formFlex"}>
             <div className={"formGroup"}>
-            <CustomTextField
-                  isError={errorData?.event_venue}
-                  errorText={errorData?.event_venue}
-                  label={"Event Venue"}
-                  value={form?.event_venue}
-                  onTextChange={(text) => {
-                    changeTextData(text, "event_venue");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("event_venue");
-                  }}
-                />
-            
+              <CustomTextField
+                isError={errorData?.event_venue}
+                errorText={errorData?.event_venue}
+                label={"Event Venue"}
+                value={form?.event_venue}
+                onTextChange={(text) => {
+                  changeTextData(text, "event_venue");
+                }}
+                onBlur={() => {
+                  onBlurHandler("event_venue");
+                }}
+              />
             </div>
             <div className={"formGroup"} id={styles.oneLineView}>
               <div id={styles.countryCode}>
@@ -420,43 +420,42 @@ const ExhibitorCreate = () => {
         )}
         {user.role === "ADMIN" && (
           <div>
-
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <CustomTextField
-                type="tel"
-                isError={errorData?.zip_code}
-                errorText={errorData?.zip_code}
-                label={"ZipCode"}
-                value={form?.zip_code}
-                onTextChange={(text, value) => {
-                  if (isNum(text)) {
-                    changeTextData(text, "zip_code");
-                  }
-                }}
-                onBlur={() => {
-                  onBlurHandler("zip_code");
-                }}
-              />
+            <div className={"formFlex"}>
+              <div className={"formGroup"}>
+                <CustomTextField
+                  type="tel"
+                  isError={errorData?.zip_code}
+                  errorText={errorData?.zip_code}
+                  label={"ZipCode"}
+                  value={form?.zip_code}
+                  onTextChange={(text, value) => {
+                    if (isNum(text)) {
+                      changeTextData(text, "zip_code");
+                    }
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("zip_code");
+                  }}
+                />
+              </div>
+              <div className={"formGroup"}>
+                <CustomTextField
+                  isError={errorData?.pavallian}
+                  errorText={errorData?.pavallian}
+                  label={"Pavallian"}
+                  value={form?.pavallian}
+                  onTextChange={(text) => {
+                    changeTextData(text, "pavallian");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("pavallian");
+                  }}
+                />
+              </div>
             </div>
-            <div className={"formGroup"}>
-              <CustomTextField
-                isError={errorData?.pavallian}
-                errorText={errorData?.pavallian}
-                label={"Pavallian"}
-                value={form?.pavallian}
-                onTextChange={(text) => {
-                  changeTextData(text, "pavallian");
-                }}
-                onBlur={() => {
-                  onBlurHandler("pavallian");
-                }}
-              />
-            </div>
-          </div>
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
-            <CustomTextField
+            <div className={"formFlex"}>
+              <div className={"formGroup"}>
+                {/* <CustomTextField
               isError={errorData?.product_offered}
               errorText={errorData?.product_offered}
               label={"Product offered"}
@@ -467,27 +466,58 @@ const ExhibitorCreate = () => {
               onBlur={() => {
                 onBlurHandler("product_offered");
               }}
-            />
-          </div>
-          <div className={"formGroup"}>
-              <CustomTextField
-                isError={errorData?.website}
-                errorText={errorData?.website}
-                label={"Website"}
-                value={form?.website}
-                onTextChange={(text) => {
-                  changeTextData(text, "website");
-                }}
-                onBlur={() => {
-                  onBlurHandler("website");
-                }}
-              />
+            /> */}
+                <Autocomplete
+                  multiple
+                  id="tags-outlined"
+                  onChange={(e, value) => {
+                    changeTextData(value, "product_offered");
+                  }}
+                   options={[]}
+                  value={form?.product_offered}
+                  freeSolo
+                  selectOnFocus={false}
+                  renderTags={(value, getTagProps) =>
+                    value.map((option, index) => (
+                      <Chip
+                        variant="outlined"
+                        label={option}
+                        {...getTagProps({ index })}
+                      /> // disabled={option.length < 2}
+                    ))
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      label="Product Offered"
+                      error={errorData?.product_offered}
+                    />
+                  )}
+                />
+                <label className={styles.paragraph}>
+                  Please press enter to add a category if not found in the
+                  search results.
+                </label>
+              </div>
+              <div className={"formGroup"}>
+                <CustomTextField
+                  isError={errorData?.website}
+                  errorText={errorData?.website}
+                  label={"Website"}
+                  value={form?.website}
+                  onTextChange={(text) => {
+                    changeTextData(text, "website");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("website");
+                  }}
+                />
+              </div>
             </div>
-        </div>
           </div>
-      
         )}
-      
+
         {/* {user?.role === "ADMIN" && (
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -832,7 +862,6 @@ const ExhibitorCreate = () => {
                 }}
               />
             </div>
-           
           </div>
         )}
 
@@ -1118,7 +1147,11 @@ const ExhibitorCreate = () => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} exhibitorId={empId}/>
+            <ChildrenIncludeForm
+              ref={ChildenRef}
+              downloads={downloads}
+              exhibitorId={empId}
+            />
           </div>
         </div>
       </div>
@@ -1234,13 +1267,13 @@ const ExhibitorCreate = () => {
             className={styles.createBtn}
             onClick={handleSubmit}
           >
-             {isSubmitting ? (
-            <CircularProgress color="success" size="20px" />
-          ) : empId ? (
-            "Update"
-          ) : (
-            "Add"
-          )}
+            {isSubmitting ? (
+              <CircularProgress color="success" size="20px" />
+            ) : empId ? (
+              "Update"
+            ) : (
+              "Add"
+            )}
           </ButtonBase>
         </div>
       </div>

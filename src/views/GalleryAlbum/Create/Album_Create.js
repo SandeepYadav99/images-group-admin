@@ -6,6 +6,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  Tooltip,
 } from "@material-ui/core";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -19,6 +20,9 @@ import useAlbumCreateHook from "./AlbumCreate_hook";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import MultiFile from "./Component/FileComponent/FileMultiComponent.component";
 import { useSelector } from "react-redux";
+import { Info, InfoOutlined } from "@material-ui/icons";
+import { LightTooltip } from "../../../hooks/Helper";
+
 
 const GalleryAlbumCreate = () => {
   const {
@@ -67,7 +71,7 @@ const GalleryAlbumCreate = () => {
           <div>
             <File
               // imageClass={styles.inputFileUploader}
-              max_size={5 * 1024 * 1024}
+              max_size={2 * 1024 * 1024}
               type={["png", "jpeg", "jpg"]}
               fullWidth={true}
               name="thumbnail"
@@ -83,7 +87,17 @@ const GalleryAlbumCreate = () => {
                 }
               }}
             />
+            <div>
+              <Tooltip classes={{ tooltip: styles.customTooltip }}  title="Image size less than 2mb | 1000x1000 px">
+                <div className={styles.imageInfo}>
+                  <InfoOutlined fontSize="small" />
+                  Image Guide
+                </div>
+              </Tooltip>
+            </div>
           </div>
+
+          {/* <Tooltip > <Info></Info>  </Tooltip> */}
           <div className={styles.lowerWrap}>
             <div className={"formFlex"}>
               <div className={"formGroup"}>
@@ -217,30 +231,30 @@ const GalleryAlbumCreate = () => {
             </RadioGroup>
           </div>
           {/* {role === "GENERAL" ? ( */}
-            <div className={"formFlex"}>
-              <div className={"formGroup"}>
-                {selectRelated === "events" && (
-                  <Autocomplete
-                    id="tags-outlined"
-                    onChange={(e, value) => {
-                      changeTextData(value, "related_event_id");
-                    }}
-                    value={form?.related_event_id || []}
-                    options={listData?.EVENTS || []}
-                    getOptionLabel={(option) => option?.name || ""}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="outlined"
-                        label="Choose Event"
-                        error={errorData?.related_event_id}
-                      />
-                    )}
-                  />
-                )}
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              {selectRelated === "events" && (
+                <Autocomplete
+                  id="tags-outlined"
+                  onChange={(e, value) => {
+                    changeTextData(value, "related_event_id");
+                  }}
+                  value={form?.related_event_id || []}
+                  options={listData?.EVENTS || []}
+                  getOptionLabel={(option) => option?.name || ""}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      label="Choose Event"
+                      error={errorData?.related_event_id}
+                    />
+                  )}
+                />
+              )}
 
-                {/* {selectRelated === "chapters" && ( */}
-                  {/* <Autocomplete
+              {/* {selectRelated === "chapters" && ( */}
+              {/* <Autocomplete
                     // multiple
                     // error={form?.related_chapter_id}
                     id="tags-outlined-chapters" // Use a different id for clarity
@@ -258,14 +272,14 @@ const GalleryAlbumCreate = () => {
                         error={errorData?.related_chapter_id}
                       />
                     )} */}
-                  {/* /> */}
-                {/* )} */}
-              </div>
+              {/* /> */}
+              {/* )} */}
             </div>
+          </div>
           {/* ) : ( */}
-            <div className={"formFlex"}>
-              <div className={"formGroup"}>
-                {/* {selectRelated === "events" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              {/* {selectRelated === "events" && (
                   <Autocomplete
                     id="tags-outlined"
                     onChange={(e, value) => {
@@ -285,7 +299,7 @@ const GalleryAlbumCreate = () => {
                   />
                 )} */}
 
-                {/* {selectRelated === "chapters" && (
+              {/* {selectRelated === "chapters" && (
                   <Autocomplete
                     // multiple
                     // error={form?.related_chapter_id}
@@ -306,8 +320,8 @@ const GalleryAlbumCreate = () => {
                     )}
                   />
                 )} */}
-              </div>
             </div>
+          </div>
           {/* )} */}
         </div>
 

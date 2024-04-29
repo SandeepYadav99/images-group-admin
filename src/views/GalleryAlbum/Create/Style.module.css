@@ -94,3 +94,12 @@
   .inputFileUploader {
    
   }
+  .imageInfo{
+    display: flex;
+    font-size: 12px;
+    color: #161616;
+  }
+  .customTooltip{
+    background-color: white !important;
+    color: #161616 !important;
+  }

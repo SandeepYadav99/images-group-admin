@@ -118,9 +118,9 @@ function useSpeakerMasterCreate({ location }) {
       if (fieldName === "name") {
         t[fieldName] = text;
       } else if (fieldName === "priority") {
-        if (!text || (isNum(text) && text.toString().length <= 30)) {
+        // if (!text || (isNum(text) && text.toString().length <= 30)) {
           t[fieldName] = text;
-        }
+        // }
       } else {
         t[fieldName] = text;
       }

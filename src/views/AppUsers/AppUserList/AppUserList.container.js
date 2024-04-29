@@ -100,7 +100,9 @@ const AppUserList = ({}) => {
         label: "PHONE NUMBER",
         sortable: false,
         render: (temp, all) => (
-          <div>{`${all?.country_code} ${all.contact}`}</div>
+          <div  className={styles.gaps}>
+            <div>{all?.country_code}</div> <div>{all.contact.split(" ")}</div>
+          </div>
         ),
       },
       {
