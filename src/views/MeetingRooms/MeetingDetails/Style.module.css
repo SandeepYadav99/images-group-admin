@@ -148,3 +148,12 @@
   gap:10px;
   background-color: white !important;
 }
+
+.bookedBy{
+  display: flex;
+  gap: 10px;
+}
+.textBookedBy{
+  font-size: 14px;
+
+}

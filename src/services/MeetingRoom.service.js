@@ -43,7 +43,7 @@ import {
   }
 
   export async function serviceCreateDuplicateAPi(params){
-    return await postRequest("meetings/rooms/duplicate")
+    return await postRequest("meetings/rooms/duplicate",params)
   }
   
   

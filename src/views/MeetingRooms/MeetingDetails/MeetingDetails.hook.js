@@ -284,6 +284,7 @@ const useMeetingDetailHook = ({ location }) => {
 
   const handleOpenDuplicate =useCallback(()=>{
       setDuplicate((e)=> !e)
+      
   },[duplicate])
 
   return {

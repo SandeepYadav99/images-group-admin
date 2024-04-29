@@ -1,6 +1,12 @@
 import styles from "./Style.module.css";
 import history from "../../../libs/history.utils";
-import { ButtonBase, CircularProgress, Dialog, IconButton, MenuItem } from "@material-ui/core";
+import {
+  ButtonBase,
+  CircularProgress,
+  Dialog,
+  IconButton,
+  MenuItem,
+} from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useMeetingDetailHook from "./MeetingDetails.hook";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -169,13 +175,33 @@ const MeetingDetails = ({ location }) => {
         key: "booked_by",
         label: "BOOKED BY",
         sortable: false,
-        render: (value, all) => <div>--</div>,
+        render: (value, all) => (
+          <div className={styles.bookedBy}>
+            <img
+              src={all?.bookedBy?.image && all.bookedBy?.image}
+              style={{ height: "30px", width: "30px", borderRadius: "10px" }}
+            />
+            <span className={styles.textBookedBy}>
+              {all?.bookedBy?.contact ? all?.bookedBy?.contact : "--"}
+            </span>
+          </div>
+        ),
       },
       {
         key: "booked_with",
         label: "BOOKED WITH",
         sortable: false,
-        render: (temp, all) => <div>--</div>,
+        render: (temp, all) => (
+          <div className={styles.bookedBy}>
+            <img
+              src={all?.bookedWith?.image && all.bookedWith?.image}
+              style={{ height: "30px", width: "30px", borderRadius: "10px" }}
+            />
+            <span className={styles.textBookedBy}>
+              {all?.bookedWith?.contact ? all?.bookedWith?.contact : "--"}
+            </span>
+          </div>
+        ),
       },
       {
         key: "ref_id",
@@ -368,6 +394,7 @@ const MeetingDetails = ({ location }) => {
           isSidePanel={duplicate}
           empId={editData}
           eventIdData={event}
+          detailsData={dataValue}
         />
       </SidePanelComponent>
     </>

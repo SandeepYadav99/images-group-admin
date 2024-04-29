@@ -56,7 +56,7 @@ const useDuplicate = ({
         code: detailsData?.code,
       });
     }
-  }, [detailsData?.event_id]);
+  }, [detailsData]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -84,18 +84,12 @@ const useDuplicate = ({
 
       const updatePayload = {
         ...form,
-        event_id: params?.id,
-      };
-
-      const updateRoomPayload = {
-        ...form,
         event_id: detailsData?.event_id,
-        id: params?.id,
+        room_id:params?.id,
       };
+      let req;
 
-      let req ;
-
-        req = serviceCreateDuplicateAPi(updatePayload);
+      req = serviceCreateDuplicateAPi(updatePayload);
 
       req.then((res) => {
         if (!res.error) {
