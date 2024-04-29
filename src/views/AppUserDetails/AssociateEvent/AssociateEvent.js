@@ -5,6 +5,7 @@ import history from "../../../libs/history.utils";
 import { ButtonBase} from "@material-ui/core";
 import EventListView from "./EventListView/EventListView.js";
 
+
 const AssociateEvent = () => {
   return (
     <div className={styles.container}>
