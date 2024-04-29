@@ -187,7 +187,7 @@ const AppUserList = ({}) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrapper}>
-            <ButtonBase
+            {/* <ButtonBase
               onClick={toggleCsvDialog}
               className={"createBtn"}
               id={styles.btnHideResponsive}
@@ -197,7 +197,7 @@ const AppUserList = ({}) => {
                 fontSize={"small"}
                 className={"plusIcon"}
               ></CloudUpload>
-            </ButtonBase>
+            </ButtonBase> */}
             <div className={styles.eventButton}>
               <ButtonBase onClick={handleDownloadCSV} className={"createBtn"}>
                 DOWNLOAD CSV
