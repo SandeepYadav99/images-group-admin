@@ -164,7 +164,7 @@ const useEventScheduleHook = ({
     let required = [
       "eve_name",
       // "eve_title",
-      "eve_description",
+      // "eve_description",
       "start_time",
       "end_time",
       "category",

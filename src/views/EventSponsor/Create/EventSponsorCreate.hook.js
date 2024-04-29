@@ -184,9 +184,9 @@ function useEventSponsorCreate({ location }) {
       if (fieldName === "name") {
         t[fieldName] = text;
       } else if (fieldName === "priority") {
-        if (isNum(text)) {
+        // if (isNum(text)) {
           t[fieldName] = text;
-        }
+        
       } else if (fieldName === "contact") {
         if (text >= 0 && text?.length <= 10) {
           t[fieldName] = `${text}`;

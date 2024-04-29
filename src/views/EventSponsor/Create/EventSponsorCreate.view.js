@@ -18,6 +18,7 @@ import CountryInputField from "../../../components/CountryInputField/CountryInpu
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox.js";
 import ChildrenIncludeForm from "./Component/Download/ChildrenIncludes.component.js";
 import ChildrenIncludeForm1 from "./Component/DigitalBag/ChildrenIncludes.component.js";
+import ToolTipInfo from "../../../components/ToolTipInfo/ToolTipInfo.js";
 function EventSponsorCreate({ location }) {
   const {
     form,
@@ -36,23 +37,25 @@ function EventSponsorCreate({ location }) {
     handleCountryCodeChange,
     downloads,
     downloadsDigitalBag,
-    images
+    images,
   } = useEventSponsorCreate({ location });
 
   const renderImage = useCallback(() => {
     if (images) {
-     return <div
-        className={styles.remove}
-        style={{ cursor: "pointer" }}
-        onClick={() => {
-          setImg("");
-          // setRemove(true);
-        }}
-      >
-        Remove
-      </div>;
+      return (
+        <div
+          className={styles.remove}
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            setImg("");
+            // setRemove(true);
+          }}
+        >
+          Remove
+        </div>
+      );
     }
-    return null
+    return null;
   }, [images, setImg]);
 
   return (
@@ -100,6 +103,9 @@ function EventSponsorCreate({ location }) {
               </div>
             )} */}
             {renderImage()}
+            <div>
+              <ToolTipInfo />
+            </div>
           </div>
 
           <div className={styles.lowerWrap}>
@@ -150,6 +156,7 @@ function EventSponsorCreate({ location }) {
               onBlur={() => {
                 onBlurHandler("priority");
               }}
+              type="number"
             />
           </div>
 
@@ -174,7 +181,7 @@ function EventSponsorCreate({ location }) {
             </div>
           </div>
         </div>
-      
+
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
@@ -322,7 +329,11 @@ function EventSponsorCreate({ location }) {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-          <ChildrenIncludeForm ref={ChildenRef} downloads={downloads} exhibitorId={id}/>
+            <ChildrenIncludeForm
+              ref={ChildenRef}
+              downloads={downloads}
+              exhibitorId={id}
+            />
           </div>
         </div>
       </div>
@@ -336,11 +347,13 @@ function EventSponsorCreate({ location }) {
           </div>
         </div>
 
-      
-
-         <div className={"formFlex"}>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ChildrenIncludeForm1 ref={ChildenRef1} downloads={downloadsDigitalBag} exhibitorId={id}/>
+            <ChildrenIncludeForm1
+              ref={ChildenRef1}
+              downloads={downloadsDigitalBag}
+              exhibitorId={id}
+            />
           </div>
         </div>
       </div>
@@ -357,25 +370,25 @@ function EventSponsorCreate({ location }) {
               handleChange={() => {
                 changeTextData(!form?.status, "status");
               }}
-              label={form?.status ? `Active` :"Inactive"}
+              label={form?.status ? `Active` : "Inactive"}
             />
           </div>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-          <div className={styles.checkboxWrapper}>
-          <Checkbox
-            style={{ padding: 0, marginRight: "10px" }}
-            name={"form?.is_featured"}
-            checked={form?.is_featured}
-            onChange={() =>
-              changeTextData(!form?.is_featured, "is_featured")
-            }
-          />
-          <div className={styles.lowerdec}>
-            <span>Is Featured</span>
-          </div>
-        </div>
+            <div className={styles.checkboxWrapper}>
+              <Checkbox
+                style={{ padding: 0, marginRight: "10px" }}
+                name={"form?.is_featured"}
+                checked={form?.is_featured}
+                onChange={() =>
+                  changeTextData(!form?.is_featured, "is_featured")
+                }
+              />
+              <div className={styles.lowerdec}>
+                <span>Is Featured</span>
+              </div>
+            </div>
           </div>
         </div>
         <div className={styles.btnWrappepr}>

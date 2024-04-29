@@ -15,6 +15,12 @@
   color: grey;
   margin-bottom: 5px;
 }
+.partner{
+  text-align:  center !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  margin-left: 5px !important;
+}
 .count{
   display: flex;
   gap: 5px;
