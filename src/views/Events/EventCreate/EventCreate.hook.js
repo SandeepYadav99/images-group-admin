@@ -119,7 +119,8 @@ function useEventCreate() {
     award: false,
     event_highlights: true,
     meeting_rooms: true,
-    meeting_calendar:true
+    meeting_calendar:true,
+    event_calendar:true
   };
 
   const colorKey = [
@@ -248,11 +249,11 @@ function useEventCreate() {
     const errors = { ...errorData };
     let required = [
       "name",
-      "organised_by",
+      // "organised_by",
       "start_date",
       "end_date",
       "location",
-      "admin_id",
+      // "admin_id",
       "registration_status",
       "is_digital",
       "description",

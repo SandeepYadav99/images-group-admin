@@ -1011,11 +1011,11 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.CALENDAR_COUNT}`,
+    path: `${RouteName.CALENDAR_COUNT}:id`,
     component: CalendarCount,
     sidebarName: "Calendar Count",
     navbarName: "Calendar Count",
-    is_sidebar: true,
+    is_sidebar: false,
     icon: PeopleOutlined,
     is_protect: true,
   },

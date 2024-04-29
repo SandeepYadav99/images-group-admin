@@ -107,7 +107,7 @@ function EventCreate() {
               <CustomTextField
                 isError={errorData?.project_id}
                 errorText={errorData?.project_id}
-                label={"Project ID"}
+                label={"Premagic Project ID"}
                 value={form?.project_id}
                 onTextChange={(text) => {
                   changeTextData(text, "project_id");
@@ -481,7 +481,7 @@ function EventCreate() {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>LinkedIn splash screen</div>
+            <div className={"heading"}>Linkedin Popup</div>
           </h4>
         </div>
         <div className={"formGroup"}>
@@ -949,7 +949,7 @@ function EventCreate() {
           </div>
         </div>
         <div className={"formFlex"}>
-        <div className={"formGroup"}>
+        {/* <div className={"formGroup"}> */}
           <CustomCheckbox
             color={"primary"}
             handleChange={(text) => {
@@ -958,7 +958,20 @@ function EventCreate() {
             label={"Meeting Calendar"}
             checked={feature?.meeting_calendar}
           />
+          <div>
+        <div style={{marginLeft:"35px"}}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              changeFeatureData(!feature?.event_calendar, "event_calendar");
+            }}
+            label={"Event Calendar"}
+            checked={feature?.event_calendar}
+          />
+          {/* </div> */}
+         </div>
         </div>
+       
       </div>
       </div>
      
