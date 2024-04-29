@@ -182,6 +182,8 @@ console.log({images})
               onBlur={() => {
                 onBlurHandler("s_description");
               }}
+              multiline
+              rows={"3"}
             />
           </div>
         </div>
@@ -200,6 +202,7 @@ console.log({images})
               onTextChange={(text) => {
                 changeTextData(text, "priority");
               }}
+              type={"number"}
               onBlur={() => {
                 onBlurHandler("priority");
               }}
