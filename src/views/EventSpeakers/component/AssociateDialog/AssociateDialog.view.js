@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button, ButtonBase, TextField } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
@@ -42,9 +42,11 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
     handleSubmit,
     onBlurHandler,
     listData,
+    speakerList
   } = useAssociateDialogHook({ isOpen, handleToggle, candidateId, data });
 
-  console.log(listData?.SPEAKERS,"HELLO IT IS HERE");
+ 
+
 
   return (
     <div>
@@ -82,7 +84,7 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
                   changeTextData(value, "album_id");
                 }}
                 value={form?.album_id}
-                options={listData?.SPEAKERS? listData?.SPEAKERS : []}
+                options={listData?.SPEAKERS ? speakerList : []}
                 getOptionLabel={(option) => option.name}
                 defaultValue={form?.album_id}
                 renderInput={(params) => (
@@ -96,7 +98,6 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
               />
             </div>
             <div className={styles.lower}>
-              {console.log(form?.album_id,"Album id is here")}
               {form?.album_id?.length > 0 &&
                 form?.album_id?.map((item) => (
                   <div className={styles.firstCellFlex}>

@@ -23,9 +23,9 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
   const [listData, setListData] = useState({
     SPEAKERS: [],
   });
+  const [speakerList,setSpeakerList] = useState([])
 
   const { id } = useParams();
-console.log({data})
   useEffect(() => {
     if (data?.length > 0) {
       const value = data?.map((item) => ({
@@ -38,6 +38,19 @@ console.log({data})
       setForm({ ...form, album_id: [...value] });
     }
   }, [data]);
+
+  useEffect(() => {
+    const filteredSpeakers = [];
+
+    listData?.SPEAKERS?.forEach((val) => {
+      const exist = form?.album_id?.some((opt) => opt?.id === val?.id);
+      if (!exist) {
+        filteredSpeakers.push(val);
+      }
+      setSpeakerList(filteredSpeakers);
+    });
+  }, [form, listData]);
+
 
   const removeError = useCallback(
     (title) => {
@@ -163,6 +176,7 @@ console.log({data})
     isSubmitting,
     isSubmitted,
     listData,
+    speakerList,
   };
 };
 
