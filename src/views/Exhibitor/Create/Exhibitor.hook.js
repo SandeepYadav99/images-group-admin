@@ -669,7 +669,7 @@ const useExhibitorCreate = ({ location }) => {
         if (uniqueValues.length <= 2) {
           t[fieldName] = uniqueValues;
         } else {
-          SnackbarUtils.error("Maximum 2 Task category");
+          SnackbarUtils.error("Maximum 2 product offered added");
         }
       } else if (
         fieldName === "contact" ||

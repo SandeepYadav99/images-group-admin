@@ -14,7 +14,7 @@ const FEATURE_DATA = [
     { key: "Live stream", value: "Live stream" },
     { key: "Meetings", value: "Meetings" },
     { key: "Network", value: "Network" },
-    { key: "IMAGES HELPDESK", value: "IMAGES HELPDESK" },
+    { key: "IMAGES helpdesk", value: "IMAGES helpdesk" },
     { key: "Upcoming events", value: "Upcoming events" },
     { key: "Awards", value: "Awards" }
   ];

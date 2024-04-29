@@ -473,7 +473,7 @@ const ExhibitorCreate = () => {
                   onChange={(e, value) => {
                     changeTextData(value, "product_offered");
                   }}
-                   options={[]}
+                  options={[]}
                   value={form?.product_offered}
                   freeSolo
                   selectOnFocus={false}
@@ -496,8 +496,8 @@ const ExhibitorCreate = () => {
                   )}
                 />
                 <label className={styles.paragraph}>
-                  Please press enter to add a category if not found in the
-                  search results.
+                  Please press enter to add a product offered if not found in
+                  the search results
                 </label>
               </div>
               <div className={"formGroup"}>
