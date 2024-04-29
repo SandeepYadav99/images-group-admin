@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonBase, CircularProgress } from "@material-ui/core";
+import { ButtonBase, CircularProgress, Tooltip } from "@material-ui/core";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
@@ -11,6 +11,7 @@ import historyUtils from "../../../libs/history.utils";
 import useSpeakerMasterCreate from "./SpeakerMasterCreateHook";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 import { useCallback } from "react";
+import { InfoOutlined } from "@material-ui/icons";
 
 function SpeakerMasterCreate({ location }) {
   const {
@@ -28,21 +29,26 @@ function SpeakerMasterCreate({ location }) {
     id,
     setRemove,
   } = useSpeakerMasterCreate({ location });
-
+console.log({images})
   const renderImage = useCallback(() => {
-    if (images !== "https://just4emails.in/public/user_images/ic_profile_2.png") {
-     return <div
-        className={styles.remove}
-        style={{ cursor: "pointer" }}
-        onClick={() => {
-          setImage("");
-          // setRemove(true);
-        }}
-      >
-        Remove
-      </div>;
+    if (
+      images 
+    ) {
+      return (
+        <div
+          className={styles.remove}
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            setImage("");
+            // setRemove(true);
+          }}
+        >
+          { images !== "https://just4emails.in/public/user_images/ic_profile_2.png"  &&  "Remove" }
+         
+        </div>
+      );
     }
-    return null
+    return null;
   }, [images, setImage]);
   return (
     <div className={styles.claimListWrapper}>
@@ -96,6 +102,17 @@ function SpeakerMasterCreate({ location }) {
               </div>
             )} */}
             {renderImage()}
+            <div>
+              <Tooltip
+                classes={{ tooltip: styles.customTooltip }}
+                title="Image size less than 2mb | 1000x1000 px"
+              >
+                <div className={styles.imageInfo}>
+                  <InfoOutlined fontSize="small" />
+                  Image Guide
+                </div>
+              </Tooltip>
+            </div>
           </div>
           <div></div>
           <div className={styles.lowerWrap}>
