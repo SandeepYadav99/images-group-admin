@@ -156,7 +156,7 @@ export default {
   EXHIBITOR_DETAILS: "/exhibitor/detail/",
   EXHIBITOR_QUERY: "/exhibitor-query",
 
-  CALENDAR_COUNT: "/calendar",
+  CALENDAR_COUNT: "/event/calendar/",
   HALL_MASTER: "/hall/master",
 
   SPLASH_SCREEN: "/splash/screen",

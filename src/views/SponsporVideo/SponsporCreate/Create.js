@@ -103,7 +103,7 @@ function VideoSponsporCreate({ location }) {
           <div className={"formGroup"}>
             <MultiFile
               multiDef={selectVideos ? selectVideos : []}
-              max_size={10 * 1024 * 1024}
+              max_size={5 * 1024 * 1024}
               type={["mp4","png", "jpeg", "jpg"]}
               fullWidth={true}
               name="od1"
@@ -111,7 +111,7 @@ function VideoSponsporCreate({ location }) {
               accept={"video/*"}
               error={errorData?.video}
               value={form?.video}
-              placeholder={"Upload Video"}
+              placeholder={"Upload file"}
               onChange={(file) => {
                 if (file) {
                   changeTextData(file, "video");
