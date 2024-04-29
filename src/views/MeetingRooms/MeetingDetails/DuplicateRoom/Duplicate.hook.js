@@ -12,6 +12,7 @@ import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import Constants from "../../../../config/constants";
 import { useParams } from "react-router-dom";
 import {
+  serviceCreateDuplicateAPi,
   serviceCreateMeetingRoomList,
   serviceUpdateMeetingRoomList,
 } from "../../../../services/MeetingRoom.service";
@@ -55,7 +56,7 @@ const useDuplicate = ({
         code: detailsData?.code,
       });
     }
-  }, [detailsData?.event_id]);
+  }, [detailsData]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -83,23 +84,12 @@ const useDuplicate = ({
 
       const updatePayload = {
         ...form,
-        event_id: params?.id,
-      };
-
-      const updateRoomPayload = {
-        ...form,
         event_id: detailsData?.event_id,
-        id: params?.id,
+        room_id:params?.id,
       };
+      let req;
 
-      let req ;
-
-      if (detailsData) {
-        req = serviceUpdateMeetingRoomList(updateRoomPayload);
-      }
-      else {
-        req = serviceCreateMeetingRoomList(updatePayload);
-      }
+      req = serviceCreateDuplicateAPi(updatePayload);
 
       req.then((res) => {
         if (!res.error) {

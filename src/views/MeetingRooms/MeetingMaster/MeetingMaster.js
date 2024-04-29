@@ -25,7 +25,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MeetingCreateView = ({ handleToggleSidePannel, isSidePanel, empId,detailsData }) => {
+const MeetingCreateView = ({
+  handleToggleSidePannel,
+  isSidePanel,
+  empId,
+  detailsData,
+}) => {
   const {
     form,
     errorData,
@@ -33,7 +38,12 @@ const MeetingCreateView = ({ handleToggleSidePannel, isSidePanel, empId,detailsD
     handleSubmit,
     onBlurHandler,
     changeTextData,
-  } = useMeetingCreate({ handleToggleSidePannel, isSidePanel, empId,detailsData });
+  } = useMeetingCreate({
+    handleToggleSidePannel,
+    isSidePanel,
+    empId,
+    detailsData,
+  });
 
   const classes = useStyles();
 
@@ -71,7 +81,7 @@ const MeetingCreateView = ({ handleToggleSidePannel, isSidePanel, empId,detailsD
           />
         </div>
       </div>
-      
+
       <div className={"headerFlex"}>
         <h4 className={"infoTitle"}>
           <div className={"heading"}>Status</div>
@@ -85,7 +95,7 @@ const MeetingCreateView = ({ handleToggleSidePannel, isSidePanel, empId,detailsD
             handleChange={() => {
               changeTextData(!form?.is_active, "is_active");
             }}
-            label={`Active`}
+            label={form?.is_active ? `Active` : `In-Active`}
           />
         </div>
       </div>

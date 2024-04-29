@@ -41,5 +41,9 @@ import {
   export async function serviceCheckMeetingRoomtList(params) {
     return await postRequest("events/exists", params);
   }
+
+  export async function serviceCreateDuplicateAPi(params){
+    return await postRequest("meetings/rooms/duplicate",params)
+  }
   
   

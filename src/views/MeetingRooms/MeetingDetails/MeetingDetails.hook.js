@@ -154,7 +154,7 @@ const useMeetingDetailHook = ({ location }) => {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["ACTIVE", "INACTIVE"],
+        fields: ["AVAILABLE", "UNAVAILABLE","BLOCKED","BOOKED"],
       },
     ];
   }, []);
@@ -284,6 +284,7 @@ const useMeetingDetailHook = ({ location }) => {
 
   const handleOpenDuplicate =useCallback(()=>{
       setDuplicate((e)=> !e)
+      
   },[duplicate])
 
   return {

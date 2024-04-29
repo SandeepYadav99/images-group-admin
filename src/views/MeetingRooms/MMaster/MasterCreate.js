@@ -9,7 +9,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 
 const MMaster = () => {
-  const slotDuration = ["30", "60", "90", "120", "150", "180"];
+  const slotDuration = ["15","20","30","40","45", "60"];
 
   const {
     form,
