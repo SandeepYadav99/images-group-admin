@@ -10,7 +10,7 @@ import {
   serviceUpdateEventBanner,
 } from "../../../services/EventBanner.service";
 import { useMemo } from "react";
-import { validateUrl } from "../../../libs/RegexUtils";
+import { validateLink, validateUrl } from "../../../libs/RegexUtils";
 import {
   serviceCreateSplashScreen,
   serviceGetSplashScreenDetails,
@@ -35,11 +35,11 @@ function useSplashScreenCreateHook({ location }) {
     return location?.state?.eventId;
   }, [location]);
   const [selectVideos, setSelectVideos] = useState([]);
-console.log(selectVideos, "Videos")
+
   const renderVideo = (videos) => {
-    console.log(videos, "Videos")
     setSelectVideos([...videos]);
   };
+
   useEffect(() => {
     if (id) {
       serviceGetSplashScreenDetails({ id: id }).then((res) => {
@@ -64,7 +64,7 @@ console.log(selectVideos, "Videos")
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["link", "name"];
+    let required = ["name"];
 
     if (!id) {
       required.push("video");
@@ -81,9 +81,11 @@ console.log(selectVideos, "Videos")
         errors[val] = true;
       }
     });
-    if (form?.link && !validateUrl(form?.link)) {
+    if (form?.link && !validateLink(form?.link)) {
       errors.link = true;
       SnackbarUtils.error("Please Enter the Valid Link");
+    } else {
+      delete form.link;
     }
 
     Object.keys(errors).forEach((key) => {
@@ -109,6 +111,8 @@ console.log(selectVideos, "Videos")
       const t = { ...form };
       if (fieldName === "name") {
         t[fieldName] = text.trimStart();
+      } else if (fieldName === "link") {
+        t[fieldName] = text.trimStart();
       } else {
         t[fieldName] = text;
       }
@@ -123,7 +127,6 @@ console.log(selectVideos, "Videos")
       setIsSubmitting(true);
       const fd = new FormData();
 
-     
       // Object.keys(form).forEach((key) => {
       //   LogUtils.log("key", key);
       //   if (key !== "image") {
@@ -139,7 +142,7 @@ console.log(selectVideos, "Videos")
         name: "name",
         // video: "video",
         link: "link",
-      
+
         // status: "status",
       };
       for (const key in form) {
@@ -147,10 +150,10 @@ console.log(selectVideos, "Videos")
           fd.append(SPEAKER_KEY[key], form[key]);
         }
       }
-      fd.append("event_id", "65029c5bdf6918136df27e51")
-    
+      fd.append("event_id", "65029c5bdf6918136df27e51");
+
       // if (form?.status) {
-        fd.append("status", form?.status === true ? "ACTIVE" : "INACTIVE");
+      fd.append("status", form?.status === true ? "ACTIVE" : "INACTIVE");
       // }
       if (form?.video) {
         fd.append("video", form?.video);
@@ -162,7 +165,7 @@ console.log(selectVideos, "Videos")
 
       let req;
       if (id) {
-        fd.append("id", id)
+        fd.append("id", id);
         req = serviceUpdateSplashScreen;
       } else {
         req = serviceCreateSplashScreen;

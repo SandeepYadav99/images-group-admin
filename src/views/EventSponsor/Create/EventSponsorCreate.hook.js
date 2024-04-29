@@ -120,8 +120,8 @@ function useEventSponsorCreate({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "web_url", "priority", "contact", "type"];
-
+    let required = [ "type"];
+// "name", "web_url", "priority", "contact",
     required.forEach((val) => {
       if (
         (!form?.[val] && parseInt(form?.[val]) != 0) ||

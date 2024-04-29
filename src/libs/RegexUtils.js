@@ -68,10 +68,17 @@ const IsVehicleNo = (value) => {
 
 function validateUrl(string) {
   var res = string.match(
-    /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.|[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
   );
   return res !== null;
 }
+function validateLink(string) {
+  var res = string.match(
+    /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.com\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+  );
+  return res !== null;
+}
+
 function HexCodeValid(value) {
   return /^#([0-9A-Fa-f]{3}){1,2}$/.test(value);
 }
@@ -98,5 +105,6 @@ export {
   HexCodeValid,
   isInvalidDateFormat,
   isValidSocialMedia,
-  isNumeric
+  isNumeric,
+  validateLink
 };
