@@ -120,8 +120,8 @@ function useEventSponsorCreate({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "web_url", "priority", "contact", "type"];
-
+    let required = [ "type"];
+// "name", "web_url", "priority", "contact",
     required.forEach((val) => {
       if (
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
@@ -184,9 +184,9 @@ function useEventSponsorCreate({ location }) {
       if (fieldName === "name") {
         t[fieldName] = text;
       } else if (fieldName === "priority") {
-        if (isNum(text)) {
+        // if (isNum(text)) {
           t[fieldName] = text;
-        }
+        
       } else if (fieldName === "contact") {
         if (text >= 0 && text?.length <= 10) {
           t[fieldName] = `${text}`;

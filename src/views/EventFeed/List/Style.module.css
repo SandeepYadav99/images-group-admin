@@ -25,6 +25,10 @@
   align-items: center;
   gap: 20px;
 }
+.alignSpace{
+  display: flex !important;
+  gap: 10px !important;
+}
 .count{
   text-decoration: underline;
   color:red;

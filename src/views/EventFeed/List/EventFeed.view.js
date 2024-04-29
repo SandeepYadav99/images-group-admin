@@ -15,6 +15,7 @@ import DeleteIcon from "../../../assets/img/ic_delete.png";
 import CommentIcon from "../../../assets/img/ic_comment.png";
 import default_Image from "../../../assets/img/ic_default_post.png";
 import ImageCourselPopUp from "../../../components/ImageCourselPopUp/ImageCourselPopUp";
+import VideoDialog from "../../../components/VideoPopup/VideoPopup";
 
 const EventFeed = ({}) => {
   const {
@@ -36,14 +37,18 @@ const EventFeed = ({}) => {
     handleRejectApi,
     dataValue,
     appUserDetail,
+    
+    isVideoModal,
+    toggleVideoModal
   } = useEventFeed({});
 
   const [openPopUp, setOpenPopUp] = useState(false);
-
-  const handleOpenPopUp = (id) => {
-    if (id) {
+  const [contentData, setContentData] = useState([]);
+  const handleOpenPopUp = (all) => {
+    // if (id) {
       setOpenPopUp(true);
-    }
+      setContentData(all);
+    // }
   };
 
   const handleClose = () => {
@@ -76,27 +81,56 @@ const EventFeed = ({}) => {
         label: "Image/Video",
         sortable: true,
         render: (temp, all) => (
-          <div
-            className={styles.alignInline}
-            onClick={() => handleOpenPopUp(all?.id)}
+          // <div
+          //   className={styles.alignInline}
+          //   onClick={() => handleOpenPopUp(all?.id)}
+          // >
+          //   {
+          //     all?.images?.length >0 ? (
+          //       <img
+          //         src={all?.images[0]}
+          //         alt="img"
+          //         style={{ height: "40px", width: "60px" }}
+          //       />
+          //     ) : (
+          //       <video style={{ height: "40px", width: "60px" }} autoPlay controls>
+          //         <source src={all?.video} type="video/mp4" />
+          //       </video>
+          //     )
+          //   }
+          //   {all?.imageCount !== "+0" && (
+          //     <div className={styles.count}> {all?.imageCount}</div>
+          //   )}
+          // </div>
+          <div className={styles.alignSpace}>
+          {all?.images.length > 0 ? (
+            <img
+              src={all?.images[0]}
+              onClick={() => handleOpenPopUp(all?.images)}
+              alt="image"
+              style={{ height: "50px", width: "50px", cursor: "pointer" }}
+            />
+          ) : all?.video ? (
+            <img
+              src={all?.user?.image}
+              onClick={() => {
+                toggleVideoModal(all?.video);
+              }}
+              alt="image"
+              style={{ height: "50px", width: "50px", cursor: "pointer" }}
+            />
+          ) : (
+            "-No Image-"
+          )}
+          {/*  */}
+          <p
+            className={styles.alignUnderline}
+            onClick={() => handleOpenPopUp(all?.images)}
           >
-            {
-              all?.images?.length >0 ? (
-                <img
-                  src={all?.images[0]}
-                  alt="img"
-                  style={{ height: "40px", width: "60px" }}
-                />
-              ) : (
-                <video style={{ height: "40px", width: "60px" }} autoPlay controls>
-                  <source src={all?.video} type="video/mp4" />
-                </video>
-              )
-            }
-            {all?.imageCount !== "+0" && (
-              <div className={styles.count}> {all?.imageCount}</div>
-            )}
-          </div>
+            {all?.images?.length > 1 ? "+" : ""}
+            {all?.images?.length > 1 ? all?.images.length : ""}
+          </p>
+        </div>
         ),
       },
       {
@@ -251,10 +285,17 @@ const EventFeed = ({}) => {
           </div>
         </div>
       </PageBox>
+      <VideoDialog
+          isOpen={isVideoModal}
+          videoLink={isVideoModal}
+          handleDialog={() => {
+            toggleVideoModal(null);
+          }}
+        />
       {openPopUp && (
         <ImageCourselPopUp
           open={openPopUp}
-          content={data}
+          content={contentData}
           handleClose={handleClose}
         />
       )}

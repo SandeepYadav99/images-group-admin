@@ -8,11 +8,13 @@ const DownloadSection = ({ details }) => {
       </div>
       <div className={styles.thirdPaper}>
         <div>
-          {details?.map((res) => {
+          {details?.map((res, index) => {
             return (
-              <a href={res?.document} target="_blank" rel="noreferrer">
-                {res?.file_name}
-              </a>
+              <div key={index} className={"mt10"}>
+                <a href={res?.document} target="_blank" rel="noreferrer">
+                  {res?.file_name}
+                </a>
+              </div>
             );
           })}
         </div>

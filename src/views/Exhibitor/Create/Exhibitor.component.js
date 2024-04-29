@@ -24,6 +24,7 @@ import { isNum } from "../../../libs/RegexUtils";
 import ChildrenIncludeForm from "../Componet/Download/ChildrenIncludes.component";
 import ChildrenIncludeForm1 from "../Componet/DigitalBag/ChildrenIncludes.component";
 import MultiFile from "../../GalleryAlbum/Create/Component/FileComponent/FileMultiComponent.component";
+import ToolTipInfo from "../../../components/ToolTipInfo/ToolTipInfo";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -144,6 +145,7 @@ const ExhibitorCreate = () => {
                 }
               }}
             />
+          
           </div>
           <div className={styles.lowerWrap}>
             <div className={"formFlex"}>
@@ -471,10 +473,10 @@ const ExhibitorCreate = () => {
                   multiple
                   id="tags-outlined"
                   onChange={(e, value) => {
-                    changeTextData(value, "product_offered");
+                    changeTextData(value, "products");
                   }}
-                  options={[]}
-                  value={form?.product_offered}
+                  options={listData?.PRODUCT_TAGS}
+                  value={form?.products}
                   freeSolo
                   selectOnFocus={false}
                   renderTags={(value, getTagProps) =>
@@ -491,7 +493,7 @@ const ExhibitorCreate = () => {
                       {...params}
                       variant="outlined"
                       label="Product Offered"
-                      error={errorData?.product_offered}
+                      error={errorData?.products}
                     />
                   )}
                 />
@@ -584,11 +586,7 @@ const ExhibitorCreate = () => {
                   }}
                 >
                   {partnerList?.map((val) => {
-                    return (
-                      <MenuItem value={val?.type} key={val?.id}>
-                        {val?.type}
-                      </MenuItem>
-                    );
+                    return <MenuItem value={val?.type}>{val?.type}</MenuItem>;
                   })}
                 </CustomSelectField>
               )}

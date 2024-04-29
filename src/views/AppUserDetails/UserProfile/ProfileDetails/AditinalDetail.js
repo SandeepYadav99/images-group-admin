@@ -1,5 +1,3 @@
-
-
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { actionDetailAppUser } from "../../../../actions/AppUser.action";
@@ -27,9 +25,13 @@ const AditnalDetail = ({ id }) => {
         background = "#EFFEE8";
         color = "#0CA13E";
         break;
-      case "INNOVATORS CLUB":
+      case "JURY":
         background = "#FFECF9";
         color = "#C71887";
+        break;
+      case "INNOVATORS CLUB":
+        background = "#ECEDFF";
+        color = "#4018C7";
         break;
       case "EXHIBITOR":
         background = "#ECEDFF";
@@ -46,7 +48,6 @@ const AditnalDetail = ({ id }) => {
       background,
       color,
       border: "none",
-      
     };
   }, []);
   // const StatusPill = ({ status, style }) => (
@@ -90,12 +91,15 @@ const AditnalDetail = ({ id }) => {
         <div>
           <b>Participant Type:</b>
         </div>
-        <div className={styles.flexPill}   >
+        <div className={styles.flexPill}>
           {" "}
           {value?.participant_type?.length > 0 ? (
             value.participant_type.map((status, index) => (
-              <div key={index} >
-                <StatusPill status={replaceUnderscores(status)} style={getStatusPillStyle(replaceUnderscores(status))}/>
+              <div key={index}>
+                <StatusPill
+                  status={replaceUnderscores(status)}
+                  style={getStatusPillStyle(replaceUnderscores(status))}
+                />
 
                 {/* {index < value.participant_type.length - 1 && ","} */}
               </div>
