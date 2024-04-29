@@ -966,7 +966,7 @@ function EventCreate() {
       </div>
 
       <div className={"plainPaper"}>
-        {/* {id ? (
+        {id ? (
           <>
             {form?.status !== "INDRAFT" ? (
               <div className={styles.btnWrappepr}>
@@ -985,7 +985,7 @@ function EventCreate() {
               </div>
             ) : (
               <div className={styles.btnWrappepr}>
-                <ButtonBase
+                {/* <ButtonBase
                   disabled={isSubmitting ? true : false}
                   type={"button"}
                   className={styles.download}
@@ -1008,13 +1008,27 @@ function EventCreate() {
                   ) : (
                     "REQUEST FOR APPROVAL"
                   )}
-                </ButtonBase>
+                </ButtonBase> */}
+                <div className={styles.actionButton}>
+                  <ButtonBase
+                    // disabled={isSubmitting ? true : false}
+                    type={"button"}
+                    className={styles.createBtn}
+                    onClick={() => handleSubmit("PENDING")}
+                  >
+                    {isSubmitting ? (
+                      <CircularProgress color="success" size="20px" />
+                    ) : (
+                      "Add "
+                    )}
+                  </ButtonBase>
+                </div>
               </div>
             )}
           </>
         ) : (
           <div className={styles.btnWrappepr}>
-            <ButtonBase
+            {/* <ButtonBase
               disabled={isSubmitting ? true : false}
               type={"button"}
               className={styles.download}
@@ -1037,10 +1051,24 @@ function EventCreate() {
               ) : (
                 "REQUEST FOR APPROVAL"
               )}
-            </ButtonBase>
+            </ButtonBase> */}
+            <div className={styles.actionButton}>
+              <ButtonBase
+                // disabled={isSubmitting ? true : false}
+                type={"button"}
+                className={styles.createBtn}
+                onClick={() => handleSubmit("PENDING")}
+              >
+                {isSubmitting ? (
+                  <CircularProgress color="success" size="20px" />
+                ) : (
+                  "Add "
+                )}
+              </ButtonBase>
+            </div>
           </div>
-        )} */}
-        <div className={styles.actionButton}>
+        )}
+        {/* <div className={styles.actionButton}>
           <ButtonBase
             // disabled={isSubmitting ? true : false}
             type={"button"}
@@ -1053,7 +1081,7 @@ function EventCreate() {
               "Add "
             )}
           </ButtonBase>
-        </div>
+        </div> */}
       </div>
     </div>
   );

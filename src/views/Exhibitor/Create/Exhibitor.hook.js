@@ -30,7 +30,7 @@ const initialForm = {
   is_participant: "false",
   product_categories: [],
   // products: [],
-  product_offered: "",
+  product_offered: [],
   event_venue: "",
   event_stall: "",
   // zone_tag: [],
@@ -123,7 +123,17 @@ const useExhibitorCreate = ({ location }) => {
   const [textData, setTextData] = useState("");
 
   const { user } = useSelector((state) => state?.auth);
-  console.log({ ChildenRef });
+  const [categoryLists, setCategoryLists] = useState(null);
+
+  useEffect(() => {
+    // if (!isSidePanel) return;
+    // serviceSearchCategory().then((res) => {
+    //   if (!res.error) {
+    //     setCategoryLists(res?.data);
+    //   }
+    // });
+  }, [form?.assigned_to]);
+
   const EventListManager = [
     "FIBERS_YARNS",
     "FABRICS",
@@ -497,7 +507,7 @@ const useExhibitorCreate = ({ location }) => {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
         } else if (
-          // key === "products" ||
+           key === "product_offered" ||
           key === "product_categories" ||
           key === "product_groups" ||
           // key === "zone_tag" ||
@@ -644,6 +654,23 @@ const useExhibitorCreate = ({ location }) => {
         } else {
           SnackbarUtils.error("Maximum 2 products can be added");
         }
+      } else if (fieldName === "product_offered") {
+        console.log({text})
+        const newValues = text?.filter((item) => item.trim() !== "");
+        const uniqueValues = text
+          ? newValues?.filter(
+              (item, index, self) =>
+                self.findIndex(
+                  (t) => t.toLowerCase() === item.toLowerCase()
+                ) === index
+            )
+          : [];
+
+        if (uniqueValues.length <= 2) {
+          t[fieldName] = uniqueValues;
+        } else {
+          SnackbarUtils.error("Maximum 2 product offered added");
+        }
       } else if (
         fieldName === "contact" ||
         fieldName === "primary_conatct_number"
@@ -731,6 +758,7 @@ const useExhibitorCreate = ({ location }) => {
     downloads,
     downloadsDigitalBag,
     isSubmitting,
+    categoryLists
   };
 };
 

@@ -1,14 +1,14 @@
 import React from "react";
-import { Button, ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
+import { Button, ButtonBase, MenuItem } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
-import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 
-import useUpdateStatusPopupHook from "./UpdateStatusPopupHook";
-import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
+
+import useAssociatedEventPopUp from "./AssociatedEventPopUpHook";
+import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -33,7 +33,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const UpdateStatusPopup = ({ isOpen, handleToggle, candidateId }) => {
+const AssociatedEventPopUp = ({ isOpen, handleToggle, candidateId }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -42,8 +42,7 @@ const UpdateStatusPopup = ({ isOpen, handleToggle, candidateId }) => {
     handleSubmit,
     onBlurHandler,
     listData,
-    isSubmitting
-  } = useUpdateStatusPopupHook({ isOpen, handleToggle, candidateId });
+  } = useAssociatedEventPopUp({ isOpen, handleToggle, candidateId });
 
   return (
     <div>
@@ -84,17 +83,14 @@ const UpdateStatusPopup = ({ isOpen, handleToggle, candidateId }) => {
                   changeTextData(value, "status");
                 }}
               >
-                <MenuItem value="ACTIVE">Active</MenuItem>
-                <MenuItem value="INACTIVE">Inactive</MenuItem>
-                <MenuItem value="SUSPENDED">Suspended</MenuItem>  
-                <MenuItem value="DELETED">Deleted</MenuItem>                
+                <MenuItem value="IN_PERSON">Active</MenuItem>
+                <MenuItem value="TELEPHONIC">InActive</MenuItem>
               </CustomSelectField>
             </div>
           </div>
           <div className={styles.printFlex}>
             <ButtonBase onClick={handleSubmit} className={styles.createBtn}>
-              {isSubmitting ? <CircularProgress color="success" size="20px" /> : 
-              'Confirm' }
+              Confirm
             </ButtonBase>
           </div>
         </div>
@@ -103,4 +99,4 @@ const UpdateStatusPopup = ({ isOpen, handleToggle, candidateId }) => {
   );
 };
 
-export default UpdateStatusPopup;
+export default AssociatedEventPopUp;

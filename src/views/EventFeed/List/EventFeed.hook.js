@@ -198,7 +198,7 @@ const useEventFeed = ({}) => {
 
   const appUserDetail = useCallback((all) => {
     LogUtils.log("data", all);
-    historyUtils.push(`${RouteName.USER_PROFILE}${all?.id}`);
+    historyUtils.push(`${RouteName.USER_PROFILE}${all?.user_id}`);
   }, [id]);
 
   return {
