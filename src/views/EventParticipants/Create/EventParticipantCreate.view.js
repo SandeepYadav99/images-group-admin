@@ -199,7 +199,7 @@ const EventParticipantCreateView = ({
               <TextField
                 {...params}
                 variant="outlined"
-                label="Praticipants Type"
+                label="Participants Type"
                 error={errorData?.participant_type}
               />
             )}
