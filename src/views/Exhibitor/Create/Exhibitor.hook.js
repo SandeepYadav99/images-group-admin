@@ -214,6 +214,7 @@ const useExhibitorCreate = ({ location }) => {
             twitter_link: data?.twitter_link,
             hall: data?.hall?.hall_no,
             // zone_tag: data?.zone_tag,
+            partner_tag:data?.partner_tag,
             country_code1:data?.country_code1,
             event_stall: data?.event_stall,
             website: data?.website,
@@ -222,9 +223,9 @@ const useExhibitorCreate = ({ location }) => {
             brand_name: data?.brand_name,
             secondary_email: data?.secondary_email,
             other_conatct_number: data?.other_conatct_number,
-            partner_tag: data?.partner_tag
-              ? data?.partner_tag?.toUpperCase()
-              : "",
+            // partner_tag: data?.partner_tag
+            //   ? data?.partner_tag?.toUpperCase()
+            //   : "",
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             is_partner: data?.is_partner,
             primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
@@ -497,6 +498,10 @@ const useExhibitorCreate = ({ location }) => {
     }
     setIsSubmitting(true);
     const fd = new FormData();
+    const industryID =
+    Array.isArray(form?.product_offered) && form?.product_offered?.length > 0
+      ? form?.product_offered?.map((item) => item) // item.id || item._id
+      : [];
     Object.keys(form).forEach((key) => {
       if (
         // key !== "company_logo",
@@ -507,7 +512,7 @@ const useExhibitorCreate = ({ location }) => {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
         } else if (
-           key === "product_offered" ||
+          //  key === "product_offered" ||
           key === "product_categories" ||
           key === "product_groups" ||
           // key === "zone_tag" ||
@@ -534,12 +539,12 @@ const useExhibitorCreate = ({ location }) => {
         }
       }
     });
-    // if (form?.company_brochure) {
-    //   fd.append("company_brochure", form?.company_brochure);
-    // }
+    if (form?.product_offered) {
+      fd.append("product_offered", industryID);
+    }
     const ExpensesData = ChildenRef.current.getData();
     ExpensesData.forEach((val) => {
-      console.log({ val });
+    
       if (val?.documentUpload) {
         fd.append("download_documents", val?.documentUpload);
       } 
@@ -655,7 +660,7 @@ const useExhibitorCreate = ({ location }) => {
           SnackbarUtils.error("Maximum 2 products can be added");
         }
       } else if (fieldName === "product_offered") {
-        console.log({text})
+   
         const newValues = text?.filter((item) => item.trim() !== "");
         const uniqueValues = text
           ? newValues?.filter(

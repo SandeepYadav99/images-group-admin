@@ -585,7 +585,7 @@ const ExhibitorCreate = () => {
                 >
                   {partnerList?.map((val) => {
                     return (
-                      <MenuItem value={val?.type} key={val?.id}>
+                      <MenuItem value={val?.id} key={val?.id}>
                         {val?.type}
                       </MenuItem>
                     );

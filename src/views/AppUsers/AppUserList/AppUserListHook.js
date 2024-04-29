@@ -9,7 +9,10 @@ import {
 } from "../../../actions/AppUser.action";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
-import { serviceAppUserImportFile, serviceDownloadCsvFile } from "../../../services/AppUser.service";
+import {
+  serviceAppUserImportFile,
+  serviceDownloadCsvFile,
+} from "../../../services/AppUser.service";
 
 const useAppUserList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -31,10 +34,14 @@ const useAppUserList = ({}) => {
 
   useEffect(() => {
     dispatch(
-      actionFetchAppUser(1, {}, {
-        query: isMountRef.current ? query : null,
-        query_data: isMountRef.current ? queryData : null,
-      })
+      actionFetchAppUser(
+        1,
+        {},
+        {
+          query: isMountRef.current ? query : null,
+          query_data: isMountRef.current ? queryData : null,
+        }
+      )
     );
     isMountRef.current = true;
   }, []);
@@ -147,8 +154,6 @@ const useAppUserList = ({}) => {
     historyUtils.push(RouteName.LOCATIONS_DETAILS + data.id); //+data.id
   }, []);
 
-  
-
   const handleCreate = useCallback(() => {
     historyUtils.push(RouteName.LOCATIONS_CREATE);
   }, []);
@@ -159,7 +164,7 @@ const useAppUserList = ({}) => {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["ACTIVE", "INACTIVE"],
+        fields: ["ACTIVE", "INACTIVE", "SUSPENDED", "DELETED"],
       },
     ];
   }, []);
@@ -168,18 +173,18 @@ const useAppUserList = ({}) => {
     setIsCsvDialog((e) => !e);
   }, [setIsCsvDialog]);
 
-  const handleCsvUpload = useCallback(() => {
-  }, []);
+  const handleCsvUpload = useCallback(() => {}, []);
 
   const handleDownloadCSV = () => {
     // const fd = new FormData();
     // //  fd.append("file",)
-     serviceAppUserImportFile()?.then((res)=>{
-      if(!res?.error){
+    serviceAppUserImportFile()?.then((res) => {
+      if (!res?.error) {
         const data = res.data?.response;
-       
-        window.open(data, "_blank");      }
-    })
+
+        window.open(data, "_blank");
+      }
+    });
   };
   return {
     handlePageChange,
@@ -200,7 +205,7 @@ const useAppUserList = ({}) => {
     handleToggleSidePannel,
     isCsvDialog,
     toggleCsvDialog,
-    handleDownloadCSV
+    handleDownloadCSV,
   };
 };
 
