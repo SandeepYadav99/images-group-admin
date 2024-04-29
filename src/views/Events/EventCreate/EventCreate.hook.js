@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
 import {
   HexCodeValid,
+  isAlphaNum,
   isAlphaNumChars,
   isDate,
   isInvalidDateFormat,
@@ -32,6 +33,7 @@ function useEventCreate() {
     "admin_id",
     "registration_url",
     "description",
+    "event_prefix",
     "organised_by",
     "id",
     "registration_status",
@@ -46,6 +48,7 @@ function useEventCreate() {
     "twitter_link",
     "youtube_link",
     "linkedin_content",
+    "show_linkedin"
   ];
   const initialForm = {
     name: "",
@@ -63,6 +66,7 @@ function useEventCreate() {
     is_gallery_public: "",
     related_event_ids: [],
     description: "",
+    event_prefix:"",
     logo: "",
     thumbnail: "",
     banner: "",
@@ -82,6 +86,7 @@ function useEventCreate() {
     accessible_chapter_ids: [],
     linkedin_image: null,
     linkedin_content: "",
+    show_linkedin:false,
     background_image: null,
     login_banner: null,
     // linkdin_banner:null,
@@ -177,6 +182,8 @@ function useEventCreate() {
               fd["related_event_ids"] = data[key];
             } else if (key === "accessibleChapters") {
               fd["accessible_chapter_ids"] = data[key];
+            }else if (key ==="show_linkedin"){
+              fd["show_linkedin"] = data[key] ? true : false;
             } else {
               fd[key] = data[key];
             }
@@ -257,6 +264,7 @@ function useEventCreate() {
       "registration_status",
       "is_digital",
       "description",
+      "event_prefix",
       "primary_colour",
       "secondary_colour",
       "action_colour",
@@ -359,7 +367,11 @@ function useEventCreate() {
         t[fieldName] = text.filter((item, index, self) => {
           return index === self.findIndex((i) => i.id === item.id);
         });
-      } else {
+      } else if (fieldName === 'event_prefix') {
+        if ((isAlphaNum(text))) {
+            t[fieldName] = text;
+        }
+    }else {
         t[fieldName] = text;
       }
       setForm(t);
@@ -433,6 +445,8 @@ function useEventCreate() {
               ].includes(key)
             ) {
               fd.append(key, JSON.stringify(form[key]));
+            }else if (key === "show_linkedin"){
+              fd.append("show_linkedin",form?.show_linkedin ? true : false);
             } else {
               if (form[key]) {
                 fd.append(key, form[key]);
