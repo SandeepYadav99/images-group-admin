@@ -121,3 +121,7 @@
   width: 300px;
   word-wrap: break-word;
 }
+.gaps{
+  display: flex;
+  gap: 5px;
+}
