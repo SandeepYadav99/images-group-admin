@@ -5,7 +5,7 @@ const FEATURE_DATA = [
     { key: "Agenda", value: "Agenda" },
     { key: "Speakers", value: "Speakers" },
     { key: "Partners", value: "Partners" },
-    { key: "Exhibitor", value: "Exhibitor" },
+    { key: "Exhibitors", value: "Exhibitors" },
     { key: "Social", value: "Social" },
     { key: "Organizing committee", value: "Organizing committee" },
     { key: "venue guide", value: "venue guide" },
@@ -14,7 +14,7 @@ const FEATURE_DATA = [
     { key: "Live stream", value: "Live stream" },
     { key: "Meetings", value: "Meetings" },
     { key: "Network", value: "Network" },
-    { key: "Images helpdesk", value: "Images helpdesk" },
+    { key: "IMAGES HELPDESK", value: "IMAGES HELPDESK" },
     { key: "Upcoming events", value: "Upcoming events" },
     { key: "Awards", value: "Awards" }
   ];

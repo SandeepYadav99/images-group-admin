@@ -3,6 +3,7 @@ import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
 import { ButtonBase} from "@material-ui/core";
+import EventListView from "./EventListView/EventListView.js";
 
 const AssociateEvent = () => {
   return (
@@ -21,6 +22,9 @@ const AssociateEvent = () => {
       </div>
       <div className={styles.topNavBar}>
         <TopNavBar data={3} />
+      </div>
+      <div>
+        <EventListView />
       </div>
     </div>
   );
