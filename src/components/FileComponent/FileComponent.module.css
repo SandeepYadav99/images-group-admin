@@ -252,10 +252,11 @@
 .imgFileLabelPlus1{
     position: absolute;
     top: 30px;
-    left: 5px;
+    /* left: 5px; */
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 12px;
 }
 .plus{
     color: #9699b0;

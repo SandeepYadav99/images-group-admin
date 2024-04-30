@@ -81,6 +81,7 @@ console.log({images})
               accept={"image/*"}
               label="Please Upload Image"
               show_image={true}
+              moduleType={true}
               error={errorData?.s_image}
               value={form?.s_image}
               default_image={images ? images : null}

@@ -17,6 +17,7 @@ import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 
+
 const TEMP_OBJ = {
   file_name: '',
   documentUpload: null,
@@ -67,6 +68,10 @@ const ChildrenIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     }
   }, [downloads]);
+
+  // useEffect(() => {
+    
+  // }, [downloads]);
 
   useImperativeHandle(ref, () => ({
     isValid() {
@@ -128,9 +133,9 @@ const ChildrenIncludeForm = (
   };
 
   // useEffect(() => {
-  //   if (data) {
-  //     setFields(data);
-  //   }
+  //   // const fd = new FormData();
+  //   // fd.append("files",)
+  //   // serviceUpdateFileUpdate({})
   // }, [data]);
   useEffect(() => {
     if (downloads) {
