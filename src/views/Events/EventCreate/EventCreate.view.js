@@ -284,7 +284,7 @@ function EventCreate() {
           <div className={styles.adharBack}>
             <div className={styles.adharWrap}>
               <File
-                bannerLabel="Upload Event Logo"
+                bannerLabel="Top partner logo"
                 default_image={logo ? logo : ""}
                 // imageClass={styles.inputFileUploader}
                 max_size={5 * 1024 * 1024}
@@ -304,7 +304,7 @@ function EventCreate() {
               />
               {/* <div>Upload Event Logo</div> */}
             </div>
-            <div className={styles.adharWrap}>
+            {/* <div className={styles.adharWrap}>
               <File
                 bannerLabel="Upload Thumbnail"
                 default_image={thumb ? thumb : ""}
@@ -324,17 +324,16 @@ function EventCreate() {
                   }
                 }}
               />
-              {/* <div>Upload Event Thumbnail</div> */}
-            </div>
+            </div> */}
           </div>
         </div>
         <div className={styles.inst}>
           <InfoOutlinedIcon />
-          Recommended Size for Login Banner Image is 1600x900px
+           Recommended size for partner logo is 150 x 150
         </div>
-        <div className={"formFlex"}>
-          <div className={styles.adharBack}>
-            <div className={styles.adharWrap}>
+        {/* <div className={"formFlex"}> */}
+          {/* <div className={styles.adharBack}> */}
+            {/* <div className={styles.adharWrap}>
               <File
                 bannerLabel="Login Banner Image"
                 default_image={logo ? logo : ""}
@@ -354,9 +353,9 @@ function EventCreate() {
                   }
                 }}
               />
-            </div>
-          </div>
-        </div>
+            </div> */}
+          {/* </div> */}
+        {/* </div> */}
       </div>
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
