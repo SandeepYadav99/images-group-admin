@@ -61,7 +61,10 @@ const EventParticipantCreateView = ({
           value={form?.contact}
           onTextChange={(text) => {
               changeTextData(text, "contact");
-          }}   
+          }}
+          onBlur={() => {
+              onBlurHandler("contact");
+          }}
           />
           {/* <div style={{ display: "flex", gap: "10px" }}>
             <CountryInputField
@@ -113,7 +116,7 @@ const EventParticipantCreateView = ({
             onBlur={() => {
               onBlurHandler("title");
             }}
-            disabled={isContactInList}
+            // disabled={isContactInList}
           />
         </div>
       </div>
@@ -162,7 +165,7 @@ const EventParticipantCreateView = ({
             onBlur={() => {
               onBlurHandler("category");
             }}
-            disabled={isContactInList}
+            // disabled={isContactInList}
           />
         </div>
       </div>
@@ -209,16 +212,16 @@ const EventParticipantCreateView = ({
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomSelectField
-            isError={errorData?.is_award}
-            errorText={errorData?.is_award}
+            isError={errorData?.is_awards}
+            errorText={errorData?.is_awards}
             label={"Awards Access"}
-            value={form?.is_award ? form?.is_award : ""}
+            value={form?.is_awards ? form?.is_awards : ""}
             handleChange={(value) => {
-              changeTextData(value, "is_award");
+              changeTextData(value, "is_awards");
             }}
           >
-            <MenuItem value="true">YES</MenuItem>
-            <MenuItem value="false">NO</MenuItem>
+            <MenuItem value="YES">YES</MenuItem>
+            <MenuItem value="NO">NO</MenuItem>
           </CustomSelectField>
         </div>
       </div>
@@ -234,8 +237,8 @@ const EventParticipantCreateView = ({
             }}
             defaultValue={"NO"}
           >
-            <MenuItem value="true">YES</MenuItem>
-            <MenuItem value="false">NO</MenuItem>
+            <MenuItem value="YES">YES</MenuItem>
+            <MenuItem value="NO">NO</MenuItem>
           </CustomSelectField>
         </div>
       </div>
