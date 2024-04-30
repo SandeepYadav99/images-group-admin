@@ -29,12 +29,12 @@ const MeetingsCalendarCreate = ({
     isSubmitting,
     isLoading,
     handleSubmit,
-    removeError,
-    onBlurHandler,
+    selectCalendarBookWith,
+    selectCalendarRooms,
     changeTextData,
     id,
-    showPasswordCurrent,
-    setShowPasswordCurrent,
+    selectCalendarTime,
+    selectCalendarDate,
   } = useMeetingsCalendarCreateHook({
     handleToggleSidePannel,
     isSidePanel,
@@ -54,49 +54,7 @@ const MeetingsCalendarCreate = ({
         </ButtonBase>
       </div> */}
       <div className={styles.departmentWrap}>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <Autocomplete
-              id="tags-outlined"
-              onChange={(e, value) => {
-                changeTextData(value, "choose_date");
-              }}
-              value={form?.choose_date || []}
-              options={[]}
-              getOptionLabel={(option) => option?.name || ""}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  label="Choose Date"
-                  error={errorData?.choose_date}
-                />
-              )}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <Autocomplete
-              id="tags-outlined"
-              onChange={(e, value) => {
-                changeTextData(value, "choose_time");
-              }}
-              value={form?.choose_time || []}
-              options={[]}
-              getOptionLabel={(option) => option?.name || ""}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  label="Choose Time"
-                  error={errorData?.choose_time}
-                />
-              )}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
+      <div className={"formFlex"}>
           <div className={"formGroup"}>
             <Autocomplete
               id="tags-outlined"
@@ -145,7 +103,7 @@ const MeetingsCalendarCreate = ({
                 changeTextData(value, "booked_with");
               }}
               value={form.booked_with || []}
-              options={[]} // filteredTask ||
+              options={selectCalendarBookWith || []} // filteredTask ||
               getOptionLabel={(option) => option?.title}
               defaultValue={form?.booked_with || []}
               renderInput={(params) => (
@@ -183,11 +141,54 @@ const MeetingsCalendarCreate = ({
             <Autocomplete
               id="tags-outlined"
               onChange={(e, value) => {
+                changeTextData(value, "choose_date");
+              }}
+              value={form?.choose_date || []}
+              options={selectCalendarDate || []}
+              getOptionLabel={(option) => option?.dateText || ""}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Choose Date"
+                  error={errorData?.choose_date}
+                />
+              )}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <Autocomplete
+              id="tags-outlined"
+              onChange={(e, value) => {
+                changeTextData(value, "choose_time");
+              }}
+              value={form?.choose_time || []}
+              options={selectCalendarTime || []}
+              getOptionLabel={(option) => option?.slotText || ""}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Choose Time"
+                  error={errorData?.choose_time}
+                />
+              )}
+            />
+          </div>
+        </div>
+      
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <Autocomplete
+              id="tags-outlined"
+              onChange={(e, value) => {
                 changeTextData(value, "meeting_room");
               }}
               value={form?.meeting_room || []}
-              options={[]}
-              getOptionLabel={(option) => option?.name || ""}
+              options={selectCalendarRooms || []}
+              getOptionLabel={(option) => option?.room_name || ""}
               renderInput={(params) => (
                 <TextField
                   {...params}

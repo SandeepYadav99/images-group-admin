@@ -10,16 +10,27 @@ import {
 } from "../../../services/HallMaster.service";
 import { actionFetchHallMasterList } from "../../../actions/HallMaster.action";
 import { useDispatch } from "react-redux";
+import {
+  serviceCreateMeetingCallendarBookWith,
+  serviceCreateMeetingCallendarDate,
+  serviceCreateMeetingCallendarRooms,
+  serviceCreateMeetingCallendarTimeSlot,
+} from "../../../services/MeetingsCalendar.service";
+import { useParams } from "react-router-dom";
 
 const initialForm = {
   choose_date: "",
   choose_time: "",
-  booked_by:"",
-  booked_with:"",
+  booked_by: "",
+  booked_with: "",
   meeting_room: "",
 };
 
-const useMeetingsCalendarCreateHook = ({ handleToggleSidePannel, isSidePanel, empId }) => {
+const useMeetingsCalendarCreateHook = ({
+  handleToggleSidePannel,
+  isSidePanel,
+  empId,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [errorData, setErrorData] = useState({});
@@ -27,8 +38,20 @@ const useMeetingsCalendarCreateHook = ({ handleToggleSidePannel, isSidePanel, em
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const includeRef = useRef(null);
-  // const { id: empId } = useParams();
+  const [selectCalendarDate, setSelectCalendarDate] = useState(null); //
+  const [selectCalendarTime, setSelectCalendarTime] = useState(null);
+  const [selectCalendarRooms, setSelectCalendarRooms] = useState(null);
+  const [selectCalendarBookWith, setSelectCalendarBookWith] = useState(null);
+  const [bookUser, setBookUser] = useState("");
+  const { id: event_id } = useParams();
   const dispatch = useDispatch();
+  console.log({ event_id });
+  useEffect(() => {
+    const userName = JSON.parse(localStorage.getItem("user"));
+    console.log(userName);
+    setBookUser(userName?.id);
+  }, [bookUser]);
+  console.log({ bookUser });
   // useEffect(() => {
   //   if (empId) {
   //     serviceGetHallMasterDetails({ id: empId }).then((res) => {
@@ -74,6 +97,64 @@ const useMeetingsCalendarCreateHook = ({ handleToggleSidePannel, isSidePanel, em
     });
     return errors;
   }, [form, errorData]);
+
+  useEffect(() => {
+    serviceCreateMeetingCallendarDate({ event_id: event_id }).then((res) => {
+      if (!res?.error) {
+        console.log(res);
+        const data = res?.data;
+        setSelectCalendarDate(data);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    serviceCreateMeetingCallendarBookWith({
+      event_id: event_id,
+      page: 0,
+      query: "",
+    }).then((res) => {
+      // page:1,
+      if (!res?.error) {
+        console.log(res);
+        const data = res?.data;
+         setSelectCalendarBookWith(data)
+      }
+    });
+  }, []);
+  console.log(form?.choose_date);
+  useEffect(() => {
+    if(!selectCalendarDate) return
+    serviceCreateMeetingCallendarTimeSlot({
+      event_id: event_id,
+      date: form?.choose_date?.date,
+      booked_by: bookUser, // id of logged in user
+      booked_with: "", // id of selected user
+    }).then((res) => {
+      // page:1,
+      if (!res?.error) {
+        console.log(res);
+        const data = res?.data;
+        setSelectCalendarTime(data);
+      }
+    });
+  }, [form?.choose_date]);
+  console.log(form?.choose_time);
+  useEffect(() => {
+    if(!selectCalendarTime)return;
+    serviceCreateMeetingCallendarRooms({
+      event_id: event_id,
+      start_time: form?.choose_time?.start_time,
+      end_time: form?.choose_time?.end_time,
+    }).then((res) => {
+      // page:1,
+      if (!res?.error) {
+        console.log(res);
+        const data = res?.data;
+         setSelectCalendarRooms(data);
+      }
+    });
+  }, [form]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -169,6 +250,11 @@ const useMeetingsCalendarCreateHook = ({ handleToggleSidePannel, isSidePanel, em
     empId,
     showPasswordCurrent,
     setShowPasswordCurrent,
+    selectCalendarDate,
+    bookUser,
+    selectCalendarTime,
+    selectCalendarRooms,
+    selectCalendarBookWith
   };
 };
 
