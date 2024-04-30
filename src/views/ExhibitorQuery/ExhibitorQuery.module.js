@@ -1,4 +1,10 @@
-import React, { Component, useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  Component,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { IconButton, MenuItem, ButtonBase, Dialog } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { ArrowBackIos, Edit, InfoOutlined } from "@material-ui/icons";
@@ -6,16 +12,13 @@ import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
-// import FilterComponent from "../../../components/Filter/Filter.component";
-// import StatusPill from "../../../components/Status/StatusPill.component";
 import useExhibitorQuery from "./ExhiboitorQuery.hook";
-// import AppUserCreateView from "../AppUserCreate/AppUserCreate.view";
 import { Link } from "react-router-dom";
 import RouteName from "../../routes/Route.name";
 import { Add } from "@material-ui/icons";
 import historyUtils from "../../libs/history.utils";
 
-const ExhibitorQuery = ({ }) => {
+const ExhibitorQuery = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -33,38 +36,43 @@ const ExhibitorQuery = ({ }) => {
     warehouses,
     handleToggleSidePannel,
     handleCreatecategory,
+    handleDownloadExhibitor,
   } = useExhibitorQuery({});
 
   const [open, setOpen] = useState(false);
   const [mess, setMess] = useState("");
 
-  const handleOpen = (data ) => {
-    setOpen(true)
-    setMess(data)
-  }
-
+  const handleOpen = (data) => {
+    setOpen(true);
+    setMess(data);
+  };
 
   const PostPopUp = ({ open, commentDetail }) => {
-
     return (
       <Dialog
         open={open}
         aria-labelledby="dialog-title"
-        sx={{ width: "auto", padding: "20px", width: "100px",overFlowX:"none" }}
-        
+        sx={{
+          width: "auto",
+          padding: "20px",
+          width: "100px",
+          overFlowX: "none",
+        }}
       >
         <div className={styles.dialogTitle} onClick={() => setOpen(false)}>
           <div className={styles.titleName}>
             Exhibitor Query
             <div className={styles.newLine} />{" "}
           </div>
-          <div onClick={() => setOpen(false)} style={{ fontSize: "24px" }} className={styles.crossIconArea}>
+          <div
+            onClick={() => setOpen(false)}
+            style={{ fontSize: "24px" }}
+            className={styles.crossIconArea}
+          >
             x
           </div>
         </div>
-        <div className={styles.commentArea}>
-          {commentDetail}
-        </div>
+        <div className={styles.commentArea}>{commentDetail}</div>
       </Dialog>
     );
   };
@@ -82,27 +90,35 @@ const ExhibitorQuery = ({ }) => {
         key: "query_from",
         label: "Query From",
         sortable: false,
-        render: (value, all) => <div>{all?.user?.name ? all?.user?.name : "--"}</div>,
+        render: (value, all) => (
+          <div>{all?.user?.name ? all?.user?.name : "--"}</div>
+        ),
       },
 
       {
         key: "email",
         label: "email",
         sortable: false,
-        render: (temp, all) => <div>{all?.user?.email ? all?.user?.email : "--"}</div>,
+        render: (temp, all) => (
+          <div>{all?.user?.email ? all?.user?.email : "--"}</div>
+        ),
       },
       {
         key: "query_to",
         label: "Query to",
         sortable: false,
-        render: (value, all) => <div>{all?.exhibitor?.name ? all?.exhibitor?.name : "--"}</div>,
+        render: (value, all) => (
+          <div>{all?.exhibitor?.name ? all?.exhibitor?.name : "--"}</div>
+        ),
       },
 
       {
         key: "query_on",
         label: "Query On",
         sortable: false,
-        render: (temp, all) => <div>{all?.createdAtText ? all?.createdAtText : "--"}</div>,
+        render: (temp, all) => (
+          <div>{all?.createdAtText ? all?.createdAtText : "--"}</div>
+        ),
       },
       {
         key: "action",
@@ -154,12 +170,16 @@ const ExhibitorQuery = ({ }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <div className={styles.title}>
-              Exhibitor Query
-            </div>
+            <div className={styles.title}>Exhibitor Query</div>
             <div className={styles.newLine} />
           </div>
           <div></div>
+          <div className={styles.BtnWrapper}>
+            <ButtonBase className={"createBtn"} onClick={handleDownloadExhibitor}>
+               Download
+              <Add fontSize={"small"} className={"plusIcon"}></Add>
+            </ButtonBase>
+          </div>
         </div>
         <div>
           <div>

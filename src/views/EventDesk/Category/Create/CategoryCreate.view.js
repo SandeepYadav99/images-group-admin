@@ -1,12 +1,14 @@
 import React from "react";
-import { ButtonBase, CircularProgress } from "@material-ui/core";
+import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../../libs/history.utils";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import CustomSwitch from "../../../../components/FormFields/CustomSwitch";
-import useAdminCreate from "./CategoryCreateHook";
+import useCategoryCreate from "./CategoryCreateHook";
 import CountryInputField from "../../../../components/CountryInputField/CountryInputField.js";
+import country_code from "../../../../assets/country_code.json";
+import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component.js";
 
 const CategoryCreateView = ({ location }) => {
   const {
@@ -19,8 +21,8 @@ const CategoryCreateView = ({ location }) => {
     id,
     countryCode,
     handleCountryCodeChange,
-  } = useAdminCreate({ location });
- 
+  } = useCategoryCreate({ location });
+
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -58,12 +60,25 @@ const CategoryCreateView = ({ location }) => {
           </div>
         </div>
         <div className={"formFlex"}>
-            <div className={"formGroup"}>
+          <div className={"formGroup"}>
             <div style={{ display: "flex", gap: "8px" }}>
-              <CountryInputField
-                countryCode={countryCode}
-                handleCountryCodeChange={handleCountryCodeChange}
-              />
+              <CustomSelectField
+                isError={errorData?.country_code}
+                errorText={errorData?.country_code}
+                label={"Country Code"}
+                value={form?.country_code}
+                handleChange={(value) => {
+                  changeTextData(value, "country_code");
+                }}
+              >
+                {country_code?.map((val) => {
+                  return (
+                    <MenuItem key={val?.dial_code} value={val?.dial_code}>
+                      {val?.dial_code}
+                    </MenuItem>
+                  );
+                })}
+              </CustomSelectField>
               <CustomTextField
                 type="tel"
                 isError={errorData?.contact}
@@ -87,7 +102,9 @@ const CategoryCreateView = ({ location }) => {
               label={"Priority"}
               value={form?.priority}
               onTextChange={(text) => {
-                changeTextData(text, "priority");
+                if (text >= 0) {
+                  changeTextData(text, "priority");
+                }
               }}
               onBlur={() => {
                 onBlurHandler("priority");
@@ -122,7 +139,7 @@ const CategoryCreateView = ({ location }) => {
               handleChange={() => {
                 changeTextData(!form?.status, "status");
               }}
-              label={`Active`}
+              label={form?.status ? `Active` : `In-Active`}
             />
           </div>
         </div>

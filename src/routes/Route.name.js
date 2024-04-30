@@ -154,7 +154,7 @@ export default {
   EXHIBITOR_CREATE: "/exhibitor/list/create",
   EXHIBITOR_UPDATE: "/exhibitor/list/update/",
   EXHIBITOR_DETAILS: "/exhibitor/detail/",
-  EXHIBITOR_QUERY: "/exhibitor-query",
+  EXHIBITOR_QUERY: "/exhibitor-query/",
 
   CALENDAR_COUNT: "/event/calendar/",
   HALL_MASTER: "/hall/master",
@@ -180,4 +180,5 @@ export default {
   MASTER_CREATE: "/master/create/",
 
   MEETING_CALENDAR: "/meeting/calendar/",
+  PRIVILEGE_MEMBER:"/privilege/member/"
 };

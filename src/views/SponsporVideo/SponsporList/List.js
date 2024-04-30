@@ -78,11 +78,15 @@ const SponsporList = ({}) => {
       return (
         <div className={styles.firstCellFlex}>
           <div onClick={() => handleOpenPopUpData(obj)}>
-            <video
-              crossOrigin="anonymous"
-              src={obj?.video}
-              className={styles.video}
-            />
+            {obj?.image?.includes("mp4") ? (
+              <video
+                crossOrigin="anonymous"
+                src={obj?.video}
+                className={styles.video}
+              />
+            ) : (
+              <img src={obj?.image} className={styles.video} />
+            )}
           </div>
         </div>
       );
@@ -183,9 +187,21 @@ const SponsporList = ({}) => {
           </div>
         </div>
         <div className={styles.commentArea}>
-          <video  autoPlay controls style={{width:'500px',height:"300px"}}>
-            <source src={url} type="video/mp4" />
-          </video>{" "}
+          {url?.includes("mp4") ? (
+            <video
+              autoPlay
+              controls
+              style={{ width: "500px", height: "300px" }}
+            >
+              <source src={url} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src={url}
+              alt="image"
+              style={{ width: "500px", height: "300px" }}
+            />
+          )}
         </div>
       </Dialog>
     );
@@ -195,7 +211,7 @@ const SponsporList = ({}) => {
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
-        <div>
+          <div>
             <ButtonBase onClick={() => historyUtils.goBack()}>
               <ArrowBackIosIcon fontSize={"small"} />
               <span className={"capitalize"}>

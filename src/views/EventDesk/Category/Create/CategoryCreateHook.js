@@ -19,6 +19,7 @@ const initialForm = {
   priority: "",
   email: "",
   status: true,
+  country_code: "91",
 };
 
 const useCategoryCreate = ({ location }) => {
@@ -42,7 +43,6 @@ const useCategoryCreate = ({ location }) => {
       serviceGetEventCategoryDetails({ id: id }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
-          console.log(data);
           setForm({
             ...form,
             name: data?.name,
@@ -59,7 +59,6 @@ const useCategoryCreate = ({ location }) => {
     }
   }, [id]);
 
-  console.log("form", form);
   const checkCodeValidation = useCallback(() => {
     serviceEventCategoryCheck({
       name: form?.name,
@@ -86,7 +85,7 @@ const useCategoryCreate = ({ location }) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name"]; // "contact","email"
+    let required = ["name"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -119,7 +118,8 @@ const useCategoryCreate = ({ location }) => {
       setIsSubmitting(true);
       const fd = { ...form };
       fd.status = form?.status ? "ACTIVE" : "INACTIVE";
-      fd.contact = `${countryCode}${form?.contact}`;
+      fd.contact = `${form?.country_code} ${form?.contact}`;
+      delete fd.country_code;
       if (eventId) {
         fd.event_id = eventId;
       }

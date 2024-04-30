@@ -39,9 +39,9 @@ const NewDashboard = () => {
                 />
               </div>
               <div>
-                <div className={styles.number}>{data?.exhibitorCount}</div>
+                <div className={styles.number}>{data?.speakerCount}</div>
                 <div className={styles.prcStatus} style={{ color: "#818181" }}>
-                Exhibitors
+                  Speakers
                 </div>
               </div>
             </div>

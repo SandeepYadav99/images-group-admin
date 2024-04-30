@@ -16,8 +16,8 @@ import {
   } from "../../actions/ExhibitorQuery.action";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
-// import { actionFetchCategory, actionSetPageCategory } from "../../actions/ExhibitorQuery.action";
-// import { actionCreateEventCategory, actionUpdateEventCategory } from "../../actions/ExhibitorQuery.action";
+import { useParams } from "react-router-dom";
+import { serviceDownloadExhibitorQuery } from "../../services/ExhibitorQuery.service";
 
 const useExhibitorQuery = ({ }) => {
     const [isSidePanel, setSidePanel] = useState(false);
@@ -36,6 +36,8 @@ const useExhibitorQuery = ({ }) => {
         // dispatch(actionFetchAppUser());
     }, []);
 
+    const params = useParams();
+
     const { user } = useSelector((state) => state?.auth)
 
 
@@ -44,13 +46,13 @@ const useExhibitorQuery = ({ }) => {
         "order": null,
         "query": "",
         "query_data": null,
-        "event_id": `${user?.event_id}`
+        "event_id": params?.id,
       }
 
     useEffect(() => {
         dispatch(
             actionFetchExhibitors(1, {},
-                `${user?.event_id}`,
+                params?.id,
                 {
                     query: isMountRef.current ? query : null,
                     query_data: isMountRef.current ? queryData : null,
@@ -63,17 +65,9 @@ const useExhibitorQuery = ({ }) => {
         dispatch(actionSetPageExhibitors(type));
     }, []);
 
-    // const handleOpen =()=>{
-    //     setOpen(true);
-    // }
-
-    // const handleClose =()=>{
-    //     setOpen(false);
-    // }
 
     const handleDataSave = useCallback(
         (data, type) => {
-            // this.props.actionChangeStatus({...data, type: type});
             if (type == "CREATE") {
                 dispatch(actionCreateExhibitors(data));
             } else {
@@ -88,14 +82,12 @@ const useExhibitorQuery = ({ }) => {
     const queryFilter = useCallback(
         (key, value) => {
             console.log("_queryFilter", key, value);
-            // dispatch(actionSetPageAppUserRequests(1));
             dispatch(
                 actionFetchExhibitors(1, sortingData, {
                     query: key == "SEARCH_TEXT" ? value : query,
                     query_data: key == "FILTER_DATA" ? value : queryData,
                 })
             );
-            // dispatch(actionFetchAppUser(1, sortingData))
         },
         [sortingData, query, queryData]
     );
@@ -120,6 +112,7 @@ const useExhibitorQuery = ({ }) => {
             dispatch(
                 actionFetchExhibitors(
                     1,
+                    params?.id,
                     { row, order },
                     {
                         query: query,
@@ -168,7 +161,7 @@ const useExhibitorQuery = ({ }) => {
     );
 
     const handleViewDetails = useCallback((data) => {
-        historyUtils.push(RouteName.LOCATIONS_DETAILS + data.id); //+data.id
+        historyUtils.push(RouteName.LOCATIONS_DETAILS + data.id); 
     }, []);
 
 
@@ -193,6 +186,14 @@ const useExhibitorQuery = ({ }) => {
         historyUtils.push(RouteName.CATEGORY_EVENT_ADD);
     }
 
+    const handleDownloadExhibitor =()=>{
+        serviceDownloadExhibitorQuery({event_id:params?.id}).then((res)=>{
+            if(!res?.error){
+                window.location.reload();
+            }
+        })
+    }
+
     return {
         handlePageChange,
         handleDataSave,
@@ -211,6 +212,7 @@ const useExhibitorQuery = ({ }) => {
         handleCreate,
         handleToggleSidePannel,
         handleCreatecategory,
+        handleDownloadExhibitor,
     };
 };
 

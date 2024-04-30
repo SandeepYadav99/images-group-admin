@@ -224,19 +224,19 @@ function EventCreate() {
         </div>
         <div className={"formFlex"}></div>
         <div className={"formGroup"}>
-        <CustomTextField
-              isError={errorData?.event_prefix}
-              errorText={errorData?.event_prefix}
-              label={"RegID Prefix"}
-              value={form?.event_prefix}
-              onTextChange={(text) => {
-                changeTextData(text, "event_prefix");
-              }}
-              onBlur={() => {
-                onBlurHandler("event_prefix");
-              }}
-            />
-            </div>
+          <CustomTextField
+            isError={errorData?.event_prefix}
+            errorText={errorData?.event_prefix}
+            label={"RegID Prefix"}
+            value={form?.event_prefix}
+            onTextChange={(text) => {
+              changeTextData(text, "event_prefix");
+            }}
+            onBlur={() => {
+              onBlurHandler("event_prefix");
+            }}
+          />
+        </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
@@ -383,7 +383,7 @@ function EventCreate() {
               }}
               link={form?.login_banner ? "" : appBanner}
             />
-              <div className={styles.inst}>
+            <div className={styles.inst}>
               <InfoOutlinedIcon />
               Recommended Size for banner image is 1080x960 px.
             </div>
@@ -525,10 +525,10 @@ function EventCreate() {
             }}
             link={form?.linkedin_image ? "" : linkBanner}
           />
-           <div className={styles.inst}>
-              <InfoOutlinedIcon />
-              Recommended Size for banner image is 1200x628 px and size upto 5mb .
-            </div>
+          <div className={styles.inst}>
+            <InfoOutlinedIcon />
+            Recommended Size for banner image is 1200x628 px and size upto 5mb .
+          </div>
         </div>
         <div className={"formGroup"}>
           <CustomTextField
@@ -547,13 +547,13 @@ function EventCreate() {
           />
         </div>
         <div className={"formGroup"}>
-        <CustomSwitch
-           value={form?.show_linkedin}
-           handleChange={() => {
-             changeTextData(!form?.show_linkedin, "show_linkedin");
-           }}
-           label={`Show linkedin`}
-         />
+          <CustomSwitch
+            value={form?.show_linkedin}
+            handleChange={() => {
+              changeTextData(!form?.show_linkedin, "show_linkedin");
+            }}
+            label={`Show linkedin`}
+          />
         </div>
       </div>
       <div className={"plainPaper"}>
@@ -993,18 +993,37 @@ function EventCreate() {
             label={"Meeting Calendar"}
             checked={feature?.meeting_calendar}
           />
-        <div style={{marginLeft:"35px"}}>
-          <CustomCheckbox
-            color={"primary"}
-            handleChange={(text) => {
-              changeFeatureData(!feature?.event_calendar, "event_calendar");
-            }}
-            label={"Event Calendar"}
-            checked={feature?.event_calendar}
-          />
-         </div>
+          <div style={{ marginLeft: "35px" }}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.event_calendar, "event_calendar");
+              }}
+              label={"Event Calendar"}
+              checked={feature?.event_calendar}
+            />
+          </div>
+          <div style={{ marginLeft: "35px" }}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.privilaged_member, "privilaged_member");
+              }}
+              label={"Privilege Members"}
+              checked={feature?.privilaged_member}
+            />
+          </div>
+          <div style={{ marginLeft: "35px" }}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.exhibitor_query, "exhibitor_query");
+              }}
+              label={"Exhibitor Query"}
+              checked={feature?.exhibitor_query}
+            />
+          </div>
         </div>
-       
       </div>
 
       <div className={"plainPaper"}>
@@ -1027,33 +1046,9 @@ function EventCreate() {
               </div>
             ) : (
               <div className={styles.btnWrappepr}>
-                {/* <ButtonBase
-                  disabled={isSubmitting ? true : false}
-                  type={"button"}
-                  className={styles.download}
-                  onClick={() => handleSubmit("INDRAFT")}
-                >
-                  {isSubmitting ? (
-                    <CircularProgress color="success" size="20px" />
-                  ) : (
-                    "SAVE AS DRAFT"
-                  )}
-                </ButtonBase>
-                <ButtonBase
-                  disabled={isSubmitting ? true : false}
-                  type={"button"}
-                  className={styles.createBtn}
-                  onClick={() => handleSubmit("PENDING")}
-                >
-                  {isSubmitting ? (
-                    <CircularProgress color="success" size="20px" />
-                  ) : (
-                    "REQUEST FOR APPROVAL"
-                  )}
-                </ButtonBase> */}
+               
                 <div className={styles.actionButton}>
                   <ButtonBase
-                    // disabled={isSubmitting ? true : false}
                     type={"button"}
                     className={styles.createBtn}
                     onClick={() => handleSubmit("PENDING")}
@@ -1070,30 +1065,6 @@ function EventCreate() {
           </>
         ) : (
           <div className={styles.btnWrappepr}>
-            {/* <ButtonBase
-              disabled={isSubmitting ? true : false}
-              type={"button"}
-              className={styles.download}
-              onClick={() => handleSubmit("INDRAFT")}
-            >
-              {isSubmitting ? (
-                <CircularProgress color="success" size="20px" />
-              ) : (
-                "SAVE AS DRAFT"
-              )}
-            </ButtonBase>
-            <ButtonBase
-              disabled={isSubmitting ? true : false}
-              type={"button"}
-              className={styles.createBtn}
-              onClick={() => handleSubmit("PENDING")}
-            >
-              {isSubmitting ? (
-                <CircularProgress color="success" size="20px" />
-              ) : (
-                "REQUEST FOR APPROVAL"
-              )}
-            </ButtonBase> */}
             <div className={styles.actionButton}>
               <ButtonBase
                 // disabled={isSubmitting ? true : false}
@@ -1110,20 +1081,6 @@ function EventCreate() {
             </div>
           </div>
         )}
-        {/* <div className={styles.actionButton}>
-          <ButtonBase
-            // disabled={isSubmitting ? true : false}
-            type={"button"}
-            className={styles.createBtn}
-            onClick={() => handleSubmit("PENDING")}
-          >
-            {isSubmitting ? (
-              <CircularProgress color="success" size="20px" />
-            ) : (
-              "Add "
-            )}
-          </ButtonBase>
-        </div> */}
       </div>
     </div>
   );

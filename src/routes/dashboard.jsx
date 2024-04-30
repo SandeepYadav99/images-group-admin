@@ -64,6 +64,7 @@ import MenuGraphic from "../views/MenuGraphic/List/MenuGraphic.js";
 import AwardList from "../views/Awards/Lists/AwardList.js";
 import ReportedFeed from "../views/ReportedFeed/ReportedFeed.js";
 import MeetingsCalendar from "../views/MeetingsCalendar/List/MeetingsCalendar.js";
+import PrivilegeList from "../views/PrivilegeMember/Lists/PrivelegeList.js";
 
 const MenuGraphicCreate = lazy(() =>
   import("../views/MenuGraphic/Create/MenuGraphicCreate")
@@ -185,6 +186,7 @@ const MeetingDetails = lazy(() =>
 const MMaster = lazy(() =>
   import("../views/MeetingRooms/MMaster/MasterCreate.js")
 );
+
 
 const Roles = Constants.ROLES;
 
@@ -1002,12 +1004,9 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.EXHIBITOR_QUERY}`,
+    path: `${RouteName.EXHIBITOR_QUERY}:id`,
     component: ExhibitorQuery,
-    sidebarName: "Exhibitor Query",
-    navbarName: "Exhibitor Query",
-    is_sidebar: true,
-    icon: PeopleOutlined,
+    is_sidebar: false,
     is_protect: true,
   },
   {
@@ -1118,6 +1117,12 @@ const dashboardRoutes = [
   {
     path: `${RouteName.MASTER_CREATE}:id`,
     component: MMaster,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.PRIVILEGE_MEMBER}:id`,
+    component: PrivilegeList,
     is_sidebar: false,
     is_protect: true,
   },
