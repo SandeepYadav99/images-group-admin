@@ -217,8 +217,8 @@ const EventParticipantCreateView = ({
               changeTextData(value, "is_award");
             }}
           >
-            <MenuItem value="true">YES</MenuItem>
-            <MenuItem value="false">NO</MenuItem>
+            <MenuItem value="YES">YES</MenuItem>
+            <MenuItem value="NO">NO</MenuItem>
           </CustomSelectField>
         </div>
       </div>
@@ -234,8 +234,8 @@ const EventParticipantCreateView = ({
             }}
             defaultValue={"NO"}
           >
-            <MenuItem value="true">YES</MenuItem>
-            <MenuItem value="false">NO</MenuItem>
+            <MenuItem value="YES">YES</MenuItem>
+            <MenuItem value="NO">NO</MenuItem>
           </CustomSelectField>
         </div>
       </div>

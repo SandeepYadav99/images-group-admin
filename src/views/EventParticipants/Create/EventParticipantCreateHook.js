@@ -37,8 +37,8 @@ const initialForm = {
   category: "",
   participant_type: [],
   company_name: "",
-  is_award: false,
-  is_lunch: false,
+  is_award: "NO",
+  is_lunch: "NO",
 };
 
 const useEventParticipantCreate = ({
@@ -128,8 +128,8 @@ const useEventParticipantCreate = ({
             user_id: data?.id,
             category: data?.category,
             participant_type: data?.participants_type ? data?.participants_type : [],
-            is_award: data?.is_award,
-            is_lunch: data?.is_lunch,
+            is_award: data?.is_award ? "YES" : "NO",
+            is_lunch: data?.is_lunch ?"YES" :"NO",
             company_name: data?.company_name,
           };
           setForm(tForm);
@@ -204,6 +204,8 @@ const useEventParticipantCreate = ({
       if (empId) {
         req = serviceUpdateEventParticipant({
           ...form,
+          is_award:form?.is_award === "YES",
+          is_lunch:form?.is_lunch === "YES",
           id: empId ? empId : "",
           event_id: id,
         });
@@ -214,6 +216,8 @@ const useEventParticipantCreate = ({
           // contact: `${countryCode} ${form?.contact}`,
           category: form?.category,
           event_id: id,
+          is_award:form?.is_award === "YES",
+          is_lunch:form?.is_lunch === "YES",
         });
       }
       req.then((res) => {
