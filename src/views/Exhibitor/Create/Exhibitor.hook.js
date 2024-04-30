@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-
+import axios from "axios";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
 import {
@@ -10,6 +10,8 @@ import {
   serviceGetExhibitorsDetails,
   debounceValidationList,
   servicesPartnerTypeList,
+  serviceUpdateExhibitor,
+  serviceUpdateFileUpdate,
 } from "../../../services/Exhibitor.service";
 import historyUtils from "../../../libs/history.utils";
 import {
@@ -112,6 +114,7 @@ const useExhibitorCreate = ({ location }) => {
   const ChildenRef1 = useRef(null);
   const [downloads, setDownloads] = useState(null);
   const [downloadsDigitalBag, setDownloadsDigitalBag] = useState(null);
+  const [downloadData, setDownloadData] = useState(null);
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
@@ -497,6 +500,36 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
+ 
+  // const ExpensesData = ChildenRef?.current?.getData();
+
+  // ExpensesData?.forEach((val) => {
+  //   console.log({ val });
+  //   if (val?.documentUpload) {
+  //     const fd = new FormData();
+  //     fd.append("files", val?.documentUpload);
+  //     axios
+  //       .post(`${Constants.DEFAULT_APP_URL}${"files/upload"}`, fd, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           "Authorization": localStorage.getItem("jwt_token"),
+  //           "folder": "exhibitors",
+  //         },
+  //       })
+  //       .then((res) => {
+  //         const data = res?.data?.response_obj;
+
+  //         setDownloadData(data);
+  //         console.log({ data });
+  //       });
+  //   }
+    // serviceUpdateFileUpdate(fd, "exhibitors").then((res)=>{
+    //   if(!res.error){
+    //     console.log({res})
+    //   }
+    // })
+  // });
+  // console.log({ downloadData });
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -508,7 +541,6 @@ const useExhibitorCreate = ({ location }) => {
         ? form?.products?.map((item) => item) // item.id || item._id
         : [];
     Object.keys(form).forEach((key) => {
-    
       if (
         // key !== "company_logo",
         // key !== "gallery_images"
@@ -536,9 +568,9 @@ const useExhibitorCreate = ({ location }) => {
           } else {
             fd.append(key, JSON.stringify(form[key]));
           }
-        }else if (key === "products") {
+        } else if (key === "products") {
           industryID.length > 0 && fd.append(key, industryID.join(","));
-        }  else if (key === "partner_tag") {
+        } else if (key === "partner_tag") {
           if (form?.is_partner) {
             fd.append(key, capitalizeFirstLetter(form?.partner_tag));
           }
@@ -548,17 +580,18 @@ const useExhibitorCreate = ({ location }) => {
       }
     });
     // else if (key === "is_featured") {
-         
-      // fd.append(
-      //   "is_featured",
-      //   form?.is_participant === true" ? false : true
-      // );
- 
+
+    // fd.append(
+    //   "is_featured",
+    //   form?.is_participant === true" ? false : true
+    // );
+
     // if (form?.products) {
     //   industryID?.length > 0 &&  fd.append("products", industryID?.join(","));
     // }
     const ExpensesData = ChildenRef.current.getData();
     ExpensesData.forEach((val) => {
+      console.log({val})
       if (val?.documentUpload) {
         fd.append("download_documents", val?.documentUpload);
       }
@@ -567,6 +600,7 @@ const useExhibitorCreate = ({ location }) => {
       //   fd.append("download_documents", file);
       // }
     });
+
     fd.append("downloads", JSON.stringify(ExpensesData));
 
     const DigitalBag = ChildenRef1.current.getData();

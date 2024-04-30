@@ -81,6 +81,7 @@ const useExhibitorList = ({}) => {
   const queryFilter = useCallback(
     (key, value) => {
       // dispatch(actionSetPageExhibitorsRequests(1));
+      console.log(key, value)
       dispatch(
         actionFetchExhibitors(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
@@ -179,9 +180,9 @@ const useExhibitorList = ({}) => {
    
       {
         label: "Product Category",
-        name: "product_category.name",
+        name: "product_categories._id",
         type: "selectObject",
-        custom: { extract: { id: "name", title: "name" } },
+        custom: { extract: { id: "id", title: "name" } },
         fields: listData?.PRODUCT_CATEGORY,
       },
     ];

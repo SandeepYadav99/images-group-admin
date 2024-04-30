@@ -172,15 +172,15 @@ const EventParticipantCreateView = ({
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomTextField
-            isError={errorData?.reg_id}
-            errorText={errorData?.reg_id}
-            label={"Reg Id"}
-            value={form?.reg_id}
+            isError={errorData?.rref_id}
+            errorText={errorData?.ref_id}
+            label={"Ref Id"}
+            value={form?.ref_id}
             onTextChange={(text) => {
-              changeTextData(text, "reg_id");
+              changeTextData(text, "ref_id");
             }}
             onBlur={() => {
-              onBlurHandler("reg_id");
+              onBlurHandler("ref_id");
             }}
           />
         </div>

@@ -107,9 +107,9 @@ const EventParticipantList = ({}) => {
       // },
       {
         key: "reg_id",
-        label: "REG ID",
-        sortable: false,
-        render: (temp, all) => <div>{all.reg_id}</div>,
+        label: "REF ID",
+        sortable: true,
+        render: (temp, all) => <div>{all?.ref_id || all.reg_id }</div>,
       },
       {
         key: "user_id",
