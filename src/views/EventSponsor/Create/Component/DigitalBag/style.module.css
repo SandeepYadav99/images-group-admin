@@ -20,7 +20,17 @@
     gap: 10px;
     align-items: center;
   }
-  
+  .inst{
+    text-align: right !important;
+    right: 0px;
+    bottom: -12px;
+    margin: 0px;
+    /* position: absolute; */
+    margin-left: 5px;
+    font-size: 0.60rem;
+    /* text-decoration: none; */
+    color: #536dfe;
+  }
   .lowerWrap {
     width: 100% !important;
   }

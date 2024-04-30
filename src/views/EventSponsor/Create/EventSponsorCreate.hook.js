@@ -120,8 +120,8 @@ function useEventSponsorCreate({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "web_url", "priority", "contact", "type"];
-
+    let required = [ "type"];
+// "name", "web_url", "priority", "contact",
     required.forEach((val) => {
       if (
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
@@ -184,9 +184,9 @@ function useEventSponsorCreate({ location }) {
       if (fieldName === "name") {
         t[fieldName] = text;
       } else if (fieldName === "priority") {
-        if (isNum(text)) {
+        // if (isNum(text)) {
           t[fieldName] = text;
-        }
+        
       } else if (fieldName === "contact") {
         if (text >= 0 && text?.length <= 10) {
           t[fieldName] = `${text}`;
@@ -213,6 +213,10 @@ function useEventSponsorCreate({ location }) {
               fd.append(key, JSON.stringify(form[key]));
             } else if (key === "status") {
               fd.append("status", form[key] ? "ACTIVE" : "INACTIVE");
+            } else if (key === "priority") {
+              fd.append("priority", form[key] ? form?.priority : "");
+            } else if (key === "contact") {
+              fd.append("contact", form[key] ? form?.contact : "");
             } else if (key === "is_featured") {
               fd.append("is_featured", form?.is_featured ? true : false);
             } else {

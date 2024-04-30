@@ -73,7 +73,7 @@ class File extends Component {
 
 
     render() {
-        const {value, children, multiple, accept, error, placeholder,name,component,user_image, title, show_image, default_image,banner,bannerimg, link, bannerLabelTrue, circular,bannerLabel} = this.props;
+        const {value, children, multiple, accept, error, placeholder,name,component,user_image, title, show_image,partnerImage, default_image,banner,bannerimg, link, bannerLabelTrue, circular,bannerLabel} = this.props;
         let tempPlaceHolder = this.props.placeholder;
         if (value != '' && value !== null) {
             if (value instanceof Object && !Array.isArray(value)) {
@@ -93,6 +93,7 @@ class File extends Component {
                         <div className={styles.imgLowerContainer}>
                             <div className={styles.imgFileLabelPlus}>
                                 <span className={styles.plus}>{!value && !default_image ? '+' :''}</span>
+                                {/* {partnerImage ? <div> "Partner image" </div  */}
                                 <div className={styles.textUpload} style={error ? {} : {}}>{!value  && !default_image ? 'Upload':''}</div></div>
                             <input multiple={multiple} id="upload" data-value={'JPG'} accept={accept ? accept : 'image/*'}
                                    onChange={this._handleFileChange}

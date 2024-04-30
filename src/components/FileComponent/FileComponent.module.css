@@ -223,6 +223,7 @@
     flex-direction: column;
     align-items: center;
 }
+
 .imgFileLabelPlusShowSIZE{
     position: absolute;
     top: 75px;
@@ -248,6 +249,14 @@
     flex-direction: column;
     align-items: center;
 }
+.imgFileLabelPlus1{
+    position: absolute;
+    top: 30px;
+    left: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .plus{
     color: #9699b0;
     font-size: 24px;
@@ -257,6 +266,12 @@
     font-weight: 600;
     font-size: 0.8rem;
     padding: 3px;
+}
+
+.textUpload1{
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-right: 10px !important;
 }
 
 .tooltipFlex{

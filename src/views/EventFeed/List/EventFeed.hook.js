@@ -21,6 +21,7 @@ const useEventFeed = ({}) => {
   const [isRejectPopUp, setIsRejectPopUp] = useState(false);
   const [isAcceptPopUp, setIsAcceptPopUp] = useState(false);
   const [dataValue, setDataValue] = useState({});
+  const [isVideoModal,setIsVideoModal] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     LOCATIONS: [],
@@ -45,6 +46,19 @@ const useEventFeed = ({}) => {
     );
     isMountRef.current = true;
   }, [id]);
+
+  const toggleVideoModal = useCallback(
+    (link) => {
+      if (!isVideoModal) {
+        setIsVideoModal(link);
+      } else {
+        setIsVideoModal(null);
+      }
+    },
+    [isVideoModal, setIsVideoModal]
+  );
+  
+  
 
   useEffect(() => {
     serviceGetList(["LOCATIONS"]).then((res) => {
@@ -222,6 +236,9 @@ const useEventFeed = ({}) => {
     handleRejectApi,
     dataValue,
     appUserDetail,
+    toggleVideoModal,
+    isVideoModal,
+    toggleVideoModal
   };
 };
 

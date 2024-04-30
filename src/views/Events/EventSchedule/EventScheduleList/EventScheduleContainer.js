@@ -18,6 +18,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import DeleteIcon from "../../../../assets/img/ic_delete.png";
 import ScheduleDetail from "../ScheduleDetail/ScheduleDetail";
 import UpdateStatusView from "./component/UpdateStatus/UpdateStatusView";
+import DeleteDialog from "./component/DeletedDilog/DeletedDilog";
 const EventScheduleContainer = ({}) => {
   const {
     handleSortOrderChange,
@@ -31,7 +32,8 @@ const EventScheduleContainer = ({}) => {
     isSidePanel,
     isCalling,
     configFilter,
-    handleLiveApi,
+    isDeletedPopUp,
+    toggleDeletedDialog,
     handleToggleSidePannel,
     isRejectPopUp,
     toggleRejectDialog,
@@ -44,7 +46,7 @@ const EventScheduleContainer = ({}) => {
     detailId,
     speakerId,
     toggleUpdateStatus,
-    isUpdateStatus
+    isUpdateStatus,
   } = useEventScheduleList({});
   // console.log(editData, "Edit Data")
   const {
@@ -124,7 +126,13 @@ const EventScheduleContainer = ({}) => {
         key: "status",
         label: "STATUS",
         sortable: true,
-        render: (temp, all) => <div>{<StatusPill status={all.status} />}</div>,
+        render: (temp, all) => (
+          <div>
+            {all.schedule_activity && (
+              <StatusPill status={all.schedule_activity} />
+            )}
+          </div>
+        ),
       },
       {
         key: "user_id",
@@ -220,7 +228,7 @@ const EventScheduleContainer = ({}) => {
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                handleDeleteData(all);
+                toggleDeletedDialog(all);
               }}
             >
               <img
@@ -304,11 +312,11 @@ const EventScheduleContainer = ({}) => {
           isOpen={isRejectPopUp}
           title={dataValue?.type === "hide" ? "Hide" : "Live"}
         /> */}
-           <UpdateStatusView
-           candidateId={speakerId}
-           handleToggle={toggleUpdateStatus}
-           isOpen={isUpdateStatus}
-           scheduleStatus={scheduleStatus}
+        <UpdateStatusView
+          candidateId={speakerId}
+          handleToggle={toggleUpdateStatus}
+          isOpen={isUpdateStatus}
+          scheduleStatus={scheduleStatus}
           // title={dataValue?.type === "hide" ? "Hide" : "Live"}
         />
         <div>
@@ -353,6 +361,11 @@ const EventScheduleContainer = ({}) => {
           />
         </SidePanelComponent>
       </PageBox>
+      <DeleteDialog
+        handleConfirm={handleDeleteData}
+        handleDialog={toggleDeletedDialog}
+        isOpen={isDeletedPopUp}
+      />
     </div>
   );
 };

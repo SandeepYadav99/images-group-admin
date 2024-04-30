@@ -37,8 +37,8 @@ const initialForm = {
   category: "",
   participant_type: [],
   company_name: "",
-  is_award: false,
-  is_lunch: false,
+  is_awards: "NO",
+  is_lunch: "NO",
 };
 
 const useEventParticipantCreate = ({
@@ -113,28 +113,28 @@ const useEventParticipantCreate = ({
       if (!res.error) {
         const data = res?.data;
         
-        if (data?.contact === form?.contact) {
+        if (data?.full_contact === cleanContactNumber(form?.contact)) {
           setIsContactInList(true);
         }
-
         if (data) {
           const tForm = {
             ...initialForm,
             name: data?.name,
-            contact: data?.contact,
+            contact: data?.full_contact,
             email: data?.email,
             title: data.title,
             reg_id: data?.reg_id,
             user_id: data?.id,
             category: data?.category,
             participant_type: data?.participants_type ? data?.participants_type : [],
-            is_award: data?.is_award,
-            is_lunch: data?.is_lunch,
+            is_awards: data?.is_awards ? "YES" : "NO",
+            is_lunch: data?.is_lunch ?"YES" :"NO",
             company_name: data?.company_name,
           };
           setForm(tForm);
-        } else {
-          if (data?.contact !== form?.contact) {
+        }
+         else {
+          if (data?.full_contact !== cleanContactNumber(form?.contact)) {
             setIsContactInList(false);
           }
           setForm({
@@ -144,7 +144,7 @@ const useEventParticipantCreate = ({
         }
       }
     });
-  }, [form, setForm, isContactInList, empId, id, form?.contact]);
+  }, [form, setForm, isContactInList,setIsContactInList, empId, id, form?.contact]);
 
   const DataSetName = [
     "EXHIBITOR",
@@ -204,6 +204,8 @@ const useEventParticipantCreate = ({
       if (empId) {
         req = serviceUpdateEventParticipant({
           ...form,
+          is_awards:form?.is_awards === "YES",
+          is_lunch:form?.is_lunch === "YES",
           id: empId ? empId : "",
           event_id: id,
         });
@@ -214,6 +216,8 @@ const useEventParticipantCreate = ({
           // contact: `${countryCode} ${form?.contact}`,
           category: form?.category,
           event_id: id,
+          is_awards:form?.is_awards === "YES",
+          is_lunch:form?.is_lunch === "YES",
         });
       }
       req.then((res) => {

@@ -42,7 +42,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     categoryList,
     listDataValue,
     updateSpeakerList,
-    thimbnel
+    thimbnel,
   } = useEventScheduleHook({ handleToggleSidePannel, isSidePanel, empId });
 
   const classes = useStyles();
@@ -50,24 +50,28 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   return (
     <div className={styles.departmentWrap}>
       <div className={styles.count}>
-        <File
-          // imageClass={styles.inputFileUploader}
-          max_size={5 * 1024 * 1024}
-          type={["png", "jpeg", "jpg"]}
-          fullWidth={true}
-          name="document"
-          accept={"image/*"}
-           default_image={thimbnel ? thimbnel : null}
-          label="Please Upload Image"
-          show_image={true}
-          error={errorData?.image}
-          value={form?.image}
-          onChange={(file) => {
-            if (file) {
-              changeTextData(file, "image");
-            }
-          }}
-        />
+        <div>
+          <File
+            // imageClass={styles.inputFileUploader}
+            max_size={5 * 1024 * 1024}
+            type={["png", "jpeg", "jpg"]}
+            fullWidth={true}
+            name="document"
+            accept={"image/*"}
+            partnerImage={"true"}
+            default_image={thimbnel ? thimbnel : null}
+            label="Please Upload Image"
+            show_image={true}
+            error={errorData?.image}
+            value={form?.image}
+            onChange={(file) => {
+              if (file) {
+                changeTextData(file, "image");
+              }
+            }}
+          />
+          <label className={styles.partner}>Partner image </label>
+        </div>
         <div className={styles.countBox}>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -80,10 +84,10 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   changeTextData(value, "category");
                 }}
               >
-                {listData?.EVENT_SCHEDULE_CATEGORIES?.map((val) => {
+                {listData?.SCHEDULE_CATEGORIES?.map((val) => {
                   return (
-                    <MenuItem value={val} id={val}>
-                      {val}
+                    <MenuItem value={val?.name} id={val}>
+                      {val?.name}
                     </MenuItem>
                   );
                 })}
@@ -106,7 +110,6 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               />
             </div>
           </div>
-         
         </div>
       </div>
 

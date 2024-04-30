@@ -31,7 +31,7 @@ const CommentPopUp = ({
       </div>
       <div className={styles.newLine} />{" "}
       <div className={styles.commentArea}>
-        {commentDetail?.map((val) => {
+        {commentDetail?.length > 0 ? commentDetail?.map((val) => {
           return !val ? "Loading" : (
             <div key={val?.post_id} className={styles.containerComment}>
             <div className={styles.alignCenter}>
@@ -57,7 +57,7 @@ const CommentPopUp = ({
               </div>
             </div>
           );
-        })}
+        }): <div className={styles.notFound}>No Data</div>}
         
       </div>
     </Dialog>

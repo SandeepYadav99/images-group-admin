@@ -55,7 +55,7 @@ const useEventScheduleHook = ({
   const dispatch = useDispatch();
   const [listData, setListData] = useState({
     EVENT_SPEAKERS: [],
-    EVENT_SCHEDULE_CATEGORIES: [],
+    SCHEDULE_CATEGORIES: [],
   });
 
   const [listDataValue, setListDataValue] = useState({
@@ -67,7 +67,7 @@ const useEventScheduleHook = ({
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
-    serviceGetList(["EVENT_SPEAKERS", "EVENT_SCHEDULE_CATEGORIES"], {
+    serviceGetList(["EVENT_SPEAKERS", "SCHEDULE_CATEGORIES"], {
       event_id: id,
     }).then((res) => {
       if (!res.error) {
@@ -164,7 +164,7 @@ const useEventScheduleHook = ({
     let required = [
       "eve_name",
       // "eve_title",
-      "eve_description",
+      // "eve_description",
       "start_time",
       "end_time",
       "category",

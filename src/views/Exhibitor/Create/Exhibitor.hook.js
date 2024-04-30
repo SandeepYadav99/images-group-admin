@@ -23,6 +23,7 @@ import Constants from "../../../config/constants";
 import { useSelector } from "react-redux";
 import { dataURLtoFile } from "../../../hooks/Helper";
 import nullImg from "../../../assets/img/null.png";
+import { capitalizeFirstLetter } from "../../../hooks/CapsLetter";
 const initialForm = {
   company_logo: "",
   company_name: "",
@@ -30,7 +31,7 @@ const initialForm = {
   is_participant: "false",
   product_categories: [],
   // products: [],
-  product_offered: [],
+  products: [],
   event_venue: "",
   event_stall: "",
   // zone_tag: [],
@@ -78,7 +79,7 @@ const initialForm = {
   twitter_link: "",
   is_featured: false,
   is_recommended: false,
- 
+
   // download_documents: "",
   // fileName: "",
   // title: "",
@@ -115,6 +116,7 @@ const useExhibitorCreate = ({ location }) => {
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
     HALLS: [],
+    PRODUCT_TAGS: [],
   });
   const [pdf, setPdf] = useState("");
   const [secondary, setSecondary] = useState("");
@@ -147,7 +149,7 @@ const useExhibitorCreate = ({ location }) => {
 
   useEffect(() => {
     serviceExhibitorsList({
-      list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP", "HALLS"],
+      list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP", "HALLS", "PRODUCT_TAGS"],
     }).then((res) => {
       if (!res.error) {
         setListData(res.data);
@@ -189,7 +191,7 @@ const useExhibitorCreate = ({ location }) => {
           setSecondary(data?.secondary_user_id);
           setForm({
             ...form,
-            // products: data?.products,
+            products: data?.products,
             company_name: data?.company_name,
             // product_groups: data?.product_groups,
             product_categories: data?.product_categories,
@@ -202,7 +204,7 @@ const useExhibitorCreate = ({ location }) => {
             company_address: data?.company_address,
             country_code: data?.country_code,
             is_participant: data?.is_participant,
-            contact:data?.contact,
+            contact: data?.contact,
             is_recommended: data?.is_recommended,
             show_profile: data?.show_profile,
             country: data?.country,
@@ -214,7 +216,11 @@ const useExhibitorCreate = ({ location }) => {
             twitter_link: data?.twitter_link,
             hall: data?.hall?.hall_no,
             // zone_tag: data?.zone_tag,
-            country_code1:data?.country_code1,
+            partner_tag:
+              data?.partner_tag === "gold partner"
+                ? data?.partner_tag
+                : capitalizeFirstLetter(data?.partner_tag),
+            country_code1: data?.country_code1,
             event_stall: data?.event_stall,
             website: data?.website,
             secondary_perosn_name: data?.secondary_perosn_name,
@@ -222,9 +228,9 @@ const useExhibitorCreate = ({ location }) => {
             brand_name: data?.brand_name,
             secondary_email: data?.secondary_email,
             other_conatct_number: data?.other_conatct_number,
-            partner_tag: data?.partner_tag
-              ? data?.partner_tag?.toUpperCase()
-              : "",
+            // partner_tag: data?.partner_tag
+            //   ? data?.partner_tag?.toUpperCase()
+            //   : "",
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             is_partner: data?.is_partner,
             primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
@@ -394,13 +400,13 @@ const useExhibitorCreate = ({ location }) => {
       // "company_logo",
       "company_name",
       // "product_groups",
-      "product_categories",
-      // "event_venue",
-      "primary_email",
-      "company_perosn_name",
-      "conatct_person_designation",
-      "primary_conatct_number",
-      "company_address",
+      // "product_categories",
+      // // "event_venue",
+      // "primary_email",
+      // "company_perosn_name",
+      // "conatct_person_designation",
+      // "primary_conatct_number",
+      // "company_address",
       // "country_code",
       // "fileName",
       // "documentUpload",
@@ -408,18 +414,18 @@ const useExhibitorCreate = ({ location }) => {
       // "url",
     ];
 
-    if (form?.is_partner) {
-      required.push("partner_tag");
-    } else {
-      delete errors["partner_tag"];
-    }
+    // if (form?.is_partner) {
+    //   required.push("partner_tag");
+    // } else {
+    //   delete errors["partner_tag"];
+    // }
     if (!empId) {
       required.push("company_logo");
     }
     required.forEach((val) => {
-      if (form?.product_categories?.length === 0) {
-        errors["product_categories"] = true;
-      }
+      // if (form?.product_categories?.length === 0) {
+      //   errors["product_categories"] = true;
+      // }
       // if (form?.product_groups?.length === 0) {
       //   errors["product_groups"] = true;
       // }
@@ -497,7 +503,12 @@ const useExhibitorCreate = ({ location }) => {
     }
     setIsSubmitting(true);
     const fd = new FormData();
+    const industryID =
+      Array.isArray(form?.products) && form?.products?.length > 0
+        ? form?.products?.map((item) => item) // item.id || item._id
+        : [];
     Object.keys(form).forEach((key) => {
+    
       if (
         // key !== "company_logo",
         // key !== "gallery_images"
@@ -507,7 +518,7 @@ const useExhibitorCreate = ({ location }) => {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
         } else if (
-           key === "product_offered" ||
+          //  key === "products" ||
           key === "product_categories" ||
           key === "product_groups" ||
           // key === "zone_tag" ||
@@ -525,24 +536,32 @@ const useExhibitorCreate = ({ location }) => {
           } else {
             fd.append(key, JSON.stringify(form[key]));
           }
-        } else if (key === "partner_tag") {
+        }else if (key === "products") {
+          industryID.length > 0 && fd.append(key, industryID.join(","));
+        }  else if (key === "partner_tag") {
           if (form?.is_partner) {
-            fd.append(key, form?.partner_tag);
+            fd.append(key, capitalizeFirstLetter(form?.partner_tag));
           }
         } else {
           fd.append(key, form[key]);
         }
       }
     });
-    // if (form?.company_brochure) {
-    //   fd.append("company_brochure", form?.company_brochure);
+    // else if (key === "is_featured") {
+         
+      // fd.append(
+      //   "is_featured",
+      //   form?.is_participant === true" ? false : true
+      // );
+ 
+    // if (form?.products) {
+    //   industryID?.length > 0 &&  fd.append("products", industryID?.join(","));
     // }
     const ExpensesData = ChildenRef.current.getData();
     ExpensesData.forEach((val) => {
-      console.log({ val });
       if (val?.documentUpload) {
         fd.append("download_documents", val?.documentUpload);
-      } 
+      }
       // else {
       //   const file = dataURLtoFile(nullImg, "null.png");
       //   fd.append("download_documents", file);
@@ -600,14 +619,10 @@ const useExhibitorCreate = ({ location }) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    const isIncludesValid = ChildenRef.current.isValid();
-    const isIncludesValid1 = ChildenRef1.current.isValid();
+    // const isIncludesValid = ChildenRef.current.isValid();
+    // const isIncludesValid1 = ChildenRef1.current.isValid();
 
-    if (
-      Object.keys(errors).length > 0 ||
-      !isIncludesValid ||
-      !isIncludesValid1
-    ) {
+    if (Object.keys(errors).length > 0) {
       setErrorData(errors);
 
       return;
@@ -654,8 +669,7 @@ const useExhibitorCreate = ({ location }) => {
         } else {
           SnackbarUtils.error("Maximum 2 products can be added");
         }
-      } else if (fieldName === "product_offered") {
-        console.log({text})
+      } else if (fieldName === "products") {
         const newValues = text?.filter((item) => item.trim() !== "");
         const uniqueValues = text
           ? newValues?.filter(
@@ -758,7 +772,7 @@ const useExhibitorCreate = ({ location }) => {
     downloads,
     downloadsDigitalBag,
     isSubmitting,
-    categoryLists
+    categoryLists,
   };
 };
 

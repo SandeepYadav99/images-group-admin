@@ -95,8 +95,8 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Product offered:</p>
                   {""}
-                  {detail?.details?.product_offer
-                    ? detail?.details?.product_offer
+                  {detail?.details?.products
+                    ? detail?.details?.products?.map((res, index)=><p>{res}   {index !== detail.details.products.length - 1 ? ",  " : " "}</p>)
                     : "--"}
                 </div>
                 <div className={styles.headingDataType}>
@@ -368,62 +368,7 @@ const ExhibitorDetail = () => {
               <div>{detail?.details?.company_description}</div>
               {/* <b>Gallery Images</b> */}
             </div>
-            {/* <div className={styles.wrappedContentImage}>
-            {detail?.details?.gallery_images.length > 0 ? (
-              detail?.details?.gallery_images?.map((val) => (
-                <a href={val} target="_blank">
-                  <img
-                    src={val}
-                    alt="images"
-                    height={"100px"}
-                    width={"100px"}
-                  />
-                </a>
-              ))
-            ) : (
-              <span>No Image ..</span>
-            )}
-          </div>
-          <div
-            style={{
-              marginBottom: "10px",
-              marginTop: "10px",
-              display: "flex",
-              justifyContent: "flex-start",
-              gap: "20px",
-            }}
-          >
-            <b style={{ fontSize: "16px" }}>Company Brochure :</b>
-            {detail?.details?.company_brochure ? (
-              <a
-                href={detail?.details?.company_brochure}
-                target="_blank"
-                style={{ fontWeight: "600", color: "blue" }}
-              >
-                <span>View Preview </span>
-              </a>
-            ) : (
-              "N/A"
-            )}
-          </div>
-          <div className={styles.lastBlock}>
-            <div className={styles.headingDataType}>
-              <p className={styles.text}>Created at:</p>
-              {detail?.details?.createdAtText
-                ? detail?.details?.createdAtText
-                : "--"}
-            </div>
-            <div className={styles.headingDataType}>
-              <p className={styles.text}>Status:</p>
-              {detail?.details?.status ? detail?.details?.status : "--"}
-            </div>
-            <div className={styles.headingDataType}>
-              <p className={styles.text}>Updated on:</p>
-              {detail?.details?.updatedAtText
-                ? detail?.details?.updatedAtText
-                : "--"}
-            </div>
-          </div> */}
+        
             <br />
           </div>
         )}

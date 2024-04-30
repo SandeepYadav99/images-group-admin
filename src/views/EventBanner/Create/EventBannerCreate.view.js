@@ -106,7 +106,7 @@ function EventBannerCreate({ location }) {
           <div className={"formGroup"}>
             {!image && (
               <File
-                max_size={10 * 1024 * 1024}
+                max_size={5 * 1024 * 1024}
                 type={["jpeg", "jpg", "png"]}
                 fullWidth={true}
                 name="od1"
@@ -145,7 +145,7 @@ function EventBannerCreate({ location }) {
               handleChange={() => {
                 changeTextData(!form?.status, "status");
               }}
-              label={`Active`}
+              label={ form?.status ? `Active` : `Inactive`}
             />
           </div>
         </div>

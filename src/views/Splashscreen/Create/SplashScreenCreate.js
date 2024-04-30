@@ -143,7 +143,7 @@ function SplashScreenCreate({ location }) {
               handleChange={() => {
                 changeTextData(!form?.status, "status");
               }}
-              label={`Active`}
+              label={form?.status ?`Active` : `Inactive`}
             />
           </div>
         </div>
@@ -154,11 +154,11 @@ function SplashScreenCreate({ location }) {
             className={styles.createBtn}
             onClick={handleSubmit}
           >
-            {/* {isSubmitting ? (
+            {isSubmitting ? (
               <CircularProgress color="success" size="20px" />
-            ) : ( */}
-            ADD
-            {/* )} */}
+            ) : (
+              "ADD"
+            )}
           </ButtonBase>
         </div>
       </div>
