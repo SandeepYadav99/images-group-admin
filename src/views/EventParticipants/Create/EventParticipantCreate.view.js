@@ -61,7 +61,10 @@ const EventParticipantCreateView = ({
           value={form?.contact}
           onTextChange={(text) => {
               changeTextData(text, "contact");
-          }}   
+          }}
+          onBlur={() => {
+              onBlurHandler("contact");
+          }}
           />
           {/* <div style={{ display: "flex", gap: "10px" }}>
             <CountryInputField
