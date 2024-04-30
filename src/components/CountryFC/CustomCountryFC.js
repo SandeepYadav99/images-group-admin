@@ -13,7 +13,7 @@ const CustomCountryFC = ({
   errorText,
   label,
   onTextChange,
-
+                             onBlur
 }) => {
   return (
     <div
@@ -42,6 +42,7 @@ const CustomCountryFC = ({
         onChange={(text) => {
           onTextChange && onTextChange(text);
         }}
+        onBlur={() => {onBlur && onBlur()}}
       />
       {errorText ?
       <p
