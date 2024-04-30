@@ -1057,7 +1057,7 @@ function EventCreate() {
                 // disabled={isSubmitting ? true : false}
                 type={"button"}
                 className={styles.createBtn}
-                onClick={() => handleSubmit("PENDING")}
+                onClick={() => handleSubmit("UPCOMING")}
               >
                 {isSubmitting ? (
                   <CircularProgress color="success" size="20px" />
