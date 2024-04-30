@@ -11,10 +11,19 @@ import { useCallback, useEffect, useState } from "react";
 import { Sync } from "@material-ui/icons";
 import AditnalDetail from "./ProfileDetails/AditinalDetail.js";
 import UpdateStatusPopup from "./components/UpdateStatusPopup.js";
+import historyUtils from "../../../libs/history.utils";
 
 const UserProfile = () => {
   const params = useParams();
   const [isAcceptPopUp, setIsAcceptPopUp] = useState(false);
+  const [value, setValue] = useState(0);
+
+  const handleChange = useCallback(
+    (event, newValue) => {
+      setValue(newValue);
+    },
+    [setValue, value]
+  );
 
   const toggleAcceptDialog = useCallback(
     (obj) => {
@@ -25,12 +34,18 @@ const UserProfile = () => {
   );
   useEffect(() => {}, [params?.id]);
 
+  const handleGoBack = useCallback(() => {
+    // if (value >= 0 && value <= 3) {
+      historyUtils.push("/app");
+    // }
+  }, [value]);
+  
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
           {" "}
-          <ButtonBase onClick={() => history.goBack()}>
+          <ButtonBase onClick={() => handleGoBack()}>
             <ArrowBackIosIcon fontSize={"small"} />{" "}
             <span>
               <b> User Details</b>
@@ -39,7 +54,10 @@ const UserProfile = () => {
           <div className={styles.newLine} />{" "}
         </div>
       </div>
-      <div className={styles.topNavBar}> <TopNavBar data={0} /> </div>
+      <div className={styles.topNavBar}>
+        {" "}
+        <TopNavBar data={value} handleChange={handleChange} />{" "}
+      </div>
       <div>
         <div>
           <Paper
@@ -50,7 +68,10 @@ const UserProfile = () => {
               <p>
                 <b>Personal Information</b>
               </p>
-              <ButtonBase className={styles.update_status} onClick={toggleAcceptDialog}>
+              <ButtonBase
+                className={styles.update_status}
+                onClick={toggleAcceptDialog}
+              >
                 Update Status <Sync />
               </ButtonBase>
             </div>

@@ -95,8 +95,8 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Product offered:</p>
                   {""}
-                  {detail?.details?.product_offer
-                    ? detail?.details?.product_offer
+                  {detail?.details?.products
+                    ? detail?.details?.products?.map((res, index)=><p>{res}   {index !== detail.details.products.length - 1 ? ",  " : " "}</p>)
                     : "--"}
                 </div>
                 <div className={styles.headingDataType}>

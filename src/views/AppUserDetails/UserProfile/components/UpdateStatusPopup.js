@@ -87,7 +87,7 @@ const UpdateStatusPopup = ({ isOpen, handleToggle, candidateId }) => {
                 <MenuItem value="ACTIVE">Active</MenuItem>
                 <MenuItem value="INACTIVE">Inactive</MenuItem>
                 <MenuItem value="SUSPENDED">Suspended</MenuItem>  
-                 <MenuItem value="DELETED">Deleted</MenuItem>                 
+                 {/* <MenuItem value="DELETED">Deleted</MenuItem>                  */}
               </CustomSelectField>
             </div>
           </div>

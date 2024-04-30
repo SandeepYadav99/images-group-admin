@@ -31,8 +31,8 @@ const UpperInfoComponent = ({ data }) => {
           <div className={styles.vertical}></div>
           <div className={styles.left}>
             <div className={styles.key}>
-              <span className={styles.value}>Reg Id:</span>
-              {data?.reg_id}
+              <span className={styles.value}>Ref Id:</span>
+              { data?.ref_id || data?.reg_id}
             </div>
 
             <div className={styles.key}>

@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import DeleteIcon from "../../../../assets/img/ic_delete.png";
 import CommentIcon from "../../../../assets/img/ic_comment.png";
 import CommentPopUp from "../../../../components/CommentPopUp/CommentPopUp";
+import ImageCourselPopUp from "../../../../components/ImageCourselPopUp/ImageCourselPopUp.js";
 
 
 const FeedPostModule = ({ user_id }) => {
@@ -53,6 +54,18 @@ const FeedPostModule = ({ user_id }) => {
     postComment,
     profileFeeds,
   } = useSelector((state) => state.App_User);
+  const [openPopUp, setOpenPopUp] = useState(false);
+  const [contentData, setContentData] = useState([]);
+  const handleOpenPopUp = (all) => {
+    // if (id) {
+      setOpenPopUp(true);
+      setContentData(all);
+    // }
+  };
+
+  const handleClose = () => {
+    setOpenPopUp(false);
+  };
 
   const handleDelete = (post_id) => {
     dispatch(feedDeleteAppuser({ post_id }));
@@ -110,25 +123,54 @@ const FeedPostModule = ({ user_id }) => {
         label: "Image/Video",
         sortable: true,
         render: (temp, all) => (
-          <div
+          // <div
+          // >
+          //   {all?.images?.length > 0 ? (
+          //     all?.images[0]?.includes("MP4") ? (
+          //       <video
+          //         src={all?.images[0]}
+          //         style={{ height: "40px", width: "60px" }}
+          //       />
+          //     ) : (
+          //       <img
+          //         src={all?.images[0] || all?.images}
+          //         alt="img"
+          //         style={{ height: "40px", width: "60px" }}
+          //       />
+          //     )
+          //   ) : (
+          //     <div> - </div>
+          //   )}
+          // </div>
+          <div className={styles.alignSpace}>
+          {all?.images.length > 0 ? (
+            <img
+              src={all?.images[0]}
+              onClick={() => handleOpenPopUp(all?.images)}
+              alt="image"
+              style={{ height: "50px", width: "50px", cursor: "pointer" }}
+            />
+          ) : all?.video ? (
+            <img
+              src={all?.user?.image}
+              onClick={() => {
+                // toggleVideoModal(all?.video);
+              }}
+              alt="image"
+              style={{ height: "50px", width: "50px", cursor: "pointer" }}
+            />
+          ) : (
+            "-No Image-"
+          )}
+          {/*  */}
+          <p
+            className={styles.alignUnderline}
+            onClick={() => handleOpenPopUp(all?.images)}
           >
-            {all?.images?.length > 0 ? (
-              all?.images[0]?.includes("MP4") ? (
-                <video
-                  src={all?.images[0]}
-                  style={{ height: "40px", width: "60px" }}
-                />
-              ) : (
-                <img
-                  src={all?.images[0] || all?.images}
-                  alt="img"
-                  style={{ height: "40px", width: "60px" }}
-                />
-              )
-            ) : (
-              <div> - </div>
-            )}
-          </div>
+            {all?.images?.length > 1 ? "+" : ""}
+            {all?.images?.length > 1 ? all?.images.length : ""}
+          </p>
+        </div>
         ),
       },
 
@@ -241,6 +283,13 @@ const FeedPostModule = ({ user_id }) => {
           empId={editData}
         />
       </SidePanelComponent>
+      {openPopUp && (
+        <ImageCourselPopUp
+          open={openPopUp}
+          content={contentData}
+          handleClose={handleClose}
+        />
+      )}
       <CommentPopUp open={popUp} title={"Comments"}  onClick={handleClosePopUp} commentDetail={postComment?.data}/>
     </PageBox>
   );

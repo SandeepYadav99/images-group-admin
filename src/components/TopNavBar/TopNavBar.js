@@ -4,23 +4,24 @@ import Tab from "@material-ui/core/Tab";
 import { useState, useCallback } from "react";
 import styles from "./Style.module.css";
 import { Link, useParams } from "react-router-dom";
+import { DataUsageOutlined } from "@material-ui/icons";
 
-const TopNavBar = ({ data }) => {
+const TopNavBar = ({ data , handleChange}) => {
   const params = useParams();
-  const [value, setValue] = useState(data);
-  console.log({value})
-  const handleChange = useCallback(
-    (event, newValue) => {
-      setValue(newValue);
-    },
-    [setValue, value]
-  );
+  // const [value, setValue] = useState(data);
+
+  // const handleChange = useCallback(
+  //   (event, newValue) => {
+  //     setValue(newValue);
+  //   },
+  //   [setValue, value]
+  // );
 
   return (
     <>
       <AppBar position="static" className={styles.backgroundColor}>
         <Tabs
-          value={value}
+          value={data}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
