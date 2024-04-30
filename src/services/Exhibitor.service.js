@@ -10,7 +10,7 @@ export async function serviceUpdateExhibitors(params) {
 
 export async function serviceUpdateFileUpdate(params) {
   // console.log({type})
-  return await formDataRequestCustom("files/upload", params);
+  return await formDataRequest("files/upload", params);
 }
 export async function serviceGetExhibitorsDetails(params) {
   return await postRequest("exhibitors/detail", params);
