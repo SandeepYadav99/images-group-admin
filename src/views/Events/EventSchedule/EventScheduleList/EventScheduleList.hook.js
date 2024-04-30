@@ -31,6 +31,8 @@ const useEventScheduleList = ({}) => {
   const [speakerId, setSpeakerId] = useState("");
   const [scheduleStatus, setScheduleStatus] = useState("");
   const [isUpdateStatus, setIsUpdateStatus] = useState(false);
+  const [isDeletedPopUp,setIsDeletedPopUp]=useState(false)
+  const [deletedId ,setDeletedId]=useState(null)
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const { id } = useParams();
@@ -162,7 +164,7 @@ const useEventScheduleList = ({}) => {
   );
 
   const handleDeleteData = (all) => {
-    serviceDeleteEventSchedule({ id: all?.id }).then((res) =>{
+    serviceDeleteEventSchedule({ id: deletedId?.id }).then((res) =>{
       if(!res.error){
         SnackbarUtils.success("Updated successfully")
         window.location.reload()
@@ -291,7 +293,18 @@ const useEventScheduleList = ({}) => {
     ];
   }, []);
 
+  const toggleDeletedDialog = useCallback(
+    (obj) => {
+      setIsDeletedPopUp((e) => !e);
+     
+      setDeletedId({ ...obj });
+    },
+    [isRejectPopUp, setDataValue]
+  );
+
   return {
+    isDeletedPopUp,
+    toggleDeletedDialog,
     handlePageChange,
     handleDataSave,
     handleFilterDataChange,
@@ -322,6 +335,7 @@ const useEventScheduleList = ({}) => {
     toggleUpdateStatus,
     isUpdateStatus,
     scheduleStatus,
+    
   };
 };
 

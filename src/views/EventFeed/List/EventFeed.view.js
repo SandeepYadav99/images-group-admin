@@ -92,7 +92,7 @@ const EventFeed = ({}) => {
             />
           ) : all?.video ? (
             <img
-              src={all?.user?.image}
+            src={require('../../../assets/img/video_icon.png')}
               onClick={() => {
                 toggleVideoModal(all?.video);
               }}

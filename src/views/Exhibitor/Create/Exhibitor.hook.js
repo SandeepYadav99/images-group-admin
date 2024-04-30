@@ -508,6 +508,7 @@ const useExhibitorCreate = ({ location }) => {
         ? form?.products?.map((item) => item) // item.id || item._id
         : [];
     Object.keys(form).forEach((key) => {
+    
       if (
         // key !== "company_logo",
         // key !== "gallery_images"
@@ -535,7 +536,9 @@ const useExhibitorCreate = ({ location }) => {
           } else {
             fd.append(key, JSON.stringify(form[key]));
           }
-        } else if (key === "partner_tag") {
+        }else if (key === "products") {
+          industryID.length > 0 && fd.append(key, industryID.join(","));
+        }  else if (key === "partner_tag") {
           if (form?.is_partner) {
             fd.append(key, capitalizeFirstLetter(form?.partner_tag));
           }
@@ -544,8 +547,15 @@ const useExhibitorCreate = ({ location }) => {
         }
       }
     });
+    // else if (key === "is_featured") {
+         
+      // fd.append(
+      //   "is_featured",
+      //   form?.is_participant === true" ? false : true
+      // );
+ 
     // if (form?.products) {
-    //   industryID.length > 0 &&  fd.append("products", industryID?.join(","));
+    //   industryID?.length > 0 &&  fd.append("products", industryID?.join(","));
     // }
     const ExpensesData = ChildenRef.current.getData();
     ExpensesData.forEach((val) => {

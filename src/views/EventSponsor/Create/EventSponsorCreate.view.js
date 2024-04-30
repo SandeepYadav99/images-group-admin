@@ -104,7 +104,7 @@ function EventSponsorCreate({ location }) {
             )} */}
             {renderImage()}
             <div>
-              <ToolTipInfo />
+              <ToolTipInfo value="5"/>
             </div>
           </div>
 
