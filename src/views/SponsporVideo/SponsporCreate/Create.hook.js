@@ -73,6 +73,7 @@ function useVideoCreate({ location }) {
           setForm({
             name:data?.name,
             status: data?.status === constants.GENERAL_STATUS.ACTIVE,
+            video:null
           })
         } else {
           SnackbarUtils.error(res?.message);
@@ -138,14 +139,18 @@ function useVideoCreate({ location }) {
         const fd = new FormData();
 
         Object.keys(form).forEach((key) => {
-          if (key === "status") {
-            fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-          }
-          else {
-            fd.append(key, form[key]);
+          if(key !=="video"){
+            if (key === "status") {
+              fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+            }
+            else {
+              fd.append(key, form[key]);
+            }
           }
         });
-
+        if(form?.video){
+          fd.append("video",form?.video)
+        }
         fd.append("event_id", selectedEventId );
         let req;
         if (id) {
