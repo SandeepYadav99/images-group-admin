@@ -12,6 +12,7 @@ import { actionFetchHallMasterList } from "../../../actions/HallMaster.action";
 import { useDispatch } from "react-redux";
 import {
   serviceCreateMeetingCallendarBookWith,
+  serviceCreateMeetingCallendarCreate,
   serviceCreateMeetingCallendarDate,
   serviceCreateMeetingCallendarRooms,
   serviceCreateMeetingCallendarTimeSlot,
@@ -79,7 +80,7 @@ const useMeetingsCalendarCreateHook = ({
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name"];
+    let required = [];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -160,22 +161,23 @@ const useMeetingsCalendarCreateHook = ({
     if (!isSubmitting) {
       setIsSubmitting(true);
       const payloadData = {
-        hall_no: form?.name,
-        description: form?.des,
-        status: form?.status ? "ACTIVE" : "INACTIVE",
-      };
+        slot_id: "66221dda43e9b2d342b2df6e", 
+        booked_by: bookUser, 
+        booked_with: "66192e315b7286de54153964"
+    }
       let req;
-      if (empId) {
-        req = serviceUpdateHallMasterList({ ...payloadData, id: empId });
-      } else {
-        req = serviceCreateHallMasterList(payloadData);
-      }
+      // if (empId) {
+      //   req = serviceUpdateHallMasterList({ ...payloadData, id: empId });
+      // } else {
+      //   req = serviceCreateHallMasterList(payloadData);
+      // }
+      req = serviceCreateMeetingCallendarCreate(payloadData)
       req.then((res) => {
         if (!res.error) {
           // historyUtils.goBack();
-          // window.location.reload();
+           window.location.reload();
           handleToggleSidePannel();
-          dispatch(actionFetchHallMasterList(1));
+          // dispatch(actionFetchHallMasterList(1));
         } else {
           SnackbarUtils.error(res.message);
         }
@@ -188,6 +190,7 @@ const useMeetingsCalendarCreateHook = ({
     const errors = checkFormValidation();
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
+      console.log({errors})
       return true;
     }
     submitToServer();

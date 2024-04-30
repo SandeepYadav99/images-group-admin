@@ -209,13 +209,13 @@ const MeetingsCalendarCreate = ({
             onClick={handleSubmit}
             className={styles.createBtn}
           >
-            {isSubmitting ? (
+            {/* {isSubmitting ? (
               <CircularProgress color="success" size="20px" />
             ) : empId ? (
               "AUTO CONFIRM"
-            ) : (
-              "AUTO CONFIRM"
-            )}
+            ) : ( */}
+              AUTO CONFIRM
+            {/* )} */}
           </ButtonBase>
         </div>
       </div>
