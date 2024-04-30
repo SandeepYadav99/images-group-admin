@@ -60,7 +60,12 @@
   right: 10px;
   cursor: pointer;
 }
-
+.company {
+  word-wrap: break-word;
+  /* width: 90%; */
+  width: 230px;
+  /* text-align: justify; */
+}
 .textDecoration {
   text-overflow: ellipsis;
   width: 150px;
@@ -69,6 +74,6 @@
   letter-spacing: 1px;
 }
 
-.titleCompany{
+.titleCompany {
   font-weight: 600;
 }

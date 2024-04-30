@@ -121,3 +121,7 @@
     width:90%;
     color: black;
   }
+  .alignSpace{
+    display: flex !important;
+    gap: 10px;
+  }

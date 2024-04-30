@@ -213,6 +213,10 @@ function useEventSponsorCreate({ location }) {
               fd.append(key, JSON.stringify(form[key]));
             } else if (key === "status") {
               fd.append("status", form[key] ? "ACTIVE" : "INACTIVE");
+            } else if (key === "priority") {
+              fd.append("priority", form[key] ? form?.priority : "");
+            } else if (key === "contact") {
+              fd.append("contact", form[key] ? form?.contact : "");
             } else if (key === "is_featured") {
               fd.append("is_featured", form?.is_featured ? true : false);
             } else {

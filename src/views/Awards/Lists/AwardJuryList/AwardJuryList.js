@@ -18,7 +18,7 @@ const AwardJuryList = ({ data, awardId, callAPi }) => {
     selectedData,
     handleCallDetail,
   } = useAwardJuryListHook({ data, awardId, callAPi });
-
+console.log({data})
   return (
     <div>
       <Paper
@@ -49,7 +49,8 @@ const AwardJuryList = ({ data, awardId, callAPi }) => {
                 alt=".."
               />
               <div className={styles.titleCompany}>{item?.name}</div>
-              <div>{item?.company}</div>
+            
+              <div className={styles.company}>{item?.designation},{item?.company}</div>
               <div className={styles.delete}>
                 <DeleteOutline
                   fontSize="small"

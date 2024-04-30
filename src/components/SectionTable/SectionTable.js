@@ -14,7 +14,7 @@ const SessionTable = ({ data }) => {
           <div className={styles.timeing}>
             Overall Rating
             <br />
-            {data?.avg ? data?.avg : "0"} ⭐ ({data?.totalCount ? data?.totalCount : "0"})
+            {data?.avg && data?.avg !== "NaN" ? data?.avg  : "0"} ⭐ ({data?.totalCount ? data?.totalCount : "0"})
           </div>
         </div>
         <div className={styles.tableContainer}>

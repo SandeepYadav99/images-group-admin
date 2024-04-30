@@ -43,7 +43,7 @@ const ChildrenIncludeFields = ({
   onBlur,
   currency,
   listWarehouse,
-  empId,
+  exhibitorId,
 }) => {
   const handleChange = (e, fieldName) => {
     // const name = e?.target?.name;
@@ -63,32 +63,8 @@ const ChildrenIncludeFields = ({
     <div>
       <div className={styles.flexContainer}>
         <div className={styles.firstRow}>
-          <div className={styles.cont}>
-            <div className={"formFlex"}>
-              <div className={"formGroup"}>
-                <File
-                  // imageClass={styles.inputFileUploader}
-                  max_size={5 * 1024 * 1024}
-                  type={["png", "jpeg", "jpg"]}
-                  fullWidth={true}
-                  name="images"
-                  accept={"image/*"}
-                  default_image={data?.thumbnail || null}
-                  label="Upload  Image"
-                  show_image={true}
-                  error={errors?.images}
-                  value={data?.images}
-                  onChange={(file) => {
-                    if (file) {
-                      handleChange(file, "images");
-                    }
-                  }}
-                  // onChange={(file) => {
-                  //   handleChange({ target: { name: 'documentUpload', value: file }});
-                  // }}
-                />
-              </div>
-            </div>
+          <div >
+          
             <div className={styles.lowerWrap}>
               <div className={"formFlex"}>
                 <div className={"formGroup"}>
@@ -118,6 +94,35 @@ const ChildrenIncludeFields = ({
                   />
                 </div>
               </div>
+              <div className={"formFlex"}>
+              <div className={"formGroup"}>
+                <File
+                  // imageClass={styles.inputFileUploader}
+                  max_size={5 * 1024 * 1024}
+                  type={["png", "jpeg", "jpg"]}
+                  fullWidth={true}
+                  name="images"
+                  accept={"image/*"}
+                  // default_image={data?.thumbnail || null}
+                  label="Upload  Image"
+                  // show_image={true}
+                  placeholder={"Upload  Image"}
+                  error={errors?.images}
+                  value={data?.images || ""}
+                  onChange={(file) => {
+                    if (file) {
+                      handleChange(file, "images");
+                    }
+                  }}
+                  // onChange={(file) => {
+                  //   handleChange({ target: { name: 'documentUpload', value: file }});
+                  // }}
+                />
+                  <div className={styles.inst} >
+                  {exhibitorId   && <a href={data?.thumbnail ?? " "} target="_blank" rel="noreferrer" >View File</a>}
+               </div>
+              </div>
+            </div>
             </div>
           </div>
 
