@@ -124,7 +124,7 @@ const EventScheduleContainer = ({}) => {
         key: "status",
         label: "STATUS",
         sortable: true,
-        render: (temp, all) => <div>{<StatusPill status={all.status} />}</div>,
+        render: (temp, all) => <div>{all.schedule_activity && <StatusPill status={all.schedule_activity} />}</div>,
       },
       {
         key: "user_id",

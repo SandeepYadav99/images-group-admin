@@ -74,7 +74,7 @@ console.log({images})
           <div>
             <File
               // imageClass={styles.inputFileUploader}
-              max_size={5 * 1024 * 1024}
+              max_size={2 * 1024 * 1024}
               type={["png", "jpeg", "jpg"]}
               fullWidth={true}
               name="document"

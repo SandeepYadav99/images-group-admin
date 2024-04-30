@@ -128,7 +128,7 @@ const EventList = ({}) => {
             >
               <Menu fontSize={"small"} />
             </IconButton>
-            <IconButton
+            {/* <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
@@ -137,7 +137,7 @@ const EventList = ({}) => {
               }}
             >
               <Delete fontSize={"small"} />
-            </IconButton>
+            </IconButton> */}
             <IconButton
               className={"tableActionBtn"}
               color="secondary"

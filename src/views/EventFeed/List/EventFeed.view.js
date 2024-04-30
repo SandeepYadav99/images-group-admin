@@ -81,27 +81,7 @@ const EventFeed = ({}) => {
         label: "Image/Video",
         sortable: true,
         render: (temp, all) => (
-          // <div
-          //   className={styles.alignInline}
-          //   onClick={() => handleOpenPopUp(all?.id)}
-          // >
-          //   {
-          //     all?.images?.length >0 ? (
-          //       <img
-          //         src={all?.images[0]}
-          //         alt="img"
-          //         style={{ height: "40px", width: "60px" }}
-          //       />
-          //     ) : (
-          //       <video style={{ height: "40px", width: "60px" }} autoPlay controls>
-          //         <source src={all?.video} type="video/mp4" />
-          //       </video>
-          //     )
-          //   }
-          //   {all?.imageCount !== "+0" && (
-          //     <div className={styles.count}> {all?.imageCount}</div>
-          //   )}
-          // </div>
+       
           <div className={styles.alignSpace}>
           {all?.images.length > 0 ? (
             <img
