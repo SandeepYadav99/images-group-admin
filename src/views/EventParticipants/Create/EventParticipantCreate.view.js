@@ -116,7 +116,7 @@ const EventParticipantCreateView = ({
             onBlur={() => {
               onBlurHandler("title");
             }}
-            disabled={isContactInList}
+            // disabled={isContactInList}
           />
         </div>
       </div>
@@ -165,7 +165,7 @@ const EventParticipantCreateView = ({
             onBlur={() => {
               onBlurHandler("category");
             }}
-            disabled={isContactInList}
+            // disabled={isContactInList}
           />
         </div>
       </div>

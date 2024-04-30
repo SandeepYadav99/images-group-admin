@@ -68,7 +68,7 @@ function useEventCreate() {
     description: "",
     event_prefix:"",
     logo: "",
-    thumbnail: "",
+    // thumbnail: "",
     banner: "",
     primary_colour: "",
     secondary_colour: "",
@@ -196,7 +196,7 @@ function useEventCreate() {
           });
           setFeature({ ...feature, ...features });
           setLogo(data?.logo);
-          setthumb(data?.thumbnail);
+          // setthumb(data?.thumbnail);
           setLinkBanner(data?.linkedin_image ? data?.linkedin_image : null);
           setAppBanner(data?.login_banner ? data?.login_banner : null);
           setAppBgBanner(
@@ -277,7 +277,7 @@ function useEventCreate() {
     ];
     if (!id) {
       required.push(
-        ...["logo", "thumbnail", "banner", "background_image", "linkedin_image"]
+        ...["logo", "banner", "background_image", "linkedin_image"]
       );
     }
     required.forEach((val) => {
