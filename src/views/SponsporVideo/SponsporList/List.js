@@ -109,7 +109,7 @@ const SponsporList = ({}) => {
       },
       {
         key: "video",
-        label: "video",
+        label: "Video/ Images",
         sortable: true,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
