@@ -423,10 +423,21 @@ export const EventData = [
     image: event,
     url:  RouteName.CALENDAR_COUNT,
   },
-  // {
-  //   key: "about_event",
-  //   name: "About Event",
-  //   image: event,
-  //   url: "/master",
-  // },
+  {
+    key:"privilaged_member",
+    name: "Privelege Member",
+    image: event,
+    url:  RouteName.PRIVILEGE_MEMBER,
+  },
+  {
+    key:"exhibitor_query",
+    name:"Exhibitor Query",
+    image:event,
+    url:RouteName.EXHIBITOR_QUERY,
+  },{
+    key: "custom_participant",
+    name: "Custom Participant Fields",
+    image: event,
+    url: RouteName.CUSTOM_PARTICIPANT,
+  },
 ];

@@ -101,7 +101,7 @@ function useEventCreate() {
     event_participants: true,
     event_schedule: true,
     about_event: true,
-    exhibitor: false,
+    exhibitor: true,
     testimonial: false,
     manu_graphic: false,
     event_organizing_committee: false,
@@ -125,7 +125,11 @@ function useEventCreate() {
     event_highlights: true,
     meeting_rooms: true,
     meeting_calendar:true,
-    event_calendar:true
+    event_calendar:true,
+    privilaged_member:true,
+    exhibitor_query:true,
+    custom_participant:true,
+    // event_calendar:true
   };
 
   const colorKey = [

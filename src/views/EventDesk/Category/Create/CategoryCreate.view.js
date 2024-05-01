@@ -1,12 +1,15 @@
 import React from "react";
-import { ButtonBase, CircularProgress } from "@material-ui/core";
+import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../../libs/history.utils";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import CustomSwitch from "../../../../components/FormFields/CustomSwitch";
-import useAdminCreate from "./CategoryCreateHook";
+import useCategoryCreate from "./CategoryCreateHook";
 import CountryInputField from "../../../../components/CountryInputField/CountryInputField.js";
+import country_code from "../../../../assets/country_code.json";
+import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component.js";
+import CustomCountryFC from "../../../../components/CountryFC/CustomCountryFC.js";
 
 const CategoryCreateView = ({ location }) => {
   const {
@@ -19,8 +22,8 @@ const CategoryCreateView = ({ location }) => {
     id,
     countryCode,
     handleCountryCodeChange,
-  } = useAdminCreate({ location });
- 
+  } = useCategoryCreate({ location });
+
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -58,26 +61,20 @@ const CategoryCreateView = ({ location }) => {
           </div>
         </div>
         <div className={"formFlex"}>
-            <div className={"formGroup"}>
-            <div style={{ display: "flex", gap: "8px" }}>
-              <CountryInputField
-                countryCode={countryCode}
-                handleCountryCodeChange={handleCountryCodeChange}
-              />
-              <CustomTextField
-                type="tel"
-                isError={errorData?.contact}
-                errorText={errorData?.contact}
-                label={"Contact"}
-                value={form?.contact}
-                onTextChange={(text) => {
-                  changeTextData(text, "contact");
-                }}
-                onBlur={() => {
-                  onBlurHandler("contact");
-                }}
-              />
-            </div>
+          <div className={"formGroup"}>
+            <CustomCountryFC
+              type="tel"
+              isError={errorData?.contact}
+              errorText={errorData?.contact}
+              label={"Contact"}
+              value={form?.contact}
+              onTextChange={(text) => {
+                changeTextData(text, "contact");
+              }}
+              onBlur={() => {
+                onBlurHandler("contact");
+              }}
+            />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
@@ -87,7 +84,9 @@ const CategoryCreateView = ({ location }) => {
               label={"Priority"}
               value={form?.priority}
               onTextChange={(text) => {
-                changeTextData(text, "priority");
+                if (text >= 0) {
+                  changeTextData(text, "priority");
+                }
               }}
               onBlur={() => {
                 onBlurHandler("priority");
@@ -122,7 +121,7 @@ const CategoryCreateView = ({ location }) => {
               handleChange={() => {
                 changeTextData(!form?.status, "status");
               }}
-              label={`Active`}
+              label={form?.status ? `Active` : `Inactive`}
             />
           </div>
         </div>

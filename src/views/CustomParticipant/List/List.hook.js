@@ -1,95 +1,91 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-// import {
-//     actionCreateAppUser,
-//     actionDeleteAppUser,
-//     actionFetchAppUser,
-//     actionSetPageAppUser,
-//     actionUpdateAppUser,
-// } from "../../actions/AppUser.action";
-import {
-  actionCreateExhibitors,
-  actionDeleteExhibitors,
-  actionFetchExhibitors,
-  actionSetPageExhibitors,
-  actionUpdateExhibitors,
-} from "../../actions/ExhibitorQuery.action";
-import historyUtils from "../../libs/history.utils";
-import RouteName from "../../routes/Route.name";
-import { useParams } from "react-router-dom";
-import { serviceDownloadExhibitorQuery } from "../../services/ExhibitorQuery.service";
 
-const useExhibitorQuery = ({}) => {
+import historyUtils from "../../../libs/history.utils";
+import RouteName from "../../../routes/Route.name";
+import LogUtils from "../../../libs/LogUtils";
+import {
+  actionFetchCustomParticipant,
+  actionSetPageCustomParticipant,
+} from "../../../actions/CustomParticipant.action";
+import { useParams } from "react-router-dom";
+
+const useCustomParticipantList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
+  const { id } = useParams();
+
   const isMountRef = useRef(false);
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.exhibitor_query);
+  } = useSelector((state) => state.custom_participant);
 
   useEffect(() => {
-    // dispatch(actionFetchAppUser());
+    // dispatch(actionFetchCustomParticipant());
   }, []);
-
-  const params = useParams();
-
-  const { user } = useSelector((state) => state?.auth);
-
-  const paylaod = {
-    row: null,
-    order: null,
-    query: "",
-    query_data: null,
-    event_id: params?.id,
-  };
 
   useEffect(() => {
     dispatch(
-      actionFetchExhibitors(1, params?.id, {
-        query: isMountRef.current ? query : null,
-        query_data: isMountRef.current ? queryData : null,
-      })
+      actionFetchCustomParticipant(
+        1,
+        {},
+        {
+          query: isMountRef.current ? query : null,
+          query_data: isMountRef.current ? queryData : null,
+          event_id: id,
+        }
+      )
     );
     isMountRef.current = true;
-  }, []);
+  }, [id]);
 
   const handlePageChange = useCallback((type) => {
-    dispatch(actionSetPageExhibitors(type));
+    console.log("_handlePageChange", type);
+    dispatch(actionSetPageCustomParticipant(type));
   }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
-      if (type == "CREATE") {
-        dispatch(actionCreateExhibitors(data));
-      } else {
-        dispatch(actionUpdateExhibitors(data));
-      }
       setSidePanel((e) => !e);
       setEditData(null);
     },
     [setSidePanel, setEditData]
   );
 
+  const handleCreateFed = useCallback(
+    (data) => {
+      LogUtils.log("data", data);
+      historyUtils.push(`${RouteName.CUSTOM_PARTICIPANT_CREATE}`, {
+        eventID: id,
+      });
+    },
+    [id]
+  );
+
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
+      // dispatch(actionSetPageAppUserRequests(1));
       dispatch(
-        actionFetchExhibitors(1, params?.id, sortingData, {
+        actionFetchCustomParticipant(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
+          event_id: id,
         })
       );
+      // dispatch(actionFetchAppUser(1, sortingData))
     },
-    [sortingData, query, queryData]
+    [sortingData, query, queryData, id]
   );
 
   const handleFilterDataChange = useCallback(
     (value) => {
+      console.log("_handleFilterDataChange", value);
       queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
@@ -97,6 +93,7 @@ const useExhibitorQuery = ({}) => {
 
   const handleSearchValueChange = useCallback(
     (value) => {
+      console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
     },
     [queryFilter]
@@ -104,20 +101,21 @@ const useExhibitorQuery = ({}) => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      dispatch(actionSetPageExhibitors(1));
+      console.log(`handleSortOrderChange key:${row} order: ${order}`);
+      dispatch(actionSetPageCustomParticipant(1));
       dispatch(
-        actionFetchExhibitors(
+        actionFetchCustomParticipant(
           1,
-          params?.id,
           { row, order },
           {
             query: query,
             query_data: queryData,
+            event_id: id,
           }
         )
       );
     },
-    [query, queryData]
+    [query, queryData, id]
   );
 
   const handleRowSize = (page) => {
@@ -126,7 +124,7 @@ const useExhibitorQuery = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteExhibitors(id));
+      // dispatch(actionDeleteCustomParticipant(id));
       setSidePanel(false);
       setEditData(null);
     },
@@ -135,8 +133,9 @@ const useExhibitorQuery = ({}) => {
 
   const handleEdit = useCallback(
     (data) => {
-      setEditData(data);
-      setSidePanel((e) => !e);
+      // setEditData(data);
+      // setSidePanel((e) => !e);
+      historyUtils.push(RouteName.PRODUCT_CATEGORY_UPDATE + data?.id);
     },
     [setEditData, setSidePanel]
   );
@@ -156,9 +155,14 @@ const useExhibitorQuery = ({}) => {
     [setEditData, setSidePanel]
   );
 
-  const handleViewDetails = useCallback((data) => {
-    historyUtils.push(RouteName.LOCATIONS_DETAILS + data.id);
-  }, []);
+  const handleViewDetails = useCallback(
+    (data) => {
+      historyUtils.push(RouteName.CUSTOM_PARTICIPANT_UPDATE + data.id, {
+        eventID: id,
+      }); //+data.id
+    },
+    [id]
+  );
 
   const handleCreate = useCallback(() => {
     historyUtils.push(RouteName.LOCATIONS_CREATE);
@@ -174,20 +178,6 @@ const useExhibitorQuery = ({}) => {
       },
     ];
   }, []);
-
-  const handleCreatecategory = () => {
-    historyUtils.push(RouteName.CATEGORY_EVENT_ADD);
-  };
-
-  const handleDownloadExhibitor = () => {
-    serviceDownloadExhibitorQuery({ event_id: params?.id }).then((res) => {
-      if (!res?.error) {
-        const data = res?.data;
-        window.open(data, "_blank"); 
-        window.location.reload();
-      }
-    });
-  };
 
   return {
     handlePageChange,
@@ -206,9 +196,8 @@ const useExhibitorQuery = ({}) => {
     configFilter,
     handleCreate,
     handleToggleSidePannel,
-    handleCreatecategory,
-    handleDownloadExhibitor,
+    handleCreateFed,
   };
 };
 
-export default useExhibitorQuery;
+export default useCustomParticipantList;

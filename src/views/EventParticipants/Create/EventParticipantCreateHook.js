@@ -23,6 +23,7 @@ import LogUtils from "../../../libs/LogUtils";
 import { serviceGetList } from "../../../services/Common.service";
 import { useParams } from "react-router";
 import { cleanContactNumber } from "../../../helper/helper";
+import { serviceGetFullCustomParticipant } from "../../../services/CustomParticipant.service";
 
 const initialForm = {
   name: "",
@@ -30,8 +31,8 @@ const initialForm = {
   contact: "",
   email: "",
   title: "",
-  is_default_password: false,
-  ref_id: "",
+  is_default_password: true,
+  // reg_id: "",
   user_id: "",
   // is_auto: true,
   category: "",
@@ -51,6 +52,7 @@ const useEventParticipantCreate = ({
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
+  const [participantList, setParticipantList] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const includeRef = useRef(null);
   const codeDebouncer = useDebounce(form?.code, 500);
@@ -73,12 +75,28 @@ const useEventParticipantCreate = ({
   });
 
   useEffect(() => {
-    serviceGetList(["MEMBERS"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
-      }
+    Promise.allSettled([
+      serviceGetList(["MEMBERS"]),
+      serviceGetFullCustomParticipant({ event_id: id }),
+    ]).then((promises) => {
+      const Values = promises[0]?.value?.data;
+      const participant = promises[1]?.value?.data;
+      setListData(Values);
+      const participantvalues =
+        participant?.length > 0
+          ? participant?.map((item) => {
+              return {
+                key: item?.key,
+                label: item?.label,
+                value: item?.value ? item?.value : "NO",
+              };
+            })
+          : [];
+      setParticipantList([...participantvalues]);
     });
-  }, []);
+  }, [id]);
+
+  console.log("participant", participantList);
 
   useEffect(() => {
     if (empId) {
@@ -112,7 +130,7 @@ const useEventParticipantCreate = ({
     }).then((res) => {
       if (!res.error) {
         const data = res?.data;
-        
+
         if (data?.full_contact === cleanContactNumber(form?.contact)) {
           setIsContactInList(true);
         }
@@ -123,18 +141,18 @@ const useEventParticipantCreate = ({
             contact: data?.full_contact,
             email: data?.email,
             title: data.title,
-            reg_id: data?.reg_id,
-            ref_id:data?.ref_id,
+            // reg_id: data?.reg_id,
             user_id: data?.id,
             category: data?.category,
-            participant_type: data?.participants_type ? data?.participants_type : [],
+            participant_type: data?.participants_type
+              ? data?.participants_type
+              : [],
             is_awards: data?.is_awards ? "YES" : "NO",
-            is_lunch: data?.is_lunch ?"YES" :"NO",
+            is_lunch: data?.is_lunch ? "YES" : "NO",
             company_name: data?.company_name,
           };
           setForm(tForm);
-        }
-         else {
+        } else {
           if (data?.full_contact !== cleanContactNumber(form?.contact)) {
             setIsContactInList(false);
           }
@@ -145,7 +163,15 @@ const useEventParticipantCreate = ({
         }
       }
     });
-  }, [form, setForm, isContactInList,setIsContactInList, empId, id, form?.contact]);
+  }, [
+    form,
+    setForm,
+    isContactInList,
+    setIsContactInList,
+    empId,
+    id,
+    form?.contact,
+  ]);
 
   const DataSetName = [
     "EXHIBITOR",
@@ -153,7 +179,7 @@ const useEventParticipantCreate = ({
     "AWARD_PRESENTATION",
     "INNOVATORS_CLUB",
     "JURY",
-    "DELEGATE"
+    "DELEGATE",
   ];
 
   const checkFormValidation = useCallback(() => {
@@ -163,11 +189,11 @@ const useEventParticipantCreate = ({
       // "country_code",
       "contact",
       "email",
-      "ref_id",
+      // "reg_id",
       "title",
       "category",
       "participant_type",
-      "company_name"
+      "company_name",
     ];
     required.forEach((val) => {
       if (
@@ -181,14 +207,13 @@ const useEventParticipantCreate = ({
       if (form?.email && !isEmail(form?.email)) {
         errors["email"] = true;
       }
-      if(form?.contact){
+      if (form?.contact) {
         const cleanCode = cleanContactNumber(form?.contact);
-        const number = cleanCode?.split(" ")[1] ? cleanCode?.split(" ")[1] : ""
-        if(!number || number?.length < 10){
-          errors["contact"] = true
+        const number = cleanCode?.split(" ")[1] ? cleanCode?.split(" ")[1] : "";
+        if (!number || number?.length < 10) {
+          errors["contact"] = true;
         }
       }
-
     });
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -205,10 +230,11 @@ const useEventParticipantCreate = ({
       if (empId) {
         req = serviceUpdateEventParticipant({
           ...form,
-          is_awards:form?.is_awards === "YES",
-          is_lunch:form?.is_lunch === "YES",
+          is_awards: form?.is_awards === "YES",
+          is_lunch: form?.is_lunch === "YES",
           id: empId ? empId : "",
           event_id: id,
+          custom_data:[...participantList]
         });
       } else {
         req = serviceCreateEventParticipant({
@@ -217,8 +243,9 @@ const useEventParticipantCreate = ({
           // contact: `${countryCode} ${form?.contact}`,
           category: form?.category,
           event_id: id,
-          is_awards:form?.is_awards === "YES",
-          is_lunch:form?.is_lunch === "YES",
+          is_awards: form?.is_awards === "YES",
+          is_lunch: form?.is_lunch === "YES",
+          custom_data:[...participantList]
         });
       }
       req.then((res) => {
@@ -232,7 +259,7 @@ const useEventParticipantCreate = ({
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, empId, id]);
+  }, [form, isSubmitting, setIsSubmitting, empId, id,participantList , setParticipantList]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -242,7 +269,7 @@ const useEventParticipantCreate = ({
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, includeRef.current]);
+  }, [checkFormValidation, setErrorData, form, participantList,setParticipantList]);
 
   const removeError = useCallback(
     (title) => {
@@ -293,6 +320,21 @@ const useEventParticipantCreate = ({
     setForm({ ...initialForm });
   }, [form, setForm, isContactInList]);
 
+  const handleParticipant = useCallback(
+    (text, fieldName) => {
+      const t = [...participantList];
+      const updatedList = [...participantList]?.map((item) => {
+        if (item?.key === fieldName) {
+          return { ...item, value: text };
+        }
+        return item;
+      });
+      setParticipantList(updatedList);
+    },
+    [participantList, setParticipantList]
+  );
+  console.log("participantList", participantList);
+
   return {
     form,
     changeTextData,
@@ -314,6 +356,8 @@ const useEventParticipantCreate = ({
     countryCode,
     handleCountryCode,
     DataSetName,
+    participantList,
+    handleParticipant,
   };
 };
 
