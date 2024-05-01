@@ -15,6 +15,8 @@ import LogUtils from "../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
+import Axios from "axios";
+import constants from "../../../../../config/constants";
 
 const TEMP_OBJ = {
   file_name: '',
@@ -136,11 +138,44 @@ const ChildrenIncludeForm = (
     return !(Object.keys(errors).length > 0);
   };
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setFields(data);
-  //   }
-  // }, [data]);
+  useEffect(()=>{
+    if (Array.isArray(fields)) {
+fields.forEach((val, index) => {
+      console.log({ val });
+      if (val?.documentUpload) {
+        const fd = new FormData();
+        fd.append("files", val?.documentUpload);
+        Axios
+          .post(`${constants.DEFAULT_APP_URL}${"files/upload"}`, fd, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("jwt_token"),
+              folder: "event_sponsors_images",
+            },
+          })
+          .then((res) => {
+            const data = res?.data?.response_obj;
+            console.log(data)
+            const updatedItem = {
+              file_name: val.file_name,
+              document: data[index], 
+            };
+            setFields(prevFields => {
+              const updatedFields = [...prevFields];
+              updatedFields[index] = updatedItem;
+              return updatedFields;
+            });
+            // setFields(updatedItem)
+           
+          
+          });
+      }
+    });
+  }else{
+    console.log({fields})
+  }
+   },[fields]);
+
   useEffect(() => {
     if (downloads) {
       setFields(downloads);

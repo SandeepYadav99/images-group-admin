@@ -18,13 +18,12 @@ import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 import { validateUrl } from "../../../../libs/RegexUtils";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
-import constants from "../../../../config/constants";
-import Axios from "axios";
 
 const TEMP_OBJ = {
   title: "",
   url: "",
   images: null,
+  
 };
 
 const ChildrenIncludeForm = (
@@ -144,42 +143,6 @@ const ChildrenIncludeForm = (
     return validateData();
   };
 
-  useEffect(() => {
-    if (Array.isArray(fields)) {
-      fields.forEach((val, index) => {
-        console.log({ val });
-        if (val?.images) {
-          const fd = new FormData();
-          fd.append("files", val?.images);
-          Axios.post(`${constants.DEFAULT_APP_URL}${"files/upload"}`, fd, {
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": localStorage.getItem("jwt_token"),
-              "folder": "exhibitors",
-            },
-          }).then((res) => {
-            const data = res?.data?.response_obj;
-            
-            console.log(data);
-            const updatedItem = {
-              title: val.title,
-              url:val?.url,
-              images: data[index],
-            };
-            setFields((prevFields) => {
-              const updatedFields = [...prevFields];
-              updatedFields[index] = updatedItem;
-              return updatedFields;
-            });
-            // setFields(updatedItem)
-          });
-        }
-      });
-    } else {
-      console.log({ fields });
-    }
-  }, [fields]);
-
   const checkExists = useCallback(async (index, key, value) => {}, []);
 
   const removeErrors = useCallback(
@@ -210,7 +173,9 @@ const ChildrenIncludeForm = (
   //   });
   //   removeErrors(index, errArr);
   // };
+ console.log({fields})
   const changeData = (index, data, dateValue) => {
+    console.log(data, dateValue)
     // const tempData = JSON.parse(JSON.stringify(fields));
     const tempData = [...fields];
     if (dateValue) {
@@ -218,7 +183,7 @@ const ChildrenIncludeForm = (
     } else {
       tempData[index] = { ...tempData[index], ...data };
     }
-    LogUtils.log("data", data);
+    console.log({tempData, data})
     setFields(tempData);
     const errArr = [];
     Object.keys(data).forEach((key) => {

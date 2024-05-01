@@ -21,6 +21,9 @@ import {
 
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import File from "../../../../components/FileComponent/FileComponent.component";
+import Axios from "axios";
+import constants from "../../../../config/constants";
+import { serviceUpdateFile } from "../../../../services/Common.service";
 
 const useStyles = {
   toggleDiv: {
@@ -62,6 +65,21 @@ const ChildrenIncludeFields = ({
         changeData(index, { [fieldName]: e.target.value });
       } else if (fieldName === "url") {
         changeData(index, { [fieldName]: e.target.value });
+      } else if (fieldName === "thumbnail" ) {
+        //  const url= URL.createObjectURL(e)
+        const fd = new FormData();
+        fd.append("files", e);
+        serviceUpdateFile(fd).then((res) => {
+          if (!res?.error) {
+            const data = res?.data;
+
+            // if (data) {
+            changeData(index, { [fieldName]: data[index] });
+
+            console.log(e);
+            // changeData(index,  {thumbnailURL: e} );
+          }
+        });
       } else {
         changeData(index, { [fieldName]: e });
       }
@@ -80,16 +98,16 @@ const ChildrenIncludeFields = ({
                   max_size={5 * 1024 * 1024}
                   type={["png", "jpeg", "jpg"]}
                   fullWidth={true}
-                  name="images"
+                  name="thumbnail"
                   accept={"image/*"}
-                   default_image={data?.thumbnail ? data?.thumbnail : ""}
+                  // default_image={data?.images ? data?.images : ""}
                   label="Upload  Image"
                   show_image={true}
-                  error={errors?.images || ""}
-                  value={data?.images}
+                  error={errors?.thumbnail || ""}
+                  value={data?.thumbnail}
                   onChange={(file) => {
                     if (file) {
-                      handleChange(file, "images");
+                      handleChange(file, "thumbnail");
                     }
                   }}
                   // onChange={(file) => {
