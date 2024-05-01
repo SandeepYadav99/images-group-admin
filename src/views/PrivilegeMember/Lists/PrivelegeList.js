@@ -67,7 +67,7 @@ const PrivelegeList = () => {
           <div className={styles.QRCode_Container}>
             <b>Content</b>
             <p className={styles.content}>
-              {data?.contant ? data?.contant : "-"}
+              {data?.content ? data?.content : "-"}
             </p>
           </div>
         </div>
@@ -87,12 +87,12 @@ const PrivelegeList = () => {
       </SidePanelComponent>
       <div>
         <AwardCategoriesList
-          data={data?.award_categories ? data?.award_categories : []}
+          data={data?.privilaged_member_categories ? data?.privilaged_member_categories : []}
           awardId={data?.id ? data?.id : ""}
           callAPi={callAPi}
         />
         <PreviousAwardees
-          data={data?.award_images ? data?.award_images : []}
+          data={data?.privilaged_member_boards ? data?.privilaged_member_boards : []}
           awardId={data?.id ? data?.id : ""}
           callAPi={callAPi}
         />

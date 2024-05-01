@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { serviceDeleteAwardCategory } from "../../../../services/Award.servcice";
+import { serviceDeleteMemberCategory } from "../../../../services/PrivilegeMember.services";
 
 const useAwardCategoriesHook = ({ callAPi }) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -41,7 +41,7 @@ const useAwardCategoriesHook = ({ callAPi }) => {
 
   const handleDelete = useCallback(() => {
     if (selectedData) {
-      serviceDeleteAwardCategory({ id: selectedData }).then((res) => {
+      serviceDeleteMemberCategory({ id: selectedData }).then((res) => {
         if (!res.error) {
           setIsAcceptPopUp(false);
           callAPi();

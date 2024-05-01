@@ -6,10 +6,13 @@ import {
   serviceCreateAwardCategory,
   serviceUpdateAwardCategory,
 } from "../../../../services/Award.servcice";
+import {
+  serviceCreateMemberCategory,
+  serviceUpdateMemberCategory,
+} from "../../../../services/PrivilegeMember.services";
 
 const initialForm = {
   description: "",
-  image: "",
   title: "",
 };
 const useAwardCategoriesCreate = ({
@@ -49,9 +52,7 @@ const useAwardCategoriesCreate = ({
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["description", "title"];
-    // if (!id) {
-    //   required.push("thumbnail");
-    // }
+
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -74,20 +75,27 @@ const useAwardCategoriesCreate = ({
       const fd = new FormData();
       fd.append("description", form?.description);
       fd.append("title", form?.title);
-      if (form?.image) {
-        fd.append("image", form?.image);
-      }
-      if (awardId) {
-        fd.append("award_id", awardId);
-      }
+
+      const payloadData = {
+        description: form?.description,
+        title: form?.title,
+        privilaged_member_id: awardId,
+      };
+
+      const payloadUpdate = {
+        description: form?.description,
+        title: form?.title,
+        privilaged_member_id: awardId,
+        id: selectedData?.id,
+      };
+
+      let req;
       if (selectedData?.id) {
-        fd.append("id", selectedData?.id);
+        req = serviceUpdateMemberCategory(payloadUpdate);
+      } else {
+        req = serviceCreateMemberCategory(payloadData);
       }
-      let req = serviceCreateAwardCategory;
-      if (selectedData?.id) {
-        req = serviceUpdateAwardCategory;
-      }
-      req(fd).then((res) => {
+      req.then((res) => {
         if (!res.error) {
           handleCallDetail();
         } else {
@@ -96,7 +104,7 @@ const useAwardCategoriesCreate = ({
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting,setIsSubmitting, id, selectedData, awardId]);
+  }, [form, isSubmitting, setIsSubmitting, id, selectedData, awardId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -106,7 +114,15 @@ const useAwardCategoriesCreate = ({
     }
     // setIsSubmitting(true);
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, selectedData, awardId,isSubmitting,setIsSubmitting]);
+  }, [
+    checkFormValidation,
+    setErrorData,
+    form,
+    selectedData,
+    awardId,
+    isSubmitting,
+    setIsSubmitting,
+  ]);
 
   const removeError = useCallback(
     (title) => {
@@ -163,7 +179,7 @@ const useAwardCategoriesCreate = ({
     onBlurHandler,
     image,
     errorData,
-    isSubmitting
+    isSubmitting,
   };
 };
 

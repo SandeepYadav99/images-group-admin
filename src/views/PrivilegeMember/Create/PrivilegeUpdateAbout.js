@@ -49,15 +49,15 @@ const UpdateAbout = ({ isSidePanel, handleToggleSidePannel, aboutData ,handleClo
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomTextField
-            isError={errorData?.contant}
-            errorText={errorData?.contant}
+            isError={errorData?.content}
+            errorText={errorData?.content}
             label={"About Content"}
-            value={form?.contant}
+            value={form?.content}
             onTextChange={(text) => {
-              changeTextData(text, "contant");
+              changeTextData(text, "content");
             }}
             onBlur={() => {
-              onBlurHandler("contant");
+              onBlurHandler("content");
             }}
             multiline
             rows={"4"}

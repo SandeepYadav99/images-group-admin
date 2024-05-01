@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
-import { serviceCreateAwardImage } from "../../../../services/Award.servcice";
+import { serviceCreateAwardMemberImage } from "../../../../services/PrivilegeMember.services";
 
 const initialForm = {
   image: "",
@@ -48,11 +48,9 @@ const usePreviousAwardeesCreateHook = ({
       if (form?.image) {
         fd.append("image", form?.image);
       }
-      fd.append("award_id", awardId);
-      let req = serviceCreateAwardImage;
-      // if (id) {
-      //   req = serviceUpdateAward;
-      // }
+      fd.append("privilaged_member_id", awardId);
+      let req = serviceCreateAwardMemberImage;
+     
 
       req(fd).then((res) => {
         if (!res.error) {

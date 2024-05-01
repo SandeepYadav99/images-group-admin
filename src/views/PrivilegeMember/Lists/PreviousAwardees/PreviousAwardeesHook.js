@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { serviceDeleteAwardImages } from "../../../../services/Award.servcice";
+import { serviceDeleteAwardMemberImages } from "../../../../services/PrivilegeMember.services";
 
 const usePreviousAwardeesHook = ({ callAPi }) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -42,7 +42,7 @@ const usePreviousAwardeesHook = ({ callAPi }) => {
 
   const handleDelete = useCallback(() => {
     if (selectedData) {
-      serviceDeleteAwardImages({ id: selectedData }).then((res) => {
+      serviceDeleteAwardMemberImages({ id: selectedData }).then((res) => {
         if (!res.error) {
           setIsAcceptPopUp(false);
           callAPi();

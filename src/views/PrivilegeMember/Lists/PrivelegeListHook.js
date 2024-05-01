@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { serviceGetAwardDetails } from "../../../services/Award.servcice";
 import { useParams } from "react-router-dom";
+import { serviceGetMembershipDetails } from "../../../services/PrivilegeMember.services";
 
 const usePrivilegeListHook = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -8,7 +8,7 @@ const usePrivilegeListHook = ({}) => {
   const { id } = useParams();
   const [data, setData] = useState({});
   const callAPi = useCallback(() => {
-    serviceGetAwardDetails({ event_id: id }).then((res) => {
+    serviceGetMembershipDetails({ event_id: id }).then((res) => {
       if (!res.error) {
         setData(res.data);
       }
@@ -34,11 +34,11 @@ const usePrivilegeListHook = ({}) => {
   const aboutData = useMemo(() => {
     return {
       id: data?.id ? data?.id : "",
-      contant: data?.contant ? data?.contant : "",
+      content: data?.content ? data?.content : "",
       default_image: data?.image ? data?.image : "",
     };
   }, [data, id]);
-  
+
   return {
     editData,
     isSidePanel,
@@ -46,7 +46,7 @@ const usePrivilegeListHook = ({}) => {
     data,
     aboutData,
     handleClose,
-    callAPi
+    callAPi,
   };
 };
 

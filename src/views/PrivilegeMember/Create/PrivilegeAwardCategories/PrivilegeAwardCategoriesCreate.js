@@ -32,32 +32,7 @@ const PrivilegeAwardCategoriesCreate = ({
   });
   return (
     <div className={styles.updatAbout}>
-      <div className={"formFlex"}>
-        <div className={"formGroup"}>
-          {" "}
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <File
-              bannerLabel="Upload Image"
-              default_image={image ? image : ""}
-              imageClass={styles.inputFileUploader}
-              max_size={5 * 1024 * 1024}
-              type={["png", "jpeg", "jpg"]}
-              // fullWidth={true}
-              name="image"
-              accept={"image/*"}
-              label=" Upload Image"
-              // show_image={true}
-              error={errorData?.image}
-              value={form?.image}
-              onChange={(file) => {
-                if (file) {
-                  changeTextData(file, "image");
-                }
-              }}
-            />
-          </div>
-        </div>
-      </div>
+      
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomTextField

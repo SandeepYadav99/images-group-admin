@@ -27,7 +27,7 @@ const PreviousAwardeesCreate = ({
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <File
-            bannerLabel="Upload Awardee Logo"
+            bannerLabel="Upload Member Logo"
             // default_image={logo ? logo : ""}
             bannerimg="true"
             imageClass={styles.inputFileUploader}
@@ -50,9 +50,6 @@ const PreviousAwardeesCreate = ({
       </div>
 
       <div className={styles.actionButton}>
-        {/* <ButtonBase className={styles.update_status_New} onClick={handleSubmit}>
-          Add New
-        </ButtonBase> */}
         <ButtonBase className={styles.update_status} disabled={isSubmitting ? true : false}
         onClick={handleSubmit}>
         {isSubmitting ? <CircularProgress color="success" size="20px" /> : 

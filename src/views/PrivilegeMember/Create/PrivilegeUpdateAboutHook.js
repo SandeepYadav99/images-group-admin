@@ -5,8 +5,10 @@ import {
   serviceCreateAward,
   serviceUpdateAward,
 } from "../../../services/Award.servcice";
+
+import {serviceCreateMembership,serviceUpdateMembership} from "../../../services/PrivilegeMember.services";
 const initialForm = {
-  contant: "",
+  content: "",
   image: "",
 };
 const useUpdateAboutHook = ({ isSidePanel, aboutData, handleClose }) => {
@@ -29,7 +31,7 @@ const useUpdateAboutHook = ({ isSidePanel, aboutData, handleClose }) => {
   }, [aboutData]);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["contant"];
+    let required = ["content"];
     // if (!id) {
     //   required.push("thumbnail");
     // }
@@ -54,21 +56,20 @@ const useUpdateAboutHook = ({ isSidePanel, aboutData, handleClose }) => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
-      fd.append("contant", form?.contant);
+      fd.append("content", form?.content);
       if (form?.image) {
         fd.append("image", form?.image);
       }
       fd.append("event_id", id);
-      let req = serviceCreateAward;
+      let req = serviceCreateMembership;
       if (aboutData?.id) {
         fd.append("id", aboutData?.id);
-        req = serviceUpdateAward;
+        req = serviceUpdateMembership;
       }
 
       req(fd).then((res) => {
         if (!res.error) {
           handleClose();
-          // historyUtils.push("/business-list");
         } else {
           SnackbarUtils.success(res.message);
         }
@@ -99,7 +100,7 @@ const useUpdateAboutHook = ({ isSidePanel, aboutData, handleClose }) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "contant") {
+      if (fieldName === "content") {
         t[fieldName] = text;
       } else {
         t[fieldName] = text;
