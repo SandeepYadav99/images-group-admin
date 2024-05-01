@@ -284,6 +284,7 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
+    setErrorData({})
   }, [form]);
 
   const toggleRejectDialog = useCallback(

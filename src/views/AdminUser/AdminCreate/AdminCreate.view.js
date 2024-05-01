@@ -196,7 +196,7 @@ const AdminCreateView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             handleChange={() => {
               changeTextData(!form?.status, "status");
             }}
-            label={`Active`}
+            label={form?.status ? `Active` :`InActive`}
           />
         </div>
       </div>

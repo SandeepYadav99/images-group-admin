@@ -22,7 +22,7 @@ const AssociateEvent = () => {
         </div>
       </div>
       <div className={styles.topNavBar}>
-        <TopNavBar data={3} />
+        <TopNavBar data={2} />
       </div>
       <div>
         <EventListView />

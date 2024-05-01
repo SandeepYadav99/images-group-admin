@@ -85,7 +85,7 @@ const UserProfile = () => {
           style={{ height: "auto", padding: "20px" }}
         >
           <div>
-            <b>Additional Details</b>
+            <b> Event Detail</b>
           </div>
           <AditnalDetail id={params?.id} />
         </Paper>

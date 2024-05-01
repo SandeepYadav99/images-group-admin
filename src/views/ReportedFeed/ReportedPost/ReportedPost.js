@@ -295,7 +295,7 @@ const ReportedPost = ({}) => {
               onClick={() => handleOpenDetailPopUp(all?.images)}
             >
               {all?.images?.length > 1 ? "+" : ""}
-              {all?.images?.length > 1 ? all?.images.length : ""}
+              {all?.images?.length > 1 ? all?.images.length - 1 : ""}
             </p>
           </div>
         ),

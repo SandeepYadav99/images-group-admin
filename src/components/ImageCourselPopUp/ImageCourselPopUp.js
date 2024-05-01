@@ -59,7 +59,7 @@ const ImageCarouselPopUp = ({ open, handleClose, content }) => {
                 </div>
               ))}
             </Slider>
-            <button
+            {/* <button
               className={styles.previousButton}
               onClick={goToPrevious}
               disabled={!sliderRef.current || sliderRef.current.innerSlider.state.currentSlide === 0}
@@ -74,7 +74,7 @@ const ImageCarouselPopUp = ({ open, handleClose, content }) => {
               style={{ position: "absolute", top: "50%", right: "-20px", transform: "translateY(-50%)" }}
             >
               Next
-            </button>
+            </button> */}
           </div>
         </DialogContent>
       </Dialog>
