@@ -91,13 +91,14 @@ export async function getRequest(url, params) {
   }
 }
 
-export async function formDataRequest(url, formData) {
+export async function formDataRequest(url, formData, headers={}) {
   try {
     const tempRequest = await axios({
       method: "post",
       url: `${Constants.DEFAULT_APP_URL}${url}`,
       data: formData,
       config: { headers: { "Content-Type": "multipart/form-data" } },
+      headers:headers
     });
     if (tempRequest.status === 200) {
       console.log(tempRequest.data);

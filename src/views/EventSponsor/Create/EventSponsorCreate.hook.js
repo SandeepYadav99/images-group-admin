@@ -238,12 +238,12 @@ function useEventSponsorCreate({ location }) {
           fd.append("event_id", selectedEventId);
         }
         const ExpensesData = ChildenRef.current.getData();
-        ExpensesData.forEach((val) => {
-          console.log({ val });
-          if (val?.documentUpload) {
-            fd.append("download_documents", val?.documentUpload);
-          }
-        });
+        // ExpensesData.forEach((val) => {
+        //   console.log({ val });
+        //   if (val?.documentUpload) {
+        //     fd.append("download_documents", val?.documentUpload);
+        //   }
+        // });
         fd.append("downloads", JSON.stringify(ExpensesData));
 
         const DigitalBag = ChildenRef1.current.getData();

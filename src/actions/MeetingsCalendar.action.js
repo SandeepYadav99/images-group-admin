@@ -20,10 +20,10 @@ export const CREATE_DATA = "CREATE_MEETING_CALLENDAR";
 export const UPDATE_DATA = "UPDATE_MEETING_CALLENDAR";
 export const DELETE_ITEM = "DELETE_MEETING_CALLENDAR";
 
-export function actionFetchMeetingCallendarList(index = 1,event_id ,sorting = {}, filter = {}) {
+export function actionFetchMeetingCallendarList(index = 1,sorting = {}, filter = {}) {
   const request = serviceCreateMeetingCallendarList({
     index,
-    event_id,
+    // event_id,
     row: sorting.row,
     order: sorting.order,
     ...filter,

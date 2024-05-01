@@ -249,7 +249,7 @@ const useMeetingsCalendarCreateHook = ({
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form, isSidePanel]);
-  console.log(form.booked_by);
+ 
   const updateParticipentsList = useMemo(() => {
     return listData?.EVENT_PARTICIPENT?.filter((val) => {
       const isBookedBy = form?.booked_by?.id === val.id;
