@@ -143,7 +143,7 @@ function SplashScreenCreate({ location }) {
               handleChange={() => {
                 changeTextData(!form?.status, "status");
               }}
-              label={form?.status ?`Active` : `Inactive`}
+              label={form?.status ? `Active` : `Inactive`}
             />
           </div>
         </div>

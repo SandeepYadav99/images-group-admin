@@ -30,6 +30,7 @@ import {
 import ImageCourselPopUp from "../../../components/ImageCourselPopUp/ImageCourselPopUp";
 import VideoDialog from "../ReportedComment/VideoDialog/VideoDialog";
 import DeleteDialog from "../../../components/DeleteDialog/DeleteDialog";
+import { capitalizeFirstLetter } from "../../../hooks/CapsLetter";
 
 const PostPopUp = ({ open, title, commentDetail, onClick }) => {
   const {
@@ -83,15 +84,21 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
         key: "username",
         label: "USER NAME ",
         sortable: false,
-        render: (value, all) => <div>{all?.reportedData?.name || "N/A"}</div>,
+        render: (value, all) => <div>{capitalizeFirstLetter(all?.reportedData[0]?.name) || "N/A"}</div>,
       },
-
+      {
+        key: "description",
+        label: "DESCRIPTION",
+        sortable: false,
+        render: (temp, all) => <div>{all?.description}</div>,
+      },
       {
         key: "reportedOn",
         label: "REPORTED ON",
         sortable: false,
         render: (temp, all) => <div>{all?.reportedOn}</div>,
       },
+     
       {
         key: "posted",
         label: "Posted",

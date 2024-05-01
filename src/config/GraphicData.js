@@ -16,7 +16,8 @@ const FEATURE_DATA = [
     { key: "Network", value: "Network" },
     { key: "IMAGES helpdesk", value: "IMAGES helpdesk" },
     { key: "Upcoming events", value: "Upcoming events" },
-    { key: "Awards", value: "Awards" }
+    { key: "Awards", value: "Awards" },
+    { key: "Privileged Member", value: "Privileged Member" }
   ];
   
   export default FEATURE_DATA
