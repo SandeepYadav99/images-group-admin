@@ -16,6 +16,8 @@ import LogUtils from "../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
+import Axios from "axios";
+import Constants from "../../../../config/constants";
 
 
 const TEMP_OBJ = {
@@ -103,6 +105,45 @@ const ChildrenIncludeForm = (
     return fields;
   };
 
+  useEffect(()=>{
+    if (Array.isArray(fields)) {
+fields.forEach((val, index) => {
+      console.log({ val });
+      if (val?.documentUpload) {
+        const fd = new FormData();
+        fd.append("files", val?.documentUpload);
+        Axios
+          .post(`${Constants.DEFAULT_APP_URL}${"files/upload"}`, fd, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("jwt_token"),
+              folder: "exhibitors",
+            },
+          })
+          .then((res) => {
+            const data = res?.data?.response_obj;
+            console.log(data)
+            const updatedItem = {
+              file_name: val.file_name,
+              document: data[index], 
+            };
+            setFields(prevFields => {
+              const updatedFields = [...prevFields];
+              updatedFields[index] = updatedItem;
+              return updatedFields;
+            });
+            // setFields(updatedItem)
+           
+          
+          });
+      }
+    });
+  }else{
+    console.log({fields})
+  }
+   },[fields]);
+
+ console.log({fields})
   const validateData = (index, type) => {
     const errors = {};
     // if (type) {
@@ -137,6 +178,7 @@ const ChildrenIncludeForm = (
   //   // fd.append("files",)
   //   // serviceUpdateFileUpdate({})
   // }, [data]);
+
   useEffect(() => {
     if (downloads) {
       setFields(downloads);

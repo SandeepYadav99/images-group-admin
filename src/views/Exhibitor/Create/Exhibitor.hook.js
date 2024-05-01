@@ -500,10 +500,9 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
- 
   // const ExpensesData = ChildenRef?.current?.getData();
-
-  // ExpensesData?.forEach((val) => {
+  // // const updatedExpensesData = [];
+  // ExpensesData?.forEach((val, index) => {
   //   console.log({ val });
   //   if (val?.documentUpload) {
   //     const fd = new FormData();
@@ -512,24 +511,29 @@ const useExhibitorCreate = ({ location }) => {
   //       .post(`${Constants.DEFAULT_APP_URL}${"files/upload"}`, fd, {
   //         headers: {
   //           "Content-Type": "application/json",
-  //           "Authorization": localStorage.getItem("jwt_token"),
-  //           "folder": "exhibitors",
+  //           Authorization: localStorage.getItem("jwt_token"),
+  //           folder: "exhibitors",
   //         },
   //       })
   //       .then((res) => {
   //         const data = res?.data?.response_obj;
-
-  //         setDownloadData(data);
-  //         console.log({ data });
+  //         console.log(data)
+  //         const updatedItem = {
+  //           file_name: val.file_name,
+  //           document: data[index], 
+  //         };
+  //         // setDownloads(updatedItem)
+  //         // downloadData.push(updatedItem);
+  //         // const updateadData = [...ExpensesData];
+  //         // updateadData[index].documentUpload = data; // Example update
+  //         // ExpensesData[index].documentUpload = data
+  //         // setDownloadData(ExpensesData);
+  //         console.log({ updatedItem });
   //       });
   //   }
-    // serviceUpdateFileUpdate(fd, "exhibitors").then((res)=>{
-    //   if(!res.error){
-    //     console.log({res})
-    //   }
-    // })
   // });
-  // console.log({ downloadData });
+ 
+  //  console.log({ downloadData });
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -590,30 +594,32 @@ const useExhibitorCreate = ({ location }) => {
     //   industryID?.length > 0 &&  fd.append("products", industryID?.join(","));
     // }
     const ExpensesData = ChildenRef.current.getData();
-    ExpensesData.forEach((val) => {
-      console.log({val})
-      if (val?.documentUpload) {
-        fd.append("download_documents", val?.documentUpload);
-      }
-      // else {
-      //   const file = dataURLtoFile(nullImg, "null.png");
-      //   fd.append("download_documents", file);
-      // }
-    });
+    // ExpensesData.forEach((val) => {
+    //   console.log({ val });
+    //   if (val?.documentUpload) {
+    //     fd.append("download_documents", val?.documentUpload);
+    //   }
+    //   // else {
+    //   //   const file = dataURLtoFile(nullImg, "null.png");
+    //   //   fd.append("download_documents", file);
+    //   // }
+    // });
 
     fd.append("downloads", JSON.stringify(ExpensesData));
 
+   
+
     const DigitalBag = ChildenRef1.current.getData();
 
-    DigitalBag.forEach((val) => {
-      if (val?.images) {
-        fd.append("digital_bag_images", val?.images);
-      }
-      //  else {
-      //   const file = dataURLtoFile(nullImg, "null.png");
-      //   fd.append("digital_bag_images", file);
-      // }
-    });
+    // DigitalBag.forEach((val) => {
+    //   if (val?.images) {
+    //     fd.append("digital_bag_images", val?.images);
+    //   }
+    //   //  else {
+    //   //   const file = dataURLtoFile(nullImg, "null.png");
+    //   //   fd.append("digital_bag_images", file);
+    //   // }
+    // });
     fd.append("digital_bags", JSON.stringify(DigitalBag));
 
     // if(empId){

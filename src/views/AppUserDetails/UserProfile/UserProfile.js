@@ -35,8 +35,9 @@ const UserProfile = () => {
   useEffect(() => {}, [params?.id]);
 
   const handleGoBack = useCallback(() => {
-    // if (value >= 0 && value <= 3) {
+    //  if (value >= 0 && value <= 3) {
       historyUtils.push("/app");
+     
     // }
   }, [value]);
   
@@ -45,7 +46,7 @@ const UserProfile = () => {
       <div className={styles.header}>
         <div>
           {" "}
-          <ButtonBase onClick={() => handleGoBack()}>
+          <ButtonBase onClick={() => {handleGoBack(); setValue(0)}}>
             <ArrowBackIosIcon fontSize={"small"} />{" "}
             <span>
               <b> User Details</b>

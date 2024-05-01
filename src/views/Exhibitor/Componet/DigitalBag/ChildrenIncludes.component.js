@@ -18,6 +18,8 @@ import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 import { validateUrl } from "../../../../libs/RegexUtils";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
+import constants from "../../../../config/constants";
+import Axios from "axios";
 
 const TEMP_OBJ = {
   title: "",
@@ -141,6 +143,46 @@ const ChildrenIncludeForm = (
   const isValid = () => {
     return validateData();
   };
+
+
+  useEffect(()=>{
+    if (Array.isArray(fields)) {
+fields.forEach((val, index) => {
+      console.log({ val });
+      if (val?.documentUpload) {
+        const fd = new FormData();
+        fd.append("files", val?.documentUpload);
+        Axios
+          .post(`${constants.DEFAULT_APP_URL}${"files/upload"}`, fd, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("jwt_token"),
+              folder: "exhibitors",
+            },
+          })
+          .then((res) => {
+            const data = res?.data?.response_obj;
+            console.log(data)
+            const updatedItem = {
+              file_name: val.file_name,
+              images: data[index], 
+            };
+            setFields(prevFields => {
+              const updatedFields = [...prevFields];
+              updatedFields[index] = updatedItem;
+              return updatedFields;
+            });
+            // setFields(updatedItem)
+           
+          
+          });
+      }
+    });
+  }else{
+    console.log({fields})
+  }
+   },[fields]);
+
 
   const checkExists = useCallback(async (index, key, value) => {}, []);
 
