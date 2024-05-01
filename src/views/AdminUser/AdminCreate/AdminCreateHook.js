@@ -44,7 +44,7 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   const [countryCode, setCountryCode] = useState();
   const [contactErr, setContactErr] = useState();
   const codeDebouncer = useDebounce(form?.contact, 500);
-  const emailDebouncer = useDebounce(form?.email, 500);
+  const emailDebouncer = useDebounce(form?.email, 900);
   useEffect(() => {
     setContactErr(empId);
   }, [empId, form?.contact]);
@@ -101,15 +101,16 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
           const errors = JSON.parse(JSON.stringify(errorData));
           if (res.data.is_exists) {
             errors["contact"] = "Admin User Contact Exists";
-            setErrorData(errors);
+            
           } else {
             delete errors.contact;
-            setErrorData(errors);
+            
           }
+          setErrorData(errors);
         }
       });
     }
-  }, [errorData, setErrorData, empId, form?.contact]);
+  }, [ empId, form?.contact, errorData]);
 
   const checkEmailValidation = useCallback(() => {
     if (!form?.email) return;
@@ -121,15 +122,16 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         const errors = JSON.parse(JSON.stringify(errorData));
         if (res.data.is_exists) {
           errors["email"] = "Admin User Email Exists";
-          setErrorData(errors);
+       
         } else {
           delete errors.email;
-          setErrorData(errors);
+         
         }
+        setErrorData(errors);
       }
     });
-  }, [errorData, setErrorData, empId, form?.email]);
-
+  }, [empId, form.email, errorData]);
+console.log({errorData})
   useEffect(() => {
     if (emailDebouncer) {
       checkEmailValidation();
@@ -227,16 +229,17 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       });
     }
   }, [form, isSubmitting, setIsSubmitting, empId]);
-
+  console.log('Form has validation errors:', errorData);
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
-      console.log({ errors });
-      return true;
+    
+      console.log('Form has validation errors:', errorData);
+      // return true;
     }
-    submitToServer();
-  }, [checkFormValidation, setErrorData, form, includeRef.current]);
+     await submitToServer();
+  }, [checkFormValidation,  form, includeRef.current, errorData]);
   const removeError = useCallback(
     (title) => {
       const temp = JSON.parse(JSON.stringify(errorData));
@@ -282,7 +285,7 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
-    setErrorData({});
+     setErrorData({});
   }, [form]);
 
   const toggleRejectDialog = useCallback(

@@ -86,7 +86,7 @@ const ChildrenIncludeFields = ({
       }
     }
   };
-  console.log({ data });
+
   return (
     <div>
       <div className={styles.flexContainer}>
@@ -99,16 +99,16 @@ const ChildrenIncludeFields = ({
                   max_size={5 * 1024 * 1024}
                   type={["png", "jpeg", "jpg"]}
                   fullWidth={true}
-                  name="thumbnail"
+                  name="images"
                   accept={"image/*"}
-                  // default_image={data?.images ? data?.images : ""}
+                   default_image={data?.thumbnail ? data?.thumbnail : ""}
                   label="Upload  Image"
                   show_image={true}
-                  error={errors?.thumbnail || ""}
-                  value={data?.thumbnail}
+                  error={errors?.images || ""}
+                  value={data?.images}
                   onChange={(file) => {
                     if (file) {
-                      handleChange(file, "thumbnail");
+                      handleChange(file, "images");
                     }
                   }}
                   // onChange={(file) => {

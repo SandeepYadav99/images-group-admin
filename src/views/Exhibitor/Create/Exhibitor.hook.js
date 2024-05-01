@@ -327,41 +327,8 @@ const useExhibitorCreate = ({ location }) => {
     }
   }, [form?.is_partner]);
 
-  // const checkEmailValidation = useCallback(() => {
-  //   debounceValidationList({
-  //     email: form?.primary_email,
-  //     id: form?.primary_user_id,
-  //   }).then((res) => {
-  //     if (!res.error) {
-  //       const errors = JSON.parse(JSON.stringify(errorData));
-  //       if (res?.data?.is_exists) {
-  //         errors["primary_email"] = "Primary Email Already Exists";
-  //         setErrorData(errors);
-  //       }
-  //     }
-  //   });
-  // }, [errorData, setErrorData, form]);
+  
 
-  // const checkSecondaryEmailValidation = useCallback(() => {
-  //   debounceValidationList({
-  //     email: form?.secondary_email,
-  //     id: secondary ? secondary : "",
-  //   }).then((res) => {
-  //     if (!res.error) {
-  //       const errors = JSON.parse(JSON.stringify(errorData));
-  //       if (res?.data?.is_exists) {
-  //         errors["secondary_email"] = "Secondary Email Already Exists";
-  //         setErrorData(errors);
-  //       }
-  //     }
-  //   });
-  // }, [errorData, setErrorData, form]);
-
-  // useEffect(() => {
-  //   if (form?.primary_email) {
-  //     checkEmailValidation();
-  //   }
-  // }, [form?.primary_email]);
 
   useEffect(() => {
     if (!form?.is_business_nature_other) {
@@ -500,41 +467,7 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
-  // const ExpensesData = ChildenRef?.current?.getData();
-  // // const updatedExpensesData = [];
-  // ExpensesData?.forEach((val, index) => {
-  //   console.log({ val });
-  //   if (val?.documentUpload) {
-  //     const fd = new FormData();
-  //     fd.append("files", val?.documentUpload);
-  //     axios
-  //       .post(`${Constants.DEFAULT_APP_URL}${"files/upload"}`, fd, {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: localStorage.getItem("jwt_token"),
-  //           folder: "exhibitors",
-  //         },
-  //       })
-  //       .then((res) => {
-  //         const data = res?.data?.response_obj;
-  //         console.log(data)
-  //         const updatedItem = {
-  //           file_name: val.file_name,
-  //           document: data[index],
-  //         };
-  //         // setDownloads(updatedItem)
-  //         // downloadData.push(updatedItem);
-  //         // const updateadData = [...ExpensesData];
-  //         // updateadData[index].documentUpload = data; // Example update
-  //         // ExpensesData[index].documentUpload = data
-  //         // setDownloadData(ExpensesData);
-  //         console.log({ updatedItem });
-  //       });
-  //   }
-  // });
-
-  //  console.log({ downloadData });
-
+ console.log(form?.is_participant)
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -579,21 +512,17 @@ const useExhibitorCreate = ({ location }) => {
           if (form?.is_partner) {
             fd.append(key, capitalizeFirstLetter(form?.partner_tag));
           }
-        } else {
+        }else  if(key === "is_participant"){
+          fd.append("is_featured", false)
+         }else  if(key === "is_featured"){
+          delete form[key]
+         } else {
           fd.append(key, form[key]);
         }
+       
       }
     });
-    // else if (key === "is_featured") {
-
-    // fd.append(
-    //   "is_featured",
-    //   form?.is_participant === true" ? false : true
-    // );
-
-    // if (form?.products) {
-    //   industryID?.length > 0 &&  fd.append("products", industryID?.join(","));
-    // }
+ 
     const ExpensesData = ChildenRef.current.getData();
 
     ExpensesData.forEach((val) => {
@@ -603,10 +532,7 @@ const useExhibitorCreate = ({ location }) => {
       } else {
         fd.append("downloads", JSON.stringify(ExpensesData));
       }
-      // else {
-      //   const file = dataURLtoFile(nullImg, "null.png");
-      //   fd.append("download_documents", file);
-      // }
+    
     });
 
     const DigitalBag = ChildenRef1.current.getData();
@@ -617,23 +543,10 @@ const useExhibitorCreate = ({ location }) => {
       } else {
         fd.append("digital_bags", JSON.stringify(DigitalBag));
       }
-      //   //  else {
-      //   //   const file = dataURLtoFile(nullImg, "null.png");
-      //   //   fd.append("digital_bag_images", file);
-      //   // }
+    
     });
 
-    // if(empId){
-    //   if (form?.company_logo) {
-    //     fd.append("company_logo", form?.company_logo);
-    //   }
-    // }
-
-    // if (form?.gallery_images?.length > 0) {
-    //   form?.gallery_images?.forEach((item) => {
-    //     fd.append("gallery_images", item);
-    //   });
-    // }
+ 
     fd.append("event_id", "65029c5bdf6918136df27e51");
     if (!form?.is_partner) {
       fd.append("partner_tag", "");
