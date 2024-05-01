@@ -25,3 +25,12 @@
     max-height: 200px;
     overflow: scroll;
 }
+.disabledBtnReject{
+    background-color: #dad5d5 !important;
+    color: white !important;
+    /* color: #615f5f !important; */
+    /* border: 2px solid #615f5f !important; */
+    padding: 10px 40px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+}
