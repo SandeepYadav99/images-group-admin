@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import {NavLink} from "react-router-dom";
 import cx from "classnames";
@@ -48,7 +48,7 @@ class CustomListItem extends React.Component {
         });
         const whiteFontClasses = cx({
             [" " + classes.whiteFont]: activeRoute(prop.path, prop)
-        });
+        }); 
         return (
             <NavLink
                 to={prop?.is_external ? {pathname: prop.path} : prop.path}
@@ -151,16 +151,23 @@ class CustomLink extends React.Component {
 }
 
 const Sidebar = ({...props}) => {
+    const {classes, color, logo, image, logoText, routes} = props;
+
+    const subRoutes = useMemo(() => {
+        return routes?.length > 0 ? routes.filter(item => item?.parentRoute && props.location.pathname?.includes(item?.path?.replace(/:id/g, ""))) : [];
+    }, [routes, props.location.pathname]);
     // verifies if routeName is the one active (in browser input)
     function activeRoute(routeName, otherData) {
+        if(subRoutes?.length >0){
+            return subRoutes[0]?.parentRoute === routeName;
+        }
         if (!otherData.should_regex) {
             return routeName == props.location.pathname;
-        }
+        } 
         return routeName == props.location.pathname || props.location.pathname.indexOf(routeName) > -1 ? true : false ;
         // return props.location.pathname.indexOf(routeName) > -1 ? true : false;
     }
 
-    const {classes, color, logo, image, logoText, routes} = props;
     var brand = (
         <div className={classes.logo}>
             <div className={classes.logoImage}>

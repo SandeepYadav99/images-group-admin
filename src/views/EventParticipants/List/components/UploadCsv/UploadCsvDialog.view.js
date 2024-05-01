@@ -120,7 +120,7 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
           </ButtonBase>
         </div>
         <DialogContent>
-          <CustomSelectField
+          {/* <CustomSelectField
             isError={errorData?.participant_type}
             errorText={errorData?.participant_type}
             label={"Participants Type"}
@@ -134,7 +134,7 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
             <MenuItem value="Award Presentation">Award Presentation</MenuItem>
             <MenuItem value="Innovators Club	">Innovators Club </MenuItem>
             <MenuItem value="Jury">Jury</MenuItem>
-          </CustomSelectField>
+          </CustomSelectField> */}
 
           <File
             max_size={100 * 1024 * 1024}
@@ -225,9 +225,9 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
         <div className={styles.printFlex}>
           <ButtonBase
             primary
-            disabled={isSubmitting}
+            disabled={true}
             onClick={handleSampleDownload}
-            className={styles.btmBtn}
+            className={styles.disabledBtnReject}
           >
             Download Sample Template
           </ButtonBase>

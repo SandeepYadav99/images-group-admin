@@ -64,6 +64,10 @@ import MenuGraphic from "../views/MenuGraphic/List/MenuGraphic.js";
 import AwardList from "../views/Awards/Lists/AwardList.js";
 import ReportedFeed from "../views/ReportedFeed/ReportedFeed.js";
 import MeetingsCalendar from "../views/MeetingsCalendar/List/MeetingsCalendar.js";
+import PrivilegeList from "../views/PrivilegeMember/Lists/PrivelegeList.js";
+import CustomParticipantList from "../views/CustomParticipant/List/List.component.js";
+import CustomParticipantView from "../views/CustomParticipant/Create/Create.component.js";
+
 
 const MenuGraphicCreate = lazy(() =>
   import("../views/MenuGraphic/Create/MenuGraphicCreate")
@@ -186,6 +190,7 @@ const MMaster = lazy(() =>
   import("../views/MeetingRooms/MMaster/MasterCreate.js")
 );
 
+
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -202,24 +207,28 @@ const dashboardRoutes = [
     component: UserProfile,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.APP}`,
   },
   {
     path: `${RouteName.FEED_POSTS + ":id"}`,
     component: FeedPost,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.APP}`,
   },
   {
     path: `${RouteName.COMMENTS}:id`,
     component: CommentPost,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.APP}`,
   },
   {
     path: `${RouteName.ASSOCIATED_EVENTS}:id`,
     component: AssociateEvent,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.APP}`,
   },
   {
     path: `${RouteName.ASSOCIATED_CHAPTERS}:id`,
@@ -421,6 +430,7 @@ const dashboardRoutes = [
     component: EventParticipants,
     icon: PeopleOutlined,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.SPEAKERS_MASTER}`,
@@ -469,36 +479,42 @@ const dashboardRoutes = [
     component: SpeakerMasterCreate,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.EVENT_TESTIMONIAL}:id`,
     component: TestimonialList,
     is_protect: true,
     is_sidebar: false,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.EVENTS_SCEDULE}:id`,
     component: EventScheduleList,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.ADD_SPEAKERS_CREATE}`,
     component: SpeakerCreate,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.ADD_SPEAKERS_UPDATE}:id`,
     component: SpeakerCreate,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.EVENTS_SPEAKERS_LIST}:id`,
     component: EventSpeaker_List,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
 
   {
@@ -506,54 +522,63 @@ const dashboardRoutes = [
     component: CityGuid_List,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.EVENT_CITYGUIDE_CREATE}`,
     component: CityGuid_Create,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.EVENT_CITYGUIDE_UPDATE}:id`,
     component: CityGuid_Create,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.CITYGUIDE_CONTENT_LIST}:id`,
     component: CityGuid_Content_List,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.CITYGUIDE_CONTENT_CREATE}`,
     component: CityCompView,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.CITYGUIDE_CONTENT_UPDATE}:id`,
     component: CityCompView,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.INFOR_CENTER}:id`, // :id
     component: InforCenterLists,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.INFOR_CENTER_CREATE}`,
     component: InforCenter_Create,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.INFOR_CENTER_UPDATE}:id`,
     component: InforCenter_Create,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
 
   {
@@ -561,24 +586,28 @@ const dashboardRoutes = [
     component: EventCreate,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.EVENTS_UPDATE}:id`,
     component: EventCreate,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.EVENTS_DETAILS}:id`,
     component: EventDetail,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
 
   {
     path: `${RouteName.EVENTS_SPEAKER_EVENT_LIST}:id`,
     component: EventSpeaker_List,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
 
   // {
@@ -597,6 +626,7 @@ const dashboardRoutes = [
     component: PendingEventDetail,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
 
   {
@@ -604,6 +634,7 @@ const dashboardRoutes = [
     component: PendingEventDetail,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
 
   // {
@@ -618,18 +649,21 @@ const dashboardRoutes = [
     component: EventPollsList,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.EVENT_POLLS_CREATE}`,
     component: EventPollsCreate,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.EVENT_POLLS_UPDATE}:id`,
     component: EventPollsCreate,
     is_sidebar: false,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.EVENT_ORGANISER_USER_CREATE}`,
@@ -1002,12 +1036,9 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.EXHIBITOR_QUERY}`,
+    path: `${RouteName.EXHIBITOR_QUERY}:id`,
     component: ExhibitorQuery,
-    sidebarName: "Exhibitor Query",
-    navbarName: "Exhibitor Query",
-    is_sidebar: true,
-    icon: PeopleOutlined,
+    is_sidebar: false,
     is_protect: true,
   },
   {
@@ -1107,7 +1138,25 @@ const dashboardRoutes = [
     component: MeetingsCalendar,
     is_sidebar: false,
     is_protect: true,
+  },
+  {
+    path: `${RouteName.CUSTOM_PARTICIPANT}:id`,
+    component: CustomParticipantList,
+    is_sidebar: false,
+    is_protect: true,
 
+  },
+  {
+    path: `${RouteName.CUSTOM_PARTICIPANT_CREATE}`,
+    component: CustomParticipantView,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.CUSTOM_PARTICIPANT_UPDATE}:id`,
+    component: CustomParticipantView,
+    is_sidebar: false,
+    is_protect: true,
   },
   {
     path: `${RouteName.MEETINGS_DETAIL}:id`,
@@ -1118,6 +1167,12 @@ const dashboardRoutes = [
   {
     path: `${RouteName.MASTER_CREATE}:id`,
     component: MMaster,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.PRIVILEGE_MEMBER}:id`,
+    component: PrivilegeList,
     is_sidebar: false,
     is_protect: true,
   },

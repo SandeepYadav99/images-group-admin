@@ -13,7 +13,7 @@ const initialForm = {
   file: null,
   is_active_email: true,
   is_active_registration: true,
-  participant_type: "",
+  // participant_type: "",
 };
 
 const useUploadCsvDialogHook = ({
@@ -78,10 +78,11 @@ const useUploadCsvDialogHook = ({
       const fd = new FormData();
 
       fd.append("file", form?.file);
+      fd.append("event_id", id);
       if (isVerified) {
         fd.append("send_email", form?.is_active_email);
         fd.append("is_default_password", form?.is_active_registration);
-        fd.append("event_id", id);
+        // fd.append("event_id", id);
       }
       let req = isVerified
         ? serviceParticipantImportFile
