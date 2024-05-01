@@ -64,6 +64,9 @@ import MenuGraphic from "../views/MenuGraphic/List/MenuGraphic.js";
 import AwardList from "../views/Awards/Lists/AwardList.js";
 import ReportedFeed from "../views/ReportedFeed/ReportedFeed.js";
 import MeetingsCalendar from "../views/MeetingsCalendar/List/MeetingsCalendar.js";
+import CustomParticipantList from "../views/CustomParticipant/List/List.component.js";
+import CustomParticipantView from "../views/CustomParticipant/Create/Create.component.js";
+
 
 const MenuGraphicCreate = lazy(() =>
   import("../views/MenuGraphic/Create/MenuGraphicCreate")
@@ -1136,7 +1139,25 @@ const dashboardRoutes = [
     component: MeetingsCalendar,
     is_sidebar: false,
     is_protect: true,
+  },
+  {
+    path: `${RouteName.CUSTOM_PARTICIPANT}:id`,
+    component: CustomParticipantList,
+    is_sidebar: false,
+    is_protect: true,
 
+  },
+  {
+    path: `${RouteName.CUSTOM_PARTICIPANT_CREATE}`,
+    component: CustomParticipantView,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.CUSTOM_PARTICIPANT_UPDATE}:id`,
+    component: CustomParticipantView,
+    is_sidebar: false,
+    is_protect: true,
   },
   {
     path: `${RouteName.MEETINGS_DETAIL}:id`,

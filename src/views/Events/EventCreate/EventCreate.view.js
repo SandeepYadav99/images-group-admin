@@ -1001,7 +1001,18 @@ function EventCreate() {
             label={"Event Calendar"}
             checked={feature?.event_calendar}
           />
+       
          </div>
+         <div style={{marginLeft:"35px"}}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              // changeFeatureData(!feature?.custom_participant, "custom_participant");
+            }}
+            label={"Custom Participant Events"}
+            checked={feature?.custom_participant}
+          />
+          </div>
         </div>
        
       </div>

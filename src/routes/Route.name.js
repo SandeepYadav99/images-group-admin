@@ -180,4 +180,7 @@ export default {
   MASTER_CREATE: "/master/create/",
 
   MEETING_CALENDAR: "/meeting/calendar/",
+  CUSTOM_PARTICIPANT:"/custom/participant/",
+  CUSTOM_PARTICIPANT_CREATE: "/custom/participants/create",
+  CUSTOM_PARTICIPANT_UPDATE: "/custom/participants/update/",
 };

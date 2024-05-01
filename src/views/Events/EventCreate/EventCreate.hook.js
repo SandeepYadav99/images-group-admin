@@ -125,6 +125,7 @@ function useEventCreate() {
     event_highlights: true,
     meeting_rooms: true,
     meeting_calendar:true,
+    custom_participant:true,
     event_calendar:true
   };
 
