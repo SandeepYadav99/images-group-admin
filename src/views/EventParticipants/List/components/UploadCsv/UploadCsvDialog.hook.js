@@ -13,7 +13,7 @@ const initialForm = {
   file: null,
   is_active_email: true,
   is_active_registration: true,
-  participant_type: "",
+  // participant_type: "",
 };
 
 const useUploadCsvDialogHook = ({

@@ -434,5 +434,10 @@ export const EventData = [
     name:"Exhibitor Query",
     image:event,
     url:RouteName.EXHIBITOR_QUERY,
-  }
+  },{
+    key: "custom_participant",
+    name: "Custom Participant Fields",
+    image: event,
+    url: RouteName.CUSTOM_PARTICIPANT,
+  },
 ];

@@ -992,7 +992,7 @@ function EventCreate() {
             label={"Meeting Calendar"}
             checked={feature?.meeting_calendar}
           />
-          <div style={{ marginLeft: "35px" }}>
+          {/* <div style={{ marginLeft: "35px" }}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
@@ -1001,7 +1001,7 @@ function EventCreate() {
               label={"Event Calendar"}
               checked={feature?.event_calendar}
             />
-          </div>
+          </div> */}
           <div style={{ marginLeft: "35px" }}>
             <CustomCheckbox
               color={"primary"}
@@ -1021,6 +1021,27 @@ function EventCreate() {
               label={"Exhibitor Query"}
               checked={feature?.exhibitor_query}
             />
+            </div>
+        <div style={{marginLeft:"35px"}}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              changeFeatureData(!feature?.event_calendar, "event_calendar");
+            }}
+            label={"Event Calendar"}
+            checked={feature?.event_calendar}
+          />
+       
+         </div>
+         <div style={{marginLeft:"35px"}}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              // changeFeatureData(!feature?.custom_participant, "custom_participant");
+            }}
+            label={"Custom Participant Events"}
+            checked={feature?.custom_participant}
+          />
           </div>
         </div>
       </div>

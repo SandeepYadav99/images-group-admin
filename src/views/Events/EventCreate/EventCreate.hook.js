@@ -128,6 +128,8 @@ function useEventCreate() {
     event_calendar:true,
     privilaged_member:true,
     exhibitor_query:true,
+    custom_participant:true,
+    // event_calendar:true
   };
 
   const colorKey = [
