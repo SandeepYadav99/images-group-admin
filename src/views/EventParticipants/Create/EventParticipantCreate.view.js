@@ -46,6 +46,8 @@ const EventParticipantCreateView = ({
     handleCountryCode,
     countryCode,
     DataSetName,
+    participantList,
+    handleParticipant
   } = useEventParticipantCreate({ handleToggleSidePannel, isSidePanel, empId });
   const classes = useStyles();
 
@@ -53,15 +55,15 @@ const EventParticipantCreateView = ({
     <div className={styles.departmentWrap}>
       <div className="formFlex">
         <div className={"formGroup"}>
-        <CustomCountryFC
-          type="tel"
-          isError={errorData?.contact}
-          errorText={errorData?.contact}
-          label={"Contact"}
-          value={form?.contact}
-          onTextChange={(text) => {
+          <CustomCountryFC
+            type="tel"
+            isError={errorData?.contact}
+            errorText={errorData?.contact}
+            label={"Contact"}
+            value={form?.contact}
+            onTextChange={(text) => {
               changeTextData(text, "contact");
-          }}   
+            }}
           />
           {/* <div style={{ display: "flex", gap: "10px" }}>
             <CountryInputField
@@ -166,7 +168,7 @@ const EventParticipantCreateView = ({
           />
         </div>
       </div>
-      <div className={"formFlex"}>
+      {/* <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomTextField
             isError={errorData?.reg_id}
@@ -181,7 +183,7 @@ const EventParticipantCreateView = ({
             }}
           />
         </div>
-      </div>
+      </div> */}
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <Autocomplete
@@ -239,7 +241,23 @@ const EventParticipantCreateView = ({
           </CustomSelectField>
         </div>
       </div>
-
+      {/* <div className={"formFlex"}> */}
+        {participantList?.map((item, index) => (
+          <div key={`part_${index}`}  className={"formGroup"}>
+            <CustomSelectField
+              label={item?.label}
+              value={item?.value}
+              handleChange={(value) => {
+                handleParticipant(value, item?.key);
+              }}
+              defaultValue={"NO"}
+            >
+              <MenuItem value="YES">YES</MenuItem>
+              <MenuItem value="NO">NO</MenuItem>
+            </CustomSelectField>
+          </div>
+        ))}
+      {/* </div> */}
       {/* <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomSwitch

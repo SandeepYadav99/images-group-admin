@@ -19,3 +19,6 @@ export async function serviceGetCustomParticipantDetails(params) {
 export async function serviceDeleteCustomParticipant(params) {
   return await postRequest("policies/delete", params);
 }
+export async function serviceGetFullCustomParticipant(params) {
+  return await postRequest("events/custom/fields/list", params);
+}
