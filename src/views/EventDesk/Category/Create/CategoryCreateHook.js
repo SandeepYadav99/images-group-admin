@@ -12,6 +12,7 @@ import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import Constants from "../../../../config/constants";
 import RouteName from "../../../../routes/Route.name";
 import historyUtils from "../../../../libs/history.utils";
+import { cleanContactNumber } from "../../../../helper/helper";
 
 const initialForm = {
   name: "",
@@ -19,7 +20,6 @@ const initialForm = {
   priority: "",
   email: "",
   status: true,
-  country_code: "91",
 };
 
 const useCategoryCreate = ({ location }) => {
@@ -46,7 +46,7 @@ const useCategoryCreate = ({ location }) => {
           setForm({
             ...form,
             name: data?.name,
-            contact: data?.contact,
+            contact: cleanContactNumber(data?.contact),
             email: data?.email,
             priority: data?.priority ? data?.priority.toString() : "",
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
@@ -96,12 +96,6 @@ const useCategoryCreate = ({ location }) => {
         delete errors[val];
       }
     });
-    if (
-      form?.contact &&
-      (!isNum(form?.contact) || form?.contact?.length !== 10)
-    ) {
-      errors["contact"] = true;
-    }
     if (form?.email && !isEmail(form?.email)) {
       errors["email"] = true;
     }
@@ -113,13 +107,14 @@ const useCategoryCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
+
+
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = { ...form };
       fd.status = form?.status ? "ACTIVE" : "INACTIVE";
-      fd.contact = `${form?.country_code} ${form?.contact}`;
-      delete fd.country_code;
+      fd.contact = cleanContactNumber(form?.contact);
       if (eventId) {
         fd.event_id = eventId;
       }
@@ -173,11 +168,7 @@ const useCategoryCreate = ({ location }) => {
         if (text?.length <= 10) {
           t[fieldName] = text.trimStart();
         }
-      } else if (fieldName === "contact") {
-        if (isNum(text) && text.toString().length <= 10) {
-          t[fieldName] = text;
-        }
-      } else {
+      }  else {
         t[fieldName] = text;
       }
       setForm(t);

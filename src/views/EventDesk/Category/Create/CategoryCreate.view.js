@@ -9,6 +9,7 @@ import useCategoryCreate from "./CategoryCreateHook";
 import CountryInputField from "../../../../components/CountryInputField/CountryInputField.js";
 import country_code from "../../../../assets/country_code.json";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component.js";
+import CustomCountryFC from "../../../../components/CountryFC/CustomCountryFC.js";
 
 const CategoryCreateView = ({ location }) => {
   const {
@@ -61,38 +62,19 @@ const CategoryCreateView = ({ location }) => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <div style={{ display: "flex", gap: "8px" }}>
-              <CustomSelectField
-                isError={errorData?.country_code}
-                errorText={errorData?.country_code}
-                label={"Country Code"}
-                value={form?.country_code}
-                handleChange={(value) => {
-                  changeTextData(value, "country_code");
-                }}
-              >
-                {country_code?.map((val) => {
-                  return (
-                    <MenuItem key={val?.dial_code} value={val?.dial_code}>
-                      {val?.dial_code}
-                    </MenuItem>
-                  );
-                })}
-              </CustomSelectField>
-              <CustomTextField
-                type="tel"
-                isError={errorData?.contact}
-                errorText={errorData?.contact}
-                label={"Contact"}
-                value={form?.contact}
-                onTextChange={(text) => {
-                  changeTextData(text, "contact");
-                }}
-                onBlur={() => {
-                  onBlurHandler("contact");
-                }}
-              />
-            </div>
+            <CustomCountryFC
+              type="tel"
+              isError={errorData?.contact}
+              errorText={errorData?.contact}
+              label={"Contact"}
+              value={form?.contact}
+              onTextChange={(text) => {
+                changeTextData(text, "contact");
+              }}
+              onBlur={() => {
+                onBlurHandler("contact");
+              }}
+            />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
@@ -139,7 +121,7 @@ const CategoryCreateView = ({ location }) => {
               handleChange={() => {
                 changeTextData(!form?.status, "status");
               }}
-              label={form?.status ? `Active` : `In-Active`}
+              label={form?.status ? `Active` : `Inactive`}
             />
           </div>
         </div>
