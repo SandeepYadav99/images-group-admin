@@ -10,12 +10,12 @@ const NewDashboard = () => {
   const [data, setData] = useState([]);
 
   let params = {
-    "index": 1,
-    "order": null,
-    "query": null,
-    "query_data": null,
-    "row": null
-}
+    index: 1,
+    order: null,
+    query: null,
+    query_data: null,
+    row: null,
+  };
 
   useEffect(() => {
     let dataValues = serviceGetDashboard(params);
@@ -25,12 +25,15 @@ const NewDashboard = () => {
       })
       .catch((err) => console.log(err));
   }, []);
- 
+
   return (
     <div>
-         <div className={styles.tableFlex212}>
-        <div className={styles.dashboardFlex} style={{ width: "100%",display:'flex', flexWrap:"wrap" }}>
-        <div className={styles.plainPaper}>
+      <div className={styles.tableFlex212}>
+        <div
+          className={styles.dashboardFlex}
+          style={{ width: "100%", display: "flex", flexWrap: "wrap" }}
+        >
+          <div className={styles.plainPaper}>
             <div className={styles.whiteFlex}>
               <div className={styles.imgBox}>
                 <img
@@ -57,7 +60,23 @@ const NewDashboard = () => {
               <div>
                 <div className={styles.number}>{data?.appUserCount}</div>
                 <div className={styles.prcStatus} style={{ color: "#818181" }}>
-                App Users 
+                  App Users
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.plainPaper}>
+            <div className={styles.whiteFlex}>
+              <div className={styles.imgBox}>
+                <img
+                  src={require("../../assets/img/ic_state@2x.png")}
+                  height={50}
+                />
+              </div>
+              <div>
+                <div className={styles.number}>{data?.eventsCount}</div>
+                <div className={styles.prcStatus} style={{ color: "#818181" }}>
+                  Event 
                 </div>
               </div>
             </div>
