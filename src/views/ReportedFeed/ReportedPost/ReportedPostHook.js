@@ -12,6 +12,8 @@ import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/index.services";
 import { useParams } from "react-router";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
+import { serviceDeleteReportedFeedPostValue } from "../../../services/ReportedPost.service";
 
 const useReportedPost = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -20,11 +22,18 @@ const useReportedPost = ({}) => {
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
-
+const [dataValue, setDataValue]=useState("")
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const { id } = useParams();
-
+  const [isRejectPopUp, setIsRejectPopUp] = useState(false);
+  const toggleRejectDialog = useCallback(
+    (obj) => {
+      setIsRejectPopUp((e) => !e);
+       setDataValue(obj?.id);
+    },
+    [isRejectPopUp]
+  );
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -154,6 +163,23 @@ const useReportedPost = ({}) => {
     }); //+data.id
   }, []);
 
+  const handleRejectApi = useCallback(() => {
+   
+      let params = {
+        post_id: dataValue,
+      };
+      serviceDeleteReportedFeedPostValue(params);
+      dispatch(
+        actionFetchReportedPost(1, sortingData, {
+          query: isMountRef.current ? query : null,
+          query_data: isMountRef.current ? queryData : null,
+        })
+      );
+      setIsRejectPopUp((e) => !e);
+    // }
+  }, [ id, dataValue, setIsRejectPopUp, isRejectPopUp]);
+
+
   const configFilter = useMemo(() => {
     return [
       {
@@ -194,6 +220,9 @@ const useReportedPost = ({}) => {
     handleViewUpdate,
     toggleVideoModal,
     isVideoModal,
+    toggleRejectDialog,
+    isRejectPopUp,
+    handleRejectApi
   };
 };
 
