@@ -26,7 +26,7 @@ export const CREATE_DATA = "CREATE_EXHIBITORS";
 export const UPDATE_DATA = "UPDATE_EXHIBITORS";
 export const DELETE_ITEM = "DELETE_EXHIBITORS";
 
-export function actionFetchExhibitors(index = 1,event_id={event_id},
+export function actionFetchExhibitors(index = 1,event_id,
     sorting = {}, filter = {}) {
     const request = serviceGetExhibitorsQuery({
         index,
