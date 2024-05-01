@@ -120,8 +120,8 @@ function useEventSponsorCreate({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [ "type"];
-// "name", "web_url", "priority", "contact",
+    let required = ["type"];
+    // "name", "web_url", "priority", "contact",
     required.forEach((val) => {
       if (
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
@@ -185,8 +185,7 @@ function useEventSponsorCreate({ location }) {
         t[fieldName] = text;
       } else if (fieldName === "priority") {
         // if (isNum(text)) {
-          t[fieldName] = text;
-        
+        t[fieldName] = text;
       } else if (fieldName === "contact") {
         if (text >= 0 && text?.length <= 10) {
           t[fieldName] = `${text}`;
@@ -230,7 +229,7 @@ function useEventSponsorCreate({ location }) {
         if (form?.img_url) {
           fd.append("img_url", form?.img_url);
         }
-        console.log({ images , form});
+        console.log({ images, form });
         if (!images && !form?.img_url) {
           fd.append("is_image_removed", true);
         }
@@ -238,22 +237,24 @@ function useEventSponsorCreate({ location }) {
           fd.append("event_id", selectedEventId);
         }
         const ExpensesData = ChildenRef.current.getData();
-        // ExpensesData.forEach((val) => {
-        //   console.log({ val });
-        //   if (val?.documentUpload) {
-        //     fd.append("download_documents", val?.documentUpload);
-        //   }
-        // });
-        fd.append("downloads", JSON.stringify(ExpensesData));
+        ExpensesData.forEach((val) => {
+          console.log({ val });
+          if (!val?.documentUpload && !val?.file_name) {
+            fd.append("downloads", JSON.stringify([]));
+          } else {
+            fd.append("downloads", JSON.stringify(ExpensesData));
+          }
+        });
 
         const DigitalBag = ChildenRef1.current.getData();
         DigitalBag.forEach((val) => {
-          if (val?.images) {
-            fd.append("digital_bag_images", val?.images);
+          if (!val?.images && !val?.title && !val?.url) {
+            fd.append("digital_bags", JSON.stringify([]));
+          } else {
+            fd.append("digital_bags", JSON.stringify(DigitalBag));
           }
         });
-        fd.append("digital_bags", JSON.stringify(DigitalBag));
-       
+
         let req;
         if (id) {
           req = serviceUpdateEventSponsor(fd);

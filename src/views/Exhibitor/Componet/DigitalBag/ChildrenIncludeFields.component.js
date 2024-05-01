@@ -66,20 +66,21 @@ const ChildrenIncludeFields = ({
       } else if (fieldName === "url") {
         changeData(index, { [fieldName]: e.target.value });
       } else if (fieldName === "thumbnail" ) {
+        changeData(index, { [fieldName]: e });
         //  const url= URL.createObjectURL(e)
-        const fd = new FormData();
-        fd.append("files", e);
-        serviceUpdateFile(fd).then((res) => {
-          if (!res?.error) {
-            const data = res?.data;
+        // const fd = new FormData();
+        // fd.append("files", e);
+        // serviceUpdateFile(fd).then((res) => {
+        //   if (!res?.error) {
+        //     const data = res?.data;
 
-            // if (data) {
-            changeData(index, { [fieldName]: data[index] });
+        //     // if (data) {
+        //     changeData(index, { [fieldName]: data[index] });
 
-            console.log(e);
-            // changeData(index,  {thumbnailURL: e} );
-          }
-        });
+        //     console.log(e);
+        //     // changeData(index,  {thumbnailURL: e} );
+        //   }
+        // });
       } else {
         changeData(index, { [fieldName]: e });
       }

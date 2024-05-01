@@ -520,7 +520,7 @@ const useExhibitorCreate = ({ location }) => {
   //         console.log(data)
   //         const updatedItem = {
   //           file_name: val.file_name,
-  //           document: data[index], 
+  //           document: data[index],
   //         };
   //         // setDownloads(updatedItem)
   //         // downloadData.push(updatedItem);
@@ -532,8 +532,9 @@ const useExhibitorCreate = ({ location }) => {
   //       });
   //   }
   // });
- 
+
   //  console.log({ downloadData });
+
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -594,33 +595,33 @@ const useExhibitorCreate = ({ location }) => {
     //   industryID?.length > 0 &&  fd.append("products", industryID?.join(","));
     // }
     const ExpensesData = ChildenRef.current.getData();
-    // ExpensesData.forEach((val) => {
-    //   console.log({ val });
-    //   if (val?.documentUpload) {
-    //     fd.append("download_documents", val?.documentUpload);
-    //   }
-    //   // else {
-    //   //   const file = dataURLtoFile(nullImg, "null.png");
-    //   //   fd.append("download_documents", file);
-    //   // }
-    // });
 
-    fd.append("downloads", JSON.stringify(ExpensesData));
-
-   
+    ExpensesData.forEach((val) => {
+      console.log({ val });
+      if (!val?.documentUpload && !val?.file_name) {
+        fd.append("downloads", JSON.stringify([]));
+      } else {
+        fd.append("downloads", JSON.stringify(ExpensesData));
+      }
+      // else {
+      //   const file = dataURLtoFile(nullImg, "null.png");
+      //   fd.append("download_documents", file);
+      // }
+    });
 
     const DigitalBag = ChildenRef1.current.getData();
 
-    // DigitalBag.forEach((val) => {
-    //   if (val?.images) {
-    //     fd.append("digital_bag_images", val?.images);
-    //   }
-    //   //  else {
-    //   //   const file = dataURLtoFile(nullImg, "null.png");
-    //   //   fd.append("digital_bag_images", file);
-    //   // }
-    // });
-    fd.append("digital_bags", JSON.stringify(DigitalBag));
+    DigitalBag.forEach((val) => {
+      if (!val?.images && !val?.title && !val?.url) {
+        fd.append("digital_bags", JSON.stringify([]));
+      } else {
+        fd.append("digital_bags", JSON.stringify(DigitalBag));
+      }
+      //   //  else {
+      //   //   const file = dataURLtoFile(nullImg, "null.png");
+      //   //   fd.append("digital_bag_images", file);
+      //   // }
+    });
 
     // if(empId){
     //   if (form?.company_logo) {

@@ -43,7 +43,8 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   const [dataValue, setDataValue] = useState({});
   const [countryCode, setCountryCode] = useState();
   const [contactErr, setContactErr] = useState();
-
+  const codeDebouncer = useDebounce(form?.contact, 500);
+  const emailDebouncer = useDebounce(form?.email, 500);
   useEffect(() => {
     setContactErr(empId);
   }, [empId, form?.contact]);
@@ -58,7 +59,6 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     }
   }, []);
 
-  const codeDebouncer = useDebounce(form?.contact, 500);
   useEffect(() => {
     if (empId) {
       serviceGetAdminUserDetails({ id: empId }).then((res) => {
@@ -93,7 +93,9 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     console.log({ temp });
     if (temp[1]?.replace("-", "")?.length === 10) {
       serviceAdminUserCheckExist({
-        contact: `${cleanContactNumber(form?.contact)}`,
+        contact: temp[1]?.replace("-", ""),
+        country_code: temp[0]?.replace("+", ""),
+        id: empId,
       }).then((res) => {
         if (!res.error) {
           const errors = JSON.parse(JSON.stringify(errorData));
@@ -107,36 +109,32 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         }
       });
     }
-  }, [errorData, setErrorData]);
+  }, [errorData, setErrorData, empId, form?.contact]);
 
-  //  useEffect(() => {
-  //   const temp = form?.contact?.split(" ");
-  //   if (temp[1]?.replace("-","")?.length === 10) {
-  //     serviceAdminUserCheckExist({
-  //       contact: `${cleanContactNumber(form?.contact)}`,
-  //     })?.then((res) => {
-  //       const response = res?.data;
-  //       const contactSplit = response?.contact?.split(" ");
-  //       const countryCode = getCountryCode(contactSplit[0]);
-  //       setContactErr(response?.id);
-  //       setForm({
-  //         ...form,
-  //         name: response?.name,
-  //         contact: response?.full_contact,
-  //         email: response?.email,
-  //         role: response?.role,
-  //         status: response?.status === Constants.GENERAL_STATUS.ACTIVE,
-  //         country_code: countryCode,
-  //       });
-  //     });
-  //   } else if (temp[1]?.length < 10) {
-  //     setContactErr("");
-  //     setForm({
-  //       ...form,
-  //       contact:form?.contact,
-  //     });
-  //   }
-  // }, [form?.contact]);
+  const checkEmailValidation = useCallback(() => {
+    if (!form?.email) return;
+    serviceAdminUserCheckExist({
+      email: form?.email,
+      id: empId,
+    }).then((res) => {
+      if (!res.error) {
+        const errors = JSON.parse(JSON.stringify(errorData));
+        if (res.data.is_exists) {
+          errors["email"] = "Admin User Email Exists";
+          setErrorData(errors);
+        } else {
+          delete errors.email;
+          setErrorData(errors);
+        }
+      }
+    });
+  }, [errorData, setErrorData, empId, form?.email]);
+
+  useEffect(() => {
+    if (emailDebouncer) {
+      checkEmailValidation();
+    }
+  }, [emailDebouncer]);
 
   useEffect(() => {
     if (codeDebouncer) {
@@ -204,7 +202,7 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         }
       });
       fd.delete("country_code");
-      
+
       if (empId && contactErr) {
         fd.delete("password");
         // fd.delete("country_code");
@@ -278,13 +276,13 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData, checkCodeValidation]
+    [changeTextData, checkCodeValidation, checkEmailValidation]
   );
   const handleDelete = useCallback(() => {}, []);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
-    setErrorData({})
+    setErrorData({});
   }, [form]);
 
   const toggleRejectDialog = useCallback(

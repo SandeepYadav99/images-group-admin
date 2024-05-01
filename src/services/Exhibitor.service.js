@@ -2,7 +2,7 @@ import { formDataRequest, formDataRequestCustom, postRequest } from "../libs/Axi
 
 
 export async function serviceCreateExhibitors(params) {
-  return await formDataRequest("exhibitors/create", params);
+  return await formDataRequest("exhibitors/creates", params);
 }
 export async function serviceUpdateExhibitors(params) {
   return await formDataRequest("exhibitors/update", params);

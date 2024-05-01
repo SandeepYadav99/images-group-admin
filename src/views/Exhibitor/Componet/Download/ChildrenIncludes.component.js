@@ -105,43 +105,7 @@ const ChildrenIncludeForm = (
     return fields;
   };
 
-  useEffect(()=>{
-    if (Array.isArray(fields)) {
-fields.forEach((val, index) => {
-      console.log({ val });
-      if (val?.documentUpload) {
-        const fd = new FormData();
-        fd.append("files", val?.documentUpload);
-        Axios
-          .post(`${Constants.DEFAULT_APP_URL}${"files/upload"}`, fd, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: localStorage.getItem("jwt_token"),
-              folder: "exhibitors",
-            },
-          })
-          .then((res) => {
-            const data = res?.data?.response_obj;
-            console.log(data)
-            const updatedItem = {
-              file_name: val.file_name,
-              document: data[index], 
-            };
-            setFields(prevFields => {
-              const updatedFields = [...prevFields];
-              updatedFields[index] = updatedItem;
-              return updatedFields;
-            });
-            // setFields(updatedItem)
-           
-          
-          });
-      }
-    });
-  }else{
-    console.log({fields})
-  }
-   },[fields]);
+
 
  console.log({fields})
   const validateData = (index, type) => {
@@ -156,6 +120,7 @@ fields.forEach((val, index) => {
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
+        if(!val['file_name'] && !val["documentUpload"]) return;
        const required = [];
       // if(!exhibitorId){
       //   required.push("documentUpload")
