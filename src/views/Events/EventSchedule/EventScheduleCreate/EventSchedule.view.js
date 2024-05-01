@@ -406,6 +406,20 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             checked={form?.is_recommended}
           />
         </div>
+
+      </div>
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              changeTextData(!form?.is_featured, "is_featured");
+            }}
+            label={"Featured"}
+            checked={form?.is_featured}
+          />
+        </div>
+        
       </div>
       <div className={styles.btnCont}>
         <ButtonBase

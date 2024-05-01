@@ -36,6 +36,7 @@ const initialForm = {
   is_recommended: false,
   image: "",
   overview: "",
+  is_featured:false,
 };
 
 const useEventScheduleHook = ({
@@ -145,6 +146,7 @@ const useEventScheduleHook = ({
             co_chairs: modifiedCoChairs,
             is_recommended: data?.is_recommended,
             overview: data?.overview,
+            is_featured:data?.is_featured,
           });
         } else {
           SnackbarUtils.error(res?.message);
