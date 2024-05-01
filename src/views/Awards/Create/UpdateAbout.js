@@ -3,7 +3,7 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import useUpdateAboutHook from "./UpdateAboutHook";
 import styles from "./Style.module.css";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import { ButtonBase } from "@material-ui/core";
+import { ButtonBase, CircularProgress } from "@material-ui/core";
 import Slider from "react-slick";
 const UpdateAbout = ({ isSidePanel, handleToggleSidePannel, aboutData ,handleClose }) => {
   const {
@@ -13,6 +13,7 @@ const UpdateAbout = ({ isSidePanel, handleToggleSidePannel, aboutData ,handleClo
     onBlurHandler,
     handleSubmit,
     image,
+    isSubmitting
   } = useUpdateAboutHook({ isSidePanel, handleToggleSidePannel, aboutData ,handleClose });
   return (
     <div className={styles.updatAbout}>
@@ -62,8 +63,11 @@ const UpdateAbout = ({ isSidePanel, handleToggleSidePannel, aboutData ,handleClo
         </div>
       </div>
       <div className={styles.actionButton}>
-        <ButtonBase className={styles.update_status} onClick={handleSubmit}>
-          UPDATE
+        <ButtonBase className={styles.update_status} 
+            disabled={isSubmitting ? true : false}
+        onClick={handleSubmit}>
+        {isSubmitting ? <CircularProgress color="success" size="20px" /> : 
+          'UPDATE' } 
         </ButtonBase>
       </div>
     </div>

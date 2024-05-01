@@ -20,8 +20,11 @@ import useMeetingList from "./MeetingList.hook";
 import { useHistory } from "react-router-dom";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import MeetingCreateView from "../MeetingMaster/MeetingMaster";
+import historyUtils from "../../../libs/history.utils";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
-const MeetingList = ({location}) => {
+
+const MeetingList = ({ location }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -34,12 +37,12 @@ const MeetingList = ({location}) => {
     configFilter,
     handleCreateFed,
     handleUpdate,
-    
+
     handleToggleSidePannel,
     isSidePanel,
     editData,
-    handleMeetingMaster
-    } = useMeetingList({ location });
+    handleMeetingMaster,
+  } = useMeetingList({ location });
 
   const history = useHistory();
 
@@ -164,12 +167,22 @@ const MeetingList = ({location}) => {
     <>
       <PageBox>
         <div className={styles.headerContainer}>
-          <div>
-            <span className={styles.title}>Meeting Rooms</span>
+          <div className={styles.backBtn}>
+            <span className={styles.title}>
+              <ArrowBackIosIcon
+                fontSize={"small"}
+                onClick={() => historyUtils.goBack()}
+              />
+              Meeting Rooms
+            </span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.BtnWrapper}>
-            <ButtonBase className={"createBtn"} id={styles.bgColor} onClick={handleMeetingMaster}>
+            <ButtonBase
+              className={"createBtn"}
+              id={styles.bgColor}
+              onClick={handleMeetingMaster}
+            >
               MEETING MASTER{" "}
             </ButtonBase>
             <ButtonBase

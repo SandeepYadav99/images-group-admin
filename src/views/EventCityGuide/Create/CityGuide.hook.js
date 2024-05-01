@@ -15,9 +15,9 @@ function useCityGuidCreateHook({ location }) {
     banner: null,
     event_id: "",
     title: "",
-    priority: "",
-    description: "",
-    thumbnail: "",
+    // priority: "",
+    // description: "",
+    // thumbnail: "",
     status: "",
   };
   const colorKey = ["name2", "email", "title", "contact"];
@@ -42,10 +42,10 @@ function useCityGuidCreateHook({ location }) {
           setForm({
             ...form,
             id: id,
-            priority: data?.priority,
+            // priority: data?.priority,
             title: data?.title,
             event_id: data?.event_id,
-            description: data?.description,
+            // description: data?.description,
           });
           setBanner(data?.banner);
           setthumb(data?.thumbnail);
@@ -59,9 +59,9 @@ function useCityGuidCreateHook({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["title", "priority", "description"];
+    let required = ["title"];
     if (!id) {
-      required.push(...["banner", "thumbnail"]);
+      required.push(...["banner"]);
     }
     if (!banner) {
       required.push("banner");
@@ -126,9 +126,9 @@ console.log(id, "Id")
             fd.append(key, form[key]);
           }
         });
-        if (form?.thumbnail) {
-          fd.append("thumbnail", form?.thumbnail);
-        }
+        // if (form?.thumbnail) {
+        //   fd.append("thumbnail", form?.thumbnail);
+        // }
         if (form?.banner) {
           fd.append("banner", form?.banner);
         }

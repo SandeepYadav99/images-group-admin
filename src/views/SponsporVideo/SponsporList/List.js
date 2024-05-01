@@ -18,7 +18,9 @@ import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 // import StatusPill from "../../../components/Status/StatusPill.component";
 import useSponsporList from "./List.hook";
 import StatusPill from "../../../components/Status/StatusPill.component";
+import historyUtils from "../../../libs/history.utils";
 // import AppUserCreateView from "../AppUserCreate/AppUserCreate.view";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const SponsporList = ({}) => {
   const {
@@ -107,7 +109,7 @@ const SponsporList = ({}) => {
       },
       {
         key: "video",
-        label: "video",
+        label: "Video/ Images",
         sortable: true,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
@@ -193,8 +195,13 @@ const SponsporList = ({}) => {
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
-          <div>
-            <span className={styles.title}>Sponsor Video List</span>
+        <div>
+            <ButtonBase onClick={() => historyUtils.goBack()}>
+              <ArrowBackIosIcon fontSize={"small"} />
+              <span className={"capitalize"}>
+                <span className={styles.title}>Sponsor Video List</span>
+              </span>
+            </ButtonBase>
             <div className={styles.newLine} />
           </div>
           <div>

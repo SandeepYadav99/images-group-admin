@@ -25,7 +25,7 @@ function useVideoCreate({ location }) {
     name: "",
     video: "",
     status: true,
-    image:""
+    // image:""
   };
   const [form, setForm] = useState({ ...initialForm });
   const [img, setImg] = useState("");
@@ -69,10 +69,11 @@ function useVideoCreate({ location }) {
         if (!res.error) {
           const data = res?.data;
           setVideoData(data?.video);
-          setImage(data?.image)
+          // setImage(data?.image)
           setForm({
             name:data?.name,
             status: data?.status === constants.GENERAL_STATUS.ACTIVE,
+            video:null
           })
         } else {
           SnackbarUtils.error(res?.message);
@@ -87,7 +88,7 @@ function useVideoCreate({ location }) {
     let required = ["name"];
 
     if(!id){
-      required.push(...["video"]) && required.push(...["image"])
+      required.push(...["video"])
     }
 
     required.forEach((val) => {
@@ -138,14 +139,18 @@ function useVideoCreate({ location }) {
         const fd = new FormData();
 
         Object.keys(form).forEach((key) => {
-          if (key === "status") {
-            fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-          }
-          else {
-            fd.append(key, form[key]);
+          if(key !=="video"){
+            if (key === "status") {
+              fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+            }
+            else {
+              fd.append(key, form[key]);
+            }
           }
         });
-
+        if(form?.video){
+          fd.append("video",form?.video)
+        }
         fd.append("event_id", selectedEventId );
         let req;
         if (id) {

@@ -10,6 +10,7 @@ import {
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 import LogUtils from "../../libs/LogUtils";
+import { useParams } from "react-router-dom";
 // import { serviceExhibitorList } from "../../services/Exhibitor.service";
 
 const useCalendarCount = ({}) => {
@@ -40,13 +41,15 @@ const useCalendarCount = ({}) => {
   //     );
   //   }, []);
 
-  const { user } = useSelector((state) => state.auth);
-
+  // const { user } = useSelector((state) => state.auth);
+  const {id} = useParams();
+  
   useEffect(() => {
     dispatch(
       actionFetchCalendarCount(
         1,
-        user?.event_id,
+        id,
+        // user?.event_id,
         {},
         {
           query: isMountRef.current ? query : null,
@@ -55,7 +58,7 @@ const useCalendarCount = ({}) => {
       )
     );
     isMountRef.current = true;
-  }, []);
+  }, [id]);
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
@@ -86,7 +89,8 @@ const useCalendarCount = ({}) => {
       dispatch(
         actionFetchCalendarCount(
           1,
-          user?.event_id,
+          id,
+          // user?.event_id,
           sortingData,
           {
             query: key == "SEARCH_TEXT" ? value : query,
@@ -95,7 +99,7 @@ const useCalendarCount = ({}) => {
         )
       );
     },
-    [sortingData, query, queryData]
+    [sortingData, query, queryData,id]
   );
 
   const handleFilterDataChange = useCallback(
@@ -115,20 +119,22 @@ const useCalendarCount = ({}) => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      dispatch(actionSetPageCalendarCount(1));
+      // dispatch(actionSetPageCalendarCount(1));
       dispatch(
         actionFetchCalendarCount(
           1,
-          user?.event_id,
+          id,
+          // user?.event_id,
           { row, order },
           {
             query: query,
             query_data: queryData,
+          // event_id: id
           }
         )
       );
     },
-    [query, queryData]
+    [query, queryData,id]
   );
 
   const handleRowSize = (page) => {
