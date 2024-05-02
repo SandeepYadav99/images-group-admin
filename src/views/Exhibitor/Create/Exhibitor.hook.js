@@ -184,10 +184,13 @@ const useExhibitorCreate = ({ location }) => {
       serviceGetExhibitorsDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
-          const { business_nature } = data;
-          const { hall, children } = data;
-
-          // ChildenRef?.current?.setData(children);
+          const { business_nature, downloads, digital_bags, hall } = data;
+          if (downloads?.length > 0) {
+            ChildenRef?.current?.setData(downloads);
+          }
+          if (digital_bags?.length > 0) {
+            ChildenRef1?.current?.setData(digital_bags);
+          }
           // setSelectImages(data?.gallery_images);
           setDetailsValue(business_nature);
           setImage(data?.company_logo);
@@ -327,9 +330,6 @@ const useExhibitorCreate = ({ location }) => {
     }
   }, [form?.is_partner]);
 
-  
-
-
   useEffect(() => {
     if (!form?.is_business_nature_other) {
       if (form?.business_nature?.includes(form?.business_nature_other)) {
@@ -467,7 +467,6 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
- console.log(form?.is_participant)
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -512,41 +511,25 @@ const useExhibitorCreate = ({ location }) => {
           if (form?.is_partner) {
             fd.append(key, capitalizeFirstLetter(form?.partner_tag));
           }
-        }else  if(key === "is_participant"){
-          fd.append("is_featured", false)
-         }else  if(key === "is_featured"){
-          delete form[key]
-         } else {
+        } else if (key === "is_participant") {
+          fd.append("is_featured", false);
+        } else if (key === "is_featured") {
+          delete form[key];
+        } else {
           fd.append(key, form[key]);
         }
-       
       }
     });
- 
+
     const ExpensesData = ChildenRef.current.getData();
-
-    ExpensesData.forEach((val) => {
-      console.log({ val });
-      if (!val?.documentUpload && !val?.file_name) {
-        fd.append("downloads", JSON.stringify([]));
-      } else {
-        fd.append("downloads", JSON.stringify(ExpensesData));
-      }
-    
-    });
-
+    if(ExpensesData?.length > 0 && ExpensesData[0]?.file_name){
+      fd.append("downloads", JSON.stringify(ExpensesData));
+    }
     const DigitalBag = ChildenRef1.current.getData();
+    if(DigitalBag?.length > 0 && DigitalBag[0]?.title){
+      fd.append("digital_bags", JSON.stringify(DigitalBag));
+    }
 
-    DigitalBag.forEach((val) => {
-      if (!val?.images && !val?.title && !val?.url) {
-        fd.append("digital_bags", JSON.stringify([]));
-      } else {
-        fd.append("digital_bags", JSON.stringify(DigitalBag));
-      }
-    
-    });
-
- 
     fd.append("event_id", "65029c5bdf6918136df27e51");
     if (!form?.is_partner) {
       fd.append("partner_tag", "");
@@ -573,10 +556,10 @@ const useExhibitorCreate = ({ location }) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    // const isIncludesValid = ChildenRef.current.isValid();
-    // const isIncludesValid1 = ChildenRef1.current.isValid();
+    const isIncludesValid = ChildenRef.current.isValid();
+    const isIncludesValid1 = ChildenRef1.current.isValid();
 
-    if (Object.keys(errors).length > 0) {
+    if (Object.keys(errors).length > 0 || !isIncludesValid || !isIncludesValid1) {
       setErrorData(errors);
 
       return;

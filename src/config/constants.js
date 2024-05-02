@@ -7,6 +7,7 @@ const isProduction = process.env.REACT_APP_ENV === "production";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const socketUrl = process.env.REACT_APP_SOCKET_URL;
+const uploaderUrl = process.env.REACT_APP_UPLOADER_URL;
 
 export default {
   is_development: process.env.NODE_ENV === "development" || !isProduction,
@@ -15,6 +16,7 @@ export default {
   APP_NAME: "IMAGE GROUPS",
   DEFAULT_APP_URL: apiUrl,
   SOCKET_URL: socketUrl,
+  UPLOADER_URL: uploaderUrl,
   // DEFAULT_APP_URL: 'http://35.154.147.169:5055/api/',
   DEFAULT_PAGE_VALUE: TABLE_LIMIT,
   GOOGLE_LOGIN_KEY:

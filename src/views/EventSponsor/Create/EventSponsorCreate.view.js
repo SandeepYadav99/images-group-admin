@@ -15,7 +15,6 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CountryInputField from "../../../components/CountryInputField/CountryInputField.js";
-import CustomCheckbox from "../../../components/FormFields/CustomCheckbox.js";
 import ChildrenIncludeForm from "./Component/Download/ChildrenIncludes.component.js";
 import ChildrenIncludeForm1 from "./Component/DigitalBag/ChildrenIncludes.component.js";
 import ToolTipInfo from "../../../components/ToolTipInfo/ToolTipInfo.js";

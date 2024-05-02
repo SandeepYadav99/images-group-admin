@@ -1,48 +1,9 @@
-/**
- * Created by charnjeetelectrovese@gmail.com on 5/13/2020.
- */
-
-import React, { useCallback, useState } from "react";
-import {
-  TextField,
-  ButtonBase,
-  InputAdornment,
-  MenuItem,
-  IconButton,
-} from "@material-ui/core";
+import React from "react";
+import { TextField, ButtonBase } from "@material-ui/core";
 import styles from "./style.module.css";
-import { isAlpha, isNum } from "../../../../libs/RegexUtils";
-import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
-import {
-  AddCircle as AddIcon,
-  Info as EditIcon,
-  RemoveCircleOutline as RemoveIcon,
-} from "@material-ui/icons";
-
-import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
-import File from "../../../../components/FileComponent/FileComponent.component";
-import Axios from "axios";
 import constants from "../../../../config/constants";
 import { serviceUpdateFile } from "../../../../services/Common.service";
-
-const useStyles = {
-  toggleDiv: {
-    maxWidth: 300,
-    marginTop: 40,
-    marginBottom: 5,
-  },
-  toggleLabel: {
-    color: "black",
-    fontWeight: 100,
-  },
-  buttons: {
-    marginTop: 30,
-    float: "right",
-  },
-  saveButton: {
-    marginLeft: 5,
-  },
-};
+import MultIUpload from "../MultIUpload/MultIUpload.component";
 
 const ChildrenIncludeFields = ({
   index,
@@ -51,11 +12,6 @@ const ChildrenIncludeFields = ({
   handlePress,
   data,
   errors,
-  onBlur,
-  currency,
-  listWarehouse,
-  empId,
-  exhibitorId,
 }) => {
   const handleChange = (e, fieldName) => {
     // const name = e?.target?.name;
@@ -65,22 +21,15 @@ const ChildrenIncludeFields = ({
         changeData(index, { [fieldName]: e.target.value });
       } else if (fieldName === "url") {
         changeData(index, { [fieldName]: e.target.value });
-      } else if (fieldName === "thumbnail" ) {
-        changeData(index, { [fieldName]: e });
-        //  const url= URL.createObjectURL(e)
-        // const fd = new FormData();
-        // fd.append("files", e);
-        // serviceUpdateFile(fd).then((res) => {
-        //   if (!res?.error) {
-        //     const data = res?.data;
-
-        //     // if (data) {
-        //     changeData(index, { [fieldName]: data[index] });
-
-        //     console.log(e);
-        //     // changeData(index,  {thumbnailURL: e} );
-        //   }
-        // });
+      } else if (fieldName === "thumbnail") {
+        const fd = new FormData();
+        fd.append("files", e);
+        serviceUpdateFile(fd).then((res) => {
+          if (!res?.error) {
+            const data = res?.data;
+            changeData(index, { [fieldName]: data?.length > 0 ? data[0] : "" });
+          }
+        });
       } else {
         changeData(index, { [fieldName]: e });
       }
@@ -94,26 +43,23 @@ const ChildrenIncludeFields = ({
           <div className={styles.cont}>
             <div className={"formFlex"}>
               <div className={"formGroup"}>
-                <File
+                <MultIUpload
                   // imageClass={styles.inputFileUploader}
                   max_size={5 * 1024 * 1024}
                   type={["png", "jpeg", "jpg"]}
                   fullWidth={true}
-                  name="images"
+                  name="thumbnail"
                   accept={"image/*"}
-                   default_image={data?.thumbnail ? data?.thumbnail : ""}
+                  default_image={data?.thumbnail ? data?.thumbnail : ""}
                   label="Upload  Image"
                   show_image={true}
-                  error={errors?.images || ""}
-                  value={data?.images}
+                  error={errors?.thumbnail || ""}
+                  value={data?.thumbnail}
                   onChange={(file) => {
                     if (file) {
-                      handleChange(file, "images");
+                      handleChange(file, "thumbnail");
                     }
                   }}
-                  // onChange={(file) => {
-                  //   handleChange({ target: { name: 'documentUpload', value: file }});
-                  // }}
                 />
               </div>
             </div>
