@@ -1051,13 +1051,14 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.HALL_MASTER}`,
+    path: `${RouteName.HALL_MASTER}:id`,
     component: HallMasterList,
     sidebarName: "Hall Master",
     navbarName: "Hall Master",
-    is_sidebar: true,
+    is_sidebar: false,
     icon: PeopleOutlined,
     is_protect: true,
+    parentRoute:`${RouteName.EVENTS}`
   },
   {
     path: `${RouteName.SPONSPOR_VIDEO}:id`,

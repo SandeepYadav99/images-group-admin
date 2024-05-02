@@ -129,6 +129,7 @@ function useEventCreate() {
     privilaged_member:true,
     exhibitor_query:true,
     custom_participant:true,
+    hall_master:true,
     // event_calendar:true
   };
 
