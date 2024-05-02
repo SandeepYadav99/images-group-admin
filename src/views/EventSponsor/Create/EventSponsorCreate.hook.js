@@ -84,6 +84,13 @@ function useEventSponsorCreate({ location }) {
       serviceGetEventSponsorDetails({ id: id }).then((res) => {
         if (!res.error) {
           const data = res?.data;
+          const { downloads, digital_bags } = data;
+          if (downloads?.length > 0) {
+            ChildenRef?.current?.setData(downloads);
+          }
+          if (digital_bags?.length > 0) {
+            ChildenRef1?.current?.setData(digital_bags);
+          }
           console.log("data", data);
           const fd = {};
           Object.keys({ ...initialForm }).forEach((key) => {
@@ -237,23 +244,13 @@ function useEventSponsorCreate({ location }) {
           fd.append("event_id", selectedEventId);
         }
         const ExpensesData = ChildenRef.current.getData();
-        ExpensesData.forEach((val) => {
-          console.log({ val });
-          if (!val?.documentUpload && !val?.file_name) {
-            fd.append("downloads", JSON.stringify([]));
-          } else {
-            fd.append("downloads", JSON.stringify(ExpensesData));
-          }
-        });
-
+        if (ExpensesData?.length > 0 && ExpensesData[0]?.file_name) {
+          fd.append("downloads", JSON.stringify(ExpensesData));
+        }
         const DigitalBag = ChildenRef1.current.getData();
-        DigitalBag.forEach((val) => {
-          if (!val?.images && !val?.title && !val?.url) {
-            fd.append("digital_bags", JSON.stringify([]));
-          } else {
-            fd.append("digital_bags", JSON.stringify(DigitalBag));
-          }
-        });
+        if (DigitalBag?.length > 0 && DigitalBag[0]?.title) {
+          fd.append("digital_bags", JSON.stringify(DigitalBag));
+        }
 
         let req;
         if (id) {

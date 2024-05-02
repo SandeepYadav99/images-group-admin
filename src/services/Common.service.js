@@ -26,3 +26,6 @@ export async function serviceUploadImage(params) {
 export async function serviceUpdateFile(params) {
     return await formDataRequest('files/upload', params,{"folder": "exhibitors"});
 }
+export async function serviceUpdateFilePartner(params) {
+    return await formDataRequest('files/upload', params,{"folder": "event_sponsors_images"});
+}
