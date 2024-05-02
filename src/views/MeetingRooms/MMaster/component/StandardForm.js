@@ -54,15 +54,19 @@ const StandardForm = ({ data, errorData: errorForm, grade }, ref) => {
     return fields;
   };
 
+
+
   const validateData = (index, type) => {
-    const errors = {};
+    const errors = {...errorData};
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
       const required = ["start_time", "end_time"];
+
       const hasValues = Object.values(val).some(
         (value) => value !== "" && value !== null
       );
+
       {
         hasValues &&
           required.forEach((key) => {

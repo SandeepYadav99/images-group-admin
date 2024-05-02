@@ -26,6 +26,7 @@ const useMMasterCreate = ({}) => {
   const travelRef = useRef(null);
   const otherRef = useRef(null);
   const coRef = useRef(null);
+  const [timeSlotErr, setTimeSlotErr] = useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
 
   const handleCheckboxChange = (event) => {
@@ -54,6 +55,16 @@ const useMMasterCreate = ({}) => {
       }
     });
 
+
+    form?.slots?.filter((val) => {
+      if (new Date(val?.start_time) > new Date(val?.end_time)) {
+        SnackbarUtils.error("Start Time Cannot be Greater than End Time");
+        setTimeSlotErr(true);
+      } else {
+        setTimeSlotErr(false);
+      }
+    });
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -62,33 +73,40 @@ const useMMasterCreate = ({}) => {
     return errors;
   }, [form, errorData]);
 
-  useEffect(()=>{
-    if(id){
-      serviceMMeetingDetails({event_id:id}).then((res)=>{
+  useEffect(() => {
+    if (id) {
+      serviceMMeetingDetails({ event_id: id }).then((res) => {
         const details = res?.data;
         setForm({
-          duration:details?.duration,
-          slots:details?.slots,
-          event_id:details?.event_id,
-        })
-      })
+          duration: details?.duration,
+          slots: details?.slots,
+          event_id: details?.event_id,
+        });
+      });
     }
-  },[id])
+  }, [id]);
 
   const submitToServer = useCallback(
     () => {
       if (!isSubmitting) {
         setIsLoading(true);
         setIsSubmitting(true);
-        
-        const ExpensesData = otherRef.current.getData();
 
-        let req = serviceCreateMMeeting;
-        req({duration:form?.duration,slots:ExpensesData,event_id:`${id}`}).then((res) => {
+        const ExpensesData = otherRef.current.getData();
+        let req ;
+
+        if (!timeSlotErr) {
+           req = serviceCreateMMeeting;
+        }
+        req({
+          duration: form?.duration,
+          slots: ExpensesData,
+          event_id: `${id}`,
+        }).then((res) => {
           if (!res.error) {
             historyUtils.goBack();
           } else {
-            SnackbarUtils.error(res?.message);
+            SnackbarUtils.error("Start Time and End Time cannot be Empty");
           }
           setIsLoading(false);
           setIsSubmitting(false);
@@ -129,7 +147,6 @@ const useMMasterCreate = ({}) => {
 
   const changeTextData = useCallback(
     (text, fieldName) => {
-      // LogUtils.log(text, fieldName);
       let shouldRemoveError = true;
       const t = { ...form };
       t[fieldName] = text;

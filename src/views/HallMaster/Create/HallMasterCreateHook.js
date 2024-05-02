@@ -10,6 +10,7 @@ import {
 } from "../../../services/HallMaster.service";
 import { actionFetchHallMasterList } from "../../../actions/HallMaster.action";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const initialForm = {
   name: "",
@@ -17,7 +18,7 @@ const initialForm = {
   status: true,
 };
 
-const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId }) => {
+const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId="" }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [errorData, setErrorData] = useState({});
@@ -25,7 +26,7 @@ const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const includeRef = useRef(null);
-  // const { id: empId } = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     if (empId) {
@@ -80,6 +81,7 @@ const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         hall_no: form?.name,
         description: form?.des,
         status: form?.status ? "ACTIVE" : "INACTIVE",
+        event_id:id,
       };
       let req;
       if (empId) {
@@ -92,14 +94,14 @@ const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId }) => {
           // historyUtils.goBack();
           // window.location.reload();
           handleToggleSidePannel();
-          dispatch(actionFetchHallMasterList(1));
+          dispatch(actionFetchHallMasterList(1,{},{event_id:id}));
         } else {
           SnackbarUtils.error(res.message);
         }
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, empId, isSidePanel]);
+  }, [form, isSubmitting, setIsSubmitting, empId, isSidePanel,id]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -108,7 +110,7 @@ const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, includeRef.current]);
+  }, [checkFormValidation, setErrorData, form, id]);
 
   const removeError = useCallback(
     (title) => {

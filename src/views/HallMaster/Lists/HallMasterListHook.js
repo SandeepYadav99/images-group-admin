@@ -11,6 +11,7 @@ import {
   actionSetPageHallMasterList,
   actionUpdateHallMasterList,
 } from "../../../actions/HallMaster.action";
+import { useParams } from "react-router-dom";
 
 const useHallMaster = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -18,6 +19,7 @@ const useHallMaster = ({}) => {
   const [editData, setEditData] = useState(null);
 
   const dispatch = useDispatch();
+  const {id} = useParams();
   const isMountRef = useRef(false);
   const {
     sorting_data: sortingData,
@@ -26,9 +28,6 @@ const useHallMaster = ({}) => {
     query_data: queryData,
   } = useSelector((state) => state.hallMaster);
 
-  useEffect(() => {
-    // dispatch(actionFetchAdminUser());
-  }, []);
 
   useEffect(() => {
     dispatch(
@@ -38,11 +37,12 @@ const useHallMaster = ({}) => {
         {
           query: isMountRef.current ? query : null,
           query_data: isMountRef.current ? queryData : null,
+          event_id:id
         }
       )
     );
     isMountRef.current = true;
-  }, []);
+  }, [id]);
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
@@ -72,11 +72,12 @@ const useHallMaster = ({}) => {
         actionFetchHallMasterList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
+          event_id:id
         })
       );
       // dispatch(actionFetchAdminUser(1, sortingData))
     },
-    [sortingData, query, queryData]
+    [sortingData, query, queryData,id]
   );
 
   const handleFilterDataChange = useCallback(
@@ -98,7 +99,7 @@ const useHallMaster = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageHallMasterList(1));
+      // dispatch(actionSetPageHallMasterList(1));
       dispatch(
         actionFetchHallMasterList(
           1,
@@ -106,11 +107,12 @@ const useHallMaster = ({}) => {
           {
             query: query,
             query_data: queryData,
+          event_id:id
           }
         )
       );
     },
-    [query, queryData]
+    [query, queryData,id]
   );
 
   const handleRowSize = (page) => {
@@ -149,6 +151,7 @@ const useHallMaster = ({}) => {
     [setEditData, setSidePanel]
   );
 
+  console.log("editData",editData)
   const handleViewDetails = useCallback((data) => {
     historyUtils.push(RouteName.LOCATIONS_DETAILS + data.id); //+data.id
   }, []);

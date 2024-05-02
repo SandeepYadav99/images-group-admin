@@ -13,7 +13,7 @@ const CommentPost = () => {
       <div className={styles.header}>
         <div>
           {" "}
-          <ButtonBase onClick={() => history.goBack()}>
+          <ButtonBase onClick={() => history.push("/app")}>
             <ArrowBackIosIcon fontSize={"small"} />{" "}
             <span>
               <b> User Details</b>

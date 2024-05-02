@@ -74,7 +74,7 @@ const MMaster = () => {
         <span className={styles.heading1}>
           Choose Standard Meeting Rules For Event
         </span>
-        <StandardForm ref={otherRef} grade={employeeDetails?.grade?.code} />{" "}
+        <StandardForm ref={otherRef} grade={employeeDetails?.grade?.code} />
       </div>
       <div className={styles.btnEndPosition}>
         <ButtonBase

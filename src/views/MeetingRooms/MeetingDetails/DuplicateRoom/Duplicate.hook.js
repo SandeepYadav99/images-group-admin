@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import {
   serviceCreateDuplicateAPi,
   serviceCreateMeetingRoomList,
+  serviceIsExistApi,
   serviceUpdateMeetingRoomList,
 } from "../../../../services/MeetingRoom.service";
 import { serviceGetMeetingRoomSlottListDetails } from "../../../../services/MeetingSlots.service";
@@ -39,6 +40,7 @@ const useDuplicate = ({
   const includeRef = useRef(null);
   const [isRejectPopUp, setIsRejectPopUp] = useState(false);
   const [dataValue, setDataValue] = useState({});
+  const [isExist,setIsExist] = useState(false);
 
   const params = useParams();
 
@@ -58,6 +60,16 @@ const useDuplicate = ({
     }
   }, [detailsData]);
 
+
+  useEffect(()=>{
+    serviceIsExistApi({
+      event_id:params?.id,
+      code:form?.code,
+    }).then((res)=>{
+      setIsExist(res?.data?.is_exists)
+    })
+  },[form?.code])
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["name", "code"];
@@ -70,6 +82,13 @@ const useDuplicate = ({
         errors[val] = true;
       }
     });
+    if(isExist){
+      errors["code"] = true ;
+      SnackbarUtils.error("Room Code Already Exist")
+    }
+    else {
+      errors["code"] = false;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -130,7 +149,7 @@ const useDuplicate = ({
           t[fieldName] = text;
         }
       } else if (fieldName === "code") {
-        if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
+        if (!text || (!isSpace(text) && isAlphaNum(text))) {
           t[fieldName] = text;
         }
         shouldRemoveError = false;

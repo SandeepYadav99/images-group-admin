@@ -324,7 +324,7 @@ const MeetingDetails = ({ location }) => {
             </div>
             <div className={styles.headingText}>
               <span className={styles.h2}>{dataValue?.unavailable_slots}</span>
-              <span className={styles.subh2}>Unvailable</span>
+              <span className={styles.subh2}>UnAvailable</span>
             </div>
             <div className={styles.headingText}>
               <span className={styles.h2}>{dataValue?.blocked_slots}</span>
@@ -344,6 +344,8 @@ const MeetingDetails = ({ location }) => {
             filters={configFilter}
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
+            searchHide={styles.hideSearch}
+            marginSearchAtTop={styles.marginSearchAtTop}
           />
           <div>
             <br />

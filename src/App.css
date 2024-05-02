@@ -267,6 +267,25 @@ input[type=radio] + label:hover {
     border: 1px solid #E56056 ;
     color: #E56056 ;
 }
+/*Other Status*/
+
+.avialable{
+  color: #0BCF66;
+  border:1px solid #0BCF66;
+}
+.booked{
+    color: #E97013;
+    border:1px solid #E97013;
+}
+.blocked{
+    color: #BBBBBB;
+    border:1px solid #BBBBBB; 
+}
+
+.unavailable{
+    color: #E92828;
+    border:1px solid #E92828;  
+}
 
 .error {
     background-color: rgba(255,77,79,.06274509803921569);

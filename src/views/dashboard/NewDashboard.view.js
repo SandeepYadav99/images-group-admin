@@ -99,13 +99,14 @@ const NewDashboard = () => {
           </div> */}
         </div>
         {/* <div className={styles.tableFlex21}>
-        <div className={styles.lhsPending}>
-          <PendingMemberRequest data={data}/>
-        </div>
+       
         <div className={styles.rhsInterview}>
           <PendingEventUserRequest data={data}/>
         </div>
       </div> */}
+       <div className={styles.lhsPending}>
+          <PendingMemberRequest data={data?.firstTenFeed}/>
+        </div>
       </div>
     </div>
   );

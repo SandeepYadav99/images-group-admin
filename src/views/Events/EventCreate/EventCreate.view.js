@@ -972,7 +972,9 @@ function EventCreate() {
               checked={feature?.meeting_rooms}
             />
           </div>
-          <div className={"formGroup"}>
+          </div>
+        <div className={"formFlex"}>
+        <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
@@ -982,8 +984,7 @@ function EventCreate() {
               checked={feature?.award}
             />
           </div>
-        </div>
-        <div className={"formFlex"}>
+          <div className={"formGroup"}>
           <CustomCheckbox
             color={"primary"}
             handleChange={(text) => {
@@ -992,6 +993,7 @@ function EventCreate() {
             label={"Meeting Calendar"}
             checked={feature?.meeting_calendar}
           />
+          </div>
           {/* <div style={{ marginLeft: "35px" }}>
             <CustomCheckbox
               color={"primary"}
@@ -1002,7 +1004,7 @@ function EventCreate() {
               checked={feature?.event_calendar}
             />
           </div> */}
-          <div style={{ marginLeft: "35px" }}>
+          <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
@@ -1012,7 +1014,7 @@ function EventCreate() {
               checked={feature?.privilaged_member}
             />
           </div>
-          <div style={{ marginLeft: "35px" }}>
+          <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
@@ -1022,7 +1024,7 @@ function EventCreate() {
               checked={feature?.exhibitor_query}
             />
             </div>
-        <div style={{marginLeft:"35px"}}>
+        <div className={"formGroup"}>
           <CustomCheckbox
             color={"primary"}
             handleChange={(text) => {
@@ -1032,8 +1034,10 @@ function EventCreate() {
             checked={feature?.event_calendar}
           />
        
-         </div>
-         <div style={{marginLeft:"35px"}}>
+         </div> 
+        </div>
+        <div className={"formFlex"}>
+        <div className={"formGroup"}>
           <CustomCheckbox
             color={"primary"}
             handleChange={(text) => {
@@ -1042,6 +1046,22 @@ function EventCreate() {
             label={"Custom Participant Events"}
             checked={feature?.custom_participant}
           />
+          </div>
+          <div className={"formGroup"}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              // changeFeatureData(!feature?.hall_master, "hall_master");
+            }}
+            label={"Hall Master"}
+            checked={feature?.hall_master}
+          />
+          </div>
+          <div className={"formGroup"}>
+          </div>
+          <div className={"formGroup"}>
+          </div>
+          <div className={"formGroup"}>
           </div>
         </div>
       </div>

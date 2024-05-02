@@ -108,7 +108,7 @@ const EventFeed = ({}) => {
             onClick={() => handleOpenPopUp(all?.images)}
           >
             {all?.images?.length > 1 ? "+" : ""}
-            {all?.images?.length > 1 ? all?.images.length : ""}
+            {all?.images?.length > 1 ? all?.images.length-1 : ""}
           </p>
         </div>
         ),

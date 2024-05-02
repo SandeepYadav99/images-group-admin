@@ -7,13 +7,13 @@ import AssociateChapterModule from "./AssociateChapterModule/AssociateChapterMod
 import { useParams } from "react-router-dom";
 
 const AssociateChapter = () => {
-    const params = useParams();
+  const params = useParams();
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
           {" "}
-          <ButtonBase onClick={() => history.goBack()}>
+          <ButtonBase onClick={() => history.push("/app")}>
             <ArrowBackIosIcon fontSize={"small"} />{" "}
             <span>
               <b> User Details</b>
@@ -26,7 +26,7 @@ const AssociateChapter = () => {
         <TopNavBar data={4} />
       </div>
       <div>
-        <AssociateChapterModule user_id={params?.id}/>
+        <AssociateChapterModule user_id={params?.id} />
       </div>
     </div>
   );

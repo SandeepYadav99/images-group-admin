@@ -129,6 +129,7 @@ function useEventCreate() {
     privilaged_member:true,
     exhibitor_query:true,
     custom_participant:true,
+    hall_master:true,
     // event_calendar:true
   };
 
@@ -281,7 +282,7 @@ function useEventCreate() {
     ];
     if (!id) {
       required.push(
-        ...["logo", "banner", "background_image", "linkedin_image"]
+        ...[ "banner", "background_image"]
       );
     }
     required.forEach((val) => {
