@@ -18,7 +18,7 @@ import SnackbarUtils from "../../../../libs/SnackbarUtils";
 const TEMP_OBJ = {
   title: "",
   url: "",
-  images: null,
+  thumbnail: null,
 };
 
 const ChildFieldIncludeForm = ({ data, errorData: errorForm }, ref) => {
@@ -45,20 +45,29 @@ const ChildFieldIncludeForm = ({ data, errorData: errorForm }, ref) => {
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [];
-      required.forEach((key) => {
-        if (!val[key]) {
-          err[key] = true;
-        }
-      });
-      required?.forEach((key) => {
-        if (!val[key]) {
-          err[key] = true;
-        }
-      });
+      const required = ["url","title","thumbnail"];
+      const hasValues = Object.values(val).some(
+        (value) => value !== "" && value !== null
+      );
+      {
+        hasValues &&
+          required.forEach((key) => {
+            if (!val[key]) {
+              err[key] = true;
+            }
+          });
+      }
+      
       if (val.url && !validateUrl(val.url)) {
         err.url = true;
         SnackbarUtils.error("Please Enter the Valid Url");
+      }
+      if (!hasValues) {
+        for (const key in err) {
+          if (err.hasOwnProperty(key)) {
+            delete err[key];
+          }
+        }
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;

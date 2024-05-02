@@ -188,7 +188,7 @@ const useExhibitorCreate = ({ location }) => {
           if (downloads?.length > 0) {
             ChildenRef?.current?.setData(downloads);
           }
-          if (digital_bags) {
+          if (digital_bags?.length > 0) {
             ChildenRef1?.current?.setData(digital_bags);
           }
           // setSelectImages(data?.gallery_images);
@@ -526,8 +526,9 @@ const useExhibitorCreate = ({ location }) => {
       fd.append("downloads", JSON.stringify(ExpensesData));
     }
     const DigitalBag = ChildenRef1.current.getData();
-
-    fd.append("digital_bags", JSON.stringify(DigitalBag));
+    if(DigitalBag?.length > 0 && DigitalBag[0]?.title){
+      fd.append("digital_bags", JSON.stringify(DigitalBag));
+    }
 
     fd.append("event_id", "65029c5bdf6918136df27e51");
     if (!form?.is_partner) {
