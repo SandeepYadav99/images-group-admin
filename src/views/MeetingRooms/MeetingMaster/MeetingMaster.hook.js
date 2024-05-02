@@ -13,6 +13,7 @@ import Constants from "../../../config/constants";
 import { useParams } from "react-router-dom";
 import {
   serviceCreateMeetingRoomList,
+  serviceIsExistApi,
   serviceUpdateMeetingRoomList,
 } from "../../../services/MeetingRoom.service";
 import { serviceGetMeetingRoomSlottListDetails } from "../../../services/MeetingSlots.service";
@@ -39,6 +40,7 @@ const useMeetingCreate = ({
   const includeRef = useRef(null);
   const [isRejectPopUp, setIsRejectPopUp] = useState(false);
   const [dataValue, setDataValue] = useState({});
+  const [isExist,setIsExist] = useState(false)
 
   const params = useParams();
 
@@ -48,9 +50,19 @@ const useMeetingCreate = ({
     }
   }, [isSidePanel]);
 
+  useEffect(()=>{
+    serviceIsExistApi({
+      event_id:params?.id,
+      code:form?.code,
+    }).then((res)=>{
+      setIsExist(res?.data?.is_exists)
+    })
+  },[form?.code])
+
+
+
   useEffect(() => {
     if (detailsData) {
-      console.log(detailsData, "detailsData is here where are you ?");
       setForm({
         ...form,
         name: detailsData?.name,
@@ -72,6 +84,13 @@ const useMeetingCreate = ({
         errors[val] = true;
       }
     });
+    if (isExist){
+      errors["code"] = true;
+      SnackbarUtils.error("Meeting Room Code Already Exist");
+    }
+    else {
+      errors["code"] = false;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];

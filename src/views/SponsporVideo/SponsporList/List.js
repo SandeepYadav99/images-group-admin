@@ -177,7 +177,7 @@ const SponsporList = ({}) => {
         sx={{ width: "auto", padding: "20px" }}
       >
         <div className={styles.dialogTitle} onClick={onClick}>
-          <div>Sponsor Video</div>
+          <div>Sponsor {url?.includes("mp4") ? "Video" : "Image" }</div>
           <div
             onClick={onClick}
             style={{ fontSize: "24px" }}

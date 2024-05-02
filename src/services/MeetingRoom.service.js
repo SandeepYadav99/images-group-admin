@@ -45,5 +45,9 @@ import {
   export async function serviceCreateDuplicateAPi(params){
     return await postRequest("meetings/rooms/duplicate",params)
   }
+  export async function serviceIsExistApi(params){
+    return await postRequest("meetings/rooms/exists",params)
+  }
+  
   
   
