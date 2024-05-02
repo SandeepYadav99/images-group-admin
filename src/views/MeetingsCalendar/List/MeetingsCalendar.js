@@ -209,7 +209,7 @@ const MeetingsCalendar = ({}) => {
               handleFilterDataChange={handleFilterDataChange}
             />
           </div>
-          <div>
+        
             <br />
             <div style={{ width: "100%" }}>
               <DataTables
@@ -217,7 +217,7 @@ const MeetingsCalendar = ({}) => {
                 {...tableData.datatableFunctions}
               />
             </div>
-          </div>
+          
         </>
         <SidePanelComponent
           handleToggle={handleToggleSidePannel}
