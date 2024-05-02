@@ -39,12 +39,12 @@ const TopNavBar = ({ data , handleChange}) => {
           >
             <Tab className={"iconTabs"} label="Feed Post" />
           </Link>
-           <Link
+           {/* <Link
             to={"/app/comments/" + params?.id}
             style={{ textDecoration: "none", color: "black" }}
           >
             <Tab className={"iconTabs"} label="Comments" />
-          </Link> 
+          </Link>  */}
           <Link
             to={"/app/associate-events/" + params?.id}
             style={{ textDecoration: "none", color: "black" }}

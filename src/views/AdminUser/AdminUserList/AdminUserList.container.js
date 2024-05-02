@@ -78,14 +78,14 @@ const AdminUserList = ({}) => {
       {
         key: "email",
         label: "email",
-        sortable: true,
+        sortable: false,
         render: (value, all) => <div>{all?.email}</div>,
       },
 
       {
         key: "contact",
         label: "PHONE NUMBER",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div>
             {/* const contactSplit = data?.contact?.split(" ");
@@ -97,13 +97,13 @@ const AdminUserList = ({}) => {
       {
         key: "role",
         label: "ROLE",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{removeUnderScore(all?.role)}</div>,
       },
       {
         key: "status",
         label: "STATUS",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{<StatusPill status={all.status} />}</div>,
       },
       {

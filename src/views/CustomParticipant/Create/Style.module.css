@@ -24,22 +24,7 @@
   display: flex;
   align-items: center;
 }
-.download {
-  border: 2px solid #29cb97 !important;
-  border-radius: 30px !important;
-  color: #29cb97 !important;
-  font-size: 0.8rem !important;
-  font-weight: 600 !important;
-  padding: 7px 50px !important;
-  text-transform: uppercase !important;
-  height: 40px !important;
-}
 
-.rightFlex {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
 .firstCellFlex .driverImgCont {
   width: 40px;
   height: 40px;
@@ -47,19 +32,12 @@
   /*border-radius: 50%;*/
 }
 .firstCellFlex img {
-  width: 50px;
-  border-radius: 50%;
-  aspect-ratio: 1/1;
+  width: 40px;
+  height: 40px;
+  /*border-radius: 50%;*/
 }
 .firstCellInfo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.name {
-  color: #ab183d;
-  text-decoration-line: underline;
-  cursor: pointer;
+  margin-left: 10px;
 }
 
 .headerFlex {
@@ -122,43 +100,80 @@
 .lhs {
   flex: 0.5;
 }
-.statusContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+
 .newLine {
-  height: 4px;
+  height: 5px;
   width: 30px;
   border-radius: 10px;
-  margin-left: 1px;
+  text-align: center;
+  margin-left: 20px;
   background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
 }
-.btnWrap {
+
+.openIcon {
+  color: #2896e9 !important;
+}
+
+.subText {
+  font-size: 0.7rem;
+  margin-left: 5px;
+  color: #2896e9;
+}
+
+/*Create*/
+.btnCont {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  margin-top: 15px;
+}
+.formContainer {
+  flex: 1;
+}
+
+.imgField {
+  margin-left: 10px;
+}
+.nameField {
+  margin-left: 10px;
+}
+
+.outerFlex {
   display: flex;
   align-items: center;
-  gap: 20px;
-}
-.alignSpace{
-  display: flex;
-  gap:10px; 
-  
-}
-.alignUnderline{
-  color: #AB183D;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.dialogTitle{
-  /* width: 40vw; */
-  display: flex;
   justify-content: space-between;
-  padding:15px;
+  padding-bottom: 30px;
 }
-.titleName{
-  font-weight: 700;
-  font-size: 14px !important;
+
+.resetBtn {
+  background: #f7a728 !important;
+  padding: 20px 50px !important;
+  color: white !important;
+  border-radius: 5px !important;
 }
-.crossIconArea{
-  cursor:alias;
+
+.enter {
+  font-size: 0.8rem;
+  margin-left: 10px;
+  font-weight: 600;
+  /*padding-bottom: 10px;*/
+  display: block;
 }
+
+.createBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+.departmentWrap {
+  margin-top: 25px;
+}
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+

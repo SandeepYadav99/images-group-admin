@@ -35,6 +35,8 @@ const MeetingsCalendarCreate = ({
     id,
     selectCalendarTime,
     selectCalendarDate,
+    listData,
+    updateParticipentsList,
   } = useMeetingsCalendarCreateHook({
     handleToggleSidePannel,
     isSidePanel,
@@ -54,7 +56,7 @@ const MeetingsCalendarCreate = ({
         </ButtonBase>
       </div> */}
       <div className={styles.departmentWrap}>
-      <div className={"formFlex"}>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <Autocomplete
               id="tags-outlined"
@@ -62,8 +64,8 @@ const MeetingsCalendarCreate = ({
                 changeTextData(value, "booked_by");
               }}
               value={form.booked_by || []}
-              options={[]} // filteredTask ||
-              getOptionLabel={(option) => option?.title}
+              options={updateParticipentsList} // filteredTask ||
+              getOptionLabel={(option) => option?.name}
               defaultValue={form?.booked_by || []}
               renderInput={(params) => (
                 <TextField
@@ -77,9 +79,7 @@ const MeetingsCalendarCreate = ({
                       <>
                         {form?.booked_by ? (
                           <Clear
-                            onClick={() =>
-                              changeTextData(null, "booked_by")
-                            }
+                            onClick={() => changeTextData(null, "booked_by")}
                             style={{ cursor: "pointer" }}
                           />
                         ) : null}
@@ -91,7 +91,7 @@ const MeetingsCalendarCreate = ({
                   }}
                 />
               )}
-               disableClearable
+              disableClearable
             />
           </div>
         </div>
@@ -103,8 +103,8 @@ const MeetingsCalendarCreate = ({
                 changeTextData(value, "booked_with");
               }}
               value={form.booked_with || []}
-              options={selectCalendarBookWith || []} // filteredTask ||
-              getOptionLabel={(option) => option?.title}
+              options={updateParticipentsList}
+              getOptionLabel={(option) => option?.name}
               defaultValue={form?.booked_with || []}
               renderInput={(params) => (
                 <TextField
@@ -118,9 +118,7 @@ const MeetingsCalendarCreate = ({
                       <>
                         {form?.booked_with ? (
                           <Clear
-                            onClick={() =>
-                              changeTextData(null, "booked_with")
-                            }
+                            onClick={() => changeTextData(null, "booked_with")}
                             style={{ cursor: "pointer" }}
                           />
                         ) : null}
@@ -132,7 +130,7 @@ const MeetingsCalendarCreate = ({
                   }}
                 />
               )}
-               disableClearable
+              disableClearable
             />
           </div>
         </div>
@@ -178,7 +176,7 @@ const MeetingsCalendarCreate = ({
             />
           </div>
         </div>
-      
+
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <Autocomplete
@@ -200,7 +198,6 @@ const MeetingsCalendarCreate = ({
             />
           </div>
         </div>
-      
 
         <div className={styles.btnCont}>
           <ButtonBase
@@ -214,7 +211,7 @@ const MeetingsCalendarCreate = ({
             ) : empId ? (
               "AUTO CONFIRM"
             ) : ( */}
-              AUTO CONFIRM
+            AUTO CONFIRM
             {/* )} */}
           </ButtonBase>
         </div>

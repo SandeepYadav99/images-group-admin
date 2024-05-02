@@ -1,65 +1,38 @@
-/**
- * Created by charnjeetelectrovese@gmail.com on 5/13/2020.
- */
-
-import React, { useCallback, useState } from "react";
-import {
-  TextField,
-  ButtonBase,
-  InputAdornment,
-  MenuItem,
-  IconButton,
-} from "@material-ui/core";
+import React from "react";
+import { TextField, ButtonBase } from "@material-ui/core";
 import styles from "./style.module.css";
-
-
-
-import File from "../../../../../components/FileComponent/FileComponent.component";
-
-const useStyles = {
-  toggleDiv: {
-    maxWidth: 300,
-    marginTop: 40,
-    marginBottom: 5,
-  },
-  toggleLabel: {
-    color: "black",
-    fontWeight: 100,
-  },
-  buttons: {
-    marginTop: 30,
-    float: "right",
-  },
-  saveButton: {
-    marginLeft: 5,
-  },
-};
+import LogUtils from "../../../../../libs/LogUtils";
+import { serviceUpdateFile } from "../../../../../services/Common.service";
+import MultIUpload from "../../../../Exhibitor/Componet/MultIUpload/MultIUpload.component";
 
 const ChildrenIncludeFields = ({
   index,
   changeData,
-  variants,
   handlePress,
   data,
   errors,
-  onBlur,
-  currency,
-  listWarehouse,
-  exhibitorId
+  exhibitorId,
 }) => {
   const handleChange = (e, fieldName) => {
     // const name = e?.target?.name;
     // const value = e?.target?.value;
-if(fieldName){
-  if (fieldName === "file_name") {
-    changeData(index, { [fieldName]: e.target.value });
-  } else {
-    changeData(index, { [fieldName]: e });
-  }
-
-}
+    if (fieldName) {
+      if (fieldName === "file_name") {
+        changeData(index, { [fieldName]: e.target.value });
+      } else if (fieldName === "document") {
+        const fd = new FormData();
+        fd.append("files", e);
+        serviceUpdateFile(fd).then((res) => {
+          if (!res?.error) {
+            const data = res?.data;
+            changeData(index, { [fieldName]: data?.length > 0 ? data[0] : "" });
+          }
+        });
+      } else {
+        changeData(index, { [fieldName]: e });
+      }
+    }
   };
-
   return (
     <div>
       <div className={styles.flexContainer}>
@@ -76,39 +49,38 @@ if(fieldName){
                 variant={"outlined"}
                 label={"File Name"}
               />
-              {/* <CustomTextField
-              error={data?.fileName}
-              // error={data?.fileName}
-              label={"File Name"}
-              value={data?.fileName}
-              onTextChange={(text) => {
-                handleChange( "fileName", text);
-              }}
-             
-            /> */}
             </div>
           </div>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
-              <File
+              <MultIUpload
+                placeLabel
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "doc", "docx"]}
                 fullWidth={true}
-                name="documentUpload"
+                name="od1"
                 label="Upload PDF"
                 accept={"application/pdf,application/msword"}
-                error={errors?.documentUpload}
-                value={data?.documentUpload || ""}
+                error={errors?.document}
+                value={data?.document || ""}
                 placeholder={"Upload PDF"}
                 onChange={(file) => {
                   if (file) {
-                    handleChange(file, "documentUpload");
+                    handleChange(file, "document");
                   }
                 }}
               />
-                <div className={styles.inst} >
-                  {exhibitorId   && <a href={data?.document ?? " "} target="_blank" rel="noreferrer" >View File</a>}
-               </div>
+              <div className={styles.inst}>
+                {exhibitorId && (
+                  <a
+                    href={data?.document ?? " "}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View File
+                  </a>
+                )}
+              </div>
             </div>
           </div>
           <div className={"textCenter"}>

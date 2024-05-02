@@ -16,7 +16,7 @@ import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import useEventSponsor from "./EventSponsor.hook";
-import { Add, Edit, InfoOutlined } from "@material-ui/icons";
+import { Add, Edit, InfoOutlined,Delete } from "@material-ui/icons";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import historyUtils from "../../../libs/history.utils";
 
@@ -42,6 +42,7 @@ const EventSponsor = ({}) => {
     handleViewUpdate,
     handlesponsorType,
     formatedUrl,
+    handleDeleteUser
   } = useEventSponsor({});
 
   const {
@@ -158,11 +159,23 @@ const EventSponsor = ({}) => {
             >
               <Edit fontSize={"small"} />
             </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleDeleteUser(all);
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+            
+
           </div>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleEdit, isCalling,handleDeleteUser]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

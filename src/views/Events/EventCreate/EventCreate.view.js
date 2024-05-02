@@ -972,7 +972,9 @@ function EventCreate() {
               checked={feature?.meeting_rooms}
             />
           </div>
-          <div className={"formGroup"}>
+          </div>
+        <div className={"formFlex"}>
+        <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
@@ -982,8 +984,7 @@ function EventCreate() {
               checked={feature?.award}
             />
           </div>
-        </div>
-        <div className={"formFlex"}>
+          <div className={"formGroup"}>
           <CustomCheckbox
             color={"primary"}
             handleChange={(text) => {
@@ -992,7 +993,8 @@ function EventCreate() {
             label={"Meeting Calendar"}
             checked={feature?.meeting_calendar}
           />
-          <div style={{ marginLeft: "35px" }}>
+          </div>
+          {/* <div style={{ marginLeft: "35px" }}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
@@ -1001,8 +1003,8 @@ function EventCreate() {
               label={"Event Calendar"}
               checked={feature?.event_calendar}
             />
-          </div>
-          <div style={{ marginLeft: "35px" }}>
+          </div> */}
+          <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
@@ -1012,7 +1014,7 @@ function EventCreate() {
               checked={feature?.privilaged_member}
             />
           </div>
-          <div style={{ marginLeft: "35px" }}>
+          <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
@@ -1021,6 +1023,45 @@ function EventCreate() {
               label={"Exhibitor Query"}
               checked={feature?.exhibitor_query}
             />
+            </div>
+        <div className={"formGroup"}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              changeFeatureData(!feature?.event_calendar, "event_calendar");
+            }}
+            label={"Event Calendar"}
+            checked={feature?.event_calendar}
+          />
+       
+         </div> 
+        </div>
+        <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              // changeFeatureData(!feature?.custom_participant, "custom_participant");
+            }}
+            label={"Custom Participant Events"}
+            checked={feature?.custom_participant}
+          />
+          </div>
+          <div className={"formGroup"}>
+          <CustomCheckbox
+            color={"primary"}
+            handleChange={(text) => {
+              // changeFeatureData(!feature?.hall_master, "hall_master");
+            }}
+            label={"Hall Master"}
+            checked={feature?.hall_master}
+          />
+          </div>
+          <div className={"formGroup"}>
+          </div>
+          <div className={"formGroup"}>
+          </div>
+          <div className={"formGroup"}>
           </div>
         </div>
       </div>

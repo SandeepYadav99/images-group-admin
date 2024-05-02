@@ -8,7 +8,7 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 
-import { Add, DoneAll, Edit, Clear } from "@material-ui/icons";
+import { Add, DoneAll, Edit, Clear, InfoOutlined } from "@material-ui/icons";
 
 import speakerDefault from "../../../assets/img/speaker_list_deafult.png";
 
@@ -17,6 +17,7 @@ import useMeetingsCalendarHook from "./MeetingsCalendarHook";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import MeetingsCalendarCreate from "../Create/MeetingsCalendarCreate";
 import ListHeader from "../../../components/ListPageHeader/ListHeader";
+import historyUtils from "../../../libs/history.utils";
 
 const MeetingsCalendar = ({}) => {
   const {
@@ -72,59 +73,53 @@ const MeetingsCalendar = ({}) => {
         key: "name",
         label: "NAME",
         sortable: false,
-        render: (temp, all) => <div className={styles.firstCellFlex}></div>,
+        render: (temp, all) => (
+          <div className={styles.firstCellFlex}>{all?.room?.name}</div>
+        ),
       },
       {
         key: "code",
         label: "CODE",
         sortable: false,
-        render: (value, all) => <div>{}</div>,
+        render: (value, all) => <div>{all?.room?.code}</div>,
       },
 
       {
         key: "date",
         label: "DATE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.slotDate}</div>,
       },
       {
         key: "slot",
         label: "SLOT",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.slotTime}</div>,
       },
       {
         key: "booked_by",
         label: "BOOKED BY",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.bookedBy?.name || "N/A"}</div>,
       },
       {
         key: "booked_with",
         label: "BOOKED WITH",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.bookedWith?.name || "N/A"}</div>,
       },
-      {
-        key: "booked_with",
-        label: "BOOKED WITH",
-        sortable: false,
-        render: (temp, all) => <div>{}</div>,
-      },
+
       {
         key: "ref_id",
         label: "REF ID",
         sortable: false,
-        render: (temp, all) => (
-          <></>
-          // <div>{<StatusPill status={all?.s_status} />}</div>
-        ),
+        render: (temp, all) => <div>{all?.ref_id || "N/A"}</div>,
       },
       {
         key: "status",
         label: "STATUS",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{<StatusPill status={all?.status}/>}</div>,
       },
       {
         key: "user_id",
@@ -152,16 +147,17 @@ const MeetingsCalendar = ({}) => {
               )}
             </IconButton> */}
 
-            {/* <IconButton
+            <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                handleUpdateFed(all);
+                //  handleUpdateFed(all);
+                historyUtils.push(`${"/meetings/detail/"}${all?.room?.id}`)
               }}
             >
-              <Edit fontSize={"small"} />
-            </IconButton> */}
+              <InfoOutlined fontSize={"small"} />
+            </IconButton>
           </div>
         ),
       },

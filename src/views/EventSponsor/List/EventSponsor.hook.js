@@ -12,6 +12,8 @@ import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/index.services";
 import { useParams } from "react-router";
+import { serviceDeleteEventSponsor } from "../../../services/EventSponsor.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const useEventSponsor = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -158,6 +160,26 @@ const useEventSponsor = ({}) => {
     historyUtils.push(`${RouteName.EVENT_SPONSOR_UPDATE}${data?.id}`); //+data.id
   }, []);
 
+  
+  const handleDeleteUser = useCallback((data) => {
+    serviceDeleteEventSponsor({
+      id:data?.id
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils.success("Deleted Successfully");
+        dispatch(
+          actionFetchEventSponsor(1, sortingData, {
+            query: isMountRef.current ? query : null,
+            query_data: isMountRef.current ? queryData : null,
+            event_id: id,
+          })
+        );
+      } else {
+        SnackbarUtils.error(res?.message);
+      }
+    });
+    // 
+  }, [id]);
   const formatedUrl = (webUrl) => {
     const chunkSize = 40;
 
@@ -209,7 +231,8 @@ const useEventSponsor = ({}) => {
     configFilter,
     handleViewUpdate,
     handlesponsorType,
-    formatedUrl
+    formatedUrl,
+    handleDeleteUser
 
   };
 };

@@ -157,7 +157,7 @@ export default {
   EXHIBITOR_QUERY: "/exhibitor-query/",
 
   CALENDAR_COUNT: "/event/calendar/",
-  HALL_MASTER: "/hall/master",
+  HALL_MASTER: "/hall/master/",
 
   SPLASH_SCREEN: "/splash/screen",
   SPLASH_SCREEN_CREATE: "/splash/screen/create",
@@ -180,5 +180,8 @@ export default {
   MASTER_CREATE: "/master/create/",
 
   MEETING_CALENDAR: "/meeting/calendar/",
-  PRIVILEGE_MEMBER:"/privilege/member/"
+  PRIVILEGE_MEMBER:"/privilege/member/",
+  CUSTOM_PARTICIPANT:"/custom/participant/",
+  CUSTOM_PARTICIPANT_CREATE: "/custom/participants/create",
+  CUSTOM_PARTICIPANT_UPDATE: "/custom/participants/update/",
 };

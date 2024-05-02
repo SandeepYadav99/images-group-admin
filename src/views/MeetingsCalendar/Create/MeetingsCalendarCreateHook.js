@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import Constants from "../../../config/constants";
@@ -18,6 +18,7 @@ import {
   serviceCreateMeetingCallendarTimeSlot,
 } from "../../../services/MeetingsCalendar.service";
 import { useParams } from "react-router-dom";
+import { serviceGetList } from "../../../services/index.services";
 
 const initialForm = {
   choose_date: "",
@@ -46,7 +47,19 @@ const useMeetingsCalendarCreateHook = ({
   const [bookUser, setBookUser] = useState("");
   const { id: event_id } = useParams();
   const dispatch = useDispatch();
-  console.log({ event_id });
+
+  const [listData, setListData] = useState({
+    EVENT_PARTICIPENT: [],
+  });
+  useEffect(() => {
+    serviceGetList(["EVENT_PARTICIPENT"], {
+      event_id: event_id,
+    }).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
   useEffect(() => {
     const userName = JSON.parse(localStorage.getItem("user"));
     console.log(userName);
@@ -119,18 +132,18 @@ const useMeetingsCalendarCreateHook = ({
       if (!res?.error) {
         console.log(res);
         const data = res?.data;
-         setSelectCalendarBookWith(data)
+        setSelectCalendarBookWith(data);
       }
     });
   }, []);
-  console.log(form?.choose_date);
+  // console.log(form?.choose_date);
   useEffect(() => {
-    if(!selectCalendarDate) return
+    if (!selectCalendarDate) return;
     serviceCreateMeetingCallendarTimeSlot({
       event_id: event_id,
       date: form?.choose_date?.date,
-      booked_by: bookUser, // id of logged in user
-      booked_with: "", // id of selected user
+      booked_by: form?.booked_by?.id, // id of logged in user
+      booked_with: form?.booked_with?.id, // id of selected user
     }).then((res) => {
       // page:1,
       if (!res?.error) {
@@ -142,7 +155,7 @@ const useMeetingsCalendarCreateHook = ({
   }, [form?.choose_date]);
   console.log(form?.choose_time);
   useEffect(() => {
-    if(!selectCalendarTime)return;
+    if (!selectCalendarTime) return;
     serviceCreateMeetingCallendarRooms({
       event_id: event_id,
       start_time: form?.choose_time?.start_time,
@@ -152,7 +165,7 @@ const useMeetingsCalendarCreateHook = ({
       if (!res?.error) {
         console.log(res);
         const data = res?.data;
-         setSelectCalendarRooms(data);
+        setSelectCalendarRooms(data);
       }
     });
   }, [form]);
@@ -161,21 +174,21 @@ const useMeetingsCalendarCreateHook = ({
     if (!isSubmitting) {
       setIsSubmitting(true);
       const payloadData = {
-        slot_id: "66221dda43e9b2d342b2df6e", 
-        booked_by: bookUser, 
-        booked_with: "66192e315b7286de54153964"
-    }
+        slot_id: form?.meeting_room?.slot_id,
+        booked_by: form?.booked_by?.id,
+        booked_with: form?.booked_with?.id,
+      };
       let req;
       // if (empId) {
       //   req = serviceUpdateHallMasterList({ ...payloadData, id: empId });
       // } else {
       //   req = serviceCreateHallMasterList(payloadData);
       // }
-      req = serviceCreateMeetingCallendarCreate(payloadData)
+      req = serviceCreateMeetingCallendarCreate(payloadData);
       req.then((res) => {
         if (!res.error) {
           // historyUtils.goBack();
-           window.location.reload();
+          window.location.reload();
           handleToggleSidePannel();
           // dispatch(actionFetchHallMasterList(1));
         } else {
@@ -190,7 +203,7 @@ const useMeetingsCalendarCreateHook = ({
     const errors = checkFormValidation();
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
-      console.log({errors})
+      console.log({ errors });
       return true;
     }
     submitToServer();
@@ -236,6 +249,14 @@ const useMeetingsCalendarCreateHook = ({
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form, isSidePanel]);
+ 
+  const updateParticipentsList = useMemo(() => {
+    return listData?.EVENT_PARTICIPENT?.filter((val) => {
+      const isBookedBy = form?.booked_by?.id === val.id;
+      const isBookedWith = form?.booked_with?.id === val.id;
+      return !(isBookedBy || isBookedWith);
+    });
+  }, [listData?.EVENT_PARTICIPENT, form?.booked_by, form?.booked_with]);
 
   return {
     form,
@@ -257,7 +278,9 @@ const useMeetingsCalendarCreateHook = ({
     bookUser,
     selectCalendarTime,
     selectCalendarRooms,
-    selectCalendarBookWith
+    selectCalendarBookWith,
+    listData,
+    updateParticipentsList,
   };
 };
 

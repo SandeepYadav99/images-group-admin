@@ -6,7 +6,7 @@ const ToolTipInfo = ({ value }) => {
   return (
     <Tooltip
       classes={{ tooltip: styles.customTooltip }}
-      title={`Image size less than ${value ? value : "2"}mb | 1000x1000 px`}
+      title={`Image size less than ${value ? value : "2" }mb | 1000x1000 px`}
     >
       <div className={styles.imageInfo}>
         <InfoOutlined fontSize="small" />

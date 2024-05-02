@@ -84,9 +84,7 @@ function useSplashScreenCreateHook({ location }) {
     if (form?.link && !validateLink(form?.link)) {
       errors.link = true;
       SnackbarUtils.error("Please Enter the Valid Link");
-    } else {
-      delete form.link;
-    }
+    } 
 
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -112,6 +110,7 @@ function useSplashScreenCreateHook({ location }) {
       if (fieldName === "name") {
         t[fieldName] = text.trimStart();
       } else if (fieldName === "link") {
+        console.log({ text });
         t[fieldName] = text.trimStart();
       } else {
         t[fieldName] = text;
@@ -127,17 +126,6 @@ function useSplashScreenCreateHook({ location }) {
       setIsSubmitting(true);
       const fd = new FormData();
 
-      // Object.keys(form).forEach((key) => {
-      //   LogUtils.log("key", key);
-      //   if (key !== "image") {
-      //     if (key === "status") {
-      //       fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-      //     } else {
-      //       fd.append(key, form[key]);
-      //     }
-      //   }
-      // });
-
       const SPEAKER_KEY = {
         name: "name",
         // video: "video",
@@ -146,22 +134,22 @@ function useSplashScreenCreateHook({ location }) {
         // status: "status",
       };
       for (const key in form) {
+        console.log({form})
         if (SPEAKER_KEY.hasOwnProperty(key)) {
+          console.log({form})
           fd.append(SPEAKER_KEY[key], form[key]);
         }
+        // else if(key === "link"){
+        //   fd.append(SPEAKER_KEY[key], form[key])
+        // }
       }
-      fd.append("event_id", "65029c5bdf6918136df27e51");
-
+   
       // if (form?.status) {
       fd.append("status", form?.status === true ? "ACTIVE" : "INACTIVE");
       // }
       if (form?.video) {
         fd.append("video", form?.video);
       }
-
-      // if (selectedEventId) {
-      //   fd.append("event_id", selectedEventId);
-      // }
 
       let req;
       if (id) {
@@ -179,7 +167,7 @@ function useSplashScreenCreateHook({ location }) {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, selectedEventId]);
+  }, [checkFormValidation, setErrorData, form, submitToServer, selectedEventId]);
 
   const onBlurHandler = useCallback(
     (type) => {
@@ -199,7 +187,7 @@ function useSplashScreenCreateHook({ location }) {
         return true;
       }
       console.log("yha");
-      submitToServer();
+     await submitToServer();
     },
     [checkFormValidation, setErrorData, form, submitToServer, selectedEventId]
   );

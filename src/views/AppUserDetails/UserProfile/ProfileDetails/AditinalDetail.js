@@ -128,6 +128,18 @@ const AditnalDetail = ({ id }) => {
           {value?.is_awards ? "Yes" : "No"}
         </div>
       </div>
+      <div className={styles.profileFlex}>
+        <div>
+          <b>Category:</b>{" "}
+        </div>
+        <div className={styles.textColor}> {value?.category || "N/A"}</div>
+      </div>
+      <div className={styles.profileFlex}>
+        <div>
+          <b>Registration id:</b>{" "}
+        </div>
+        <div className={styles.textColor}> {value?.reg_id || "N/A"}</div>
+      </div>
 
       <div className={styles.QRCode_Container}></div>
     </div>

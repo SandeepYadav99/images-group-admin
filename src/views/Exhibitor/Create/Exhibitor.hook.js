@@ -184,10 +184,13 @@ const useExhibitorCreate = ({ location }) => {
       serviceGetExhibitorsDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
-          const { business_nature } = data;
-          const { hall, children } = data;
-
-          // ChildenRef?.current?.setData(children);
+          const { business_nature, downloads, digital_bags, hall } = data;
+          if (downloads?.length > 0) {
+            ChildenRef?.current?.setData(downloads);
+          }
+          if (digital_bags?.length > 0) {
+            ChildenRef1?.current?.setData(digital_bags);
+          }
           // setSelectImages(data?.gallery_images);
           setDetailsValue(business_nature);
           setImage(data?.company_logo);
@@ -327,42 +330,6 @@ const useExhibitorCreate = ({ location }) => {
     }
   }, [form?.is_partner]);
 
-  // const checkEmailValidation = useCallback(() => {
-  //   debounceValidationList({
-  //     email: form?.primary_email,
-  //     id: form?.primary_user_id,
-  //   }).then((res) => {
-  //     if (!res.error) {
-  //       const errors = JSON.parse(JSON.stringify(errorData));
-  //       if (res?.data?.is_exists) {
-  //         errors["primary_email"] = "Primary Email Already Exists";
-  //         setErrorData(errors);
-  //       }
-  //     }
-  //   });
-  // }, [errorData, setErrorData, form]);
-
-  // const checkSecondaryEmailValidation = useCallback(() => {
-  //   debounceValidationList({
-  //     email: form?.secondary_email,
-  //     id: secondary ? secondary : "",
-  //   }).then((res) => {
-  //     if (!res.error) {
-  //       const errors = JSON.parse(JSON.stringify(errorData));
-  //       if (res?.data?.is_exists) {
-  //         errors["secondary_email"] = "Secondary Email Already Exists";
-  //         setErrorData(errors);
-  //       }
-  //     }
-  //   });
-  // }, [errorData, setErrorData, form]);
-
-  // useEffect(() => {
-  //   if (form?.primary_email) {
-  //     checkEmailValidation();
-  //   }
-  // }, [form?.primary_email]);
-
   useEffect(() => {
     if (!form?.is_business_nature_other) {
       if (form?.business_nature?.includes(form?.business_nature_other)) {
@@ -500,36 +467,6 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
- 
-  // const ExpensesData = ChildenRef?.current?.getData();
-
-  // ExpensesData?.forEach((val) => {
-  //   console.log({ val });
-  //   if (val?.documentUpload) {
-  //     const fd = new FormData();
-  //     fd.append("files", val?.documentUpload);
-  //     axios
-  //       .post(`${Constants.DEFAULT_APP_URL}${"files/upload"}`, fd, {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           "Authorization": localStorage.getItem("jwt_token"),
-  //           "folder": "exhibitors",
-  //         },
-  //       })
-  //       .then((res) => {
-  //         const data = res?.data?.response_obj;
-
-  //         setDownloadData(data);
-  //         console.log({ data });
-  //       });
-  //   }
-    // serviceUpdateFileUpdate(fd, "exhibitors").then((res)=>{
-    //   if(!res.error){
-    //     console.log({res})
-    //   }
-    // })
-  // });
-  // console.log({ downloadData });
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -574,59 +511,25 @@ const useExhibitorCreate = ({ location }) => {
           if (form?.is_partner) {
             fd.append(key, capitalizeFirstLetter(form?.partner_tag));
           }
+        } else if (key === "is_participant") {
+          fd.append("is_featured", false);
+        } else if (key === "is_featured") {
+          delete form[key];
         } else {
           fd.append(key, form[key]);
         }
       }
     });
-    // else if (key === "is_featured") {
 
-    // fd.append(
-    //   "is_featured",
-    //   form?.is_participant === true" ? false : true
-    // );
-
-    // if (form?.products) {
-    //   industryID?.length > 0 &&  fd.append("products", industryID?.join(","));
-    // }
     const ExpensesData = ChildenRef.current.getData();
-    ExpensesData.forEach((val) => {
-      console.log({val})
-      if (val?.documentUpload) {
-        fd.append("download_documents", val?.documentUpload);
-      }
-      // else {
-      //   const file = dataURLtoFile(nullImg, "null.png");
-      //   fd.append("download_documents", file);
-      // }
-    });
-
-    fd.append("downloads", JSON.stringify(ExpensesData));
-
+    if(ExpensesData?.length > 0 && ExpensesData[0]?.file_name){
+      fd.append("downloads", JSON.stringify(ExpensesData));
+    }
     const DigitalBag = ChildenRef1.current.getData();
+    if(DigitalBag?.length > 0 && DigitalBag[0]?.title){
+      fd.append("digital_bags", JSON.stringify(DigitalBag));
+    }
 
-    DigitalBag.forEach((val) => {
-      if (val?.images) {
-        fd.append("digital_bag_images", val?.images);
-      }
-      //  else {
-      //   const file = dataURLtoFile(nullImg, "null.png");
-      //   fd.append("digital_bag_images", file);
-      // }
-    });
-    fd.append("digital_bags", JSON.stringify(DigitalBag));
-
-    // if(empId){
-    //   if (form?.company_logo) {
-    //     fd.append("company_logo", form?.company_logo);
-    //   }
-    // }
-
-    // if (form?.gallery_images?.length > 0) {
-    //   form?.gallery_images?.forEach((item) => {
-    //     fd.append("gallery_images", item);
-    //   });
-    // }
     fd.append("event_id", "65029c5bdf6918136df27e51");
     if (!form?.is_partner) {
       fd.append("partner_tag", "");
@@ -653,10 +556,10 @@ const useExhibitorCreate = ({ location }) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    // const isIncludesValid = ChildenRef.current.isValid();
-    // const isIncludesValid1 = ChildenRef1.current.isValid();
+    const isIncludesValid = ChildenRef.current.isValid();
+    const isIncludesValid1 = ChildenRef1.current.isValid();
 
-    if (Object.keys(errors).length > 0) {
+    if (Object.keys(errors).length > 0 || !isIncludesValid || !isIncludesValid1) {
       setErrorData(errors);
 
       return;

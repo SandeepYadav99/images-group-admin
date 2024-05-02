@@ -19,6 +19,7 @@ import { Autocomplete } from "@material-ui/lab";
 import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import LogUtils from "../../../../libs/LogUtils";
 import CustomCheckbox from "../../../../components/FormFields/CustomCheckbox";
+import ToolTipInfo from "../../../../components/ToolTipInfo/ToolTipInfo";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -70,7 +71,8 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               }
             }}
           />
-          <label className={styles.partner}>Partner image </label>
+          <ToolTipInfo value={5}/>
+          {/* <label className={styles.partner}>Partner image </label> */}
         </div>
         <div className={styles.countBox}>
           <div className={"formFlex"}>

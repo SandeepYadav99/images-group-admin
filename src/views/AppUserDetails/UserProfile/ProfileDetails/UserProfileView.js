@@ -54,9 +54,9 @@ const UserProfileView = ({ id }) => {
               {value?.country_code} {value?.contact}
             </span>
             <span className={styles.profileTitle}>{value?.email || "N/A"}</span>
-            <span className={styles.profileTitle}>
+            {/* <span className={styles.profileTitle}>
               Category: {value?.category || "N/A"}
-            </span>
+            </span> */}
           </div>
         </div>
         <div className={styles.description_value}>
@@ -65,7 +65,7 @@ const UserProfileView = ({ id }) => {
               <div>
                 <div>Company: </div>
                 <div className={styles.des_title}>Designation:</div>
-                <div className={styles.des_title}>Registration id:</div>
+                {/* <div className={styles.des_title}>Registration id:</div> */}
                 <div className={styles.des_title}>Status:</div>
               </div>
               <div>
@@ -74,7 +74,7 @@ const UserProfileView = ({ id }) => {
                   {value?.company_name || "N/A"}
                 </div>
                 <div className={styles.des_title}>{value?.designation || "N/A"}</div>
-                <div className={styles.des_title}>{value?.reg_id || "N/A"}</div>
+                {/* <div className={styles.des_title}>{value?.reg_id || "N/A"}</div> */}
                 <div
                   className={`${
                     value?.status === "ACTIVE"

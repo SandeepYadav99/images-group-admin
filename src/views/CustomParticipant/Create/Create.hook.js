@@ -2,23 +2,19 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import Constants from "../../../config/constants";
-
 import {
-  serviceCreateHallMasterList,
-  serviceGetHallMasterDetails,
-  serviceUpdateHallMasterList,
-} from "../../../services/HallMaster.service";
-import { actionFetchHallMasterList } from "../../../actions/HallMaster.action";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+  serviceCreateCustomParticipant,
+  serviceGetCustomParticipantDetails,
+  serviceUpdateCustomParticipant,
+} from "../../../services/CustomParticipant.service";
+import historyUtils from "../../../libs/history.utils";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const initialForm = {
-  name: "",
-  des: "",
-  status: true,
+  label: "",
 };
 
-const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId="" }) => {
+const useCustomParticipant = ({ location }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [errorData, setErrorData] = useState({});
@@ -26,19 +22,20 @@ const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId="" }) =>
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const includeRef = useRef(null);
-  const { id } = useParams();
-  const dispatch = useDispatch();
+  const { id: empId } = useParams();
+
+  const eventID = location?.state?.eventID;
+
   useEffect(() => {
     if (empId) {
-      serviceGetHallMasterDetails({ id: empId }).then((res) => {
+      serviceGetCustomParticipantDetails({ id: empId }).then((res) => {
         if (!res.error) {
-          const data = res?.data;
-          console.log(data, "Data ");
+          const data =
+            res?.data?.details?.length > 0 ? res?.data?.details[0] : {};
           setForm({
             ...form,
-            name: data?.hall_no,
-            des: data?.description,
-            status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
+            label: data?.label,
+            // status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -47,15 +44,9 @@ const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId="" }) =>
     }
   }, [empId]);
 
-  useEffect(() => {
-    if (!isSidePanel) {
-      handleReset();
-    }
-  }, [isSidePanel]);
-
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name"];
+    let required = ["label"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -78,30 +69,26 @@ const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId="" }) =>
     if (!isSubmitting) {
       setIsSubmitting(true);
       const payloadData = {
-        hall_no: form?.name,
-        description: form?.des,
-        status: form?.status ? "ACTIVE" : "INACTIVE",
-        event_id:id,
+        label: form?.label,
+        event_id: eventID,
+        // status: form?.status ? "ACTIVE" : "INACTIVE",
       };
       let req;
       if (empId) {
-        req = serviceUpdateHallMasterList({ ...payloadData, id: empId });
+        req = serviceUpdateCustomParticipant({ ...payloadData, id: empId });
       } else {
-        req = serviceCreateHallMasterList(payloadData);
+        req = serviceCreateCustomParticipant(payloadData);
       }
       req.then((res) => {
         if (!res.error) {
-          // historyUtils.goBack();
-          // window.location.reload();
-          handleToggleSidePannel();
-          dispatch(actionFetchHallMasterList(1,{},{event_id:id}));
+          historyUtils.goBack();
         } else {
           SnackbarUtils.error(res.message);
         }
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, empId, isSidePanel,id]);
+  }, [form, isSubmitting, setIsSubmitting, empId, eventID]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -110,7 +97,7 @@ const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId="" }) =>
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, id]);
+  }, [checkFormValidation, setErrorData, form, eventID]);
 
   const removeError = useCallback(
     (title) => {
@@ -125,9 +112,7 @@ const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId="" }) =>
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "name") {
-        t[fieldName] = text?.replace(/^\s+/, "");
-      } else if (fieldName === "des") {
+      if (fieldName === "label") {
         t[fieldName] = text?.replace(/^\s+/, "");
       } else {
         t[fieldName] = text;
@@ -151,7 +136,7 @@ const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId="" }) =>
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
-  }, [form, isSidePanel]);
+  }, [form]);
 
   return {
     form,
@@ -172,4 +157,4 @@ const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId="" }) =>
   };
 };
 
-export default useHallMasterHook;
+export default useCustomParticipant;

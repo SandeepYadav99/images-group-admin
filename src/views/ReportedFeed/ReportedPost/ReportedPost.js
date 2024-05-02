@@ -29,6 +29,8 @@ import {
 } from "../../../actions/ReportedPost.action";
 import ImageCourselPopUp from "../../../components/ImageCourselPopUp/ImageCourselPopUp";
 import VideoDialog from "../ReportedComment/VideoDialog/VideoDialog";
+import DeleteDialog from "../../../components/DeleteDialog/DeleteDialog";
+import { capitalizeFirstLetter } from "../../../hooks/CapsLetter";
 
 const PostPopUp = ({ open, title, commentDetail, onClick }) => {
   const {
@@ -46,8 +48,7 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
     handleEdit,
     handleSearchValueChange,
     isCalling,
-    configFilter,
-    handleViewUpdate,
+  
   } = useReportedPost({});
 
   const renderStatus = useCallback((status) => {
@@ -83,15 +84,21 @@ const PostPopUp = ({ open, title, commentDetail, onClick }) => {
         key: "username",
         label: "USER NAME ",
         sortable: false,
-        render: (value, all) => <div>{all?.reportedData?.name || "N/A"}</div>,
+        render: (value, all) => <div>{capitalizeFirstLetter(all?.reportedData[0]?.name) || "N/A"}</div>,
       },
-
+      {
+        key: "description",
+        label: "DESCRIPTION",
+        sortable: false,
+        render: (temp, all) => <div>{all?.description}</div>,
+      },
       {
         key: "reportedOn",
         label: "REPORTED ON",
         sortable: false,
         render: (temp, all) => <div>{all?.reportedOn}</div>,
       },
+     
       {
         key: "posted",
         label: "Posted",
@@ -174,6 +181,10 @@ const ReportedPost = ({}) => {
     handleViewUpdate,
     toggleVideoModal,
     isVideoModal,
+    // handleRejectApi,
+    toggleRejectDialog,
+    isRejectPopUp,
+    handleRejectApi
   } = useReportedPost({});
 
   const {
@@ -217,11 +228,11 @@ const ReportedPost = ({}) => {
   };
 
   const handleDeletePost = (all) => {
-    let params = {
-      post_id: all?.id,
-    };
-    serviceDeleteReportedFeedPostValue(params);
-    dispatch(actionFetchReportedPost(1));
+    // let params = {
+    //   post_id: all?.id,
+    // };
+    // serviceDeleteReportedFeedPostValue(params);
+    // dispatch(actionFetchReportedPost(1));
   };
 
   const renderStatus = useCallback((status) => {
@@ -284,7 +295,7 @@ const ReportedPost = ({}) => {
               onClick={() => handleOpenDetailPopUp(all?.images)}
             >
               {all?.images?.length > 1 ? "+" : ""}
-              {all?.images?.length > 1 ? all?.images.length : ""}
+              {all?.images?.length > 1 ? all?.images.length - 1 : ""}
             </p>
           </div>
         ),
@@ -332,7 +343,7 @@ const ReportedPost = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              onClick={() => handleDeletePost(all)}
+              onClick={() => toggleRejectDialog(all)}
             >
               <DeleteIcon fontSize={"small"} />
             </IconButton>
@@ -417,6 +428,12 @@ const ReportedPost = ({}) => {
           handleDialog={() => {
             toggleVideoModal(null);
           }}
+        />
+          <DeleteDialog
+          handleConfirm={handleRejectApi}
+          handleDialog={toggleRejectDialog}
+          isOpen={isRejectPopUp}
+          moduleName={"Reported Feed"}
         />
       </PageBox>
     </div>

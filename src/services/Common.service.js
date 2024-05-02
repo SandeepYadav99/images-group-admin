@@ -23,3 +23,9 @@ export async function serviceGetList(list, otherParams = {}) {
 export async function serviceUploadImage(params) {
     return await formDataRequest("upload/image", params);
 }
+export async function serviceUpdateFile(params) {
+    return await formDataRequest('files/upload', params,{"folder": "exhibitors"});
+}
+export async function serviceUpdateFilePartner(params) {
+    return await formDataRequest('files/upload', params,{"folder": "event_sponsors_images"});
+}

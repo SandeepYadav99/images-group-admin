@@ -1,43 +1,43 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import LogUtils from "../../../libs/LogUtils";
 import {
-  actionCreateHallMasterList,
-  actionDeleteHallMasterList,
-  actionFetchHallMasterList,
-  actionSetPageHallMasterList,
-  actionUpdateHallMasterList,
-} from "../../../actions/HallMaster.action";
+  actionFetchCustomParticipant,
+  actionSetPageCustomParticipant,
+} from "../../../actions/CustomParticipant.action";
 import { useParams } from "react-router-dom";
 
-const useHallMaster = ({}) => {
+const useCustomParticipantList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
-
   const dispatch = useDispatch();
-  const {id} = useParams();
+  const { id } = useParams();
+
   const isMountRef = useRef(false);
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.hallMaster);
+  } = useSelector((state) => state.custom_participant);
 
+  useEffect(() => {
+    // dispatch(actionFetchCustomParticipant());
+  }, []);
 
   useEffect(() => {
     dispatch(
-      actionFetchHallMasterList(
+      actionFetchCustomParticipant(
         1,
         {},
         {
           query: isMountRef.current ? query : null,
           query_data: isMountRef.current ? queryData : null,
-          event_id:id
+          event_id: id,
         }
       )
     );
@@ -46,38 +46,41 @@ const useHallMaster = ({}) => {
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    // dispatch(actionSetPageAdminUser(type));
+    dispatch(actionSetPageCustomParticipant(type));
   }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
-      console.log(type, data);
-      // this.props.actionChangeStatus({...data, type: type});
-      if (type == "CREATE") {
-        dispatch(actionCreateHallMasterList(data));
-      } else {
-        dispatch(actionUpdateHallMasterList(data));
-      }
       setSidePanel((e) => !e);
       setEditData(null);
     },
     [setSidePanel, setEditData]
   );
 
+  const handleCreateFed = useCallback(
+    (data) => {
+      LogUtils.log("data", data);
+      historyUtils.push(`${RouteName.CUSTOM_PARTICIPANT_CREATE}`, {
+        eventID: id,
+      });
+    },
+    [id]
+  );
+
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageAdminUserRequests(1));
+      // dispatch(actionSetPageAppUserRequests(1));
       dispatch(
-        actionFetchHallMasterList(1, sortingData, {
+        actionFetchCustomParticipant(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
-          event_id:id
+          event_id: id,
         })
       );
-      // dispatch(actionFetchAdminUser(1, sortingData))
+      // dispatch(actionFetchAppUser(1, sortingData))
     },
-    [sortingData, query, queryData,id]
+    [sortingData, query, queryData, id]
   );
 
   const handleFilterDataChange = useCallback(
@@ -99,20 +102,20 @@ const useHallMaster = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      // dispatch(actionSetPageHallMasterList(1));
+      dispatch(actionSetPageCustomParticipant(1));
       dispatch(
-        actionFetchHallMasterList(
+        actionFetchCustomParticipant(
           1,
           { row, order },
           {
             query: query,
             query_data: queryData,
-          event_id:id
+            event_id: id,
           }
         )
       );
     },
-    [query, queryData,id]
+    [query, queryData, id]
   );
 
   const handleRowSize = (page) => {
@@ -121,7 +124,7 @@ const useHallMaster = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteHallMasterList(id));
+      // dispatch(actionDeleteCustomParticipant(id));
       setSidePanel(false);
       setEditData(null);
     },
@@ -130,8 +133,9 @@ const useHallMaster = ({}) => {
 
   const handleEdit = useCallback(
     (data) => {
-      setEditData(data);
-      setSidePanel((e) => !e);
+      // setEditData(data);
+      // setSidePanel((e) => !e);
+      historyUtils.push(RouteName.PRODUCT_CATEGORY_UPDATE + data?.id);
     },
     [setEditData, setSidePanel]
   );
@@ -151,17 +155,17 @@ const useHallMaster = ({}) => {
     [setEditData, setSidePanel]
   );
 
-  console.log("editData",editData)
-  const handleViewDetails = useCallback((data) => {
-    historyUtils.push(RouteName.LOCATIONS_DETAILS + data.id); //+data.id
-  }, []);
+  const handleViewDetails = useCallback(
+    (data) => {
+      historyUtils.push(RouteName.CUSTOM_PARTICIPANT_UPDATE + data.id, {
+        eventID: id,
+      }); //+data.id
+    },
+    [id]
+  );
 
   const handleCreate = useCallback(() => {
     historyUtils.push(RouteName.LOCATIONS_CREATE);
-  }, []);
-
-  const handleFileView = useCallback((data) => {
-    window.open(data?.document, "_blank");
   }, []);
 
   const configFilter = useMemo(() => {
@@ -192,8 +196,8 @@ const useHallMaster = ({}) => {
     configFilter,
     handleCreate,
     handleToggleSidePannel,
-    handleFileView,
+    handleCreateFed,
   };
 };
 
-export default useHallMaster;
+export default useCustomParticipantList;

@@ -292,7 +292,7 @@ const useEventScheduleHook = ({
     },
     [setErrorData, errorData]
   );
-
+console.log(form?.chairs)
   const updateSpeakerList = useMemo(() => {
     return listData?.EVENT_SPEAKERS?.filter((val) => {
       if (
