@@ -2,3 +2,6 @@
     overflow-y: hidden;
     overflow-y: hidden;
 }
+.hideButton{
+    display: none !important;
+}

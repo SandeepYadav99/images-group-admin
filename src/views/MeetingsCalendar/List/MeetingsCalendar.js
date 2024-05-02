@@ -59,7 +59,7 @@ const MeetingsCalendar = ({}) => {
       return (
         <div className={styles.InfoWrap}>
           <div>
-            {true ? "Edit Meeting Calendar " : "Add Meeting Calendar "}{" "}
+            { "Add Meeting Calendar "}
           </div>
           <div className={styles.newLine}></div>
         </div>
@@ -100,13 +100,13 @@ const MeetingsCalendar = ({}) => {
         key: "booked_by",
         label: "BOOKED BY",
         sortable: false,
-        render: (temp, all) => <div>{all?.bookedBy?.name || "N/A"}</div>,
+        render: (temp, all) => <div>{all?.bookedBy?.name || "N/A"}<br/>{all?.bookedBy?.company_name || "N/A"}</div>,
       },
       {
         key: "booked_with",
         label: "BOOKED WITH",
         sortable: false,
-        render: (temp, all) => <div>{all?.bookedWith?.name || "N/A"}</div>,
+        render: (temp, all) => <div>{all?.bookedWith?.name || "N/A"}<br/>{all?.bookedWith?.company_name || "N/A"}</div>,
       },
 
       {
