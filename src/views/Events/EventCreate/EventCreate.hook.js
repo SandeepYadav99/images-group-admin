@@ -282,7 +282,7 @@ function useEventCreate() {
     ];
     if (!id) {
       required.push(
-        ...["logo", "banner", "background_image", "linkedin_image"]
+        ...[ "banner", "background_image"]
       );
     }
     required.forEach((val) => {
