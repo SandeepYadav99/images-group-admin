@@ -149,7 +149,7 @@ const useDuplicate = ({
           t[fieldName] = text;
         }
       } else if (fieldName === "code") {
-        if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
+        if (!text || (!isSpace(text) && isAlphaNum(text))) {
           t[fieldName] = text;
         }
         shouldRemoveError = false;

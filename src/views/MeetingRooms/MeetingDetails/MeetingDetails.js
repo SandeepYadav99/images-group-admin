@@ -344,6 +344,8 @@ const MeetingDetails = ({ location }) => {
             filters={configFilter}
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
+            searchHide={styles.hideSearch}
+            marginSearchAtTop={styles.marginSearchAtTop}
           />
           <div>
             <br />

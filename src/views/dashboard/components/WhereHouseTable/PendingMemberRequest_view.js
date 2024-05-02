@@ -26,16 +26,18 @@ const PendingMemberRequest = ({ data }) => {
   }, []);
 
   useEffect(() => {
-    setList(data?.pendingMember?.slice(0, count));
+    setList(data);
   }, [data, count]);
 
   function handleIncrease() {
-    historyUtils.push(`${RouteName.NEW_MEMBERS}`);
+    historyUtils.push(`${RouteName.REPORTED_FEED}`);
   }
 
   const changeEmployeeRoute = useCallback(() => {
-    historyUtils.push(`${RouteName.NEW_MEMBERS}`);
+    historyUtils.push(`${RouteName.REPORTED_FEED}`);
   }, []);
+
+
 
   const _renderListData = () => {
     const tableRows = [];
@@ -48,17 +50,17 @@ const PendingMemberRequest = ({ data }) => {
                 className={styles.hyperlinkText}
                 onClick={() => changeEmployeeRoute(val?.candidate)}
               >
-                {val?.name}
+                {val?.reported_by?.name}
               </div>
             </TableCell>
             <TableCell className="pl-3 fw-normal">
-              {val?.company_name}
+              {val?.reason}
             </TableCell>
             <TableCell className="pl-3 fw-normal">
-              {val?.chapter?.name ? val?.chapter?.name : "--"}
+              {val?.reportedOn ? val?.reportedOn : "--"}
             </TableCell>
             <TableCell className="pl-3 fw-normal">
-              {val?.createdAtText}
+              {val?.postObj?.total_reports}
             </TableCell>
           </TableRow>
         );
@@ -78,7 +80,7 @@ const PendingMemberRequest = ({ data }) => {
   return (
     <div className={classes.bgWhite}>
       <div className={classes.upperFlex}>
-        <div className={styles.titles}>Pending Member Users Requests</div>
+        <div className={styles.titles}>Reported Feeds</div>
         <div className={styles.newLine} />
       </div>
       <div>
@@ -86,17 +88,16 @@ const PendingMemberRequest = ({ data }) => {
           <Table stickyHeader className="mb-0">
             <TableHead>
               <TableRow>
-                <TableCell className={classes.row}>Member Info</TableCell>
-                <TableCell className={classes.row}>Company</TableCell>
-                <TableCell className={classes.row}>City</TableCell>
-                <TableCell className={classes.row}>Date</TableCell>
+                <TableCell className={classes.row}>POSTED BY</TableCell>
+                <TableCell className={classes.row}>REASON</TableCell>
+                <TableCell className={classes.row}>POSTED	</TableCell>
+                <TableCell className={classes.row}>NO OF REPORTS</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>{_renderListData()}</TableBody>
           </Table>
         </TableContainer>
       </div>
-      {role === "GENERAL" && (
         <div className={"txtCenter"}>
           <ButtonBase
             className={"viewBtn"}
@@ -106,7 +107,6 @@ const PendingMemberRequest = ({ data }) => {
             View All
           </ButtonBase>
         </div>
-      )}
     </div>
   );
 };

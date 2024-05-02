@@ -47,6 +47,9 @@ const useDateRange = ({
 
   useEffect(() => {}, []);
 
+
+ 
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["start_date", "end_date", "duration"];
@@ -59,6 +62,10 @@ const useDateRange = ({
         errors[val] = true;
       }
     });
+
+    if (new Date(form?.start_date) > new Date(form?.end_date)){
+      errors['end_date'] = true ;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];

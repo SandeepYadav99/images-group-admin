@@ -41,6 +41,8 @@ class FilterComponent extends Component {
         this.changedSearch = _.debounce((value) => { this.props.handleSearchValueChange(value); }, 500);
         this.handleMenuClick = this.handleMenuClick.bind(this);
         this._handleSearchBlur = this._handleSearchBlur.bind(this);
+        this.searchHide = this.searchHide;
+        this.marginSearchAtTop= this.marginSearchAtTop;
     }
 
     handleTouchTap = (event) => {
@@ -270,10 +272,10 @@ class FilterComponent extends Component {
 
     render() {
         return (
-            <div className={`${this.props.filterWidth ?cstyles.wwe :"" }`}>
+            <div className={`${this.props.filterWidth ?cstyles.wwe :"" }`} >
                 <br/>
-                <div style={{ display: 'flex', width: '100%', alignItems: 'center', }}>
-                    <div style={{ flex: 1 }} >
+                <div style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent:"flex-end"}} className={this.props.marginSearchAtTop} >
+                    <div style={{ flex: 1 }} className={this.props.searchHide}>
                         <div className={cstyles.inputContainer}>
                             <input onBlur={this._handleSearchBlur} value={this.state.query} onChange={this._handleSearchChange} className={cstyles.searchInput} placeholder={'Search'}/>
                             <div className={'filterSearchIcon'}>

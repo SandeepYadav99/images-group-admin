@@ -58,7 +58,7 @@ const DuplicateView = ({
             label={"Meeting Room Code"}
             value={form?.code}
             onTextChange={(text) => {
-              changeTextData(text, "code");
+                changeTextData(text, "code");
             }}
             onBlur={() => {
               onBlurHandler("code");

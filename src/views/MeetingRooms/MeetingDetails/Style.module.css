@@ -157,3 +157,16 @@
   font-size: 14px;
 
 }
+
+.hideSearch{
+  display: none !important;
+}
+.marginSearchAtTop{
+  margin-top: -80px;
+}
+
+@media only screen and (max-width:1024px) {
+  .marginSearchAtTop{
+    margin-top: 0px !important;
+  }
+}

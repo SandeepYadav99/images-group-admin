@@ -46,7 +46,7 @@ const Standard = ({ index, changeData, handlePress, data, errors }) => {
             <CustomDateTimePicker
               clearable
               label={"End Time"}
-              minDate={new Date()}
+              minDate={new Date(data?.start_time)}
               onChange={(date) => {
                 handleChange(date, "end_time");
               }}
