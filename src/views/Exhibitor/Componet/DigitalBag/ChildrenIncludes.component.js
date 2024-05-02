@@ -25,7 +25,6 @@ const ChildFieldIncludeForm = ({ data, errorData: errorForm }, ref) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
-  const { id } = useParams();
   useImperativeHandle(ref, () => ({
     isValid() {
       return validateData();

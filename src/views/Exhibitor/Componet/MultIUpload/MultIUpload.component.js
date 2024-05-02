@@ -63,8 +63,11 @@ class MultIUpload extends Component {
     _getImageUrl (value) {
         const {default_image,user_image} = this.props;
         if (value) {
-            console.log(">>>>>",constants?.UPLOADER_URL + value)
-            return constants?.UPLOADER_URL + value
+            if (value?.includes("http")){
+                return value
+            } else{
+                return constants?.UPLOADER_URL + value
+            }
         } else if (default_image) {
             return default_image;
         } else if(user_image){
@@ -74,11 +77,13 @@ class MultIUpload extends Component {
 
 
     render() {
-        const {value, children, multiple, accept, error, placeholder,name,component,user_image, title, show_image,moduleType, default_image,banner,bannerimg, link, bannerLabelTrue, circular,bannerLabel} = this.props;
+        const {value, children, multiple, accept, error, placeholder,name,component,user_image, title, show_image,moduleType, default_image,banner,bannerimg, link, bannerLabelTrue, circular,bannerLabel,placeLabel} = this.props;
         let tempPlaceHolder = this.props.placeholder;
         if (value != '' && value !== null) {
             if (value instanceof Object && !Array.isArray(value)) {
                 tempPlaceHolder = value?.name?.length > 20 ? value?.name?.substr(0, 20) : value.name;
+            }else if (placeLabel){
+                tempPlaceHolder = value
             } else {
                 tempPlaceHolder = value?.length + ' Selected';
             }
