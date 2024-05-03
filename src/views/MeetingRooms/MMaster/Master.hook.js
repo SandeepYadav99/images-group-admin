@@ -56,10 +56,10 @@ const useMMasterCreate = ({}) => {
     });
 
 
-    form?.slots?.filter((val) => {
+    form?.slots?.forEach((val) => {
       if (new Date(val?.start_time) > new Date(val?.end_time)) {
-        SnackbarUtils.error("Start Time Cannot be Greater than End Time");
         setTimeSlotErr(true);
+        SnackbarUtils.error("Start Time Cannot be Greater than End Time");
       } else {
         setTimeSlotErr(false);
       }
@@ -98,19 +98,19 @@ const useMMasterCreate = ({}) => {
         if (!timeSlotErr) {
            req = serviceCreateMMeeting;
         }
-        req({
-          duration: form?.duration,
-          slots: ExpensesData,
-          event_id: `${id}`,
-        }).then((res) => {
-          if (!res.error) {
-            historyUtils.goBack();
-          } else {
-            SnackbarUtils.error("Start Time and End Time cannot be Empty");
-          }
-          setIsLoading(false);
-          setIsSubmitting(false);
-        });
+          req({
+            duration: form?.duration,
+            slots: ExpensesData,
+            event_id: `${id}`,
+          }).then((res) => {
+            if (!res.error) {
+              historyUtils.goBack();
+            } else {
+              SnackbarUtils.error("Start Time and End Time cannot be Empty");
+            }
+            setIsLoading(false);
+            setIsSubmitting(false);
+          });  
       }
     },
     [form, isSubmitting, setIsSubmitting, id, setIsChecked, isChecked],

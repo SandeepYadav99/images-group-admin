@@ -18,6 +18,7 @@ import {
 } from "../../../services/MeetingRoom.service";
 import { serviceGetMeetingRoomSlottListDetails } from "../../../services/MeetingSlots.service";
 import constants from "../../../config/constants";
+import useDebounce from "../../../hooks/DebounceHook";
 
 const initialForm = {
   name: "",
@@ -40,7 +41,8 @@ const useMeetingCreate = ({
   const includeRef = useRef(null);
   const [isRejectPopUp, setIsRejectPopUp] = useState(false);
   const [dataValue, setDataValue] = useState({});
-  const [isExist,setIsExist] = useState(false)
+  const [isExist, setIsExist] = useState(false);
+  const codeDebouncer = useDebounce(form?.code, 500);
 
   const params = useParams();
 
@@ -49,17 +51,6 @@ const useMeetingCreate = ({
       handleReset();
     }
   }, [isSidePanel]);
-
-  useEffect(()=>{
-    serviceIsExistApi({
-      event_id:params?.id,
-      code:form?.code,
-    }).then((res)=>{
-      setIsExist(res?.data?.is_exists)
-    })
-  },[form?.code])
-
-
 
   useEffect(() => {
     if (detailsData) {
@@ -71,6 +62,29 @@ const useMeetingCreate = ({
       });
     }
   }, [detailsData?.event_id]);
+
+  const checkCodeValidation = useCallback(() => {
+    serviceIsExistApi({
+      event_id: params?.id,
+      code: form?.code,
+    }).then((res) => {
+      const errors = {...errorData};
+      if (res.data.is_exists) {
+        errors["code"] = true;
+      } else {
+        delete errors.code;
+      }
+      setErrorData(errors);
+    });
+  }, [form?.code, errorData]);
+
+  useEffect(() => {
+    if (codeDebouncer) {
+      checkCodeValidation();
+    }
+  }, [codeDebouncer]);
+
+
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -84,18 +98,17 @@ const useMeetingCreate = ({
         errors[val] = true;
       }
     });
-    if (isExist){
+    if (isExist) {
       errors["code"] = true;
       SnackbarUtils.error("Meeting Room Code Already Exist");
-    }
-    else{
+    } else {
       errors["code"] = false;
     }
 
-    if(form?.code?.length === 0){
-      errors["code"] = true ;
+    if (form?.code?.length === 0) {
+      errors["code"] = true;
     }
-   
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];

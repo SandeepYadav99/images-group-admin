@@ -7,10 +7,11 @@ import CustomTimePicker from "../../../../components/FormFields/DatePicker/Custo
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 
 const Standard = ({ index, changeData, handlePress, data, errors }) => {
-
   const handleChange = (e, fieldName) => {
-      changeData(index, { [fieldName]: e });
+    changeData(index, { [fieldName]: e });
   };
+
+  console.log(data, "?????? helloo");
 
   return (
     <div>

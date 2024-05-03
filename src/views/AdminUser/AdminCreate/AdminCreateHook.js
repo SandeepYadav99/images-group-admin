@@ -90,7 +90,6 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
 
   const checkCodeValidation = useCallback(() => {
     const temp = form?.contact?.split(" ");
-    console.log({ temp });
     if (temp[1]?.replace("-", "")?.length === 10) {
       serviceAdminUserCheckExist({
         contact: temp[1]?.replace("-", ""),
@@ -131,7 +130,7 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       }
     });
   }, [empId, form.email, errorData]);
-console.log({errorData})
+
   useEffect(() => {
     if (emailDebouncer) {
       checkEmailValidation();
@@ -229,7 +228,7 @@ console.log({errorData})
       });
     }
   }, [form, isSubmitting, setIsSubmitting, empId]);
-  console.log('Form has validation errors:', errorData);
+
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     if (Object.keys(errors).length > 0) {

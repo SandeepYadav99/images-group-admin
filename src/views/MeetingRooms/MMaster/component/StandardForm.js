@@ -35,26 +35,6 @@ const StandardForm = ({ data, errorData: errorForm, grade }, ref) => {
     }
   }, [id]);
 
-  useImperativeHandle(ref, () => ({
-    isValid() {
-      return validateData();
-    },
-    resetData() {
-      setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
-    },
-    getData() {
-      return fields;
-    },
-    setData(data) {
-      setFields([...data]);
-    },
-  }));
-
-  const getState = () => {
-    return fields;
-  };
-
-
 
   const validateData = (index, type) => {
     const errors = {...errorData};
@@ -100,6 +80,25 @@ const StandardForm = ({ data, errorData: errorForm, grade }, ref) => {
   const isValid = () => {
     return validateData();
   };
+
+  const getState = () => {
+    return fields;
+  };
+
+  useImperativeHandle(ref, () => ({
+    isValid() {
+      return validateData();
+    },
+    resetData() {
+      setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
+    },
+    getData() {
+      return fields;
+    },
+    setData(data) {
+      setFields([...data]);
+    },
+  }));
 
   const removeErrors = useCallback(
     (index, key) => {

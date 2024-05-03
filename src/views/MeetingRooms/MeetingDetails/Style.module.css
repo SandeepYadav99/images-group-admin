@@ -151,7 +151,7 @@
 
 .bookedBy{
   display: flex;
-  gap: 10px;
+  flex-direction: column;
 }
 .textBookedBy{
   font-size: 14px;
