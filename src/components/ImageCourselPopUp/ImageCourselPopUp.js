@@ -38,7 +38,7 @@ const ImageCarouselPopUp = ({ open, handleClose, content }) => {
       sliderRef.current.slickPrev();
     }
   };
-  console.log(sliderRef.current);
+
   return (
     <div className={styles.container}>
       <Dialog open={open} onClose={handleClose} aria-labelledby="dialog-title">
@@ -74,34 +74,32 @@ const ImageCarouselPopUp = ({ open, handleClose, content }) => {
                 </div>
               ))}
             </Slider>
-            {/* {content?.length >= 0 && ( */}
-              <IconButton
-                className={styles.previousButton}
-                onClick={goToPrevious}
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "-30px",
-                  transform: "translateY(-50%)",
-                }}
-              >
-                <ArrowBackIos fontSize="small" />
-              </IconButton>
-            {/* )} */}
-            {/* {content?.length >= 0 && ( */}
-              <IconButton
-                className={styles.nextButton}
-                onClick={goToNext}
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  right: "-30px",
-                  transform: "translateY(-50%)",
-                }}
-              >
-                <ArrowForwardIos fontSize="small" />
-              </IconButton>
-            {/* // )} */}
+            <IconButton
+              className={styles.previousButton}
+              onClick={goToPrevious}
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "-30px",
+                transform: "translateY(-50%)",
+              }}
+            >
+              {content?.length > 1 &&  <ArrowBackIos fontSize="small" />}
+             
+            </IconButton>
+            <IconButton
+              className={styles.nextButton}
+              onClick={goToNext}
+              style={{
+                position: "absolute",
+                top: "50%",
+                right: "-30px",
+                transform: "translateY(-50%)",
+              }}
+            >
+              {content?.length > 1 && <ArrowForwardIos fontSize="small" />}
+            </IconButton>
+            
           </div>
         </DialogContent>
       </Dialog>
