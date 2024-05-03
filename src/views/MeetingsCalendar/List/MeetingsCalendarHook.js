@@ -1,12 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  actionCreateEventSpeaker,
-  actionDeleteEventSpeaker,
-  actionFetchEventSpeaker,
-  actionSetPageEventSpeaker,
-  actionUpdateEventSpeaker,
-} from "../../../actions/EventSpeaker.action";
+
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
@@ -18,7 +12,6 @@ import {
 } from "../../../services/EventSpeaker.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { actionCreateMeetingCallendarList, actionFetchMeetingCallendarList, actionSetPageMeetingCallendarList } from "../../../actions/MeetingsCalendar.action";
-// import { actionCreateEventSpeakerMaster, actionDeleteEventSpeakerMaster, actionFetchMeetingCallendarList, actionSetPageEventSpeakerMaster, actionUpdateEventSpeakerMaster } from "../../../actions/SpeakerMaster.action";
 
 const useMeetingsCalendarHook = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -30,6 +23,7 @@ const useMeetingsCalendarHook = ({}) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
+
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -55,6 +49,7 @@ const useMeetingsCalendarHook = ({}) => {
       }
     });
   }, []);
+
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPageMeetingCallendarList(type));
@@ -199,7 +194,7 @@ const useMeetingsCalendarHook = ({}) => {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["ACTIVE", "INACTIVE"],
+        fields: ["BLOCKED", "BOOKED","AVAILABLE","UNAVAILABLE"],
       },
     ];
   }, [listData]);

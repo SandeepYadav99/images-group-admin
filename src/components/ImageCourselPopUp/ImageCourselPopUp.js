@@ -1,10 +1,21 @@
 import React from "react";
-import { Dialog, DialogTitle, DialogContent } from "@material-ui/core";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
+} from "@material-ui/core";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./Style.module.css";
 import Close from "../../assets/img/ic_close.png";
+import {
+  ArrowBack,
+  ArrowBackIos,
+  ArrowForward,
+  ArrowForwardIos,
+} from "@material-ui/icons";
 
 const ImageCarouselPopUp = ({ open, handleClose, content }) => {
   const sliderRef = React.useRef(null);
@@ -27,7 +38,7 @@ const ImageCarouselPopUp = ({ open, handleClose, content }) => {
       sliderRef.current.slickPrev();
     }
   };
-
+  console.log(sliderRef.current);
   return (
     <div className={styles.container}>
       <Dialog open={open} onClose={handleClose} aria-labelledby="dialog-title">
@@ -54,27 +65,43 @@ const ImageCarouselPopUp = ({ open, handleClose, content }) => {
                   <img
                     src={val?.images || val}
                     alt="text-image"
-                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                    }}
                   />
                 </div>
               ))}
             </Slider>
-            {/* <button
-              className={styles.previousButton}
-              onClick={goToPrevious}
-              disabled={!sliderRef.current || sliderRef.current.innerSlider.state.currentSlide === 0}
-              style={{ position: "absolute", top: "50%", left: "-20px", transform: "translateY(-50%)" }}
-            >
-              Previous
-            </button>
-            <button
-              className={styles.nextButton}
-              onClick={goToNext}
-              disabled={!sliderRef.current || sliderRef.current.innerSlider.state.currentSlide === (content.length - 1)}
-              style={{ position: "absolute", top: "50%", right: "-20px", transform: "translateY(-50%)" }}
-            >
-              Next
-            </button> */}
+            {/* {content?.length >= 0 && ( */}
+              <IconButton
+                className={styles.previousButton}
+                onClick={goToPrevious}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "-30px",
+                  transform: "translateY(-50%)",
+                }}
+              >
+                <ArrowBackIos fontSize="small" />
+              </IconButton>
+            {/* )} */}
+            {/* {content?.length >= 0 && ( */}
+              <IconButton
+                className={styles.nextButton}
+                onClick={goToNext}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  right: "-30px",
+                  transform: "translateY(-50%)",
+                }}
+              >
+                <ArrowForwardIos fontSize="small" />
+              </IconButton>
+            {/* // )} */}
           </div>
         </DialogContent>
       </Dialog>

@@ -43,8 +43,7 @@ const ChildFieldIncludeForm = ({ data, errorData: errorForm }, ref) => {
   const validateData = (index, type) => {
     const errors = {};
     fields.forEach((val, index) => {
-      const err =
-        index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
+      const err = {};
       const required = ["url","title","thumbnail"];
       const hasValues = Object.values(val).some(
         (value) => value !== "" && value !== null
@@ -122,9 +121,9 @@ const ChildFieldIncludeForm = ({ data, errorData: errorForm }, ref) => {
     if (type == "ADDITION") {
       oldState.push(TEMP_OBJ);
     } else {
-      if (oldState.length === 1) {
-        return true;
-      }
+      // if (oldState.length === 1) {
+      //   return true;
+      // }
       oldState.splice(index, 1);
     }
     LogUtils.log("oldState", oldState);

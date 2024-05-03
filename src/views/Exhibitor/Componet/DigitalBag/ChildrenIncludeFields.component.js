@@ -103,7 +103,7 @@ const ChildrenIncludeFields = ({
                 handlePress(index == 0 ? "-" : "-", index);
               }}
             >
-              {index == 0 ? "" : "Remove"}
+              {"Remove"}
             </ButtonBase>
           </div>
         </div>
