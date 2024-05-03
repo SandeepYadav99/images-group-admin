@@ -56,14 +56,14 @@ const useMMasterCreate = ({}) => {
     });
 
 
-    form?.slots?.forEach((val) => {
-      if (new Date(val?.start_time) > new Date(val?.end_time)) {
-        setTimeSlotErr(true);
-        SnackbarUtils.error("Start Time Cannot be Greater than End Time");
-      } else {
-        setTimeSlotErr(false);
-      }
-    });
+    // form?.slots?.forEach((val) => {
+    //   if (new Date(val?.start_time) > new Date(val?.end_time)) {
+    //     setTimeSlotErr(true);
+    //     SnackbarUtils.error("Start Time Cannot be Greater than End Time");
+    //   } else {
+    //     setTimeSlotErr(false);
+    //   }
+    // });
 
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -89,9 +89,12 @@ const useMMasterCreate = ({}) => {
   const submitToServer = useCallback(
     () => {
       if (!isSubmitting) {
+        console.log('isValid', otherRef.current.isValid())
+        if (!otherRef.current.isValid()) {
+          return true;
+        }
         setIsLoading(true);
         setIsSubmitting(true);
-
         const ExpensesData = otherRef.current.getData();
         let req ;
 
@@ -110,7 +113,7 @@ const useMMasterCreate = ({}) => {
             }
             setIsLoading(false);
             setIsSubmitting(false);
-          });  
+          });
       }
     },
     [form, isSubmitting, setIsSubmitting, id, setIsChecked, isChecked],

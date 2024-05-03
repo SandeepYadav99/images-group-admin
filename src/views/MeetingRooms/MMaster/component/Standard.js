@@ -8,7 +8,7 @@ import CustomDatePicker from "../../../../components/FormFields/DatePicker/Custo
 
 const Standard = ({ index, changeData, handlePress, data, errors }) => {
   const handleChange = (e, fieldName) => {
-    changeData(index, { [fieldName]: e });
+    changeData(index, { [fieldName]: e }, fieldName);
   };
 
   console.log(data, "?????? helloo");

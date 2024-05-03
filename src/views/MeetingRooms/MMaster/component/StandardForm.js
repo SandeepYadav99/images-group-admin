@@ -37,39 +37,50 @@ const StandardForm = ({ data, errorData: errorForm, grade }, ref) => {
 
 
   const validateData = (index, type) => {
-    const errors = {...errorData};
+    const errors = {}; //...errorData
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
       const required = ["start_time", "end_time"];
-
-      const hasValues = Object.values(val).some(
-        (value) => value !== "" && value !== null
-      );
-
-      {
-        hasValues &&
-          required.forEach((key) => {
-            if (!val[key]) {
-              err[key] = true;
-            }
-          });
-      }
-
-      if (!hasValues) {
-        for (const key in err) {
-          if (err.hasOwnProperty(key)) {
-            delete err[key];
-          }
+      required.forEach(r => {
+        if (!val[r]) {
+          err[r] = true;
+        }
+      });
+      if (val.start_time && val.end_time) {
+        if ((new Date(val.start_time)).getTime() > (new Date(val.end_time)).getTime()) {
+          err['start_time'] = true;
         }
       }
+      // const hasValues = Object.values(val).some(
+      //   (value) => value !== "" && value !== null
+      // );
+      //
+      // {
+      //   hasValues &&
+      //     required.forEach((key) => {
+      //       if (!val[key]) {
+      //         err[key] = true;
+      //       }
+      //     });
+      // }
+      //
+      // if (!hasValues) {
+      //   for (const key in err) {
+      //     if (err.hasOwnProperty(key)) {
+      //       delete err[key];
+      //     }
+      //   }
+      // }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
     });
 
     setErrorData(errors);
-    return !(Object.keys(errors).length > 0);
+    LogUtils.log(errors);
+    let isError = (Object.keys(errors)).some(err => Object.keys(err).length > 0);
+    return !isError;
   };
   useEffect(() => {
     if (data) {
@@ -100,8 +111,7 @@ const StandardForm = ({ data, errorData: errorForm, grade }, ref) => {
     },
   }));
 
-  const removeErrors = useCallback(
-    (index, key) => {
+  const removeErrors = useCallback((index, key) => {
       const errors = JSON.parse(JSON.stringify(errorData));
       if (errors[index] != undefined) {
         if (Array.isArray(key)) {
@@ -117,16 +127,16 @@ const StandardForm = ({ data, errorData: errorForm, grade }, ref) => {
     [setErrorData, errorData]
   );
 
-  const changeData = (index, data, dateValue) => {
+  const changeData = (index, data, fieldName) => {
     const tempData = [...fields];
     tempData[index] = { ...tempData[index], ...data };
 
     setFields(tempData);
-    const errArr = [];
-    Object.keys(data).forEach((key) => {
-      errArr.push(key);
-    });
-    removeErrors(index, errArr);
+    // const errArr = [];
+    // Object.keys(data).forEach((key) => {
+    //   errArr.push(key);
+    // });
+    removeErrors(index, fieldName);
   };
 
   const onBlur = useCallback(() => {}, []);
