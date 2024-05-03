@@ -88,9 +88,14 @@ const useMeetingCreate = ({
       errors["code"] = true;
       SnackbarUtils.error("Meeting Room Code Already Exist");
     }
-    else {
+    else{
       errors["code"] = false;
     }
+
+    if(form?.code?.length === 0){
+      errors["code"] = true ;
+    }
+   
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
