@@ -288,3 +288,13 @@
     display: block;
     text-align: center;
 }
+.WrapInner{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.imgWrapper{
+    margin-top: 10px;
+    font-size: .75rem;
+    font-weight: 500;
+}

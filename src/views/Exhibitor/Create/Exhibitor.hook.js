@@ -212,7 +212,7 @@ const useExhibitorCreate = ({ location }) => {
             is_participant: data?.is_participant ? "YES" : "NO",
             contact: data?.contact,
             is_recommended: data?.is_recommended,
-            show_profile: data?.show_profile,
+            show_profile: data?.show_profile ? true : false,
             country: data?.country,
             pavallian: data?.pavallian,
             instagram_link: data?.instagram_link,
@@ -482,7 +482,7 @@ const useExhibitorCreate = ({ location }) => {
         // key !== "company_logo",
         // key !== "gallery_images"
         // key !== "company_brochure"
-        (key !== "business_nature_other", key !== "is_business_nature_other")
+        (key !== "business_nature_other", key !== "is_business_nature_other" , key !=="show_profile")
       ) {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
@@ -514,6 +514,7 @@ const useExhibitorCreate = ({ location }) => {
         } else if (key === "is_participant") {
           fd.append("is_participant", form?.is_participant === "YES");
           fd.append("is_featured", form?.is_featured ? true :false);
+          fd.append("show_profile", form?.show_profile ? true :false);
         } else if (key === "is_featured") {
           delete form[key];
         } else {
@@ -591,6 +592,8 @@ const useExhibitorCreate = ({ location }) => {
       }else if (fieldName === "is_participant"){
         if(text === "YES"){
           t["is_featured"] = false
+        }else if(text === "NO"){
+          t["show_profile"] = false
         }
         t[fieldName] = text;
       }

@@ -247,6 +247,15 @@ class MultIUpload extends Component {
                                type="file"/>
                     </div>
                 </div>
+                <div className={styles.WrapInner}>
+                {value && 
+                <div className={styles.imgWrapper}>
+                <a key={`Image_def_1`} href={value?.includes("http") ? value : constants?.UPLOADER_URL + value} target="_blank">
+                  view
+                </a>
+                </div>
+                }
+                </div>
                 {link && (<a className={styles.anchorTag} href={link} target={'_blank'}>Preview</a>)}
             </div>
         )
