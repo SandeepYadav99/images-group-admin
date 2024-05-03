@@ -46,12 +46,12 @@ const CustomParticipantList = ({}) => {
 
   const tableStructure = useMemo(() => {
     return [
-      {
-        key: "S.No",
-        label: "S no",
-        sortable: true,
-        render: (value, all) => <div>{console.log(all)}{all?.sr_no}</div>,
-      },
+      // {
+      //   key: "S.No",
+      //   label: "S no",
+      //   sortable: true,
+      //   render: (value, all) => <div>{console.log(all)}{all?.sr_no}</div>,
+      // },
 
       {
         key: "name",

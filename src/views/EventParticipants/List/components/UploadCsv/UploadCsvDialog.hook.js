@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import {
   
-  serviceDownloadsampleCsvFile,
+  serviceDownloadsampleCsvFilePost,
   serviceParticipantImportFile,
   serviceParticipantImportVerify,
 } from "../../../../../services/EventParticipant.service";
@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 
 const initialForm = {
   file: null,
-  is_active_email: true,
+  // is_active_email: false,
   is_active_registration: true,
   // participant_type: "",
 };
@@ -62,12 +62,12 @@ const useUploadCsvDialogHook = ({
   }, [form, errorData, isVerified, setIsVerified]);
 
   const handleSampleDownload = useCallback(() => {
-    serviceDownloadsampleCsvFile()?.then((res)=>{
+    serviceDownloadsampleCsvFilePost({event_id:id})?.then((res)=>{
       if(!res?.error){
         const data = res?.data?.file;
         window.open(data, "_blank");      }
     })
-  }, []);
+  }, [id]);
 
   
 
@@ -80,7 +80,7 @@ const useUploadCsvDialogHook = ({
       fd.append("file", form?.file);
       fd.append("event_id", id);
       if (isVerified) {
-        fd.append("send_email", form?.is_active_email);
+        // fd.append("send_email", form?.is_active_email);
         fd.append("is_default_password", form?.is_active_registration);
         // fd.append("event_id", id);
       }
