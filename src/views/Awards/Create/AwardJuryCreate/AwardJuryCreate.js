@@ -25,7 +25,7 @@ const AwardJuryCreate = ({
           {" "}
           <div style={{ display: "flex", justifyContent: "center" }}>
             <File
-              bannerLabel="Upload Event Logo"
+              bannerLabel="Upload jury photo"
               imageClass={styles.inputFileUploader}
               max_size={5 * 1024 * 1024}
               type={["png", "jpeg", "jpg"]}

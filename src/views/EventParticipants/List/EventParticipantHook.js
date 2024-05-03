@@ -73,7 +73,7 @@ const useEventParticipantList = ({}) => {
         actionFetchEventParticipant(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           // query_data: key == "FILTER_DATA" ? value : queryData,
-          participant_type:value[0].value,
+          participant_type:value[0]?.value,
           event_id: id
         })
       );
