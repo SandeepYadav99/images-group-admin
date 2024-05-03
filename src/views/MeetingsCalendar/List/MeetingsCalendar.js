@@ -33,6 +33,7 @@ const MeetingsCalendar = ({}) => {
     configFilter,
     handleToggleSidePannel,
     isSidePanel,
+    onMeetingDetailPage
   } = useMeetingsCalendarHook({});
 
   const {
@@ -152,8 +153,8 @@ const MeetingsCalendar = ({}) => {
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                //  handleUpdateFed(all);
-                historyUtils.push(`${"/meetings/detail/"}${all?.room?.id}`)
+                  onMeetingDetailPage(all);
+              
               }}
             >
               <InfoOutlined fontSize={"small"} />

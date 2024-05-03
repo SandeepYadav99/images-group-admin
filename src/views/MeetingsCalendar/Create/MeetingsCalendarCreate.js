@@ -66,6 +66,11 @@ const MeetingsCalendarCreate = ({
               value={form.booked_by || []}
               options={updateParticipentsList} // filteredTask ||
               getOptionLabel={(option) => option?.name}
+              renderOption={(option) => (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <div>{`${option?.name} (${option?.contact})`}</div>
+                </div>
+              )}
               defaultValue={form?.booked_by || []}
               renderInput={(params) => (
                 <TextField
@@ -105,6 +110,16 @@ const MeetingsCalendarCreate = ({
               value={form.booked_with || []}
               options={updateParticipentsList}
               getOptionLabel={(option) => option?.name}
+              // getOptionLabel={(option) =>
+              //   `${option?.name || ""} ${
+              //     option?.contact ? `(${option?.contact})` : ""
+              //   }`
+              // }
+              renderOption={(option) => (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <div>{`${option?.name} (${option?.contact})`}</div>
+                </div>
+              )}
               defaultValue={form?.booked_with || []}
               renderInput={(params) => (
                 <TextField
