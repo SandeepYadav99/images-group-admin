@@ -183,7 +183,7 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
             }}
           /> */}
           <div>
-            <div className={"formFlex"}>
+            {/* <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomSwitch
                   value={form?.is_active_email}
@@ -193,7 +193,7 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
                   label={`Send Email to all new users`}
                 />
               </div>
-            </div>
+            </div> */}
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomSwitch
@@ -225,9 +225,10 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
         <div className={styles.printFlex}>
           <ButtonBase
             primary
-            disabled={true}
+            // disabled={true}
             onClick={handleSampleDownload}
-            className={styles.disabledBtnReject}
+            className={styles.btmBtn}
+            // className={styles.disabledBtnReject}
           >
             Download Sample Template
           </ButtonBase>
