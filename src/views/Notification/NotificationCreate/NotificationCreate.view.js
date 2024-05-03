@@ -197,7 +197,7 @@ function NotificationCreate() {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <div className={styles.heading}>Sent To</div>
+            <div className={styles.heading}>Send To</div>
             <RadioGroup
               aria-label="option"
               name="send_to"

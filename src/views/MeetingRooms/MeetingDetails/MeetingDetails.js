@@ -182,7 +182,7 @@ const MeetingDetails = ({ location }) => {
               style={{ height: "30px", width: "30px", borderRadius: "10px" }}
             />
             <span className={styles.textBookedBy}>
-              {all?.bookedBy?.contact ? all?.bookedBy?.contact : "--"}
+              {all?.bookedBy?.name ? all?.bookedBy?.name : "--"}
             </span>
           </div>
         ),
@@ -198,7 +198,7 @@ const MeetingDetails = ({ location }) => {
               style={{ height: "30px", width: "30px", borderRadius: "10px" }}
             />
             <span className={styles.textBookedBy}>
-              {all?.bookedWith?.contact ? all?.bookedWith?.contact : "--"}
+              {all?.bookedWith?.name ? all?.bookedWith?.name : "--"}
             </span>
           </div>
         ),
@@ -383,6 +383,8 @@ const MeetingDetails = ({ location }) => {
           isSidePanel={dateRange}
           empId={editData}
           eventIdData={event}
+          dataValueId={dataValue}
+
         />
       </SidePanelComponent>
       <SidePanelComponent

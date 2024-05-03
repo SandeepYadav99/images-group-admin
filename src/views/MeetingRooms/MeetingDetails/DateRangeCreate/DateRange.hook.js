@@ -24,6 +24,7 @@ const useDateRange = ({
   isSidePanel,
   empId,
   eventIdData,
+  dataValueId,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
@@ -39,16 +40,13 @@ const useDateRange = ({
 
   const slotDuration = ["15", "20", "30", "40", "45", "60"];
 
+
   useEffect(() => {
     if (!isSidePanel) {
       handleReset();
     }
   }, [isSidePanel]);
-
-  useEffect(() => {}, []);
-
-
- 
+  
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -63,8 +61,8 @@ const useDateRange = ({
       }
     });
 
-    if (new Date(form?.start_date) > new Date(form?.end_date)){
-      errors['end_date'] = true ;
+    if (new Date(form?.start_date) > new Date(form?.end_date)) {
+      errors["end_date"] = true;
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -97,6 +95,15 @@ const useDateRange = ({
       });
     }
   }, [form, isSubmitting, setIsSubmitting, empId]);
+
+  useEffect(()=>{
+    if(dataValueId){
+      setForm({
+        ...form,
+        duration:dataValueId?.duration
+      })
+    }
+  },[dataValueId])
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();

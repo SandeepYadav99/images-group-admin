@@ -40,16 +40,16 @@ function useYoutubeCreateHook({ location }) {
 
     required.forEach((val) => {
       if (
-        (!form?.[val] && parseInt(form?.[val]) != 0) ||
+        (!form?.[val] && parseInt(form?.[val]) != 0 ) ||
         (Array.isArray(form?.[val]) && form?.[val]?.length === 0)
+
       ) {
         errors[val] = true;
       }
     });
-    // if (form?.link && !isUrl(form?.link)) {
-    //   errors.link = true;
-    //   // SnackbarUtils.error("Please Enter the Valid Url");
-    // }
+    if (form?.link && !isUrl(form?.link)) {
+      errors.link = true;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -82,7 +82,6 @@ function useYoutubeCreateHook({ location }) {
     },
     [removeError, form, setForm]
   );
-  console.log(form);
   const submitToServer = useCallback(
     (status) => {
       if (!isSubmitting) {
