@@ -16,7 +16,7 @@ const UpperInfoComponent = ({ data }) => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Phone Number:</span>
-                {data?.contact}
+                {data?.full_contact}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Participants Type:</span>
