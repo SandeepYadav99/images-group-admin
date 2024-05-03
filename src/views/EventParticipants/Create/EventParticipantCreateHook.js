@@ -116,6 +116,7 @@ const useEventParticipantCreate = ({
     }
   }, [empId]);
 
+  console.log("form",form)
   useEffect(() => {
     if (!isSidePanel) {
       handleReset();
@@ -144,8 +145,8 @@ const useEventParticipantCreate = ({
             // reg_id: data?.reg_id,
             user_id: data?.id,
             category: data?.category,
-            participant_type: data?.participants_type
-              ? data?.participants_type
+            participant_type: data?.participant_type
+              ? data?.participant_type
               : [],
             is_awards: data?.is_awards ? "YES" : "NO",
             is_lunch: data?.is_lunch ? "YES" : "NO",
