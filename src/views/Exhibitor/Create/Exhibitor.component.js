@@ -217,7 +217,7 @@ const ExhibitorCreate = () => {
                 <MenuItem value="NO">No</MenuItem>
               </CustomSelectField>
             </div>
-            {String(form?.is_participant) === "true" && (
+            {form?.is_participant === "YES" && (
               <div className={"formFlex"}>
                 <div className={"formGroup"}>
                   <CustomCheckbox
