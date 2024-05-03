@@ -9,6 +9,8 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import useList from "./List.hook.js";
 import StatusPill from "../../../components/Status/StatusPill.component";
+import historyUtils from "../../../libs/history.utils.js";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const CustomParticipantList = ({}) => {
   const {
@@ -46,12 +48,12 @@ const CustomParticipantList = ({}) => {
 
   const tableStructure = useMemo(() => {
     return [
-      {
-        key: "S.No",
-        label: "S no",
-        sortable: true,
-        render: (value, all) => <div>{console.log(all)}{all?.sr_no}</div>,
-      },
+      // {
+      //   key: "S.No",
+      //   label: "S no",
+      //   sortable: true,
+      //   render: (value, all) => <div>{console.log(all)}{all?.sr_no}</div>,
+      // },
 
       {
         key: "name",
@@ -124,10 +126,13 @@ const CustomParticipantList = ({}) => {
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
-          <div>
-            <span className={styles.title}>Custom Participants Fields</span>
-            <div className={styles.newLine} />
-          </div>
+        <ButtonBase onClick={() => historyUtils.goBack()}>
+            <ArrowBackIosIcon fontSize={"small"} />
+            <div>
+              <span className={styles.title}>Custom Participants List</span>
+              <div className={styles.newLine} />
+            </div>
+          </ButtonBase>
           <div className={styles.BtnWrapper}>
             <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
               Create

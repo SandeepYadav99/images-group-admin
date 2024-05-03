@@ -30,7 +30,7 @@ const initialForm = {
   company_logo: "",
   company_name: "",
   brand_name: "",
-  is_participant: "false",
+  is_participant: "NO",
   product_categories: [],
   // products: [],
   products: [],
@@ -209,10 +209,10 @@ const useExhibitorCreate = ({ location }) => {
             primary_conatct_number: data?.primary_conatct_number,
             company_address: data?.company_address,
             country_code: data?.country_code,
-            is_participant: data?.is_participant,
+            is_participant: data?.is_participant ? "YES" : "NO",
             contact: data?.contact,
             is_recommended: data?.is_recommended,
-            show_profile: data?.show_profile,
+            show_profile: data?.show_profile ? true : false,
             country: data?.country,
             pavallian: data?.pavallian,
             instagram_link: data?.instagram_link,
@@ -482,7 +482,7 @@ const useExhibitorCreate = ({ location }) => {
         // key !== "company_logo",
         // key !== "gallery_images"
         // key !== "company_brochure"
-        (key !== "business_nature_other", key !== "is_business_nature_other")
+        (key !== "business_nature_other", key !== "is_business_nature_other" , key !=="show_profile")
       ) {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
@@ -512,7 +512,9 @@ const useExhibitorCreate = ({ location }) => {
             fd.append(key, capitalizeFirstLetter(form?.partner_tag));
           }
         } else if (key === "is_participant") {
-          fd.append("is_featured", false);
+          fd.append("is_participant", form?.is_participant === "YES");
+          fd.append("is_featured", form?.is_featured ? true :false);
+          fd.append("show_profile", form?.show_profile ? true :false);
         } else if (key === "is_featured") {
           delete form[key];
         } else {
@@ -587,7 +589,15 @@ const useExhibitorCreate = ({ location }) => {
         t[fieldName] = text;
       } else if (fieldName === "secondary_email") {
         t[fieldName] = text;
-      } else if (fieldName === "product_categories") {
+      }else if (fieldName === "is_participant"){
+        if(text === "YES"){
+          t["is_featured"] = false
+        }else if(text === "NO"){
+          t["show_profile"] = false
+        }
+        t[fieldName] = text;
+      }
+       else if (fieldName === "product_categories") {
         // console.log({text})
         // t[fieldName] = text;
         const newValues = text?.filter((item) => item !== "");

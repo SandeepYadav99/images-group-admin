@@ -382,8 +382,8 @@ const dashboardRoutes = [
   // },
   {
     path: `${RouteName.NOTIFICATION}`,
-    sidebarName: "Notification",
-    navbarName: "Notification",
+    sidebarName: "App Notification",
+    navbarName: "App Notification",
     icon: PeopleOutlined,
     component: NotificationList,
     is_sidebar: true,

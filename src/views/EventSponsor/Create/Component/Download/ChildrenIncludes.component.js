@@ -41,15 +41,9 @@ const ChildrenIncludeForm = ({ data, errorData: errorForm }, ref) => {
   const validateData = (index, type) => {
     const errors = {};
     fields?.forEach((val, index) => {
-      const err =
-        index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
+      const err = {};
       const required = [];
       required.forEach((key) => {
-        if (!val[key]) {
-          err[key] = true;
-        }
-      });
-      required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
         }
@@ -113,9 +107,9 @@ const ChildrenIncludeForm = ({ data, errorData: errorForm }, ref) => {
     if (type == "ADDITION") {
       oldState.push(TEMP_OBJ);
     } else {
-      if (oldState.length === 1) {
-        return true;
-      }
+      // if (oldState.length === 1) {
+      //   return true;
+      // }
       oldState.splice(index, 1);
     }
     LogUtils.log("oldState", oldState);

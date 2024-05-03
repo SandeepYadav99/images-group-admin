@@ -22,6 +22,7 @@ const DateRangeView = ({
   isSidePanel,
   empId,
   eventIdData,
+  dataValueId,
 }) => {
   const {
     form,
@@ -31,11 +32,10 @@ const DateRangeView = ({
     onBlurHandler,
     changeTextData,
     slotDuration,
-  } = useDateRange({ handleToggleSidePannel, isSidePanel, empId, eventIdData });
+  } = useDateRange({ handleToggleSidePannel, isSidePanel, empId, eventIdData,dataValueId });
 
   const classes = useStyles();
-
-
+  
   return (
     <div className={styles.departmentWrap}>
       <div className={"formFlex"}>
@@ -72,14 +72,15 @@ const DateRangeView = ({
             isError={errorData?.duration}
             errorText={errorData?.duration}
             label={"Durations"}
-            value={form?.duration ? form?.duration : ""}
+            value={form?.duration}
             handleChange={(value) => {
               changeTextData(value, "duration");
             }}
+            disabled={true}
           >
             {slotDuration?.map((value, i) => {
               return (
-                <MenuItem key={i} value={value}>
+                <MenuItem key={i} value={Number(value)}>
                   {value}
                 </MenuItem>
               );

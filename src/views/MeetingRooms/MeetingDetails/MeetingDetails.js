@@ -177,12 +177,13 @@ const MeetingDetails = ({ location }) => {
         sortable: false,
         render: (value, all) => (
           <div className={styles.bookedBy}>
-            <img
+            {/* <img
               src={all?.bookedBy?.image && all.bookedBy?.image}
               style={{ height: "30px", width: "30px", borderRadius: "10px" }}
-            />
+            /> */}
+            <b>{all?.bookedBy?.name ? all?.bookedBy?.name : "--"}</b>
             <span className={styles.textBookedBy}>
-              {all?.bookedBy?.contact ? all?.bookedBy?.contact : "--"}
+              {all?.bookedBy?.company_name ? all?.bookedBy?.company_name : "--"}
             </span>
           </div>
         ),
@@ -193,12 +194,11 @@ const MeetingDetails = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div className={styles.bookedBy}>
-            <img
-              src={all?.bookedWith?.image && all.bookedWith?.image}
-              style={{ height: "30px", width: "30px", borderRadius: "10px" }}
-            />
+            <b>{all?.bookedWith?.name ? all?.bookedWith?.name : "--"}</b>
             <span className={styles.textBookedBy}>
-              {all?.bookedWith?.contact ? all?.bookedWith?.contact : "--"}
+              {all?.bookedWith?.company_name
+                ? all?.bookedWith?.company_name
+                : "--"}
             </span>
           </div>
         ),
@@ -207,7 +207,7 @@ const MeetingDetails = ({ location }) => {
         key: "ref_id",
         label: "REF ID",
         sortable: false,
-        render: (temp, all) => <div>--</div>,
+        render: (temp, all) => <div>{all?.ref_id}</div>,
       },
 
       {
@@ -383,6 +383,7 @@ const MeetingDetails = ({ location }) => {
           isSidePanel={dateRange}
           empId={editData}
           eventIdData={event}
+          dataValueId={dataValue}
         />
       </SidePanelComponent>
       <SidePanelComponent

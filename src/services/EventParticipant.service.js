@@ -62,4 +62,7 @@ export async function serviceDownloadCsvFile(params){
 export async function serviceDownloadsampleCsvFile(){
   return await getRequest("events/participants/sample");
 }
+export async function serviceDownloadsampleCsvFilePost(params){
+  return await postRequest("events/participants/sample",params);
+}
 

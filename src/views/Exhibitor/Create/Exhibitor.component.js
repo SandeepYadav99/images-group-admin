@@ -213,11 +213,11 @@ const ExhibitorCreate = () => {
                   changeTextData(value, "is_participant");
                 }}
               >
-                <MenuItem value="true">Yes</MenuItem>
-                <MenuItem value="false">No</MenuItem>
+                <MenuItem value="YES">Yes</MenuItem>
+                <MenuItem value="NO">No</MenuItem>
               </CustomSelectField>
             </div>
-            {String(form?.is_participant) === "true" && (
+            {form?.is_participant === "YES" && (
               <div className={"formFlex"}>
                 <div className={"formGroup"}>
                   <CustomCheckbox
@@ -1243,7 +1243,7 @@ const ExhibitorCreate = () => {
               }}
               label={"Featured"}
               checked={form?.is_featured}
-              disabled={String(form?.is_participant) === "true" ? true : false}
+              disabled={form?.is_participant === "YES" ? true : false}
             />
           </div>
         </div>
