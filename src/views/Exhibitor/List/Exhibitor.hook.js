@@ -12,6 +12,7 @@ import RouteName from "../../../routes/Route.name";
 import LogUtils from "../../../libs/LogUtils";
 import useExhibitorCreate from "../Create/Exhibitor.hook";
 import { serviceExhibitorsList } from "../../../services/Exhibitor.service";
+import { useParams } from "react-router-dom";
 
 const useExhibitorList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -19,11 +20,12 @@ const useExhibitorList = ({}) => {
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
+  const id = useParams()
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
   });
-
+// console.log({id})
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -210,6 +212,7 @@ const useExhibitorList = ({}) => {
     handleCreate,
     handleToggleSidePannel,
     handleCreateFed,
+    id
   };
 };
 
