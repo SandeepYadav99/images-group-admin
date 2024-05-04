@@ -321,13 +321,14 @@ const EventScheduleContainer = ({}) => {
           event_id={id}
           // title={dataValue?.type === "hide" ? "Hide" : "Live"}
         />
-        <div>
+       
           <FilterComponent
             is_progress={isFetching}
             filters={configFilter}
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
+            </PageBox>
           <div>
             <br />
             <div style={{ width: "100%" }}>
@@ -337,7 +338,7 @@ const EventScheduleContainer = ({}) => {
               />
             </div>
           </div>
-        </div>
+        
         <SidePanelComponent
           handleToggle={handleToggleSidePannel}
           title={<UpperInfo />}
@@ -362,7 +363,7 @@ const EventScheduleContainer = ({}) => {
             empId={detailId}
           />
         </SidePanelComponent>
-      </PageBox>
+     
       <DeleteDialog
         handleConfirm={handleDeleteData}
         handleDialog={toggleDeletedDialog}

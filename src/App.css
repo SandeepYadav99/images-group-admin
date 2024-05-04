@@ -1052,3 +1052,21 @@ font-size: medium;
     text-align: end;
     width: 100%;
 }
+
+.jss132 {
+    padding-top: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+}
+.jss129 {
+    display: flex;
+    min-height: 100%;
+}
+
+.jss134 {
+    display: flex;
+    overflow: hidden;
+    flex-grow: 1;
+    flex-direction: column;
+}
