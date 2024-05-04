@@ -5,14 +5,14 @@ import { Add, Clear, DoneAll, InfoOutlined, Link } from "@material-ui/icons";
 import PageBox from "../../../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../../Datatables/Datatable.table";
+// import DataTables from "../../../../Datatables/Datatable.table";
 import Constants from "../../../../config/constants";
 import FilterComponent from "../../../../components/Filter/Filter.component";
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import StatusPill from "../../../../components/Status/StatusPill.component";
 import EventScheduleView from "../EventScheduleCreate/EventSchedule.view";
 import useEventScheduleList from "./EventScheduleList.hook";
-
+import DataTables from "../../../../Datatables/Datatables.table";
 import historyUtils from "../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import DeleteIcon from "../../../../assets/img/ic_delete.png";

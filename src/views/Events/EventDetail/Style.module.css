@@ -182,6 +182,7 @@
 }
 .mainFlex {
   display: flex;
+  /* flex-wrap: wrap !important; */
   /*align-items: center;*/
 }
 

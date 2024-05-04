@@ -19,6 +19,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
 }
 .firstCellFlex {
   display: flex;
@@ -50,6 +52,12 @@
   flex-wrap: wrap;
  
 }
+/* @media screen and (max-width: 550px) {
+  .actionButton {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+} */
 .firstCellFlex .driverImgCont {
   width: 40px;
   height: 40px;
@@ -139,6 +147,7 @@
 .btnContainer{
   display: flex;
   gap: 5px !important;
+  flex-wrap: wrap !important;
 }
 .download {
   border: 2px solid #29cb97 !important;
