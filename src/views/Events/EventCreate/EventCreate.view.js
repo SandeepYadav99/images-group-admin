@@ -1,20 +1,8 @@
 import React from "react";
 import history from "../../../libs/history.utils";
-import {
-  Button,
-  ButtonBase,
-  CircularProgress,
-  FormControlLabel,
-  InputAdornment,
-  MenuItem,
-  RadioGroup,
-  Radio,
-  TextField,
-  colors,
-} from "@material-ui/core";
+import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { Add, InfoOutlined } from "@material-ui/icons";
 import useEventCreate from "./EventCreate.hook";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
@@ -22,7 +10,6 @@ import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDa
 import File from "../../../components/FileComponent/FileComponent.component";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import { Autocomplete } from "@material-ui/lab";
 import { useSelector } from "react-redux";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 
@@ -329,11 +316,11 @@ function EventCreate() {
         </div>
         <div className={styles.inst}>
           <InfoOutlinedIcon />
-           Recommended size for partner logo is 150 x 150
+          Recommended size for partner logo is 150 x 150
         </div>
         {/* <div className={"formFlex"}> */}
-          {/* <div className={styles.adharBack}> */}
-            {/* <div className={styles.adharWrap}>
+        {/* <div className={styles.adharBack}> */}
+        {/* <div className={styles.adharWrap}>
               <File
                 bannerLabel="Login Banner Image"
                 default_image={logo ? logo : ""}
@@ -354,7 +341,7 @@ function EventCreate() {
                 }}
               />
             </div> */}
-          {/* </div> */}
+        {/* </div> */}
         {/* </div> */}
       </div>
       <div className={"plainPaper"}>
@@ -972,9 +959,9 @@ function EventCreate() {
               checked={feature?.meeting_rooms}
             />
           </div>
-          </div>
+        </div>
         <div className={"formFlex"}>
-        <div className={"formGroup"}>
+          <div className={"formGroup"}>
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
@@ -985,14 +972,17 @@ function EventCreate() {
             />
           </div>
           <div className={"formGroup"}>
-          <CustomCheckbox
-            color={"primary"}
-            handleChange={(text) => {
-              changeFeatureData(!feature?.meeting_calendar, "meeting_calendar");
-            }}
-            label={"Meeting Calendar"}
-            checked={feature?.meeting_calendar}
-          />
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.meeting_calendar,
+                  "meeting_calendar"
+                );
+              }}
+              label={"Meeting Calendar"}
+              checked={feature?.meeting_calendar}
+            />
           </div>
           {/* <div style={{ marginLeft: "35px" }}>
             <CustomCheckbox
@@ -1008,7 +998,10 @@ function EventCreate() {
             <CustomCheckbox
               color={"primary"}
               handleChange={(text) => {
-                changeFeatureData(!feature?.privilaged_member, "privilaged_member");
+                changeFeatureData(
+                  !feature?.privilaged_member,
+                  "privilaged_member"
+                );
               }}
               label={"Privilege Members"}
               checked={feature?.privilaged_member}
@@ -1023,46 +1016,42 @@ function EventCreate() {
               label={"Exhibitor Query"}
               checked={feature?.exhibitor_query}
             />
-            </div>
-        <div className={"formGroup"}>
-          <CustomCheckbox
-            color={"primary"}
-            handleChange={(text) => {
-              changeFeatureData(!feature?.event_calendar, "event_calendar");
-            }}
-            label={"Event Calendar"}
-            checked={feature?.event_calendar}
-          />
-       
-         </div> 
+          </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(!feature?.event_calendar, "event_calendar");
+              }}
+              label={"Event Calendar"}
+              checked={feature?.event_calendar}
+            />
+          </div>
         </div>
         <div className={"formFlex"}>
-        <div className={"formGroup"}>
-          <CustomCheckbox
-            color={"primary"}
-            handleChange={(text) => {
-              // changeFeatureData(!feature?.custom_participant, "custom_participant");
-            }}
-            label={"Custom Participant Events"}
-            checked={feature?.custom_participant}
-          />
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                // changeFeatureData(!feature?.custom_participant, "custom_participant");
+              }}
+              label={"Custom Participant Events"}
+              checked={feature?.custom_participant}
+            />
           </div>
           <div className={"formGroup"}>
-          <CustomCheckbox
-            color={"primary"}
-            handleChange={(text) => {
-              // changeFeatureData(!feature?.hall_master, "hall_master");
-            }}
-            label={"Hall Master"}
-            checked={feature?.hall_master}
-          />
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                // changeFeatureData(!feature?.hall_master, "hall_master");
+              }}
+              label={"Hall Master"}
+              checked={feature?.hall_master}
+            />
           </div>
-          <div className={"formGroup"}>
-          </div>
-          <div className={"formGroup"}>
-          </div>
-          <div className={"formGroup"}>
-          </div>
+          <div className={"formGroup"}></div>
+          <div className={"formGroup"}></div>
+          <div className={"formGroup"}></div>
         </div>
       </div>
 
@@ -1086,7 +1075,6 @@ function EventCreate() {
               </div>
             ) : (
               <div className={styles.btnWrappepr}>
-               
                 <div className={styles.actionButton}>
                   <ButtonBase
                     type={"button"}

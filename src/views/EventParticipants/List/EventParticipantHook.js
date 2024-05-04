@@ -186,9 +186,9 @@ const useEventParticipantList = ({}) => {
   }, []);
 
   const handleDownloadCSV = () => {
-    const fd = new FormData();
-    fd.append("event_id",id)
-    serviceDownloadCsvFile(fd)?.then((res)=>{
+    // const fd = new FormData();
+    // fd.append("event_id",id)
+    serviceDownloadCsvFile({event_id:id})?.then((res)=>{
       if(!res?.error){
         const data = res.data?.response;
         console.log(data,"data is here")
