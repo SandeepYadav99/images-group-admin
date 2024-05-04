@@ -1028,3 +1028,27 @@ font-size: medium;
       padding: 6px 8px !important;
     }
   }
+
+  .dtMobCell{
+    align-items: center;
+    border-bottom: 2px solid #f6f7fe;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+  }
+
+  .dtMobCellLabel {
+    font-size: 12px;
+    font-weight: 600;
+    max-width: 50%;
+    text-transform: uppercase;
+}
+
+.dtMobCellValue, .dtMobCellValueMultiple {
+    align-items: flex-end;
+    display: flex;
+    font-size: 12px;
+    justify-content: end;
+    text-align: end;
+    width: 100%;
+}

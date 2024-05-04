@@ -47,6 +47,7 @@ const EventScheduleContainer = ({}) => {
     speakerId,
     toggleUpdateStatus,
     isUpdateStatus,
+    id
   } = useEventScheduleList({});
   // console.log(editData, "Edit Data")
   const {
@@ -94,7 +95,7 @@ const EventScheduleContainer = ({}) => {
         key: "name",
         label: "NAME",
         sortable: true,
-        render: (temp, all) => <>{all?.eve_name}</>,
+        render: (temp, all) => <div>{all?.eve_name}</div>,
       },
       {
         key: "description",
@@ -317,6 +318,7 @@ const EventScheduleContainer = ({}) => {
           handleToggle={toggleUpdateStatus}
           isOpen={isUpdateStatus}
           scheduleStatus={scheduleStatus}
+          event_id={id}
           // title={dataValue?.type === "hide" ? "Hide" : "Live"}
         />
         <div>

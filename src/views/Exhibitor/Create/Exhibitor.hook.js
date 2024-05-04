@@ -532,7 +532,7 @@ const useExhibitorCreate = ({ location }) => {
       fd.append("digital_bags", JSON.stringify(DigitalBag));
     }
 
-    fd.append("event_id", "65029c5bdf6918136df27e51");
+     fd.append("event_id", "65029c5bdf6918136df27e51");
     if (!form?.is_partner) {
       fd.append("partner_tag", "");
     }

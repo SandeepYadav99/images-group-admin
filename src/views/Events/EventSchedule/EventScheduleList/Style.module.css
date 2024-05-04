@@ -45,6 +45,8 @@
   max-width: 350px;
   height: 30px;
   white-space: nowrap;
+  display: flex;
+  justify-content: space-between;
 }
 .actionButton{
   display: flex;
@@ -158,4 +160,9 @@
   padding: 7px 50px !important;
   text-transform: uppercase !important;
   height: 40px !important;
+}
+
+.flexCols{
+  display: flex;
+  justify-content: space-between;
 }
