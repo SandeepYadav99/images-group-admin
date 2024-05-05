@@ -13,6 +13,7 @@ const useUpdateStatusViewHook = ({
   handleToggle,
   candidateId,
   scheduleStatus,
+  event_id
 }) => {
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
@@ -99,7 +100,7 @@ const useUpdateStatusViewHook = ({
               1,
               {},
               {
-                event_id: "65029c5bdf6918136df27e51",
+                event_id: event_id,
               }
             )
           );

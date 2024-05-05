@@ -93,7 +93,7 @@ const useMeetingsCalendarCreateHook = ({
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [];
+    let required = ["choose_date", "choose_time","booked_by","booked_with","meeting_room"];
     required.forEach((val) => {
       if (
         !form?.[val] ||

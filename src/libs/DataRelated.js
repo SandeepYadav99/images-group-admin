@@ -9,7 +9,7 @@ export  const RELATEDSCREENITEMS = [
     { label: "INFORMATION CENTER", value: "INFORMATION_CENTER" },
     { label: "GENERAL", value: "GENERAL" },
     { label: "AWARDS", value: "AWARDS" },
-    { label: "PRIVILEGED MEMBERS", value: "PRIVILEGED MEMBERS" },
+    { label: "PRIVILEGED MEMBERS", value: "PRIVILEGED_MEMBERS" },
     { label: "MEETINGS", value: "MEETINGS" },
     // { label: "POLICY", value: "POLICY" },
   ];

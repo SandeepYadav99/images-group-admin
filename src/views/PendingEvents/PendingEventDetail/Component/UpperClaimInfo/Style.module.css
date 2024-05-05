@@ -67,6 +67,7 @@
 
 .mainFlex {
   display: flex;
+  flex-wrap: wrap !important;
   /*align-items: center;*/
 }
 
@@ -125,6 +126,13 @@
   flex: 1.4;
   display: flex;
   gap: 15px;
+  /* flex-wrap: wrap !important; */
+  /* flex-wrap: wrap !important; */
+}
+@media screen  and (max-width: 550px){
+  .left221 {
+   flex-direction: column !important;
+  }
 }
 .claimimg {
   width: 50px;

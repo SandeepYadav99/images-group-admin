@@ -32,7 +32,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const UpdateStatusView = ({ isOpen, handleToggle, candidateId , scheduleStatus}) => {
+const UpdateStatusView = ({ isOpen, handleToggle, candidateId , scheduleStatus, event_id}) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -42,7 +42,7 @@ const UpdateStatusView = ({ isOpen, handleToggle, candidateId , scheduleStatus})
     onBlurHandler,
     listData,
     isSubmitting
-  } = useUpdateStatusViewHook({ isOpen, handleToggle, candidateId, scheduleStatus });
+  } = useUpdateStatusViewHook({ isOpen, handleToggle, candidateId, scheduleStatus , event_id});
 
   return (
     <div>

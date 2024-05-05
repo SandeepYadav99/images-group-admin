@@ -11,7 +11,10 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { useParams } from "react-router";
-import { serviceDownloadCsvFile, serviceDownloadsampleCsvFile } from "../../../services/EventParticipant.service";
+import {
+  serviceDownloadCsvFile,
+  serviceDownloadsampleCsvFile,
+} from "../../../services/EventParticipant.service";
 
 const useEventParticipantList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -30,8 +33,7 @@ const useEventParticipantList = ({}) => {
     query_data: queryData,
   } = useSelector((state) => state.adminUser);
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     dispatch(
@@ -73,18 +75,18 @@ const useEventParticipantList = ({}) => {
         actionFetchEventParticipant(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           // query_data: key == "FILTER_DATA" ? value : queryData,
-          participant_type:value[0]?.value,
-          event_id: id
+          participant_type: value[0]?.value,
+          event_id: id,
         })
       );
     },
     [sortingData, query, queryData, id]
   );
- 
+
   const handleFilterDataChange = useCallback(
     (value) => {
       console.log("_handleFilterDataChange", value);
-       queryFilter("FILTER_DATA", value);
+      queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
   );
@@ -172,31 +174,34 @@ const useEventParticipantList = ({}) => {
         label: "Participant list",
         name: "participant_type.name",
         type: "select",
-        fields: ["EXHIBITOR", "SPEAKER", "AWARD PRESENTATION", "INNOVATORS", "JURY"],
+        fields: [
+          "EXHIBITOR",
+          "SPEAKER",
+          "AWARD PRESENTATION",
+          "INNOVATORS",
+          "JURY",
+        ],
       },
     ];
   }, []);
-
 
   const toggleCsvDialog = useCallback(() => {
     setIsCsvDialog((e) => !e);
   }, [setIsCsvDialog]);
 
-  const handleCsvUpload = useCallback(() => {
-  }, []);
+  const handleCsvUpload = useCallback(() => {}, []);
 
   const handleDownloadCSV = () => {
-    const fd = new FormData();
-    fd.append("event_id",id)
-    serviceDownloadCsvFile(fd)?.then((res)=>{
-      if(!res?.error){
+    // const fd = new FormData();
+    // fd.append("event_id",id)
+    serviceDownloadCsvFile({ event_id: id })?.then((res) => {
+      if (!res?.error) {
         const data = res.data?.response;
-        console.log(data,"data is here")
-        window.open(data, "_blank");      }
-    })
+       
+        window.open(data, "_blank");
+      }
+    });
   };
-
- 
 
   return {
     handlePageChange,

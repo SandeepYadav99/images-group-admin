@@ -110,7 +110,7 @@ function useSplashScreenCreateHook({ location }) {
       if (fieldName === "name") {
         t[fieldName] = text.trimStart();
       } else if (fieldName === "link") {
-        console.log({ text });
+     
         t[fieldName] = text.trimStart();
       } else {
         t[fieldName] = text;
@@ -120,7 +120,7 @@ function useSplashScreenCreateHook({ location }) {
     },
     [removeError, form, setForm]
   );
-  console.log(form, "FORM");
+
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
@@ -134,9 +134,9 @@ function useSplashScreenCreateHook({ location }) {
         // status: "status",
       };
       for (const key in form) {
-        console.log({form})
+      
         if (SPEAKER_KEY.hasOwnProperty(key)) {
-          console.log({form})
+        
           fd.append(SPEAKER_KEY[key], form[key]);
         }
         // else if(key === "link"){
@@ -167,7 +167,7 @@ function useSplashScreenCreateHook({ location }) {
         setIsSubmitting(false);
       });
     }
-  }, [checkFormValidation, setErrorData, form, submitToServer, selectedEventId]);
+  }, [checkFormValidation, setErrorData, form]);
 
   const onBlurHandler = useCallback(
     (type) => {
@@ -186,13 +186,13 @@ function useSplashScreenCreateHook({ location }) {
         setErrorData(errors);
         return true;
       }
-      console.log("yha");
+   
      await submitToServer();
     },
-    [checkFormValidation, setErrorData, form, submitToServer, selectedEventId]
+    [checkFormValidation, setErrorData, form, submitToServer]
   );
 
-  console.log("form", form);
+
   return {
     form,
     errorData,

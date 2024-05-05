@@ -199,7 +199,14 @@ const useMeetingsCalendarHook = ({}) => {
     ];
   }, [listData]);
 
+  const onMeetingDetailPage =useCallback((all)=>{
+    historyUtils.push(`${"/meetings/detail/"}${all?.room?.id}`,{
+      eventId:id
+    })
+  },[id])
+
   return {
+    onMeetingDetailPage,
     handlePageChange,
     handleDataSave,
     handleFilterDataChange,

@@ -335,6 +335,7 @@ const useEventScheduleList = ({}) => {
     toggleUpdateStatus,
     isUpdateStatus,
     scheduleStatus,
+    id
     
   };
 };

@@ -1028,3 +1028,45 @@ font-size: medium;
       padding: 6px 8px !important;
     }
   }
+
+  .dtMobCell{
+    align-items: center;
+    border-bottom: 2px solid #f6f7fe;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+  }
+
+  .dtMobCellLabel {
+    font-size: 12px;
+    font-weight: 600;
+    max-width: 50%;
+    text-transform: uppercase;
+}
+
+.dtMobCellValue, .dtMobCellValueMultiple {
+    align-items: flex-end;
+    display: flex;
+    font-size: 12px;
+    justify-content: end;
+    text-align: end;
+    width: 100%;
+}
+
+.jss132 {
+    padding-top: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+}
+.jss129 {
+    display: flex;
+    min-height: 100%;
+}
+
+.jss134 {
+    display: flex;
+    overflow: hidden;
+    flex-grow: 1;
+    flex-direction: column;
+}
