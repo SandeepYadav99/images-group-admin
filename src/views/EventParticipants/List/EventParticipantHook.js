@@ -15,6 +15,7 @@ import {
   serviceDownloadCsvFile,
   serviceDownloadsampleCsvFile,
 } from "../../../services/EventParticipant.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const useEventParticipantList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -187,6 +188,7 @@ const useEventParticipantList = ({}) => {
 
   const toggleCsvDialog = useCallback(() => {
     setIsCsvDialog((e) => !e);
+   
   }, [setIsCsvDialog]);
 
   const handleCsvUpload = useCallback(() => {}, []);
@@ -197,8 +199,10 @@ const useEventParticipantList = ({}) => {
     serviceDownloadCsvFile({ event_id: id })?.then((res) => {
       if (!res?.error) {
         const data = res.data?.response;
-       
+       console.log({data})
         window.open(data, "_blank");
+      }else{
+        SnackbarUtils.error("Upload failed")
       }
     });
   };
