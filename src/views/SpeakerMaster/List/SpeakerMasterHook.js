@@ -196,7 +196,7 @@ const useSpeakerMasterListHook = ({}) => {
   const handleDeleteSpeaker =(all)=>{
     serviceDeleteSpaekers({id:all?.id})?.then((res)=>{
       if(!res?.error){
-        SnackbarUtils.error("Speaker Deleted");
+        SnackbarUtils.success("Speaker Deleted");
         window.location.reload();
       }
     })
