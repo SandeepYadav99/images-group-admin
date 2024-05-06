@@ -42,7 +42,7 @@ const useUploadCsvDialogHook = ({
       setErrorData({});
      
     }
-  }, [isOpen, form, setForm, setErrorData]);
+  }, [isOpen]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
