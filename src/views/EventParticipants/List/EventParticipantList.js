@@ -1,5 +1,5 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
+import { IconButton, MenuItem, ButtonBase, CircularProgress } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
 import {
@@ -45,6 +45,7 @@ const EventParticipantList = ({}) => {
     handleDownloadCSV,
     isCsvDialog,
     handleCsvUpload,
+    isSubmitting
   } = useEventParticipantList({});
 
   const {
@@ -187,12 +188,15 @@ const EventParticipantList = ({}) => {
               ></CloudUpload>
             </ButtonBase>
             <div className={styles.eventButton}>
-              <ButtonBase onClick={handleDownloadCSV} className={"createBtn"}>
-                DOWNLOAD CSV
+              <ButtonBase onClick={handleDownloadCSV} className={"createBtn"} disabled={isSubmitting ? true : false}> 
+                {isSubmitting ? <CircularProgress color="success" size="20px" /> : 
+             <>
+              DOWNLOAD CSV
                 <CloudDownload
                   fontSize={"small"}
                   className={"plusIcon"}
                 ></CloudDownload>
+             </> }
               </ButtonBase>
               <ButtonBase
                 onClick={handleToggleSidePannel}

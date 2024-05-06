@@ -33,6 +33,10 @@ const UpperInfoComponent = ({ data }) => {
                 <span className={styles.value}>Lunch:</span>
                 {!data?.is_lunch ? "NO" : "YES"}
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Title/Designation:</span>
+                {data?.designation}
+              </div>
             </div>
           </div>
           <div className={styles.vertical}></div>
@@ -50,6 +54,14 @@ const UpperInfoComponent = ({ data }) => {
               <span className={styles.value}>Awards:</span>
               {!data?.is_awards ? "NO" : "YES"}
             </div>
+            <div className={styles.key}>
+                <span className={styles.value}>Company name:</span>
+                {data?.company_name}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Category:</span>
+                {data?.category}
+              </div>   
           </div>
         </div>
       </div>
