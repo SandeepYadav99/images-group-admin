@@ -114,7 +114,10 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
           <div className={styles.upperFlex}>Import CSV</div>
           <ButtonBase
             classes={{ root: classes.closeBtn }}
-            onClick={handleToggle}
+            onClick={() => {
+              handleToggle();
+              window.location.reload();
+            }}
           >
             <Close />
           </ButtonBase>
@@ -219,7 +222,13 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
             onClick={handleSubmit}
             className={styles.btmBtn}
           >
-            {isSubmitting ? <CircularProgress color="success" size="20px" /> :isVerified ? "Upload Csv" : "Verify Csv" }
+            {isSubmitting ? (
+              <CircularProgress color="success" size="20px" />
+            ) : isVerified ? (
+              "Upload Csv"
+            ) : (
+              "Verify Csv"
+            )}
           </ButtonBase>
         </div>
         <div className={styles.printFlex}>

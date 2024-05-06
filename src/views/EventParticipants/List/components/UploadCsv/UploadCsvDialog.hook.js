@@ -34,12 +34,13 @@ const useUploadCsvDialogHook = ({
   const { id } = useParams();
 
   useEffect(() => {
-    if (isOpen) {
+    if (!isOpen) {
       setForm({ ...initialForm });
       setResData([]);
       setIsSubmitted(false);
       setIsVerified(false);
       setErrorData({});
+     
     }
   }, [isOpen]);
 
@@ -93,6 +94,7 @@ const useUploadCsvDialogHook = ({
           if (isVerified) {
             handleCsvUpload();
             handleToggle();
+          
             SnackbarUtils.success("Employee Data Imported Successfully");
           }
           if (res?.data?.length === 0) {
@@ -101,7 +103,7 @@ const useUploadCsvDialogHook = ({
           setIsSubmitted(true);
           setResData(res.data);
         } else {
-          SnackbarUtils.error("Upload failed");
+          SnackbarUtils.error("Verification failed");
         }
         setIsSubmitting(false);
       });
@@ -138,6 +140,9 @@ const useUploadCsvDialogHook = ({
       id,
       isVerified,
       setIsVerified,
+      handleToggle,
+      handleCsvUpload,
+      orderId
     ]
   );
 
