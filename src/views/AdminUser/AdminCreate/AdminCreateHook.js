@@ -15,6 +15,7 @@ import {
   serviceCreateAdminUser,
   serviceGetAdminUserDetails,
   serviceUpdateAdminUser,
+  serviceUpdateAdminUserSearch,
 } from "../../../services/AdminUser.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import Constants from "../../../config/constants";
@@ -64,12 +65,12 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       serviceGetAdminUserDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
-          const contactSplit = data?.contact?.split(" ");
+          const contactSplit = data?.full_contact?.split(" ");
           const countryCode = getCountryCode(contactSplit[0]);
           setForm({
             ...form,
             name: data?.name,
-            contact: data?.contact,
+            contact: data?.full_contact,
             email: data?.email,
             country_code: countryCode,
             role: data?.role,
@@ -88,61 +89,39 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     }
   }, [isSidePanel]);
 
-  const checkCodeValidation = useCallback(() => {
+  useEffect(() => {
     const temp = form?.contact?.split(" ");
-    if (temp[1]?.replace("-", "")?.length === 10) {
-      serviceAdminUserCheckExist({
-        contact: temp[1]?.replace("-", ""),
-        country_code: temp[0]?.replace("+", ""),
-        id: empId,
-      }).then((res) => {
-        if (!res.error) {
-          const errors = JSON.parse(JSON.stringify(errorData));
-          if (res.data.is_exists) {
-            errors["contact"] = "Admin User Contact Exists";
-            
-          } else {
-            delete errors.contact;
-            
-          }
-          setErrorData(errors);
-        }
+    if (temp[1]?.replace("-","")?.length === 10) {
+      serviceUpdateAdminUserSearch({
+        contact: `${cleanContactNumber(form?.contact)}`,
+      })?.then((res) => {
+        const response = res?.data;
+        const contactSplit = response?.full_contact?.split(" ");
+        const countryCode = getCountryCode(contactSplit[0]);
+        
+        setContactErr(response?.id);
+        setForm({
+          ...form,
+          name: response?.name,
+          contact: response?.full_contact,
+          email: response?.email,
+          role: response?.role,
+          status: response?.status === Constants.GENERAL_STATUS.ACTIVE,
+          country_code: countryCode,
+        });
+      });
+    } else if (temp[1]?.length < 10) {
+      setContactErr("");
+      setForm({
+        ...form,
+        contact:form?.contact,
       });
     }
-  }, [ empId, form?.contact, errorData]);
+  }, [form?.contact]);
 
-  const checkEmailValidation = useCallback(() => {
-    if (!form?.email) return;
-    serviceAdminUserCheckExist({
-      email: form?.email,
-      id: empId,
-    }).then((res) => {
-      if (!res.error) {
-        const errors = JSON.parse(JSON.stringify(errorData));
-        if (res.data.is_exists) {
-          errors["email"] = "Admin User Email Exists";
-       
-        } else {
-          delete errors.email;
-         
-        }
-        setErrorData(errors);
-      }
-    });
-  }, [empId, form.email, errorData]);
+ 
 
-  useEffect(() => {
-    if (emailDebouncer) {
-      checkEmailValidation();
-    }
-  }, [emailDebouncer]);
-
-  useEffect(() => {
-    if (codeDebouncer) {
-      checkCodeValidation();
-    }
-  }, [codeDebouncer]);
-
+ 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     const temp = form?.contact?.split(" ");
@@ -204,14 +183,18 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       });
       fd.delete("country_code");
 
-      if (empId && contactErr) {
+      // if (empId && contactErr) {
+      //   fd.delete("password");
+      //   // fd.delete("country_code");
+      //   fd.append("id", empId);
+      // }
+      if (contactErr) {
         fd.delete("password");
-        // fd.delete("country_code");
-        fd.append("id", empId);
+        fd.append("id", contactErr);
       }
       let req;
 
-      if (empId) {
+      if (contactErr) {
         req = serviceUpdateAdminUser(fd);
       } else {
         req = serviceCreateAdminUser(fd);
@@ -278,7 +261,7 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData, checkCodeValidation, checkEmailValidation]
+    [changeTextData]
   );
   const handleDelete = useCallback(() => {}, []);
 
@@ -317,6 +300,7 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     handleCountryCode,
     countryCode,
     toggleRejectDialog,
+    contactErr
   };
 };
 
