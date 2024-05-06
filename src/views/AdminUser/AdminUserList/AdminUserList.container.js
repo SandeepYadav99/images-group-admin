@@ -90,7 +90,7 @@ const AdminUserList = ({}) => {
           <div>
             {/* const contactSplit = data?.contact?.split(" ");
           const countryCode = getCountryCode(contactSplit[0]); */}
-             {all?.country_code ? `${all?.country_code}` : ""} {all.contact?.split(" ")}
+             {all?.full_contact}
           </div>
         ),
       },

@@ -46,6 +46,7 @@ const EventParticipantEditView = ({ handleToggleSidePannel, isSidePanel, data })
         <div className="formFlex">
             <div className={"formGroup"}>
                 <CustomTextField
+              type={showPasswordCurrent ? "text" : "password"}
                     isError={errorData?.password}
                     errorText={errorData?.password}
                     label={"New Password"}
