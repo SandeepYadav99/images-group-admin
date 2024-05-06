@@ -13,6 +13,7 @@ import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/index.services";
 import { useParams } from "react-router";
 import {
+  serviceDeleteSpaekers,
   serviceEventFeatured,
 
 } from "../../../services/EventSpeaker.service";
@@ -192,6 +193,15 @@ const useSpeakerMasterListHook = ({}) => {
     ];
   }, [listData]);
 
+  const handleDeleteSpeaker =(all)=>{
+    serviceDeleteSpaekers({id:all?.id})?.then((res)=>{
+      if(!res?.error){
+        SnackbarUtils.error("Speaker Deleted");
+        window.location.reload();
+      }
+    })
+  }
+
   return {
     handlePageChange,
     handleDataSave,
@@ -208,6 +218,7 @@ const useSpeakerMasterListHook = ({}) => {
     handleToggle_Edit_SidePannel,
     handleUpdateFed,
     toggleFeatured,
+    handleDeleteSpeaker,
   };
 };
 

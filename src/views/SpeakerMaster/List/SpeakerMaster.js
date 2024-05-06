@@ -27,6 +27,7 @@ const SpeakerMaster = ({}) => {
     handleCreateFed,
     handleUpdateFed,
     toggleFeatured,
+    handleDeleteSpeaker,
   } = useSpeakerMasterListHook({});
 
   const {
@@ -145,6 +146,7 @@ const SpeakerMaster = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
+              onClick={()=>handleDeleteSpeaker(all)}
             >
               <DeleteIcon fontSize={"small"} />
             </IconButton>

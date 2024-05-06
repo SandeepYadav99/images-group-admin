@@ -39,5 +39,8 @@ export async function serviceAssociatedSpeaker(params){
 
 export async function serviceAssociatedCommonList(params){
   return await postRequest("list",params)
+}
 
+export async function serviceDeleteSpaekers(params){
+  return await postRequest("speakers/delete",params)
 }
