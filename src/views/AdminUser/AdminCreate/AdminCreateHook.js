@@ -96,7 +96,9 @@ const useAdminCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         contact: `${cleanContactNumber(form?.contact)}`,
       })?.then((res) => {
         const response = res?.data;
+      
         const contactSplit = response?.full_contact?.split(" ");
+        if(!contactSplit) return;
         const countryCode = getCountryCode(contactSplit[0]);
         
         setContactErr(response?.id);
