@@ -212,7 +212,26 @@
   font-weight: 500;
   margin-bottom: 7px;
 }
-
+.key32{
+  color: #818181;
+  font-weight: 500;
+  margin-bottom: 7px;
+  display: flex;
+}
+.partWrap{
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+.partWrapInner{
+text-align: end;
+}
+.emailWrap{
+  flex: 1;
+  max-width: 150px;
+  overflow-wrap: break-word;
+  flex-wrap: wrap;
+}
 .value{
   font-weight: 600;
   width: 150px;
