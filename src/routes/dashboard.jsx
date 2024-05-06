@@ -190,6 +190,9 @@ const MMaster = lazy(() =>
   import("../views/MeetingRooms/MMaster/MasterCreate.js")
 );
 
+const ParticipantType = lazy(()=>import("../views/ParticipantType/List/List.js"));
+
+const ParticipantTypeCreate = lazy(()=>import("../views/ParticipantType/Create/ParticipantCreate.js"));
 
 const Roles = Constants.ROLES;
 
@@ -1177,6 +1180,29 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
   },
+  {
+    path: `${RouteName.PARTICIPANT_TYPE}`,
+    component: ParticipantType,
+    is_sidebar: true,
+    is_protect: true,
+    sidebarName: "Paticipant Type",
+    navbarName: "Paticipant Type",
+    icon: PeopleOutlined,
+  },
+  {
+    path: `${RouteName.PARTICIPANT_TYPE_CREATE}`,
+    component: ParticipantTypeCreate,
+    is_sidebar: false,
+    is_protect: true,    
+  },
+  {
+    path: `${RouteName.PARTICIPANT_TYPE_UPDATE}:id`,
+    component: ParticipantTypeCreate,
+    is_sidebar: false,
+    is_protect: true,    
+  },
+
+  
 ];
 
 export default dashboardRoutes;
