@@ -48,13 +48,19 @@ const PendingMemberRequest = ({ data }) => {
                 className={styles.hyperlinkText}
                 onClick={() => changeEmployeeRoute(val?.candidate)}
               >
-                <img
-                  src={val?.postObj?.images[0]}
-                  style={{ height: "50px", width: "50px" }}
-                />
-                {val?.postObj?.images?.length > 1
-                  ? ""
-                  : + val?.postObj?.images?.length-1}
+                {val?.postObj?.images > 0 ? (
+                  <img
+                    src={val?.postObj?.images[0]}
+                    style={{ height: "50px", width: "50px" }}
+                  />
+                ) : val?.postObj?.video ? (
+                  <img
+                    src={val?.reported_user?.image}
+                    style={{ height: "50px", width: "50px" }}
+                  />
+                ) : (
+                  <>No Image</>
+                )}
               </div>
             </TableCell>
             <TableCell className="pl-3 fw-normal">

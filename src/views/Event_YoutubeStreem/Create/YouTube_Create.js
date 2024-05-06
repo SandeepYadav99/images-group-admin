@@ -65,7 +65,7 @@ function YoutubeCreateView({ location }) {
         <div className={styles.inst}>
           <InfoOutlinedIcon />
           Follow general YouTube URL format, such as:
-          www.youtube.com{" "}
+          www.youtube.com/watch?v=[video_id]
         </div>
       </div>
 
