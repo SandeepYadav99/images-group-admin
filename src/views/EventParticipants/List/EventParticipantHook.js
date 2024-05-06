@@ -24,7 +24,7 @@ const useEventParticipantList = ({}) => {
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
   const [isCsvDialog, setIsCsvDialog] = useState(false);
-
+  const [isSubmitting,setIsSubmitting] = useState(false)
   const isMountRef = useRef(false);
   const { id } = useParams();
   const {
@@ -193,9 +193,9 @@ const useEventParticipantList = ({}) => {
 
   const handleCsvUpload = useCallback(() => {}, []);
 
-  const handleDownloadCSV = () => {
-    // const fd = new FormData();
-    // fd.append("event_id",id)
+  const handleDownloadCSV = useCallback(() => {
+    if(!isSubmitting){
+    setIsSubmitting(true)
     serviceDownloadCsvFile({ event_id: id })?.then((res) => {
       if (!res?.error) {
         const data = res.data?.response;
@@ -204,8 +204,10 @@ const useEventParticipantList = ({}) => {
       }else{
         SnackbarUtils.error("Upload failed")
       }
+     setIsSubmitting(false)
     });
-  };
+  }
+  },[isSubmitting,setIsSubmitting]);
 
   return {
     handlePageChange,
@@ -230,6 +232,7 @@ const useEventParticipantList = ({}) => {
     handleDownloadCSV,
     isCsvDialog,
     handleCsvUpload,
+    isSubmitting
   };
 };
 

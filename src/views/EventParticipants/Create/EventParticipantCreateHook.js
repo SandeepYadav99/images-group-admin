@@ -64,6 +64,15 @@ const useEventParticipantCreate = ({
     setCountryCode(e.target.value);
   };
 
+  useEffect(()=>{
+    if(!isSidePanel){
+      setForm({
+        ...initialForm
+      })
+      setErrorData({})
+    }
+  },[isSidePanel])
+
   useEffect(() => {
     if (!countryCode) {
       setCountryCode("91");
@@ -96,7 +105,7 @@ const useEventParticipantCreate = ({
     });
   }, [id]);
 
-  console.log("participant", participantList);
+  // console.log("participant", participantList);
 
   useEffect(() => {
     if (empId) {
@@ -128,6 +137,7 @@ const useEventParticipantCreate = ({
       contact: cleanContactNumber(form?.contact),
       // contact: `91 ${form?.contact}`,
       id: empId ? empId : "",
+      event_id: id,
     }).then((res) => {
       if (!res.error) {
         const data = res?.data;
@@ -135,7 +145,7 @@ const useEventParticipantCreate = ({
         if (data?.full_contact === cleanContactNumber(form?.contact)) {
           setIsContactInList(true);
         }
-        if (data) {
+        if (data?.contact) {
           const tForm = {
             ...initialForm,
             name: data?.name,
@@ -334,7 +344,6 @@ const useEventParticipantCreate = ({
     },
     [participantList, setParticipantList]
   );
-  console.log("participantList", participantList);
 
   return {
     form,

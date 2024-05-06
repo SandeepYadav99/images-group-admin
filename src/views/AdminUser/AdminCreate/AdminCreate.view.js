@@ -32,7 +32,7 @@ const AdminCreateView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     form,
     errorData,
     isSubmitting,
-    isLoading,
+    contactErr,
     handleSubmit,
     removeError,
     onBlurHandler,
@@ -49,7 +49,7 @@ const AdminCreateView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   } = useAdminCreate({ handleToggleSidePannel, isSidePanel, empId });
 
   const classes = useStyles();
-
+console.log(contactErr)
   return (
     <div className={styles.departmentWrap}>
       <div className={"formFlex"}>
@@ -120,7 +120,7 @@ const AdminCreateView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             </div>
           </div>
         </div> */}
-        {!empId && (
+        {!contactErr && (
           <div className={"formGroup"}>
             <CustomTextField
               type={showPasswordCurrent ? "text" : "password"}
