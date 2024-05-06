@@ -5,7 +5,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import File from "../../../components/FileComponent/FileComponent.component";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
-
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import historyUtils from "../../../libs/history.utils";
 import useYoutubeCreateHook from "./YouTube_hook";
 
@@ -21,8 +21,8 @@ function YoutubeCreateView({ location }) {
     descriptionRef,
     image,
   } = useYoutubeCreateHook({ location });
-// console.log(location)
-const eventId = location?.state?.event_id;
+  // console.log(location)
+  const eventId = location?.state?.event_id;
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -43,7 +43,6 @@ const eventId = location?.state?.event_id;
           </h4>
         </div>
         <div className={styles.cont}>
-          
           <div className={styles.lowerWrap}>
             <div className={"formFlex"}>
               <div className={"formGroup"}>
@@ -61,11 +60,15 @@ const eventId = location?.state?.event_id;
                 />
               </div>
             </div>
-            
           </div>
         </div>
-    
+        <div className={styles.inst}>
+          <InfoOutlinedIcon />
+          Follow general YouTube URL format, such as:
+          www.youtube.com{" "}
+        </div>
       </div>
+
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>

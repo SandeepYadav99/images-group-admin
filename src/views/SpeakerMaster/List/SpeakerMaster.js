@@ -9,6 +9,7 @@ import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 
 import { Add, DoneAll, Edit, Clear } from "@material-ui/icons";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import speakerDefault from "../../../assets/img/speaker_list_deafult.png";
 import useSpeakerMasterListHook from "./SpeakerMasterHook";
@@ -70,7 +71,11 @@ const SpeakerMaster = ({}) => {
         label: "DESCRIPTION",
         sortable: false,
         render: (value, all) => (
-          <div className={styles.desData}>{ all?.s_description ? capitalizeFirstLetter(all?.s_description) : "N/A"}</div>
+          <div className={styles.desData}>
+            {all?.s_description
+              ? capitalizeFirstLetter(all?.s_description)
+              : "N/A"}
+          </div>
         ),
       },
 
@@ -78,7 +83,13 @@ const SpeakerMaster = ({}) => {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.s_designation ? capitalizeFirstLetter(all?.s_designation) : "N/A"}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.s_designation
+              ? capitalizeFirstLetter(all?.s_designation)
+              : "N/A"}
+          </div>
+        ),
       },
       {
         key: "company",
@@ -98,7 +109,7 @@ const SpeakerMaster = ({}) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div style={{display:"flex",flexWrap:"wrap",gap:"5px"}}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
             {/* <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -129,6 +140,13 @@ const SpeakerMaster = ({}) => {
               }}
             >
               <Edit fontSize={"small"} />
+            </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+            >
+              <DeleteIcon fontSize={"small"} />
             </IconButton>
           </div>
         ),
@@ -168,15 +186,15 @@ const SpeakerMaster = ({}) => {
         <div className={styles.headerContainer}>
           {/* <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} /> */}
-            <div>
-              <span className={styles.title}>Speakers Master</span>
-              <div className={styles.newLine} />
-            </div>
+          <div>
+            <span className={styles.title}>Speakers Master</span>
+            <div className={styles.newLine} />
+          </div>
           {/* </ButtonBase> */}
 
           <div className={styles.BtnWrapper}>
             <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
-              ADD SPEAKER 
+              ADD SPEAKER
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
           </div>

@@ -153,7 +153,7 @@ function MenuGraphicCreate({ location }) {
             {isSubmitting ? (
               <CircularProgress color="success" size="20px" />
             ) : (
-              "ADD"
+              "SAVE"
             )}
           </ButtonBase>
         </div>

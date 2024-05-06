@@ -37,8 +37,6 @@ const PendingMemberRequest = ({ data }) => {
     historyUtils.push(`${RouteName.REPORTED_FEED}`);
   }, []);
 
-
-
   const _renderListData = () => {
     const tableRows = [];
     if (data) {
@@ -50,12 +48,24 @@ const PendingMemberRequest = ({ data }) => {
                 className={styles.hyperlinkText}
                 onClick={() => changeEmployeeRoute(val?.candidate)}
               >
-                {val?.reported_by?.name}
+                <img
+                  src={val?.postObj?.images[0]}
+                  style={{ height: "50px", width: "50px" }}
+                />
+                {val?.postObj?.images?.length > 1
+                  ? ""
+                  : + val?.postObj?.images?.length-1}
               </div>
             </TableCell>
             <TableCell className="pl-3 fw-normal">
-              {val?.reason}
+              <div
+                className={styles.hyperlinkText}
+                onClick={() => changeEmployeeRoute(val?.candidate)}
+              >
+                <span>{val?.reported_by?.name}</span>
+              </div>
             </TableCell>
+            <TableCell className="pl-3 fw-normal">{val?.reason}</TableCell>
             <TableCell className="pl-3 fw-normal">
               {val?.reportedOn ? val?.reportedOn : "--"}
             </TableCell>
@@ -88,9 +98,11 @@ const PendingMemberRequest = ({ data }) => {
           <Table stickyHeader className="mb-0">
             <TableHead>
               <TableRow>
+                <TableCell className={classes.row}>IMAGE/VIDEO</TableCell>
+
                 <TableCell className={classes.row}>POSTED BY</TableCell>
                 <TableCell className={classes.row}>REASON</TableCell>
-                <TableCell className={classes.row}>POSTED	</TableCell>
+                <TableCell className={classes.row}>POSTED </TableCell>
                 <TableCell className={classes.row}>NO OF REPORTS</TableCell>
               </TableRow>
             </TableHead>
@@ -98,15 +110,15 @@ const PendingMemberRequest = ({ data }) => {
           </Table>
         </TableContainer>
       </div>
-        <div className={"txtCenter"}>
-          <ButtonBase
-            className={"viewBtn"}
-            style={{ color: "#1BB584" }}
-            onClick={handleIncrease}
-          >
-            View All
-          </ButtonBase>
-        </div>
+      <div className={"txtCenter"}>
+        <ButtonBase
+          className={"viewBtn"}
+          style={{ color: "#1BB584" }}
+          onClick={handleIncrease}
+        >
+          View All
+        </ButtonBase>
+      </div>
     </div>
   );
 };

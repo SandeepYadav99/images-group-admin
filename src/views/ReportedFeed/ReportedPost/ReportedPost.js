@@ -228,11 +228,7 @@ const ReportedPost = ({}) => {
   };
 
   const handleDeletePost = (all) => {
-    // let params = {
-    //   post_id: all?.id,
-    // };
-    // serviceDeleteReportedFeedPostValue(params);
-    // dispatch(actionFetchReportedPost(1));
+   
   };
 
   const renderStatus = useCallback((status) => {

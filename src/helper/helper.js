@@ -425,7 +425,7 @@ export const EventData = [
   },
   {
     key:"privilaged_member",
-    name: "Privelege Member",
+    name: "Privileged Member",
     image: event,
     url:  RouteName.PRIVILEGE_MEMBER,
   },

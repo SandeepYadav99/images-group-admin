@@ -1,7 +1,7 @@
 const FEATURE_DATA = [
   { key: "Home", value: "Home" },
   { key: "Profile", value: "Profile" },
-  { key: "About us", value: "About us" },
+  { key: "About Us", value: "About Us" },
   { key: "Agenda", value: "Agenda" },
   { key: "Speakers", value: "Speakers" },
   { key: "Partners", value: "Partners" },
@@ -17,7 +17,7 @@ const FEATURE_DATA = [
   { key: "Images Helpdesk", value: "Images Helpdesk" },
   { key: "Upcoming Events", value: "Upcoming Events" },
   { key: "Awards", value: "Awards" },
-  { key: "Privileged Member", value: "Privileged Member" }
+  { key: "Privileged Member", value: "Privileged Member" },
 ];
 
 export default FEATURE_DATA;

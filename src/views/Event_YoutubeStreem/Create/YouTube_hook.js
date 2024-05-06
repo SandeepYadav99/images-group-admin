@@ -40,15 +40,15 @@ function useYoutubeCreateHook({ location }) {
 
     required.forEach((val) => {
       if (
-        (!form?.[val] && parseInt(form?.[val]) != 0 ) ||
+        (!form?.[val] && parseInt(form?.[val]) != 0) ||
         (Array.isArray(form?.[val]) && form?.[val]?.length === 0)
-
       ) {
         errors[val] = true;
       }
     });
     if (form?.link && !isUrl(form?.link)) {
       errors.link = true;
+      errors.link = "Invalid Format";
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {

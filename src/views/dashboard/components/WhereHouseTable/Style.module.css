@@ -16,4 +16,7 @@
     color: #2896E9;
     text-decoration-line: underline;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap:5px;
   }
