@@ -164,7 +164,7 @@ const EventParticipantList = ({}) => {
       <UploadCsvDialog
         isOpen={isCsvDialog}
         handleToggle={toggleCsvDialog}
-        handleCsvUpload={handleCsvUpload}
+        // handleCsvUpload={handleCsvUpload}
       />
         <div className={styles.headerContainer}>
           <ButtonBase onClick={() => historyUtils.goBack()}>
