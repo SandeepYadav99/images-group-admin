@@ -145,7 +145,7 @@ const useEventParticipantCreate = ({
         if (data?.full_contact === cleanContactNumber(form?.contact)) {
           setIsContactInList(true);
         }
-        if (data) {
+        if (data?.contact) {
           const tForm = {
             ...initialForm,
             name: data?.name,

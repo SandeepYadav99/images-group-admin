@@ -1,12 +1,13 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { IconButton, MenuItem, ButtonBase, CircularProgress } from "@material-ui/core";
+import {
+  IconButton,
+  MenuItem,
+  ButtonBase,
+  CircularProgress,
+} from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
-import {
-  Add,
-  CloudDownload,
-  CloudUpload,
-} from "@material-ui/icons";
+import { Add, CloudDownload, CloudUpload } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
@@ -21,6 +22,7 @@ import EventParticipantEditView from "../Edit/EventParticipantEdit.view";
 import historyUtils from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import UploadCsvDialog from "./components/UploadCsv/UploadCsvDialog.view";
+import { removeUnderScore } from "../../../helper/helper";
 
 const EventParticipantList = ({}) => {
   const {
@@ -45,7 +47,7 @@ const EventParticipantList = ({}) => {
     handleDownloadCSV,
     isCsvDialog,
     handleCsvUpload,
-    isSubmitting
+    isSubmitting,
   } = useEventParticipantList({});
 
   const {
@@ -93,24 +95,36 @@ const EventParticipantList = ({}) => {
         sortable: false,
         render: (value, all) => <div>{all?.email}</div>,
       },
-
+      {
+        key: "participant_type",
+        label: "Participant Type",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.participant_type?.length > 0
+              ? all?.participant_type?.map((item, index) => (
+                  <div
+                    key={`part_list${index}`}
+                    className={styles.partWrapInner}
+                  >
+                    {removeUnderScore(item)}
+                  </div>
+                ))
+              : "-"}
+          </div>
+        ),
+      },
       {
         key: "contact",
         label: "PHONE NUMBER",
         sortable: false,
         render: (temp, all) => <div>{all.contact}</div>,
       },
-      // {
-      //   key: "is_member",
-      //   label: "MEMBER USER",
-      //   sortable: false,
-      //   render: (temp, all) => <div>{all.is_member ? "YES" : "NO"}</div>,
-      // },
       {
         key: "reg_id",
         label: "REF ID",
         sortable: true,
-        render: (temp, all) => <div>{all?.ref_id || all.reg_id }</div>,
+        render: (temp, all) => <div>{all?.ref_id || all.reg_id}</div>,
       },
       {
         key: "user_id",
@@ -162,11 +176,14 @@ const EventParticipantList = ({}) => {
   return (
     <div>
       <PageBox>
-      <UploadCsvDialog
-        isOpen={isCsvDialog}
-        handleToggle={toggleCsvDialog}
-        // handleCsvUpload={handleCsvUpload}
-      />
+        {
+          isCsvDialog &&  <UploadCsvDialog
+          isOpen={isCsvDialog}
+          handleToggle={toggleCsvDialog}
+          handleCsvUpload={handleCsvUpload}
+        />
+        }
+       
         <div className={styles.headerContainer}>
           <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
@@ -188,15 +205,22 @@ const EventParticipantList = ({}) => {
               ></CloudUpload>
             </ButtonBase>
             <div className={styles.eventButton}>
-              <ButtonBase onClick={handleDownloadCSV} className={"createBtn"} disabled={isSubmitting ? true : false}> 
-                {isSubmitting ? <CircularProgress color="success" size="20px" /> : 
-             <>
-              DOWNLOAD CSV
-                <CloudDownload
-                  fontSize={"small"}
-                  className={"plusIcon"}
-                ></CloudDownload>
-             </> }
+              <ButtonBase
+                onClick={handleDownloadCSV}
+                className={"createBtn"}
+                disabled={isSubmitting ? true : false}
+              >
+                {isSubmitting ? (
+                  <CircularProgress color="success" size="20px" />
+                ) : (
+                  <>
+                    DOWNLOAD CSV
+                    <CloudDownload
+                      fontSize={"small"}
+                      className={"plusIcon"}
+                    ></CloudDownload>
+                  </>
+                )}
               </ButtonBase>
               <ButtonBase
                 onClick={handleToggleSidePannel}
