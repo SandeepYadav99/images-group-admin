@@ -57,9 +57,9 @@ export default {
   ADD_SPEAKERS_UPDATE: "/speakers/update/",
   EVENTS_SPEAKER_EVENT_LIST: "/speakers/list/",
 
-  SPEAKERS_MASTER: "/speakers/master",
-  SPEAKERS_MASTER_CREATE: "/speakers/master/create",
-  SPEAKERS_MASTER_UPDATE: "/speakers/master/update/",
+  SPEAKERS_MASTER: "/speaker/master",
+  SPEAKERS_MASTER_CREATE: "/speaker/master/create",
+  SPEAKERS_MASTER_UPDATE: "/speaker/master/update/",
   APP: "/app",
   USER_PROFILE: "/app/user-profile/",
   FEED_POSTS: "/app/feed-post/",
