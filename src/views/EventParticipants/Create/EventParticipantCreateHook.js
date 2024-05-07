@@ -218,13 +218,13 @@ const useEventParticipantCreate = ({
       if (form?.email && !isEmail(form?.email)) {
         errors["email"] = true;
       }
-      if (form?.contact) {
-        const cleanCode = cleanContactNumber(form?.contact);
-        const number = cleanCode?.split(" ")[1] ? cleanCode?.split(" ")[1] : "";
-        if (!number || number?.length < 10) {
-          errors["contact"] = true;
-        }
-      }
+      // if (form?.contact) {
+      //   const cleanCode = cleanContactNumber(form?.contact);
+      //   const number = cleanCode?.split(" ")[1] ? cleanCode?.split(" ")[1] : "";
+      //   if (!number || number?.length < 10) {
+      //     errors["contact"] = true;
+      //   }
+      // }
     });
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
