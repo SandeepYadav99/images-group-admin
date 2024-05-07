@@ -33,9 +33,9 @@ const PendingMemberRequest = ({ data }) => {
     historyUtils.push(`${RouteName.REPORTED_FEED}`);
   }
 
-  const changeEmployeeRoute = useCallback(() => {
-    historyUtils.push(`${RouteName.REPORTED_FEED}`);
-  }, []);
+  const changeEmployeeRoute = (id) => {
+    historyUtils.push(`${RouteName.USER_PROFILE}` + id);
+  };
 
   const _renderListData = () => {
     const tableRows = [];
@@ -46,7 +46,7 @@ const PendingMemberRequest = ({ data }) => {
             <TableCell className="pl-3 fw-normal">
               <div
                 className={styles.hyperlinkText}
-                onClick={() => changeEmployeeRoute(val?.candidate)}
+                onClick={() => changeEmployeeRoute(val?.reported_by?.id)}
               >
                 {val?.postObj?.images > 0 ? (
                   <img
@@ -66,7 +66,7 @@ const PendingMemberRequest = ({ data }) => {
             <TableCell className="pl-3 fw-normal">
               <div
                 className={styles.hyperlinkText}
-                onClick={() => changeEmployeeRoute(val?.candidate)}
+                onClick={() => changeEmployeeRoute(val?.reported_by?.id)}
               >
                 <span>{val?.reported_by?.name}</span>
               </div>
