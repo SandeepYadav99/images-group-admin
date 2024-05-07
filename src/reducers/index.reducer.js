@@ -65,6 +65,7 @@ import AwardReducer from "./Award.reducer";
 import MeetingsCalendarReducer from "./MeetingsCalendar.reducer";
 import AssociateEventReducer from "./AssociateEvent.reducer";
 import CustomParticipantReducer from "./CustomParticipant.reducer";
+import ParticipantTypeReducer from "./ParticipantType.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -132,7 +133,8 @@ const rootReducer = combineReducers({
   meeting_slots:MeetingRoomSlotReducer,
   meeting_callendar:MeetingsCalendarReducer,
   associateEvent:AssociateEventReducer,
-  custom_participant:CustomParticipantReducer
+  custom_participant:CustomParticipantReducer,
+  participant_type:ParticipantTypeReducer,
 });
 
 export default rootReducer;
