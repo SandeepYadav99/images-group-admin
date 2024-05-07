@@ -18,15 +18,14 @@ import { useSelector } from "react-redux";
 import VideoDialog from "../../../Splashscreen/List/Component/VideoDialog";
 import ImageCourselPopUp from "../../../../components/ImageCourselPopUp/ImageCourselPopUp";
 
-
 const PendingMemberRequest = ({ data }) => {
   const { role } = useSelector((state) => state?.auth);
   const [list, setList] = useState([]);
   const [count, setCount] = useState(8);
-  const [openCoursel,setOpenCoursel] = useState(false);
-  const [isVideoModal,setIsVideoModal] = useState(false);
-  const [videoLinkData,setVideoLinkData] = useState();
-  const [contentData,setContentData] = useState();
+  const [openCoursel, setOpenCoursel] = useState(false);
+  const [isVideoModal, setIsVideoModal] = useState(false);
+  const [videoLinkData, setVideoLinkData] = useState();
+  const [contentData, setContentData] = useState();
   const classes = useStyles();
 
   const PendingMemberRequestPage = useCallback(() => {
@@ -37,24 +36,24 @@ const PendingMemberRequest = ({ data }) => {
     setList(data);
   }, [data, count]);
 
-  const handleImagePopUp =(all)=>{
-    setOpenCoursel(true)
+  const handleImagePopUp = (all) => {
+    setOpenCoursel(true);
     setContentData(all?.images);
-  }
+  };
 
-  const handleCloseCoursel =()=>{
+  const handleCloseCoursel = () => {
     setOpenCoursel(false);
-  }
+  };
 
-  const handleVideoDialogue =(all)=>{
-    setIsVideoModal(true)
+  const handleVideoDialogue = (all) => {
+    setIsVideoModal(true);
     setVideoLinkData(all?.video);
-  }
+  };
 
-  const toggleVideoModal =()=>{
-    setIsVideoModal(false)
+  const toggleVideoModal = () => {
+    setIsVideoModal(false);
     setVideoLinkData("");
-  }
+  };
 
   function handleIncrease() {
     historyUtils.push(`${RouteName.REPORTED_FEED}`);
@@ -82,13 +81,9 @@ const PendingMemberRequest = ({ data }) => {
           </div>
         </div>
         <div className={styles.commentArea}>
-            <video
-              autoPlay
-              controls
-              style={{ width: "500px", height: "300px" }}
-            >
-              <source src={url} type="video/mp4" />
-            </video>
+          <video autoPlay controls style={{ width: "500px", height: "300px" }}>
+            <source src={url} type="video/mp4" />
+          </video>
         </div>
       </Dialog>
     );
@@ -101,14 +96,19 @@ const PendingMemberRequest = ({ data }) => {
         tableRows.push(
           <TableRow key={val.id}>
             <TableCell className="pl-3 fw-normal">
-              <div
-              >
+              <div>
                 {val?.postObj?.images?.length > 0 ? (
-                  <img
-                    src={val?.postObj?.images[0]}
-                    style={{ height: "50px", width: "50px" }}
-                    onClick={() =>handleImagePopUp(val?.postObj)}
-                  />
+                  <div className={styles.imageDiv}>
+                    <img
+                      src={val?.postObj?.images[0]}
+                      style={{ height: "50px", width: "50px" }}
+                      onClick={() => handleImagePopUp(val?.postObj)}
+                    />
+                    {
+                      val?.postObj?.images?.length > 1 &&
+                      <span className={styles.hyperlinkText} onClick={() => handleImagePopUp(val?.postObj)}>+{val?.postObj?.images?.length-1}</span>
+                    }
+                  </div>
                 ) : val?.postObj?.video ? (
                   <img
                     src={require("../../../../assets/img/video_icon.png")}
@@ -174,17 +174,17 @@ const PendingMemberRequest = ({ data }) => {
         </TableContainer>
       </div>
       <ImageCourselPopUp
-          content={contentData}
-          open={openCoursel}
-          handleClose={handleCloseCoursel}
-        />
-        <VideoPopUp
-          open={isVideoModal}
-          url={videoLinkData}
-          onClick={() => {
-            toggleVideoModal(null);
-          }}
-        />
+        content={contentData}
+        open={openCoursel}
+        handleClose={handleCloseCoursel}
+      />
+      <VideoPopUp
+        open={isVideoModal}
+        url={videoLinkData}
+        onClick={() => {
+          toggleVideoModal(null);
+        }}
+      />
       <div className={"txtCenter"}>
         <ButtonBase
           className={"viewBtn"}
