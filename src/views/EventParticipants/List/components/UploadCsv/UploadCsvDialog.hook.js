@@ -31,6 +31,7 @@ const useUploadCsvDialogHook = ({
   const [resData, setResData] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDelay,setIsDelay] = useState(false)
   const { id } = useParams();
 
   useEffect(() => {
@@ -88,7 +89,9 @@ const useUploadCsvDialogHook = ({
       let req = isVerified
         ? serviceParticipantImportFile
         : serviceParticipantImportVerify;
-
+      if(isVerified){
+        setIsDelay(true)
+      }
       req(fd).then((res) => {
         if (!res.error) {
           if (isVerified) {
@@ -106,6 +109,7 @@ const useUploadCsvDialogHook = ({
           SnackbarUtils.error("Verification failed");
         }
         setIsSubmitting(false);
+        setIsDelay(false)
       });
     }
   }, [
@@ -120,6 +124,8 @@ const useUploadCsvDialogHook = ({
     isVerified,
     setIsVerified,
     id,
+    setIsDelay,
+    isDelay
   ]);
 
   const handleSubmit = useCallback(
@@ -142,7 +148,9 @@ const useUploadCsvDialogHook = ({
       setIsVerified,
       handleToggle,
       handleCsvUpload,
-      orderId
+      orderId,
+      setIsDelay,
+      isDelay
     ]
   );
 
@@ -190,6 +198,7 @@ const useUploadCsvDialogHook = ({
     showPasswordCurrent,
     setShowPasswordCurrent,
     handleSampleDownload,
+    isDelay
   };
 };
 

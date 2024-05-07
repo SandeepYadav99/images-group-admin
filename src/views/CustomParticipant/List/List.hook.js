@@ -154,6 +154,7 @@ const useCustomParticipantList = ({}) => {
       }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Deleted Successfully");
+          setIsDeletedPopUp(false)
           dispatch(
             actionFetchCustomParticipant(1, sortingData, {
               query: isMountRef.current ? query : null,
@@ -167,7 +168,7 @@ const useCustomParticipantList = ({}) => {
       });
       //
     },
-    [id,deleteId, setDeleteID]
+    [id,deleteId, setDeleteID,isDeletedPopUp]
   );
 
   const handleEdit = useCallback(

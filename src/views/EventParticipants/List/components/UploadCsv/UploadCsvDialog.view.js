@@ -66,6 +66,7 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
     showPasswordCurrent,
     setShowPasswordCurrent,
     handleSampleDownload,
+    isDelay
   } = useUploadCsvDialogHook({ isOpen, handleCsvUpload, handleToggle });
   const renderTable = useMemo(() => {
     if (resData.length === 0) return "Success";
@@ -242,6 +243,9 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
             Download Sample Template
           </ButtonBase>
         </div>
+        {
+          isDelay ? <div className={styles.UploaderText}>Upload In Progress...</div> : ""
+        }
         {/*</DialogActions>*/}
         <div className={styles.tableCont}>{isSubmitted ? renderTable : ""}</div>
       </Dialog>
