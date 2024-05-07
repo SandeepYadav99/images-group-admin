@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { IconButton, ButtonBase } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
-import { Add, BorderColor, InfoOutlined } from "@material-ui/icons";
+import { Add, BorderColor, Delete } from "@material-ui/icons";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
@@ -11,6 +11,7 @@ import useList from "./List.hook.js";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import historyUtils from "../../../libs/history.utils.js";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import DeleteDialog from "../../Events/EventSchedule/EventScheduleList/component/DeletedDilog/DeletedDilog.js";
 
 const CustomParticipantList = ({}) => {
   const {
@@ -25,6 +26,9 @@ const CustomParticipantList = ({}) => {
     configFilter,
     editCategory,
     handleCreateFed,
+    isDeletedPopUp,
+    toggleDeletedDialog,
+    handleDeleteData,
   } = useList({});
 
   const {
@@ -89,12 +93,28 @@ const CustomParticipantList = ({}) => {
               >
                 <BorderColor fontSize={"small"} color="action" />
               </IconButton>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  toggleDeletedDialog(all);
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
             </div>
           </div>
         ),
       },
     ];
-  }, [handleViewDetails, handleEdit, isCalling]);
+  }, [
+    handleViewDetails,
+    handleEdit,
+    isCalling,
+    handleDeleteData,
+    toggleDeletedDialog,
+  ]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -126,7 +146,7 @@ const CustomParticipantList = ({}) => {
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
-        <ButtonBase onClick={() => historyUtils.goBack()}>
+          <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <div>
               <span className={styles.title}>Custom Participants List</span>
@@ -140,6 +160,15 @@ const CustomParticipantList = ({}) => {
             </ButtonBase>
           </div>
         </div>
+        <DeleteDialog
+          handleConfirm={handleDeleteData}
+          handleDialog={toggleDeletedDialog}
+          isOpen={isDeletedPopUp}
+          helperTitle={"Delete Custom Participants"}
+          des={
+            "Are you sure you want to Delete this Custom Participants request?"
+          }
+        />
         <div>
           <FilterComponent
             is_progress={isFetching}

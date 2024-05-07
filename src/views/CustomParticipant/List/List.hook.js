@@ -9,11 +9,16 @@ import {
   actionSetPageCustomParticipant,
 } from "../../../actions/CustomParticipant.action";
 import { useParams } from "react-router-dom";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
+import { serviceDeleteCustomParticipant } from "../../../services/CustomParticipant.service";
 
 const useCustomParticipantList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [isDeletedPopUp, setIsDeletedPopUp] = useState(false);
+  const [deleteId, setDeleteID] = useState(null);
+
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -43,6 +48,26 @@ const useCustomParticipantList = ({}) => {
     );
     isMountRef.current = true;
   }, [id]);
+
+  const toggleDeletedDialog = useCallback(
+    (obj) => {
+      if (obj) {
+        setDeleteID(obj?.id);
+      } else {
+        setDeleteID(null);
+      }
+      setIsDeletedPopUp((e) => !e);
+    },
+    [isDeletedPopUp, setIsDeletedPopUp, deleteId, setDeleteID]
+  );
+  const handleDelete = useCallback(
+    (id) => {
+      // dispatch(actionDeleteEventSchedule(id));
+      setSidePanel(false);
+      setEditData(null);
+    },
+    [setEditData, setSidePanel]
+  );
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
@@ -122,13 +147,28 @@ const useCustomParticipantList = ({}) => {
     console.log(page);
   };
 
-  const handleDelete = useCallback(
-    (id) => {
-      // dispatch(actionDeleteCustomParticipant(id));
-      setSidePanel(false);
-      setEditData(null);
+  const handleDeleteData = useCallback(
+    (data) => {
+      serviceDeleteCustomParticipant({
+        id: deleteId,
+      }).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Deleted Successfully");
+          setIsDeletedPopUp(false)
+          dispatch(
+            actionFetchCustomParticipant(1, sortingData, {
+              query: isMountRef.current ? query : null,
+              query_data: isMountRef.current ? queryData : null,
+              event_id: id,
+            })
+          );
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      });
+      //
     },
-    [setEditData, setSidePanel]
+    [id,deleteId, setDeleteID,isDeletedPopUp]
   );
 
   const handleEdit = useCallback(
@@ -197,6 +237,9 @@ const useCustomParticipantList = ({}) => {
     handleCreate,
     handleToggleSidePannel,
     handleCreateFed,
+    isDeletedPopUp,
+    toggleDeletedDialog,
+    handleDeleteData,
   };
 };
 
