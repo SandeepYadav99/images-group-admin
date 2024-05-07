@@ -50,6 +50,10 @@ function useYoutubeCreateHook({ location }) {
       errors.link = true;
       errors.link = "Invalid Format";
     }
+    else if(form?.link?.includes("=") === false){
+      errors.link = true;
+      errors.link = "Invalid Format";
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -82,14 +86,14 @@ function useYoutubeCreateHook({ location }) {
     },
     [removeError, form, setForm]
   );
+
   const submitToServer = useCallback(
     (status) => {
       if (!isSubmitting) {
         setIsSubmitting(true);
-        // const fd = new FormData();
         const updatedData = {
           event_id: eventId,
-          link: form?.link,
+          link: form?.link?.split("=")?.[1],
           status: form.status ? "ACTIVE" : "INACTIVE",
         };
 
