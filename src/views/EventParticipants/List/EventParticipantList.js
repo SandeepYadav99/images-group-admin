@@ -118,7 +118,7 @@ const EventParticipantList = ({}) => {
         key: "contact",
         label: "PHONE NUMBER",
         sortable: false,
-        render: (temp, all) => <div>{all.contact}</div>,
+        render: (temp, all) => <div>{all.full_contact}</div>,
       },
       {
         key: "reg_id",
