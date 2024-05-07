@@ -19,7 +19,7 @@ import cx from "classnames";
 import headerStyle from "../../assets/jss/material-dashboard-react/headerStyle.jsx";
 import {actionLogoutUser} from "../../actions/auth_index.action";
 import { actionChangeTheme } from '../../actions/AppSettings.action';
-import CredaiLogo from "../../assets/img/CredaiCommonLogo.png"
+import HeaderIcon from "../../assets/img/HeaderIcon.png";
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Popover from '@material-ui/core/Popover';
@@ -143,7 +143,7 @@ class Header extends React.Component {
                     </div>
 
                     <div className={classes.logoImage}>
-                        <img src={CredaiLogo} height={30} width={30} style={{borderRadius:"50%"}}/>    
+                        <img src={HeaderIcon} height={30} width={30} style={{borderRadius:"50%"}}/>    
                     </div>
 
                     <div>
