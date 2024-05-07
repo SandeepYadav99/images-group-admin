@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import axios from "axios";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import {
   serviceCreateExhibitors,
   serviceUpdateExhibitors,
@@ -10,22 +9,13 @@ import {
   serviceGetExhibitorsDetails,
   debounceValidationList,
   servicesPartnerTypeList,
-  serviceUpdateExhibitor,
-  serviceUpdateFileUpdate,
 } from "../../../services/Exhibitor.service";
 import historyUtils from "../../../libs/history.utils";
-import {
-  isEmail,
-  isNum,
-  isNumeric,
-  validateUrl,
-} from "../../../libs/RegexUtils";
-import useDebounce from "../../../hooks/DebounceHook";
+import { isEmail, isNum, validateUrl } from "../../../libs/RegexUtils";
 import Constants from "../../../config/constants";
 import { useSelector } from "react-redux";
-import { dataURLtoFile } from "../../../hooks/Helper";
-import nullImg from "../../../assets/img/null.png";
 import { capitalizeFirstLetter } from "../../../hooks/CapsLetter";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 const initialForm = {
   company_logo: "",
   company_name: "",
@@ -58,7 +48,6 @@ const initialForm = {
   status: true,
   country_code: "91",
   contact: "",
-  show_profile: false,
   country_code1: "91",
   secondary_perosn_name: "",
   youtube_link: "",
@@ -81,12 +70,6 @@ const initialForm = {
   twitter_link: "",
   is_featured: false,
   is_recommended: false,
-
-  // download_documents: "",
-  // fileName: "",
-  // title: "",
-  // url: "",
-  // images: "",
   show_profile: false,
 };
 
@@ -101,7 +84,7 @@ const featureKey = {
   // other: false,
 };
 
-const useExhibitorCreate = ({ location }) => {
+const useExhibitorCreate = ({  }) => {
   const [errorData, setErrorData] = useState({});
   const [image, setImage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -113,8 +96,8 @@ const useExhibitorCreate = ({ location }) => {
   const ChildenRef = useRef(null);
   const ChildenRef1 = useRef(null);
   const [downloads, setDownloads] = useState(null);
+ const location = useLocation()
   const [downloadsDigitalBag, setDownloadsDigitalBag] = useState(null);
-  const [downloadData, setDownloadData] = useState(null);
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
@@ -129,6 +112,10 @@ const useExhibitorCreate = ({ location }) => {
 
   const { user } = useSelector((state) => state?.auth);
   const [categoryLists, setCategoryLists] = useState(null);
+
+  const selectedEventId = useMemo(() => {
+    return location?.state?.eventID?.id;
+  }, [location]);
 
   useEffect(() => {
     // if (!isSidePanel) return;
@@ -171,6 +158,8 @@ const useExhibitorCreate = ({ location }) => {
   const params = useParams();
 
   const empId = params?.id;
+  // const event_id = params?.event_id;
+  
 
   const handleCheckedData = () => {
     setChecked(() => !checked);
@@ -482,7 +471,9 @@ const useExhibitorCreate = ({ location }) => {
         // key !== "company_logo",
         // key !== "gallery_images"
         // key !== "company_brochure"
-        (key !== "business_nature_other", key !== "is_business_nature_other" , key !=="show_profile")
+        (key !== "business_nature_other",
+        key !== "is_business_nature_other",
+        key !== "show_profile")
       ) {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
@@ -513,8 +504,8 @@ const useExhibitorCreate = ({ location }) => {
           }
         } else if (key === "is_participant") {
           fd.append("is_participant", form?.is_participant === "YES");
-          fd.append("is_featured", form?.is_featured ? true :false);
-          fd.append("show_profile", form?.show_profile ? true :false);
+          fd.append("is_featured", form?.is_featured ? true : false);
+          fd.append("show_profile", form?.show_profile ? true : false);
         } else if (key === "is_featured") {
           delete form[key];
         } else {
@@ -524,15 +515,15 @@ const useExhibitorCreate = ({ location }) => {
     });
 
     const ExpensesData = ChildenRef.current.getData();
-    if(ExpensesData?.length > 0 && ExpensesData[0]?.file_name){
+    if (ExpensesData?.length > 0 && ExpensesData[0]?.file_name) {
       fd.append("downloads", JSON.stringify(ExpensesData));
     }
     const DigitalBag = ChildenRef1.current.getData();
-    if(DigitalBag?.length > 0 && DigitalBag[0]?.title){
+    if (DigitalBag?.length > 0 && DigitalBag[0]?.title) {
       fd.append("digital_bags", JSON.stringify(DigitalBag));
     }
 
-     fd.append("event_id", "65029c5bdf6918136df27e51");
+    fd.append("event_id", selectedEventId);
     if (!form?.is_partner) {
       fd.append("partner_tag", "");
     }
@@ -554,21 +545,25 @@ const useExhibitorCreate = ({ location }) => {
       }
       setIsSubmitting(false);
     });
-  }, [form, errorData, selectImages, checkFormValidation]);
+  }, [form, errorData, selectImages, checkFormValidation, selectedEventId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     const isIncludesValid = ChildenRef.current.isValid();
     const isIncludesValid1 = ChildenRef1.current.isValid();
 
-    if (Object.keys(errors).length > 0 || !isIncludesValid || !isIncludesValid1) {
+    if (
+      Object.keys(errors).length > 0 ||
+      !isIncludesValid ||
+      !isIncludesValid1
+    ) {
       setErrorData(errors);
 
       return;
     }
 
     await submitToServer();
-  }, [checkFormValidation, setErrorData, submitToServer]);
+  }, [checkFormValidation, setErrorData, submitToServer, selectedEventId]);
 
   const removeError = useCallback(
     (title) => {
@@ -589,15 +584,14 @@ const useExhibitorCreate = ({ location }) => {
         t[fieldName] = text;
       } else if (fieldName === "secondary_email") {
         t[fieldName] = text;
-      }else if (fieldName === "is_participant"){
-        if(text === "YES"){
-          t["is_featured"] = false
-        }else if(text === "NO"){
-          t["show_profile"] = false
+      } else if (fieldName === "is_participant") {
+        if (text === "YES") {
+          t["is_featured"] = false;
+        } else if (text === "NO") {
+          t["show_profile"] = false;
         }
         t[fieldName] = text;
-      }
-       else if (fieldName === "product_categories") {
+      } else if (fieldName === "product_categories") {
         // console.log({text})
         // t[fieldName] = text;
         const newValues = text?.filter((item) => item !== "");

@@ -20,12 +20,13 @@ const useExhibitorList = ({}) => {
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
-  const id = useParams()
+  const id = useParams();
+
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
   });
-// console.log({id})
+   console.log({id})
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -51,11 +52,12 @@ const useExhibitorList = ({}) => {
         {
           query: isMountRef.current ? query : null,
           query_data: isMountRef.current ? queryData : null,
+           event_id: id?.id,
         }
       )
     );
     isMountRef.current = true;
-  }, []);
+  }, [id]);
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
@@ -77,13 +79,15 @@ const useExhibitorList = ({}) => {
 
   const handleCreateFed = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.EXHIBITOR_CREATE}`);
-  }, []);
+    historyUtils.push(`${RouteName.EXHIBITOR_CREATE}`,{
+      eventID:id
+    });
+  }, [id]);
 
   const queryFilter = useCallback(
     (key, value) => {
       // dispatch(actionSetPageExhibitorsRequests(1));
-      console.log(key, value)
+      console.log(key, value);
       dispatch(
         actionFetchExhibitors(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
@@ -156,11 +160,13 @@ const useExhibitorList = ({}) => {
     [setSidePanel, setEditData]
   );
 
-  const handleSideToggle = useCallback(
+  const updateExhibitor = useCallback(
     (data) => {
-      historyUtils.push(RouteName.LOCATIONS_UPDATE + data?.id);
+      historyUtils.push(`${RouteName.EXHIBITOR_UPDATE + data?.id}`, {
+        eventID:id
+      });
     },
-    [setEditData, setSidePanel]
+    [setEditData, setSidePanel, id]
   );
 
   const handleViewDetails = useCallback((data) => {
@@ -179,7 +185,7 @@ const useExhibitorList = ({}) => {
         type: "select",
         fields: ["ACTIVE", "INACTIVE"],
       },
-   
+
       {
         label: "Product Category",
         name: "product_categories._id",
@@ -203,7 +209,7 @@ const useExhibitorList = ({}) => {
     handleSortOrderChange,
     handleDelete,
     handleEdit,
-    handleSideToggle,
+    updateExhibitor,
     handleViewDetails,
     isCalling,
     editData,
@@ -212,7 +218,7 @@ const useExhibitorList = ({}) => {
     handleCreate,
     handleToggleSidePannel,
     handleCreateFed,
-    id
+    id,
   };
 };
 

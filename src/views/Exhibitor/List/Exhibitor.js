@@ -34,6 +34,7 @@ const ExhibitorList = ({}) => {
     warehouses,
     handleToggleSidePannel,
     handleCreateFed,
+    updateExhibitor
   } = useExhibitorList({});
 
   const {
@@ -136,7 +137,8 @@ const ExhibitorList = ({}) => {
               color="secondary"
               disabled={isCalling}
               onClick={() =>
-                historyUtils.push(`${RouteName.EXHIBITOR_UPDATE}` + all?.id)
+                updateExhibitor(all)
+                // historyUtils.push(`${RouteName.EXHIBITOR_UPDATE}` + all?.id)
               }
             >
               <Edit fontSize={"small"} />

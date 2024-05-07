@@ -125,7 +125,7 @@ const useEventParticipantCreate = ({
     }
   }, [empId]);
 
-  console.log("form",form)
+
   useEffect(() => {
     if (!isSidePanel) {
       handleReset();
@@ -163,6 +163,19 @@ const useEventParticipantCreate = ({
             company_name: data?.company_name,
           };
           setForm(tForm);
+          if (data?.custom_data?.length > 0) {
+            if (participantList?.length > 0) {
+              const updatedArr = participantList?.map((obj) => {
+                const matchingObj = data?.custom_data?.find(
+                  (item) => item?.key === obj?.key
+                );
+                return matchingObj ? matchingObj : obj;
+              });
+              setParticipantList([...updatedArr]);
+            } else {
+              setParticipantList([...data?.custom_data]);
+            }
+          }
         } else {
           if (data?.full_contact !== cleanContactNumber(form?.contact)) {
             setIsContactInList(false);
@@ -182,8 +195,11 @@ const useEventParticipantCreate = ({
     empId,
     id,
     form?.contact,
+    setParticipantList,
+    participantList,
   ]);
 
+  console.log("participantList", participantList);
   const DataSetName = [
     "EXHIBITOR",
     "SPEAKER",
@@ -245,7 +261,7 @@ const useEventParticipantCreate = ({
           is_lunch: form?.is_lunch === "YES",
           id: empId ? empId : "",
           event_id: id,
-          custom_data:[...participantList]
+          custom_data: [...participantList],
         });
       } else {
         req = serviceCreateEventParticipant({
@@ -256,7 +272,7 @@ const useEventParticipantCreate = ({
           event_id: id,
           is_awards: form?.is_awards === "YES",
           is_lunch: form?.is_lunch === "YES",
-          custom_data:[...participantList]
+          custom_data: [...participantList],
         });
       }
       req.then((res) => {
@@ -270,7 +286,15 @@ const useEventParticipantCreate = ({
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, empId, id,participantList , setParticipantList]);
+  }, [
+    form,
+    isSubmitting,
+    setIsSubmitting,
+    empId,
+    id,
+    participantList,
+    setParticipantList,
+  ]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -280,7 +304,13 @@ const useEventParticipantCreate = ({
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, participantList,setParticipantList]);
+  }, [
+    checkFormValidation,
+    setErrorData,
+    form,
+    participantList,
+    setParticipantList,
+  ]);
 
   const removeError = useCallback(
     (title) => {
