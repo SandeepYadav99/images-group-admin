@@ -151,7 +151,7 @@ const useEventParticipantCreate = ({
             name: data?.name,
             contact: data?.full_contact,
             email: data?.email,
-            title: data.title,
+            title: data.designation,
             // reg_id: data?.reg_id,
             user_id: data?.id,
             category: data?.category,

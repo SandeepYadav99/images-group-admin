@@ -12,11 +12,13 @@ const DeleteDialog = ({
   handleDialog,
   isSubmitting,
   handleConfirm,
+  helperTitle,
+  des
 }) => {
   return (
     <Dialog
       // fullWidth={true}
-      maxWidth={"xs"}
+      maxWidth={"sm"}
       keepMounted
       TransitionComponent={Transition}
       open={isOpen}
@@ -31,12 +33,12 @@ const DeleteDialog = ({
         </div>
 
         <div className={styles.loginSignupText}>
-          <h1 className={styles.headingText}>Delete Event Schedule</h1>
+          <h1 className={styles.headingText}>{helperTitle ? helperTitle : "Delete Event Schedule"}</h1>
           <div className={styles.newLine} />
         </div>
         <div>
           <p style={{ fontSize: ".87rem" }}>
-            Are you sure you want to Delete this Event Schedule request?
+            {des ? des : "Are you sure you want to Delete this Event Schedule request?"}
           </p>
         </div>
         <div className={styles.confirmedWrapper}>
