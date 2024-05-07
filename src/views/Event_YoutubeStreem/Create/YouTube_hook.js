@@ -34,7 +34,6 @@ function useYoutubeCreateHook({ location }) {
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
-      // "s_image",
       "link",
     ];
 
