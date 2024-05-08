@@ -418,7 +418,7 @@ export const EventData = [
     url: RouteName.AWARD,
   },
   {
-    key: "calandar",
+    key: "event_calendar",
     name: "Event Calendar",
     image: event,
     url:  RouteName.CALENDAR_COUNT,
