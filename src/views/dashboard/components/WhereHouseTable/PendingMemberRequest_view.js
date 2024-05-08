@@ -33,9 +33,9 @@ const PendingMemberRequest = ({ data }) => {
     historyUtils.push(`${RouteName.REPORTED_FEED}`);
   }
 
-  const changeEmployeeRoute = useCallback(() => {
-    historyUtils.push(`${RouteName.REPORTED_FEED}`);
-  }, []);
+  const changeEmployeeRoute = (id) => {
+    historyUtils.push(`${RouteName.USER_PROFILE}` + id);
+  };
 
   const _renderListData = () => {
     const tableRows = [];
@@ -46,17 +46,18 @@ const PendingMemberRequest = ({ data }) => {
             <TableCell className="pl-3 fw-normal">
               <div
                 className={styles.hyperlinkText}
-                onClick={() => changeEmployeeRoute(val?.candidate)}
               >
                 {val?.postObj?.images > 0 ? (
                   <img
                     src={val?.postObj?.images[0]}
                     style={{ height: "50px", width: "50px" }}
+                    onClick={() => changeEmployeeRoute(val?.reported_user?._id)}
                   />
                 ) : val?.postObj?.video ? (
                   <img
-                    src={val?.reported_user?.image}
+                    src={require("../../../../assets/img/video_icon.png")}
                     style={{ height: "50px", width: "50px" }}
+                    onClick={() => changeEmployeeRoute(val?.reported_user?._id)}
                   />
                 ) : (
                   <>No Image</>
@@ -66,9 +67,9 @@ const PendingMemberRequest = ({ data }) => {
             <TableCell className="pl-3 fw-normal">
               <div
                 className={styles.hyperlinkText}
-                onClick={() => changeEmployeeRoute(val?.candidate)}
+                onClick={() => changeEmployeeRoute(val?.reported_user?._id)}
               >
-                <span>{val?.reported_by?.name}</span>
+                <span>{val?.reported_user?.name}</span>
               </div>
             </TableCell>
             <TableCell className="pl-3 fw-normal">{val?.reason}</TableCell>

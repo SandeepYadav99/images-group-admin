@@ -151,7 +151,7 @@ const useEventParticipantCreate = ({
             name: data?.name,
             contact: data?.full_contact,
             email: data?.email,
-            title: data.title,
+            title: data.designation,
             // reg_id: data?.reg_id,
             user_id: data?.id,
             category: data?.category,
@@ -218,13 +218,13 @@ const useEventParticipantCreate = ({
       if (form?.email && !isEmail(form?.email)) {
         errors["email"] = true;
       }
-      if (form?.contact) {
-        const cleanCode = cleanContactNumber(form?.contact);
-        const number = cleanCode?.split(" ")[1] ? cleanCode?.split(" ")[1] : "";
-        if (!number || number?.length < 10) {
-          errors["contact"] = true;
-        }
-      }
+      // if (form?.contact) {
+      //   const cleanCode = cleanContactNumber(form?.contact);
+      //   const number = cleanCode?.split(" ")[1] ? cleanCode?.split(" ")[1] : "";
+      //   if (!number || number?.length < 10) {
+      //     errors["contact"] = true;
+      //   }
+      // }
     });
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {

@@ -184,4 +184,7 @@ export default {
   CUSTOM_PARTICIPANT:"/custom/participant/",
   CUSTOM_PARTICIPANT_CREATE: "/custom/participants/create",
   CUSTOM_PARTICIPANT_UPDATE: "/custom/participants/update/",
+  PARTICIPANT_TYPE:"/participant/type",
+  PARTICIPANT_TYPE_CREATE:"/participant/type/create",
+  PARTICIPANT_TYPE_UPDATE:"/participant/type/update/"
 };
