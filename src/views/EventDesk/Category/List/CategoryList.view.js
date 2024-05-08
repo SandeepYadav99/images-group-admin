@@ -48,7 +48,7 @@ const CategoryList = ({ location }) => {
         key: "phone",
         label: "phone",
         sortable: false,
-        render: (temp, all) => <div>{all?.contact}</div>,
+        render: (temp, all) => <div>{`${all?.country_code ? all?.country_code : ""} ${all?.contact}`}</div>,
       },
       {
         key: "priority",
