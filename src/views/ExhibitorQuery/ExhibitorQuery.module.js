@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import RouteName from "../../routes/Route.name";
 import { Add } from "@material-ui/icons";
 import historyUtils from "../../libs/history.utils";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const ExhibitorQuery = ({}) => {
   const {
@@ -170,13 +171,21 @@ const ExhibitorQuery = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <div className={styles.title}>Exhibitor Query</div>
+            <div className={styles.title}>
+              <ButtonBase onClick={() => historyUtils.goBack()}>
+                <ArrowBackIosIcon fontSize={"small"} />
+                Exhibitor Query
+              </ButtonBase>
+            </div>
             <div className={styles.newLine} />
           </div>
           <div></div>
           <div className={styles.BtnWrapper}>
-            <ButtonBase className={"createBtn"} onClick={handleDownloadExhibitor}>
-               Download
+            <ButtonBase
+              className={"createBtn"}
+              onClick={handleDownloadExhibitor}
+            >
+              Download
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
           </div>
