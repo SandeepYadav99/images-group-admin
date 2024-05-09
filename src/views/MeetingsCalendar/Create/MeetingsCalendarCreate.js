@@ -158,6 +158,7 @@ const MeetingsCalendarCreate = ({
               }}
               value={form?.choose_date || []}
               options={selectCalendarDate || []}
+              disabled={!form?.booked_by && !form?.booked_with ? true : false}
               getOptionLabel={(option) => option?.dateText || ""}
               renderInput={(params) => (
                 <TextField
@@ -179,6 +180,7 @@ const MeetingsCalendarCreate = ({
               }}
               value={form?.choose_time || []}
               options={selectCalendarTime || []}
+              disabled={!form?.booked_by && !form?.booked_with ? true : false}
               getOptionLabel={(option) => option?.slotText || ""}
               renderInput={(params) => (
                 <TextField
@@ -201,6 +203,7 @@ const MeetingsCalendarCreate = ({
               }}
               value={form?.meeting_room || []}
               options={selectCalendarRooms || []}
+              disabled={!form?.booked_by && !form?.booked_with ? true : false}
               getOptionLabel={(option) => option?.room_name || ""}
               renderInput={(params) => (
                 <TextField
@@ -221,13 +224,11 @@ const MeetingsCalendarCreate = ({
             onClick={handleSubmit}
             className={styles.createBtn}
           >
-            {/* {isSubmitting ? (
+            {isSubmitting ? (
               <CircularProgress color="success" size="20px" />
-            ) : empId ? (
-              "AUTO CONFIRM"
-            ) : ( */}
-            AUTO CONFIRM
-            {/* )} */}
+            ) : (
+              " AUTO CONFIRM"
+            )}
           </ButtonBase>
         </div>
       </div>

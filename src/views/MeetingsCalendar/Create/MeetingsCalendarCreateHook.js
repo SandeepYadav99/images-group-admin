@@ -113,16 +113,23 @@ const useMeetingsCalendarCreateHook = ({
   }, [form, errorData]);
 
   useEffect(() => {
+   
     serviceCreateMeetingCallendarDate({ event_id: event_id }).then((res) => {
       if (!res?.error) {
         console.log(res);
         const data = res?.data;
         setSelectCalendarDate(data);
+        setForm({
+          ...form,
+          choose_time: "", 
+          meeting_room: "", 
+        });
       }
     });
-  }, []);
+  }, [form?.choose_date]);
 
   useEffect(() => {
+   
     serviceCreateMeetingCallendarBookWith({
       event_id: event_id,
       page: 0,
@@ -133,6 +140,7 @@ const useMeetingsCalendarCreateHook = ({
         console.log(res);
         const data = res?.data;
         setSelectCalendarBookWith(data);
+      
       }
     });
   }, []);
@@ -153,7 +161,7 @@ const useMeetingsCalendarCreateHook = ({
       }
     });
   }, [form?.choose_date]);
-  console.log(form?.choose_time);
+ 
   useEffect(() => {
     if (!selectCalendarTime) return;
     serviceCreateMeetingCallendarRooms({
@@ -226,8 +234,30 @@ const useMeetingsCalendarCreateHook = ({
         t[fieldName] = text?.replace(/^\s+/, "");
       } else if (fieldName === "des") {
         t[fieldName] = text?.replace(/^\s+/, "");
+      }else if(fieldName === 'booked_by' || fieldName === 'booked_with'){
+        
+       
+        t[fieldName] = text;
       } else {
         t[fieldName] = text;
+      }
+      if (fieldName === 'booked_by' || fieldName === 'booked_with') {
+        // Check if all fields were previously selected
+        const allFieldsSelected =
+          form.choose_date &&
+          form.choose_time &&
+          form.meeting_room;
+    
+        // Check if 'booked_by' or 'booked_with' is being cleared and all fields were previously selected
+        if (!text && allFieldsSelected) {
+          // Clear other fields
+          setForm((prevForm) => ({
+            ...prevForm,
+            choose_date: "",
+            choose_time: "",
+            meeting_room: "",
+          }));
+        }
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
