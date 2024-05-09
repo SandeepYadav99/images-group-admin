@@ -14,14 +14,14 @@ import RouteName from "../../../../routes/Route.name";
 import historyUtils from "../../../../libs/history.utils";
 import { cleanContactNumber } from "../../../../helper/helper";
 import { getCountryCode } from "../../../../libs/general.utils";
-
+import { parsePhoneNumber } from "libphonenumber-js";
 const initialForm = {
   name: "",
   contact: "",
   priority: "",
   email: "",
   status: true,
-  country_code:""
+  country_code: "",
 };
 
 const useCategoryCreate = ({ location }) => {
@@ -56,7 +56,7 @@ const useCategoryCreate = ({ location }) => {
             priority: data?.priority ? data?.priority.toString() : "",
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             id: data?.id,
-            country_code:countryCode
+            country_code: countryCode,
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -105,6 +105,19 @@ const useCategoryCreate = ({ location }) => {
     if (form?.email && !isEmail(form?.email)) {
       errors["email"] = true;
     }
+    if (form?.contact) {
+      const phoneNumber = parsePhoneNumber(
+        "+" + cleanContactNumber(form?.contact)
+      );
+
+      if (phoneNumber) {
+        if (phoneNumber.isValid() === false) {
+          errors.contact = "Invalid Number";
+        }
+      } else {
+        errors.contact = "Invalid Number";
+      }
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -113,12 +126,10 @@ const useCategoryCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
-
-
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      delete form?.country_code
+      delete form?.country_code;
       const fd = { ...form };
       fd.status = form?.status ? "ACTIVE" : "INACTIVE";
       fd.contact = cleanContactNumber(form?.contact);
@@ -149,6 +160,7 @@ const useCategoryCreate = ({ location }) => {
     const errors = checkFormValidation();
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
+    
       return true;
     }
     submitToServer();
@@ -175,7 +187,7 @@ const useCategoryCreate = ({ location }) => {
         if (text?.length <= 10) {
           t[fieldName] = text.trimStart();
         }
-      }  else {
+      } else {
         t[fieldName] = text;
       }
       setForm(t);
