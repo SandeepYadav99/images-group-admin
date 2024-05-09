@@ -283,7 +283,8 @@ const useMeetingsCalendarCreateHook = ({
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
-  }, [form, isSidePanel]);
+    setErrorData({})
+  }, [form, isSidePanel, errorData]);
 
   const updateParticipentsList = useMemo(() => {
     return listData?.EVENT_PARTICIPENT?.filter((val) => {
