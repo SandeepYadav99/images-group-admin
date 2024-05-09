@@ -37,6 +37,12 @@ const UpperInfoComponent = ({ data }) => {
                 <span className={styles.value}>Title/Designation:</span>
                 {data?.designation}
               </div>
+              {
+                data?.custom_data?.length > 0 && data?.custom_data?.map((item,index)=>  <div className={styles.key} key={`custom_${index}`}>
+                <span className={styles.value}>{item?.label}</span>
+                {item?.value ? item?.value : "-"}
+                </div>)
+              }
             </div>
           </div>
           <div className={styles.vertical}></div>

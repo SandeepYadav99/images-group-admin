@@ -28,7 +28,7 @@ function useCityCompHook({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    [ "title", "description"].forEach((val) => {
+    [ "title", "description","geospatial_url"].forEach((val) => {
       if (!form?.[val]) {
         errors[val] = true;
       } else {
@@ -41,11 +41,7 @@ function useCityCompHook({ location }) {
     if(form?.lng && !form?.lat){
       errors["lat"] = true;
     }
-    // if (form?.description === "") {
-    //   SnackbarUtils.error(
-    //     "Description is required."
-    //   );
-    // }
+    
     if (form?.geospatial_url && !isUrl(form?.geospatial_url)) {
       errors.geospatial_url = true;
       SnackbarUtils.error("Please Enter the Valid Url");
