@@ -150,13 +150,13 @@ const useMeetingsCalendarCreateHook = ({
       if (!res?.error) {
         const data = res?.data;
         setSelectCalendarDate(data);
-        if (form?.choose_date) {
+        // if (form?.choose_date) {
           setForm({
             ...form,
             choose_time: "",
             meeting_room: "",
           });
-        }
+        // }
       }
     });
   }, [form?.choose_date, isSidePanel]);

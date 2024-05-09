@@ -47,14 +47,6 @@ const MeetingsCalendarCreate = ({
 
   return (
     <div className={"plainPaper"}>
-      {/* <div style={{}}>
-        <ButtonBase onClick={() => historyUtils.goBack()}>
-          <ArrowBackIos fontSize={"small"} />{" "}
-          <span>
-            <span className={styles.title}>Product Category</span>
-          </span>
-        </ButtonBase>
-      </div> */}
       <div className={styles.departmentWrap}>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -65,7 +57,7 @@ const MeetingsCalendarCreate = ({
               }}
               value={form.booked_by || []}
               options={updateParticipentsList} // filteredTask ||
-              getOptionLabel={(option) => option?.name}
+              getOptionLabel={(option) => option?.name || ""}
               renderOption={(option) => (
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <div>{`${option?.name} (${option?.contact})`}</div>
@@ -109,7 +101,7 @@ const MeetingsCalendarCreate = ({
               }}
               value={form.booked_with || []}
               options={updateParticipentsList}
-              getOptionLabel={(option) => option?.name}
+              getOptionLabel={(option) => option?.name || ""}
               // getOptionLabel={(option) =>
               //   `${option?.name || ""} ${
               //     option?.contact ? `(${option?.contact})` : ""
@@ -158,7 +150,11 @@ const MeetingsCalendarCreate = ({
               }}
               value={form?.choose_date || []}
               options={selectCalendarDate || []}
-              disabled={!form?.booked_by && !form?.booked_with ? true : false}
+              disabled={
+                !form?.booked_by?.name && !form?.booked_with?.name
+                  ? true
+                  : false
+              }
               getOptionLabel={(option) => option?.dateText || ""}
               renderInput={(params) => (
                 <TextField
@@ -171,6 +167,7 @@ const MeetingsCalendarCreate = ({
             />
           </div>
         </div>
+
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <Autocomplete
@@ -180,7 +177,11 @@ const MeetingsCalendarCreate = ({
               }}
               value={form?.choose_time || []}
               options={selectCalendarTime || []}
-              disabled={!form?.booked_by && !form?.booked_with ? true : false}
+              disabled={
+                !form?.booked_by?.name && !form?.booked_with?.name
+                  ? true
+                  : false
+              }
               getOptionLabel={(option) => option?.slotText || ""}
               renderInput={(params) => (
                 <TextField
@@ -203,7 +204,11 @@ const MeetingsCalendarCreate = ({
               }}
               value={form?.meeting_room || []}
               options={selectCalendarRooms || []}
-              disabled={!form?.booked_by && !form?.booked_with ? true : false}
+              disabled={
+                !form?.booked_by?.name && !form?.booked_with?.name
+                  ? true
+                  : false
+              }
               getOptionLabel={(option) => option?.room_name || ""}
               renderInput={(params) => (
                 <TextField
