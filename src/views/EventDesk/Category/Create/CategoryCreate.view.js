@@ -74,6 +74,7 @@ const CategoryCreateView = ({ location }) => {
               onBlur={() => {
                 onBlurHandler("contact");
               }}
+              country_code={form?.country_code}
             />
           </div>
           <div className={"formGroup"}>

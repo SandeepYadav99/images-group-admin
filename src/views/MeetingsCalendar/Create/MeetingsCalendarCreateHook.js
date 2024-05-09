@@ -19,6 +19,7 @@ import {
 } from "../../../services/MeetingsCalendar.service";
 import { useParams } from "react-router-dom";
 import { serviceGetList } from "../../../services/index.services";
+import { actionFetchMeetingCallendarList } from "../../../actions/MeetingsCalendar.action";
 
 const initialForm = {
   choose_date: "",
@@ -45,6 +46,7 @@ const useMeetingsCalendarCreateHook = ({
   const [selectCalendarRooms, setSelectCalendarRooms] = useState(null);
   const [selectCalendarBookWith, setSelectCalendarBookWith] = useState(null);
   const [bookUser, setBookUser] = useState("");
+  const [resetValue, setResetValue] = useState("");
   const { id: event_id } = useParams();
   const dispatch = useDispatch();
 
@@ -93,7 +95,13 @@ const useMeetingsCalendarCreateHook = ({
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["choose_date", "choose_time","booked_by","booked_with","meeting_room"];
+    let required = [
+      "choose_date",
+      "choose_time",
+      "booked_by",
+      "booked_with",
+      "meeting_room",
+    ];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -113,16 +121,23 @@ const useMeetingsCalendarCreateHook = ({
   }, [form, errorData]);
 
   useEffect(() => {
+    if(!isSidePanel) return
     serviceCreateMeetingCallendarDate({ event_id: event_id }).then((res) => {
       if (!res?.error) {
-        console.log(res);
+       
         const data = res?.data;
         setSelectCalendarDate(data);
+        setForm({
+          ...form,
+          choose_time: "",
+          meeting_room: "",
+        });
       }
     });
-  }, []);
+  }, [form?.choose_date, isSidePanel]);
 
   useEffect(() => {
+    if(!isSidePanel) return
     serviceCreateMeetingCallendarBookWith({
       event_id: event_id,
       page: 0,
@@ -135,9 +150,10 @@ const useMeetingsCalendarCreateHook = ({
         setSelectCalendarBookWith(data);
       }
     });
-  }, []);
+  }, [isSidePanel]);
   // console.log(form?.choose_date);
   useEffect(() => {
+    if(!isSidePanel) return
     if (!selectCalendarDate) return;
     serviceCreateMeetingCallendarTimeSlot({
       event_id: event_id,
@@ -152,9 +168,10 @@ const useMeetingsCalendarCreateHook = ({
         setSelectCalendarTime(data);
       }
     });
-  }, [form?.choose_date]);
-  console.log(form?.choose_time);
+  }, [form?.choose_date, isSidePanel]);
+
   useEffect(() => {
+    if(!isSidePanel) return
     if (!selectCalendarTime) return;
     serviceCreateMeetingCallendarRooms({
       event_id: event_id,
@@ -168,7 +185,7 @@ const useMeetingsCalendarCreateHook = ({
         setSelectCalendarRooms(data);
       }
     });
-  }, [form]);
+  }, [form, isSidePanel]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -179,17 +196,18 @@ const useMeetingsCalendarCreateHook = ({
         booked_with: form?.booked_with?.id,
       };
       let req;
-      // if (empId) {
-      //   req = serviceUpdateHallMasterList({ ...payloadData, id: empId });
-      // } else {
-      //   req = serviceCreateHallMasterList(payloadData);
-      // }
+
       req = serviceCreateMeetingCallendarCreate(payloadData);
       req.then((res) => {
         if (!res.error) {
           // historyUtils.goBack();
-          window.location.reload();
+          // window.location.reload();
           handleToggleSidePannel();
+          dispatch(
+            actionFetchMeetingCallendarList(1, {
+              event_id: event_id,
+            })
+          );
           // dispatch(actionFetchHallMasterList(1));
         } else {
           SnackbarUtils.error(res.message);
@@ -226,13 +244,20 @@ const useMeetingsCalendarCreateHook = ({
         t[fieldName] = text?.replace(/^\s+/, "");
       } else if (fieldName === "des") {
         t[fieldName] = text?.replace(/^\s+/, "");
+      } else if (fieldName === "booked_by" || fieldName === "booked_with") {
+        if (!text) {
+          setResetValue(text);
+        }
+
+        t[fieldName] = text;
       } else {
         t[fieldName] = text;
       }
+
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
-    [removeError, form, setForm]
+    [removeError, form, setForm, setResetValue]
   );
 
   const onBlurHandler = useCallback(
@@ -249,7 +274,18 @@ const useMeetingsCalendarCreateHook = ({
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form, isSidePanel]);
- 
+
+  useEffect(() => {
+    if (!resetValue) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        choose_date: "",
+        choose_time: "",
+        meeting_room: "",
+      }));
+    }
+  }, [resetValue]);
+
   const updateParticipentsList = useMemo(() => {
     return listData?.EVENT_PARTICIPENT?.filter((val) => {
       const isBookedBy = form?.booked_by?.id === val.id;
