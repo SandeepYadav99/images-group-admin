@@ -65,7 +65,7 @@ const useMeetingsCalendarCreateHook = ({
 
   useEffect(() => {
     const userName = JSON.parse(localStorage.getItem("user"));
-    console.log(userName);
+   
     setBookUser(userName?.id);
   }, [bookUser]);
 

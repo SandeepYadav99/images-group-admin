@@ -44,7 +44,10 @@ const MeetingsCalendarCreate = ({
   });
 
   const classes = useStyles();
-
+  const isBookingReady = () => {
+    return form.booked_by?.name && form.booked_with?.name;
+  };
+console.log( form?.booked_by && form?.booked_with)
   return (
     <div className={"plainPaper"}>
       <div className={styles.departmentWrap}>
@@ -150,11 +153,7 @@ const MeetingsCalendarCreate = ({
               }}
               value={form?.choose_date || []}
               options={selectCalendarDate || []}
-              disabled={
-                !form?.booked_by?.name && !form?.booked_with?.name
-                  ? true
-                  : false
-              }
+              disabled={!isBookingReady()}
               getOptionLabel={(option) => option?.dateText || ""}
               renderInput={(params) => (
                 <TextField
@@ -177,11 +176,7 @@ const MeetingsCalendarCreate = ({
               }}
               value={form?.choose_time || []}
               options={selectCalendarTime || []}
-              disabled={
-                !form?.booked_by?.name && !form?.booked_with?.name
-                  ? true
-                  : false
-              }
+              disabled={!isBookingReady()}
               getOptionLabel={(option) => option?.slotText || ""}
               renderInput={(params) => (
                 <TextField
@@ -204,11 +199,7 @@ const MeetingsCalendarCreate = ({
               }}
               value={form?.meeting_room || []}
               options={selectCalendarRooms || []}
-              disabled={
-                !form?.booked_by?.name && !form?.booked_with?.name
-                  ? true
-                  : false
-              }
+              disabled={!isBookingReady()}
               getOptionLabel={(option) => option?.room_name || ""}
               renderInput={(params) => (
                 <TextField
