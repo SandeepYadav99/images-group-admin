@@ -1,14 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-import Constants from "../../../config/constants";
 
-import {
-  serviceCreateHallMasterList,
-  serviceGetHallMasterDetails,
-  serviceUpdateHallMasterList,
-} from "../../../services/HallMaster.service";
-import { actionFetchHallMasterList } from "../../../actions/HallMaster.action";
 import { useDispatch } from "react-redux";
 import {
   serviceCreateMeetingCallendarBookWith,
@@ -116,15 +109,7 @@ const useMeetingsCalendarCreateHook = ({
       if (!res?.error) {
         const data = res?.data;
         setSelectCalendarBookWith(data);
-        // if (form?.booked_by || form?.booked_with) {
-        //   setForm((prevForm) => ({
-        //     ...prevForm,
-        //     choose_date: "",
-        //     choose_time: "",
-        //     meeting_room: "",
-        //   // booked_by:""
-        //   }));
-        // }
+        
       }
     });
   }, [isSidePanel, form?.booked_by, form?.booked_with]);
@@ -189,14 +174,7 @@ const useMeetingsCalendarCreateHook = ({
       if (!res?.error) {
         const data = res?.data;
         setSelectCalendarTime(data);
-        // if (form?.choose_date) {
-        //   setForm({
-        //     ...form,
-        //     meeting_room: "",
-        //     choose_time: "",
-        //   });
-
-        // }
+       
       }
     });
   }, [form?.choose_date]);
@@ -211,12 +189,7 @@ const useMeetingsCalendarCreateHook = ({
       if (!res?.error) {
         const data = res?.data;
         setSelectCalendarRooms(data);
-        // if (form?.choose_time) {
-        //   setForm({
-        //     ...form,
-        //     meeting_room: "",
-        //   });
-        // }
+       
       }
     });
   }, [form?.choose_time]);
