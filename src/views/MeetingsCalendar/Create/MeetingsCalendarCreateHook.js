@@ -63,30 +63,8 @@ const useMeetingsCalendarCreateHook = ({
     });
   }, []);
 
-  useEffect(() => {
-    const userName = JSON.parse(localStorage.getItem("user"));
-   
-    setBookUser(userName?.id);
-  }, [bookUser]);
-
-  // useEffect(() => {
-  //   if (empId) {
-  //     serviceGetHallMasterDetails({ id: empId }).then((res) => {
-  //       if (!res.error) {
-  //         const data = res?.data;
-  //         console.log(data, "Data ");
-  //         setForm({
-  //           ...form,
-  //           name: data?.hall_no,
-  //           des: data?.description,
-  //           status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
-  //         });
-  //       } else {
-  //         SnackbarUtils.error(res?.message);
-  //       }
-  //     });
-  //   }
-  // }, [empId]);
+ 
+ 
 
   useEffect(() => {
     if (!isSidePanel) {
@@ -132,74 +110,21 @@ const useMeetingsCalendarCreateHook = ({
       if (!res?.error) {
         const data = res?.data;
         setSelectCalendarBookWith(data);
-        if (form?.booked_by || form?.booked_with) {
-          setForm((prevForm) => ({
-            ...prevForm,
-            choose_date: "",
-            choose_time: "",
-            meeting_room: "",
-          }));
-        }
+        // if (form?.booked_by || form?.booked_with) {
+        //   setForm((prevForm) => ({
+        //     ...prevForm,
+        //     choose_date: "",
+        //     choose_time: "",
+        //     meeting_room: "",
+        //   }));
+        // }
       }
     });
   }, [isSidePanel, form?.booked_by, form?.booked_with]);
 
-  useEffect(() => {
-    if (!isSidePanel) return;
-    serviceCreateMeetingCallendarDate({ event_id: event_id }).then((res) => {
-      if (!res?.error) {
-        const data = res?.data;
-        setSelectCalendarDate(data);
-        // if (form?.choose_date) {
-          setForm({
-            ...form,
-            choose_time: "",
-            meeting_room: "",
-          });
-        // }
-      }
-    });
-  }, [form?.choose_date, isSidePanel]);
-  // console.log(form?.choose_date);
-  useEffect(() => {
-    if (!isSidePanel) return;
-    if (!selectCalendarDate) return;
-    serviceCreateMeetingCallendarTimeSlot({
-      event_id: event_id,
-      date: form?.choose_date?.date,
-      booked_by: form?.booked_by?.id, // id of logged in user
-      booked_with: form?.booked_with?.id, // id of selected user
-    }).then((res) => {
-      // page:1,
-      if (!res?.error) {
-        const data = res?.data;
-        setSelectCalendarTime(data);
-        if (form?.choose_time) {
-          setForm({
-            ...form,
 
-            meeting_room: "",
-          });
-        }
-      }
-    });
-  }, [form?.choose_date, isSidePanel, form?.choose_time]);
 
-  useEffect(() => {
-    if (!isSidePanel) return;
-    if (!selectCalendarTime) return;
-    serviceCreateMeetingCallendarRooms({
-      event_id: event_id,
-      start_time: form?.choose_time?.start_time,
-      end_time: form?.choose_time?.end_time,
-    }).then((res) => {
-      // page:1,
-      if (!res?.error) {
-        const data = res?.data;
-        setSelectCalendarRooms(data);
-      }
-    });
-  }, [isSidePanel, form?.choose_time]);
+
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -258,7 +183,68 @@ const useMeetingsCalendarCreateHook = ({
         t[fieldName] = text?.replace(/^\s+/, "");
       } else if (fieldName === "des") {
         t[fieldName] = text?.replace(/^\s+/, "");
-      } else if (fieldName === "booked_by" || fieldName === "booked_with") {
+      } else if (fieldName === "booked_by" ) {
+       
+        serviceCreateMeetingCallendarDate({ event_id: event_id }).then(
+          (res) => {
+            if (!res?.error) {
+              const data = res?.data;
+              setSelectCalendarDate(data);
+              if(form?.booked_by || form?.booked_with){
+                setForm({
+                  ...form,
+                  meeting_room: "",
+                  choose_time:"",
+                  choose_date:"",
+                  // booked_by:form?.booked_with ? "" : form?.booked_by,
+                  // booked_with : form?.booked_by ? "" : form?.booked_with
+                });
+              }
+            }
+          }
+        );
+        t[fieldName] = text;
+      } else if (fieldName === "choose_date") {
+        serviceCreateMeetingCallendarTimeSlot({
+          event_id: event_id,
+          date: form?.choose_date?.date,
+          booked_by: form?.booked_by?.id, // id of logged in user
+          booked_with: form?.booked_with?.id, // id of selected user
+        }).then((res) => {
+          // page:1,
+          if (!res?.error) {
+            const data = res?.data;
+            setSelectCalendarTime(data);
+            if (form?.choose_date) {
+              setForm({
+                ...form,
+                meeting_room: "",
+                choose_time:""
+              });
+            }
+          }
+        });
+      
+        t[fieldName] = text;
+        // }
+      } else if (fieldName === "choose_time") {
+        serviceCreateMeetingCallendarRooms({
+          event_id: event_id,
+          start_time: form?.choose_time?.start_time,
+          end_time: form?.choose_time?.end_time,
+        }).then((res) => {
+          // page:1,
+          if (!res?.error) {
+            const data = res?.data;
+            setSelectCalendarRooms(data);
+              if (form?.choose_time ) {
+              setForm({
+                ...form,
+                meeting_room: "",
+              });
+            }
+          }
+        });
         t[fieldName] = text;
       } else {
         t[fieldName] = text;
@@ -267,7 +253,14 @@ const useMeetingsCalendarCreateHook = ({
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
-    [removeError, form, setForm, setResetValue]
+    [
+      removeError,
+      form,
+      setForm,
+      setResetValue,
+      selectCalendarDate,
+      selectCalendarTime,
+    ]
   );
 
   const onBlurHandler = useCallback(
@@ -283,7 +276,7 @@ const useMeetingsCalendarCreateHook = ({
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
-    setErrorData({})
+    setErrorData({});
   }, [form, isSidePanel, errorData]);
 
   const updateParticipentsList = useMemo(() => {
