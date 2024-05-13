@@ -132,7 +132,9 @@ const useMeetingsCalendarCreateHook = ({
           // window.location.reload();
           handleToggleSidePannel();
           dispatch(
-            actionFetchMeetingCallendarList(1, {
+            actionFetchMeetingCallendarList(1, "",{
+              query: null,
+              query_data:  null,
               event_id: event_id,
             })
           );
@@ -165,41 +167,6 @@ const useMeetingsCalendarCreateHook = ({
     [setErrorData, errorData]
   );
 
- 
-  // const { date, times } = form.choose_date;
-  // const tiemSlotFetch = useCallback(() => {
-  //   if (!form.choose_date  && !form?.booked_by?.id && !form?.booked_with?.id) return;
-  //   serviceCreateMeetingCallendarTimeSlot({
-  //     event_id: event_id,
-  //     date: form.choose_date.date,
-  //     booked_by: form?.booked_by?.id, // id of logged in user
-  //     booked_with: form?.booked_with?.id, // id of selected user
-  //   }).then((res) => {
-  //     // page:1,
-  //     if (!res?.error) {
-  //       const data = res?.data;
-  //       setSelectCalendarTime(data);
-       
-  //     }
-  //   });
-  // }, [ event_id,form.choose_date, form.choose_date.date, form.booked_by.id, form.booked_with.id,]);
-
-  // const timeRoomFetch = useCallback(() => {
-  //   if (!form?.choose_time?.start_time && !form?.choose_time?.end_time) return;
-  //   serviceCreateMeetingCallendarRooms({
-  //     event_id: event_id,
-  //     start_time: form?.choose_time?.start_time,
-  //     end_time: form?.choose_time?.end_time,
-  //   }).then((res) => {
-  //     // page:1,
-  //     if (!res?.error) {
-  //       const data = res?.data;
-  //       setSelectCalendarRooms(data);
-       
-  //     }
-  //   });
-  // }, [form.choose_time.start_time, form.choose_time.end_time, event_id]);
-
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
@@ -218,7 +185,7 @@ const useMeetingsCalendarCreateHook = ({
         t["meeting_room"] = "";
         t["choose_date"] = "";
         t["choose_time"] = "";
-        // t["booked_by"]="";
+       
 
         t[fieldName] = text;
       } else if (fieldName === "choose_date") {
@@ -239,7 +206,7 @@ const useMeetingsCalendarCreateHook = ({
         t["choose_time"] = "";
 
         t[fieldName] = text;
-        // }
+        
       } else if (fieldName === "choose_time") {
         serviceCreateMeetingCallendarRooms({
           event_id: event_id,
