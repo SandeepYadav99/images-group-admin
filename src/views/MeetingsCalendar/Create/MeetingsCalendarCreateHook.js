@@ -63,14 +63,20 @@ const useMeetingsCalendarCreateHook = ({
     });
   }, []);
 
- 
- 
-
   useEffect(() => {
     if (!isSidePanel) {
       handleReset();
     }
   }, [isSidePanel]);
+
+  useEffect(() => {
+    serviceCreateMeetingCallendarDate({ event_id: event_id }).then((res) => {
+      if (!res?.error) {
+        const data = res?.data;
+        setSelectCalendarDate(data);
+      }
+    });
+  }, []);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -116,15 +122,12 @@ const useMeetingsCalendarCreateHook = ({
         //     choose_date: "",
         //     choose_time: "",
         //     meeting_room: "",
+        //   // booked_by:""
         //   }));
         // }
       }
     });
   }, [isSidePanel, form?.booked_by, form?.booked_with]);
-
-
-
-
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -175,6 +178,49 @@ const useMeetingsCalendarCreateHook = ({
     [setErrorData, errorData]
   );
 
+  const tiemSlotFetch = useCallback(() => {
+    serviceCreateMeetingCallendarTimeSlot({
+      event_id: event_id,
+      date: form?.choose_date?.date,
+      booked_by: form?.booked_by?.id, // id of logged in user
+      booked_with: form?.booked_with?.id, // id of selected user
+    }).then((res) => {
+      // page:1,
+      if (!res?.error) {
+        const data = res?.data;
+        setSelectCalendarTime(data);
+        // if (form?.choose_date) {
+        //   setForm({
+        //     ...form,
+        //     meeting_room: "",
+        //     choose_time: "",
+        //   });
+
+        // }
+      }
+    });
+  }, [form?.choose_date]);
+
+  const timeRoomFetch = useCallback(() => {
+    serviceCreateMeetingCallendarRooms({
+      event_id: event_id,
+      start_time: form?.choose_time?.start_time,
+      end_time: form?.choose_time?.end_time,
+    }).then((res) => {
+      // page:1,
+      if (!res?.error) {
+        const data = res?.data;
+        setSelectCalendarRooms(data);
+        // if (form?.choose_time) {
+        //   setForm({
+        //     ...form,
+        //     meeting_room: "",
+        //   });
+        // }
+      }
+    });
+  }, [form?.choose_time]);
+
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
@@ -183,68 +229,29 @@ const useMeetingsCalendarCreateHook = ({
         t[fieldName] = text?.replace(/^\s+/, "");
       } else if (fieldName === "des") {
         t[fieldName] = text?.replace(/^\s+/, "");
-      } else if (fieldName === "booked_by" ) {
-       
-        serviceCreateMeetingCallendarDate({ event_id: event_id }).then(
-          (res) => {
-            if (!res?.error) {
-              const data = res?.data;
-              setSelectCalendarDate(data);
-              if(form?.booked_by || form?.booked_with){
-                setForm({
-                  ...form,
-                  meeting_room: "",
-                  choose_time:"",
-                  choose_date:"",
-                  // booked_by:form?.booked_with ? "" : form?.booked_by,
-                  // booked_with : form?.booked_by ? "" : form?.booked_with
-                });
-              }
-            }
-          }
-        );
+      } else if (fieldName === "booked_by") {
+        t["meeting_room"] = "";
+        t["choose_date"] = "";
+        t["choose_time"] = "";
+        t["booked_with"] = "";
+        t[fieldName] = text;
+      } else if (fieldName === "booked_with") {
+        t["meeting_room"] = "";
+        t["choose_date"] = "";
+        t["choose_time"] = "";
+        // t["booked_by"]="";
+
         t[fieldName] = text;
       } else if (fieldName === "choose_date") {
-        serviceCreateMeetingCallendarTimeSlot({
-          event_id: event_id,
-          date: form?.choose_date?.date,
-          booked_by: form?.booked_by?.id, // id of logged in user
-          booked_with: form?.booked_with?.id, // id of selected user
-        }).then((res) => {
-          // page:1,
-          if (!res?.error) {
-            const data = res?.data;
-            setSelectCalendarTime(data);
-            if (form?.choose_date) {
-              setForm({
-                ...form,
-                meeting_room: "",
-                choose_time:""
-              });
-            }
-          }
-        });
-      
+        t["meeting_room"] = "";
+        t["choose_time"] = "";
+
+        tiemSlotFetch();
         t[fieldName] = text;
         // }
       } else if (fieldName === "choose_time") {
-        serviceCreateMeetingCallendarRooms({
-          event_id: event_id,
-          start_time: form?.choose_time?.start_time,
-          end_time: form?.choose_time?.end_time,
-        }).then((res) => {
-          // page:1,
-          if (!res?.error) {
-            const data = res?.data;
-            setSelectCalendarRooms(data);
-              if (form?.choose_time ) {
-              setForm({
-                ...form,
-                meeting_room: "",
-              });
-            }
-          }
-        });
+        timeRoomFetch();
+        t["meeting_room"] = "";
         t[fieldName] = text;
       } else {
         t[fieldName] = text;
@@ -260,9 +267,14 @@ const useMeetingsCalendarCreateHook = ({
       setResetValue,
       selectCalendarDate,
       selectCalendarTime,
+      selectCalendarRooms,
+      selectCalendarBookWith,
     ]
   );
-
+  useEffect(() => {
+    if (form?.booked_by) {
+    }
+  }, []);
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {
