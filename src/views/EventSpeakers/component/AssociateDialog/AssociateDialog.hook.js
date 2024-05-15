@@ -23,14 +23,15 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
   const [listData, setListData] = useState({
     SPEAKERS: [],
   });
-  const [speakerList,setSpeakerList] = useState([])
+  const [speakerList, setSpeakerList] = useState([]);
 
   const { id } = useParams();
+
   useEffect(() => {
     if (data?.length > 0) {
       const value = data?.map((item) => ({
         id: item?.id,
-        name: item?.s_name,
+        label: item?.s_name,
         image: item?.s_image,
         is_featured: item?.is_featured,
         is_recommended: item?.is_recommended,
@@ -38,6 +39,7 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
       setForm({ ...form, album_id: [...value] });
     }
   }, [data]);
+
 
   useEffect(() => {
     const filteredSpeakers = [];
@@ -49,7 +51,6 @@ const useAssociateDialogHook = ({ isOpen, handleToggle, data }) => {
       setSpeakerList(filteredSpeakers);
     });
   }, [form, listData]);
-
 
   const removeError = useCallback(
     (title) => {

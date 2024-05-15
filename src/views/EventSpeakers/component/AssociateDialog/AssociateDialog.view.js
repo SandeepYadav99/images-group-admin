@@ -99,7 +99,7 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
                 form?.album_id?.map((item) => (
                   <div className={styles.firstCellFlex}>
                     <img src={item?.image} alt="BannerImg" />
-                    <div className={styles.productName}>{item?.name}</div>
+                    <div className={styles.productName}>{item?.label}</div>
                   </div>
                 ))}
             </div>
