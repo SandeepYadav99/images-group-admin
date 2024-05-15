@@ -42,11 +42,8 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
     handleSubmit,
     onBlurHandler,
     listData,
-    speakerList
+    speakerList,
   } = useAssociateDialogHook({ isOpen, handleToggle, candidateId, data });
-
- 
-
 
   return (
     <div>
@@ -85,7 +82,7 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
                 }}
                 value={form?.album_id}
                 options={listData?.SPEAKERS ? speakerList : []}
-                getOptionLabel={(option) => option.name}
+                getOptionLabel={(option) => option.label}
                 defaultValue={form?.album_id}
                 renderInput={(params) => (
                   <TextField
