@@ -42,11 +42,8 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
     handleSubmit,
     onBlurHandler,
     listData,
-    speakerList
+    speakerList,
   } = useAssociateDialogHook({ isOpen, handleToggle, candidateId, data });
-
- 
-
 
   return (
     <div>
@@ -85,7 +82,7 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
                 }}
                 value={form?.album_id}
                 options={listData?.SPEAKERS ? speakerList : []}
-                getOptionLabel={(option) => option.name}
+                getOptionLabel={(option) => option.label}
                 defaultValue={form?.album_id}
                 renderInput={(params) => (
                   <TextField
@@ -102,7 +99,7 @@ const AssociateDialog = ({ isOpen, handleToggle, candidateId, data }) => {
                 form?.album_id?.map((item) => (
                   <div className={styles.firstCellFlex}>
                     <img src={item?.image} alt="BannerImg" />
-                    <div className={styles.productName}>{item?.name}</div>
+                    <div className={styles.productName}>{item?.label}</div>
                   </div>
                 ))}
             </div>
