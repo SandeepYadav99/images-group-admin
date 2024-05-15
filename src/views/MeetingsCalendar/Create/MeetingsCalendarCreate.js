@@ -47,7 +47,7 @@ const MeetingsCalendarCreate = ({
   const isBookingReady = () => {
     return form.booked_by?.name && form.booked_with?.name;
   };
-console.log( form?.booked_by && form?.booked_with)
+  console.log(form?.booked_by && form?.booked_with);
   return (
     <div className={"plainPaper"}>
       <div className={styles.departmentWrap}>
@@ -63,7 +63,7 @@ console.log( form?.booked_by && form?.booked_with)
               getOptionLabel={(option) => option?.name || ""}
               renderOption={(option) => (
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <div>{`${option?.name} (${option?.contact})`}</div>
+                  <div>{`${option?.label} (${option?.contact})`}</div>
                 </div>
               )}
               defaultValue={form?.booked_by || []}
@@ -112,7 +112,7 @@ console.log( form?.booked_by && form?.booked_with)
               // }
               renderOption={(option) => (
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <div>{`${option?.name} (${option?.contact})`}</div>
+                  <div>{`${option?.label} (${option?.contact})`}</div>
                 </div>
               )}
               defaultValue={form?.booked_with || []}

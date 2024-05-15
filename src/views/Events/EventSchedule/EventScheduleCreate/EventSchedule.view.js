@@ -398,7 +398,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         </div>
       </div>
       <div className={"formFlex"}>
-        <div className={"formGroup"}>
+        {/* <div className={"formGroup"}>
           <CustomCheckbox
             color={"primary"}
             handleChange={(text) => {
@@ -407,11 +407,11 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             label={"Recommended "}
             checked={form?.is_recommended}
           />
-        </div>
+        </div> */}
 
       </div>
       <div className={"formFlex"}>
-        <div className={"formGroup"}>
+        {/* <div className={"formGroup"}>
           <CustomCheckbox
             color={"primary"}
             handleChange={(text) => {
@@ -420,7 +420,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             label={"Featured"}
             checked={form?.is_featured}
           />
-        </div>
+        </div> */}
         
       </div>
       <div className={styles.btnCont}>

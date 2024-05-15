@@ -17,6 +17,8 @@ import {
   serviceEventScheduleHideLive,
   serviceEventScheduleLive,
   serviceEventScheduleScheduleStatus,
+  serviceEventScheduleUpdateFeatured,
+  serviceEventScheduleUpdateRecomended,
 } from "../../../../services/EventSchedule.service";
 
 const useEventScheduleList = ({}) => {
@@ -302,6 +304,64 @@ const useEventScheduleList = ({}) => {
     [isRejectPopUp, setDataValue]
   );
 
+  const toggleRecommendedUpdate = useCallback(
+    (data) => {
+      const isCurrentlyFeatured = data?.is_recommended;
+      const newFeaturedStatus = !isCurrentlyFeatured;
+
+      const updatedData = {
+        id: data?.id ,
+        // event_id: id,
+        is_recommended: newFeaturedStatus,
+      };
+
+      serviceEventScheduleUpdateRecomended(updatedData).then((res) => {
+        if (!res.error) {
+          dispatch(
+            actionFetchEventSchedule(
+              1,
+              {},
+              {
+                event_id: id,
+              }
+            )
+          );
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      });
+    },
+    [dispatch, id, query, queryData]
+  );
+  const toggleFeaturedUpdate = useCallback(
+    (data) => {
+      const isCurrentlyFeatured = data?.is_featured;
+      const newFeaturedStatus = !isCurrentlyFeatured;
+
+      const updatedData = {
+        id: data?.id ,
+        // event_id: id,
+        is_featured: newFeaturedStatus,
+      };
+
+      serviceEventScheduleUpdateFeatured(updatedData).then((res) => {
+        if (!res.error) {
+          dispatch(
+            actionFetchEventSchedule(
+              1,
+              {},
+              {
+                event_id: id,
+              }
+            )
+          );
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      });
+    },
+    [dispatch, id, query, queryData]
+  );
   return {
     isDeletedPopUp,
     toggleDeletedDialog,
@@ -335,7 +395,9 @@ const useEventScheduleList = ({}) => {
     toggleUpdateStatus,
     isUpdateStatus,
     scheduleStatus,
-    id
+    id,
+     toggleRecommendedUpdate,
+     toggleFeaturedUpdate
     
   };
 };

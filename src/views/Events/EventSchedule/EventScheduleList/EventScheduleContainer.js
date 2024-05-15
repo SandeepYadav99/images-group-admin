@@ -47,7 +47,9 @@ const EventScheduleContainer = ({}) => {
     speakerId,
     toggleUpdateStatus,
     isUpdateStatus,
-    id
+    id,
+    toggleRecommendedUpdate,
+    toggleFeaturedUpdate,
   } = useEventScheduleList({});
   // console.log(editData, "Edit Data")
   const {
@@ -97,14 +99,14 @@ const EventScheduleContainer = ({}) => {
         sortable: true,
         render: (temp, all) => <div>{all?.eve_name}</div>,
       },
-      {
-        key: "description",
-        label: "DESCRIPTION",
-        sortable: false,
-        render: (value, all) => (
-          <div className={styles.desData}>{all?.eve_description}</div>
-        ),
-      },
+      // {
+      //   key: "description",
+      //   label: "DESCRIPTION",
+      //   sortable: false,
+      //   render: (value, all) => (
+      //     <div className={styles.desData}>{all?.eve_description}</div>
+      //   ),
+      // },
       {
         key: "date",
         label: "DATE",
@@ -140,66 +142,6 @@ const EventScheduleContainer = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div className={styles.actionButton}>
-            {/* {all?.is_live ? (
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={() => {
-                  toggleRejectDialog("hide", all?.id);
-                }}
-              >
-                <WifiTetheringIcon
-                  style={{ color: "#E92828" }}
-                  fontSize={"small"}
-                />
-                <span className={styles.make}>Hide Live</span>
-              </IconButton>
-            ) : (
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={() => {
-                  toggleRejectDialog("live", all?.id);
-                }}
-              >
-                <WifiTetheringIcon
-                  style={{ color: "#0BCF66" }}
-                  fontSize={"small"}
-                />
-                <span className={styles.hide}>Make Live</span>
-              </IconButton>
-            )} */}
-            {/* {all?.is_completed ? (
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={() => {
-                  toggleRecommended(all);
-                }}
-              >
-                <div style={{ color: "#E92828" }}>
-                  <Clear fontSize={"small"} />
-                </div>
-                <span className={styles.make}>UNCOMPLETED</span>
-              </IconButton>
-            ) : (
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={() => {
-                  toggleRecommended(all);
-                }}
-              >
-                <div style={{ color: "#0BCF66" }}>
-                  <DoneAll fontSize={"small"} />
-                </div>
-                <span className={styles.hide}>COMPLETED</span>
-              </IconButton>
-            )} */}
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -208,11 +150,35 @@ const EventScheduleContainer = ({}) => {
                 toggleUpdateStatus(all);
               }}
             >
-              {/* <WifiTetheringIcon
-                style={{ color: "#0BCF66" }}
-                fontSize={"small"}
-              /> */}
               <span className={styles.hide}>Update Status</span>
+            </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                toggleRecommendedUpdate(all);
+              }}
+            >
+              {all?.is_recommended === true ? (
+                <span className={styles.removeFeatured}>Hide Recommended</span>
+              ) : (
+                <span className={styles.hide}>Recommended</span>
+              )}
+            </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                toggleFeaturedUpdate(all);
+              }}
+            >
+              {all?.is_featured === true ? (
+                <span className={styles.removeFeatured}>Hide Featured</span>
+              ) : (
+                <span className={styles.hide}>Featured</span>
+              )}
             </IconButton>
             <IconButton
               className={"tableActionBtn"}
@@ -321,49 +287,49 @@ const EventScheduleContainer = ({}) => {
           event_id={id}
           // title={dataValue?.type === "hide" ? "Hide" : "Live"}
         />
-       
-          <FilterComponent
-            is_progress={isFetching}
-            filters={configFilter}
-            handleSearchValueChange={handleSearchValueChange}
-            handleFilterDataChange={handleFilterDataChange}
+
+        <FilterComponent
+          is_progress={isFetching}
+          filters={configFilter}
+          handleSearchValueChange={handleSearchValueChange}
+          handleFilterDataChange={handleFilterDataChange}
+        />
+      </PageBox>
+      <div>
+        <br />
+        <div style={{ width: "100%" }}>
+          <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
           />
-            </PageBox>
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
-        
-        <SidePanelComponent
-          handleToggle={handleToggleSidePannel}
-          title={<UpperInfo />}
-          open={isSidePanel}
-          side={"right"}
-        >
-          <EventScheduleView
-            handleToggleSidePannel={handleToggleSidePannel}
-            isSidePanel={isSidePanel}
-            empId={editData}
-          />
-        </SidePanelComponent>
-        <SidePanelComponent
-          handleToggle={handleScheduleDetail}
-          title={<ScheduleDetailUperView />}
-          open={isScheduleDetail}
-          side={"right"}
-        >
-          <ScheduleDetail
-            handleScheduleDetail={handleScheduleDetail}
-            isScheduleDetail={isScheduleDetail}
-            empId={detailId}
-          />
-        </SidePanelComponent>
-     
+        </div>
+      </div>
+
+      <SidePanelComponent
+        handleToggle={handleToggleSidePannel}
+        title={<UpperInfo />}
+        open={isSidePanel}
+        side={"right"}
+      >
+        <EventScheduleView
+          handleToggleSidePannel={handleToggleSidePannel}
+          isSidePanel={isSidePanel}
+          empId={editData}
+        />
+      </SidePanelComponent>
+      <SidePanelComponent
+        handleToggle={handleScheduleDetail}
+        title={<ScheduleDetailUperView />}
+        open={isScheduleDetail}
+        side={"right"}
+      >
+        <ScheduleDetail
+          handleScheduleDetail={handleScheduleDetail}
+          isScheduleDetail={isScheduleDetail}
+          empId={detailId}
+        />
+      </SidePanelComponent>
+
       <DeleteDialog
         handleConfirm={handleDeleteData}
         handleDialog={toggleDeletedDialog}

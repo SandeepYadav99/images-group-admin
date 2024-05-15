@@ -40,3 +40,11 @@ export async function serviceEventScheduleRatingCount(params) {
 export async function serviceEventScheduleStatusUpdate(params) {
   return await postRequest("events/schedule/status/update", params);
 }
+
+export async function serviceEventScheduleUpdateRecomended(params) {
+  return await postRequest("events/schedule/make/recommended", params);
+}
+
+export async function serviceEventScheduleUpdateFeatured(params) {
+  return await postRequest("events/schedule/make/featured", params);
+}
