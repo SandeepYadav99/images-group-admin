@@ -51,6 +51,11 @@ const EventParticipantCreateView = ({
   } = useEventParticipantCreate({ handleToggleSidePannel, isSidePanel, empId });
   const classes = useStyles();
 
+  const tagList = useMemo(()=>{
+    const getList = listData?.PARTICIPANT_TYPE?.length > 0 ? listData?.PARTICIPANT_TYPE?.map((item)=>item?.key):[];
+    return getList
+  },[listData])
+  
   return (
     <div className={styles.departmentWrap}>
       <div className="formFlex">
@@ -197,7 +202,7 @@ const EventParticipantCreateView = ({
             }}
             getOptionLabel={(option) => removeUnderScore(option)}
             value={form?.participant_type}
-            options={DataSetName ? DataSetName : []}
+            options={tagList ? tagList : []}
             defaultValue={form?.participant_type}
             error={errorData?.participant_type}
             renderInput={(params) => (

@@ -59,6 +59,10 @@ const useEventParticipantCreate = ({
   const { id } = useParams();
   const [isContactInList, setIsContactInList] = useState(false);
   const [countryCode, setCountryCode] = useState();
+  const [listData, setListData] = useState({
+    MEMBERS: [],
+    PARTICIPANT_TYPE:[]
+  });
 
   const handleCountryCode = (e) => {
     setCountryCode(e.target.value);
@@ -79,13 +83,9 @@ const useEventParticipantCreate = ({
     }
   });
 
-  const [listData, setListData] = useState({
-    MEMBERS: [],
-  });
-
   useEffect(() => {
     Promise.allSettled([
-      serviceGetList(["MEMBERS"]),
+      serviceGetList(["MEMBERS","PARTICIPANT_TYPE"]),
       serviceGetFullCustomParticipant({ event_id: id }),
     ]).then((promises) => {
       const Values = promises[0]?.value?.data;

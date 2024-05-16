@@ -100,14 +100,14 @@ function SplashScreenCreate({ location }) {
             <MultiFile
               multiDef={selectVideos ? selectVideos : []}
               max_size={5 * 1024 * 1024}
-              type={["mp4"]}
+              type={["mp4","png", "jpeg", "jpg"]}
               fullWidth={true}
               name="od1"
               label="Upload"
               accept={"video/*"}
               error={errorData?.video}
               value={form?.video}
-              placeholder={"Upload Video"}
+              placeholder={"Upload file"}
               onChange={(file) => {
                 if (file) {
                   changeTextData(file, "video");
