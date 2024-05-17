@@ -1062,6 +1062,7 @@ font-size: medium;
 .jss129 {
     display: flex;
     min-height: 100%;
+    flex-direction: column;
 }
 
 .jss134 {
