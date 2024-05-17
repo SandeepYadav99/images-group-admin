@@ -38,9 +38,24 @@ const VideoDialog = ({
           <br/>
         </div>
         <div>
-          {videoLink && (<video style={{ width: "100%" }} autoPlay controls>
+          { videoLink && videoLink?.includes("mp4") ? (
+            <video
+              autoPlay
+              controls
+              style={{ width: "100%" }}
+            >
+              <source src={videoLink} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src={videoLink}
+              alt="image"
+              style={{ width: "300px", height: "300px" }}
+            />
+          )}
+          {/* {videoLink && (<video style={{ width: "100%" }} autoPlay controls>
             <source src={videoLink} type="video/mp4" />
-          </video>)}
+          </video>)} */}
         </div>
         {/*<div className={styles.confirmedWrapper}>*/}
         {/*  <ButtonBase*/}

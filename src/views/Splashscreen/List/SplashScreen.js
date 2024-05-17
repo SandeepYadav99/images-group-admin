@@ -50,22 +50,28 @@ const SplashScreen = ({}) => {
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
-        <div
+        <>
+        {
+          obj?.video ?  <div
           className={styles.firstCellFlex}
           onClick={() => {
             toggleVideoModal(obj?.video);
           }}
         >
-          {obj?.video ? (
+          {obj?.video?.includes("mp4") ? (
             <video
               crossOrigin="anonymous"
               src={obj?.video}
               className={styles.video}
             />
           ) : (
-            <div>No Media</div>
+            <img src={obj?.video} className={styles.video} />
           )}
-        </div>
+        </div> :
+        <div>No Media</div>
+        }
+        </>
+       
       );
     }
     return null;
@@ -88,7 +94,7 @@ const SplashScreen = ({}) => {
       },
       {
         key: "video",
-        label: "Video",
+        label: "video/Image",
         sortable: false,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },

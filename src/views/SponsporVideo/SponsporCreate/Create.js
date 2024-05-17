@@ -108,7 +108,7 @@ function VideoSponsporCreate({ location }) {
               fullWidth={true}
               name="od1"
               label="Upload"
-              accept={"video/*"}
+              accept={"video/*,image/*"}
               error={errorData?.video}
               value={form?.video}
               placeholder={"Upload file"}
