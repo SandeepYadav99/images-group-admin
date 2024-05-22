@@ -149,7 +149,7 @@ const useEventList = ({}) => {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["ACTIVE", "INACTIVE"],
+        fields: ["UPCOMING","ONGOING","COMPLETED"],
       },
     ];
   }, [listData]);
