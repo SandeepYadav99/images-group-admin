@@ -88,20 +88,20 @@ const EventList = ({}) => {
           </div>
         ),
       },
-      {
-        key: "thumbnail",
-        label: "THUMBNAIL",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.thumbnail}>
-            <img
-              src={all?.thumbnail}
-              alt="Thumbnail"
-              className={styles.thumbnail_img}
-            />
-          </div>
-        ),
-      },
+      // {
+      //   key: "thumbnail",
+      //   label: "THUMBNAIL",
+      //   sortable: false,
+      //   render: (temp, all) => (
+      //     <div className={styles.thumbnail}>
+      //       <img
+      //         src={all?.thumbnail}
+      //         alt="Thumbnail"
+      //         className={styles.thumbnail_img}
+      //       />
+      //     </div>
+      //   ),
+      // },
       {
         key: "banner",
         label: "BANNER",
