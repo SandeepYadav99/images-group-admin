@@ -19,7 +19,7 @@ import LogUtils from "../../../libs/LogUtils";
 const initialForm = {
   is_timer: false,
   registration_status: false,
-  status: false,
+  status: "UPCOMING",
   is_poll: false,
   is_poll_result: false,
 };
@@ -46,7 +46,7 @@ function useEventDetail() {
       let res = {};
       Object.keys({ ...initialForm }).forEach((key) => {
         if (key === "status") {
-          res[key] = boolData[key] === "ONGOING";
+          res[key] = boolData[key];
         } else {
           res[key] = boolData[key];
         }
@@ -95,7 +95,7 @@ function useEventDetail() {
       } else if (fieldName === "status") {
         req = serviceUpdateEventStatus({
           id: id,
-          status: fd[fieldName] ? "ONGOING" : "UPCOMING",
+          status: fd[fieldName],
         });
       } else if (fieldName === "is_timer") {
         req = serviceUpdateEventTimer({

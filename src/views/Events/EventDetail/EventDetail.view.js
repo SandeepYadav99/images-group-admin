@@ -1,4 +1,4 @@
-import { ButtonBase } from "@material-ui/core";
+import { ButtonBase, MenuItem } from "@material-ui/core";
 import React from "react";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
@@ -11,6 +11,7 @@ import SidePanelComponent from "../../../components/SidePanel/SidePanel.componen
 import { useCallback } from "react";
 import EventDetailCreate from "./EventDetailCreate/EventDetailCreate.view";
 import historyUtils from "../../../libs/history.utils";
+import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 
 function EventDetail() {
   const {
@@ -137,14 +138,27 @@ function EventDetail() {
                 <div className={styles.uerr}>
                   <span className={styles.heading2}>Event Status</span>
                   <div className={styles.SwitchWrap}>
-                    <span className={styles.disabled}>Upcoming</span>
-                    <CustomSwitch
+                    {/* <span className={styles.disabled}>Upcoming</span> */}
+                    {/* <CustomSwitch
                       value={form?.status}
                       handleChange={() => {
                         changeTextData(!form?.status, "status");
                       }}
                       label={`Upcoming Active`}
-                    />
+                    /> */}
+                     <CustomSelectField
+                            // isError={errorData?.status}
+                            // errorText={errorData?.status}
+                            label={"Event Status"}
+                            value={form?.status}
+                            handleChange={(value) => {
+                              changeTextData(value, "status");
+                            }}
+                        >
+                            <MenuItem value="UPCOMING">UPCOMING</MenuItem>
+                            <MenuItem value="ONGOING">ONGOING</MenuItem>
+                            <MenuItem value="COMPLETED">COMPLETED</MenuItem>
+                        </CustomSelectField>
                   </div>
                 </div>
               </div>
