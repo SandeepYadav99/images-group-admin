@@ -810,7 +810,7 @@ function EventCreate() {
               handleChange={(text) => {
                 changeFeatureData(!feature?.city_guide, "city_guide");
               }}
-              label={"City Guide"}
+              label={"Venue Guide"}
               checked={feature?.city_guide}
             />
           </div>

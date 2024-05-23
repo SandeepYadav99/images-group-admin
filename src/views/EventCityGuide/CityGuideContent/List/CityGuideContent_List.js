@@ -39,11 +39,8 @@ const CityGuidContent_List = ({ location }) => {
     handleViewDetails,
     isCalling,
     handleCreateFed,
-    handleDeleteContent
+    handleDeleteContent,
   } = useCityGuidContent_ListHook({ location });
-
-
-  
 
   const {
     data,
@@ -79,7 +76,7 @@ const CityGuidContent_List = ({ location }) => {
         render: (value, all) => (
           <div>
             <div className={styles.desData}>
-              <div dangerouslySetInnerHTML={{ __html: all?.description }} ></div>
+              <div dangerouslySetInnerHTML={{ __html: all?.description }}></div>
             </div>
           </div>
         ),
@@ -167,15 +164,16 @@ const CityGuidContent_List = ({ location }) => {
               <div className={styles.newLine} />
             </div>
           </div>
-
-          {/* <div className={styles.create_Sction}>
-            <div className={styles.BtnWrapper}>
-              <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
-                ADD NEW
-                <Add fontSize={"small"} className={"plusIcon"}></Add>
-              </ButtonBase>
+          {allData.length === 0 && (
+            <div className={styles.create_Sction}>
+              <div className={styles.BtnWrapper}>
+                <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
+                  ADD NEW
+                  <Add fontSize={"small"} className={"plusIcon"}></Add>
+                </ButtonBase>
+              </div>
             </div>
-          </div> */}
+          )}
         </div>
 
         <div>

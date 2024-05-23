@@ -76,18 +76,18 @@ const EventList = ({}) => {
         sortable: true,
         render: (temp, all) => <div>{all?.title}</div>,
       },
-      {
-        key: "description",
-        label: "DESCRIPTION",
-        sortable: false,
-        render: (value, all) => (
-          <div>
-            <div className={styles.desData}>
-              <div dangerouslySetInnerHTML={{ __html: all?.description }}></div>
-            </div>
-          </div>
-        ),
-      },
+      // {
+      //   key: "description",
+      //   label: "DESCRIPTION",
+      //   sortable: false,
+      //   render: (value, all) => (
+      //     <div>
+      //       <div className={styles.desData}>
+      //         <div dangerouslySetInnerHTML={{ __html: all?.description }}></div>
+      //       </div>
+      //     </div>
+      //   ),
+      // },
       // {
       //   key: "thumbnail",
       //   label: "THUMBNAIL",
@@ -201,12 +201,14 @@ const EventList = ({}) => {
                 MANAGE BANNER
               </ButtonBase>
             </div> */}
-            <div className={styles.BtnWrapper}>
-              {/* <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
-                ADD SECTION
-                <Add fontSize={"small"} className={"plusIcon"}></Add>
-              </ButtonBase> */}
-            </div>
+            {allData.length === 0 && (
+              <div className={styles.BtnWrapper}>
+                <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
+                  ADD SECTION
+                  <Add fontSize={"small"} className={"plusIcon"}></Add>
+                </ButtonBase>
+              </div>
+            )}
           </div>
         </div>
         <BannerDialog
